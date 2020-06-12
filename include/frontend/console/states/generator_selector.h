@@ -49,8 +49,9 @@ namespace hyenae::frontend::console::states
             static const size_t GFLAG_ETHERNET_FRAME = 0x1 << 0;
             static const size_t GFLAG_IPV4_FRAME = 0x1 << 1;
             static const size_t GFLAG_IPV6_FRAME = 0x1 << 2;
-            static const size_t GFLAG_UDP_FRAME = 0x1 << 3;
-            static const size_t GFLAG_TEXT_BUFFER = 0x1 << 4;
+            static const size_t GFLAG_TCP_FRAME = 0x1 << 3;
+            static const size_t GFLAG_UDP_FRAME = 0x1 << 4;
+            static const size_t GFLAG_TEXT_BUFFER = 0x1 << 5;
 
             bool _init = false;
             string_t _title;

@@ -87,6 +87,15 @@ namespace hyenae::model::generators::protocols
         _checksum->add_transformation(to_tcp_udp_checksum_t::get_instance());
         _packet.add_generator(_checksum);
 
+        // Urgent Pointer
+        _urg_pointer = integer_generator::create_uint16(
+            urg_pointer_pattern, urg_pointer_pattern_base);
+        _urg_pointer->add_transformation(to_network_order_t::get_instance());
+        _packet.add_generator(_urg_pointer);
+
+        // Payload
+        _packet.add_generator(&_payload);
+
         // Checksum targets
 
         _checksum_dummy = fixed_data_generator::allocate_uint16();
@@ -101,15 +110,6 @@ namespace hyenae::model::generators::protocols
         _checksum->add_generator(_checksum_dummy);
         _checksum->add_generator(_urg_pointer);
         _checksum->add_generator(&_payload);
-
-        // Urgent Pointer
-        _urg_pointer = integer_generator::create_uint16(
-            urg_pointer_pattern, urg_pointer_pattern_base);
-        _urg_pointer->add_transformation(to_network_order_t::get_instance());
-        _packet.add_generator(_urg_pointer);
-
-        // Payload
-        _packet.add_generator(&_payload);
 
     } /* tcp_frame_generator */
 

@@ -22,7 +22,7 @@ namespace hyenae::model::generators::protocols
                 data_transformations::to_tcp_udp_checksum;
 
         private:
-            static const uint8_t DATA_OFFSET = 5 << 3;
+            static const uint8_t DATA_OFFSET = 0X50;
 
             integer_generator* _src_port = NULL;
             integer_generator* _dst_port = NULL;

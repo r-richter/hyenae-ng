@@ -29,6 +29,7 @@
 #include "../../../../include/frontend/console/states/ipv4_frame_setup.h"
 #include "../../../../include/frontend/console/states/ipv6_frame_setup.h"
 #include "../../../../include/frontend/console/states/udp_frame_setup.h"
+#include "../../../../include/frontend/console/states/tcp_frame_setup.h"
 #include "../../../../include/frontend/console/states/text_buffer_setup.h"
 
 namespace hyenae::frontend::console::states
@@ -96,6 +97,7 @@ namespace hyenae::frontend::console::states
         _title = title;
 
         _generator_flags =
+            GFLAG_TCP_FRAME |
             GFLAG_UDP_FRAME |
             GFLAG_TEXT_BUFFER;
     }
@@ -249,9 +251,19 @@ namespace hyenae::frontend::console::states
                 (ethernet_frame_setup*)get_parent()));
         }
 
+        if (_generator_flags & GFLAG_TCP_FRAME)
+        {
+            // UDP-Frame
+            add_generator(new tcp_frame_setup(
+                get_context(),
+                get_console(),
+                get_parent(),
+                (ip_frame_setup*)get_parent()));
+        }
+
         if (_generator_flags & GFLAG_UDP_FRAME)
         {
-            // IPv6-Frame
+            // UDP-Frame
             add_generator(new udp_frame_setup(
                 get_context(),
                 get_console(),
