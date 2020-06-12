@@ -1,8 +1,8 @@
 --------------------------------------------------------------------------------
 
-								Hyenae NG
+                                Hyenae NG
 
-							      Build
+                                  Build
 
 --------------------------------------------------------------------------------
 
@@ -14,8 +14,8 @@
   Windows:
     MingGW                          http://www.mingw.org/
       + G++
-	  + Make
-	  + PThread Libs
+      + Make
+      + PThread Libs
     NPCap SDK                       https://nmap.org/npcap/
 
   Linux/BSD:
@@ -31,5 +31,5 @@
   folder and execute:
 
     # make all
-	
+    
 --------------------------------------------------------------------------------
