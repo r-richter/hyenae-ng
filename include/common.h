@@ -44,6 +44,8 @@ namespace hyenae
 
     /* Sizes */
 
+    static const size_t SIZE_NONE = -1;
+
     static const size_t SIZE_UINT8 = 1;
     static const size_t SIZE_UINT16 = 2;
     static const size_t SIZE_UINT32 = 4;

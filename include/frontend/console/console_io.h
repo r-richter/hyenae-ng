@@ -77,7 +77,8 @@ namespace hyenae::frontend::console
                 int64_t min_value,
                 int64_t max_value,
                 string_t prompt,
-                string_t hint = "");
+                string_t hint = "",
+                size_t default_choice = SIZE_NONE);
 
             size_t prompt_list_choice(const vector_t<string_t>& items);
 

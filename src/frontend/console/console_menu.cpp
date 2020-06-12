@@ -126,7 +126,7 @@ namespace hyenae::frontend::console
 
             if (default_choice != NULL)
             {
-                hint.append(", Default = ");
+                hint.append("] [");
                 hint.append(std::to_string(default_choice_pos));
             }
 
@@ -183,7 +183,7 @@ namespace hyenae::frontend::console
 
         assert::legal_state(false, "", "item could not be found");
 
-        return (size_t)-1;
+        return SIZE_NONE;
 
     } /* item_choice_pos */
 

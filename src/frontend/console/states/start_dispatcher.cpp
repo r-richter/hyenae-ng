@@ -207,7 +207,7 @@ namespace hyenae::frontend::console::states
         safe_delete(_dispatcher);
 
         if (get_console()->prompt(
-            0, 1, "Restart?", "0 = Main Menu, 1 = Restart") == 0)
+            0, 1, "Restart?", "0 = Main Menu, 1 = Restart] [1", 1) == 0)
         {
             back();
         }

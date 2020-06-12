@@ -113,7 +113,7 @@ namespace hyenae::frontend::console::states
         else if (choice == _exit_item)
         {
             return get_console()->prompt(
-                0, 1, "Confirm Exit", "0 = Abort, 1 = Confirm") == 0;
+                0, 1, "Confirm Exit", "0 = Abort, 1 = Confirm] [0", 0) == 0;
         }
 
         return true;

@@ -386,7 +386,7 @@ namespace hyenae::model::generators
         uint64_t cur_offset = 0;
         uint64_t next_offset = 0;
 
-        for (size_t pos = _pattern_len - 1; pos != ((size_t)-1); pos--)
+        for (size_t pos = _pattern_len - 1; pos != SIZE_NONE; pos--)
         {
             cur_chr = _pattern[pos];
 
