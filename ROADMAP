@@ -1,0 +1,45 @@
+--------------------------------------------------------------------------------
+
+								Hyenae NG
+
+							     Roadmap
+
+--------------------------------------------------------------------------------
+
+  Legend:
+
+   [*] = Done
+   [X] = Open
+
+--------------------------------------------------------------------------------
+
+  Milestone 1 (Version 0.1 Beta)
+
+   [*] Model implementation
+   [*] Frontend implementation
+   [*] Output to file system
+   [*] Output to network (PCap/NPCap)
+   [*] Dispatcher limits
+   [*] Dispatcher delay
+   [*] Text-Buffer generator
+   [*] Ethernet-Frame generator
+   [*] IPv4-Frame generator
+   [*] IPv6-Frame generator
+   [X] UDP-Frame generator
+   [X] TCP-Frame generator
+
+--------------------------------------------------------------------------------
+
+  Milestone 2 (Version 0.2 Beta)
+
+   [X] ICMPv4-Frame generator
+   [X] ICMPv6-Frame generator
+   
+--------------------------------------------------------------------------------
+
+  Milestone 3 (Version 0.3 Beta)
+
+   [X] ARP-Frame generator
+   [X] NDP-Frame generator   
+
+--------------------------------------------------------------------------------
