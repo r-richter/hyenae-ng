@@ -88,7 +88,7 @@ namespace hyenae::frontend::console::states
 
     bool main_menu::run()
     {
-        console_menu::item* choice = _menu->prompt();
+        console_menu::item* choice = _menu->prompt(_start_dispatcher_item);
 
         if (choice == _output_setup_item)
         {
