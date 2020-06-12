@@ -29,44 +29,44 @@
 
 namespace hyenae::model::outputs
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	file_output::file_output(const string_t& path)
-	{
-		_path = path;
+    file_output::file_output(const string_t& path)
+    {
+        _path = path;
 
-	} /* file_output */
+    } /* file_output */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void file_output::open()
-	{
-		assert::legal_call(!_stream.is_open(), "", "already open");
+    void file_output::open()
+    {
+        assert::legal_call(!_stream.is_open(), "", "already open");
 
-		_stream.open(_path, std::ios_base::app);
+        _stream.open(_path, std::ios_base::app);
 
-	} /* open */
+    } /* open */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void file_output::close() noexcept
-	{
-		_stream.close();
+    void file_output::close() noexcept
+    {
+        _stream.close();
 
-	} /* close */
+    } /* close */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void file_output::send(byte_t* data, size_t size)
-	{
-		assert::legal_call(_stream.is_open(), "", "not open");
-		assert::argument_not_null(data, "data");
-		assert::in_range(size > 0, "size");
+    void file_output::send(byte_t* data, size_t size)
+    {
+        assert::legal_call(_stream.is_open(), "", "not open");
+        assert::argument_not_null(data, "data");
+        assert::in_range(size > 0, "size");
 
-		_stream.write((const char*)data, size);
+        _stream.write((const char*)data, size);
 
-	} /* send */
+    } /* send */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::outputs */

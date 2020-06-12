@@ -31,113 +31,113 @@
 #include <cstdarg>
 
 #ifdef OS_WINDOWS
-	#include <conio.h>
+    #include <conio.h>
 #else
-	#include <stdio.h>
-	#include <sys/ioctl.h>
-	#include <sys/select.h>
-	#include <termios.h>
+    #include <stdio.h>
+    #include <sys/ioctl.h>
+    #include <sys/select.h>
+    #include <termios.h>
 #endif
 
 
 namespace hyenae::frontend::console::io
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	std_console_io* std_console_io::_instance = NULL;
+    std_console_io* std_console_io::_instance = NULL;
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	std_console_io* std_console_io::get_instance()
-	{
-		if (_instance == NULL)
-		{
-			_instance = new std_console_io();
-		}
+    std_console_io* std_console_io::get_instance()
+    {
+        if (_instance == NULL)
+        {
+            _instance = new std_console_io();
+        }
 
-		return _instance;
+        return _instance;
 
-	} /* get_instance */
+    } /* get_instance */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	bool std_console_io::was_key_pressed()
-	{
-		bool result = false;
+    bool std_console_io::was_key_pressed()
+    {
+        bool result = false;
 
-		#ifdef OS_WINDOWS
-			if ((result = _kbhit()))
-			{
-				// Prevent overhang input such as when
-				// return is pressed.
+        #ifdef OS_WINDOWS
+            if ((result = _kbhit()))
+            {
+                // Prevent overhang input such as when
+                // return is pressed.
 
-				_getch();
-			}
-		#else
+                _getch();
+            }
+        #else
 
-			/*
-			 * Linux (POSIX) implementation of _kbhit().
-			 * Morgan McGuire, morgan@cs.brown.edu
-			 */
+            /*
+             * Linux (POSIX) implementation of _kbhit().
+             * Morgan McGuire, morgan@cs.brown.edu
+             */
 
-			static const int STDIN = 0;
-			static bool initialized = false;
+            static const int STDIN = 0;
+            static bool initialized = false;
 
-			if (!initialized)
-			{
-				// Use termios to turn off line buffering
-				termios term;
-				tcgetattr(STDIN, &term);
-				term.c_lflag &= ~ICANON;
-				tcsetattr(STDIN, TCSANOW, &term);
-				setbuf(stdin, NULL);
-				initialized = true;
-			}
+            if (!initialized)
+            {
+                // Use termios to turn off line buffering
+                termios term;
+                tcgetattr(STDIN, &term);
+                term.c_lflag &= ~ICANON;
+                tcsetattr(STDIN, TCSANOW, &term);
+                setbuf(stdin, NULL);
+                initialized = true;
+            }
 
-			int bytes_waiting;
-			ioctl(STDIN, FIONREAD, &bytes_waiting);
+            int bytes_waiting;
+            ioctl(STDIN, FIONREAD, &bytes_waiting);
 
-			// TODO: Prevent overhang input...
+            // TODO: Prevent overhang input...
 
-			result = bytes_waiting;
-		#endif
+            result = bytes_waiting;
+        #endif
 
-		return result;
+        return result;
 
-	} /* was_key_pressed */
+    } /* was_key_pressed */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void std_console_io::out(string_t out)
-	{
-		printf("%s", out.c_str());
+    void std_console_io::out(string_t out)
+    {
+        printf("%s", out.c_str());
 
-	} /* out */
+    } /* out */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	string_t std_console_io::in()
-	{
-		string_t input;
+    string_t std_console_io::in()
+    {
+        string_t input;
 
-		std::getline(std::cin, input);
+        std::getline(std::cin, input);
 
-		return input;
+        return input;
 
-	} /* in */
+    } /* in */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void std_console_io::clear()
-	{
-		#ifdef OS_WINDOWS
-			std::system("cls");
-		#else
-			std::system("clear");
-		#endif
+    void std_console_io::clear()
+    {
+        #ifdef OS_WINDOWS
+            std::system("cls");
+        #else
+            std::system("clear");
+        #endif
 
-	} /* clear */
-	
-	/*---------------------------------------------------------------------- */
+    } /* clear */
+    
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::io */

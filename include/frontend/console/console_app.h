@@ -33,21 +33,21 @@
 
 namespace hyenae::frontend::console
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class console_app :
-		public console_app_state_context
-	{
-		private:
-			console_io* _console_io;
+    class console_app :
+        public console_app_state_context
+    {
+        private:
+            console_io* _console_io;
 
-		public:
-			console_app(console_io* console_io);
-			int run(int argc, char** argv);
+        public:
+            console_app(console_io* console_io);
+            int run(int argc, char** argv);
 
-	}; /* console_app */
+    }; /* console_app */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console */
 

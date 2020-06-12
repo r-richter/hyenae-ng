@@ -29,18 +29,18 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class generator_listener
-	{
-		friend class data_generator;
+    class generator_listener
+    {
+        friend class data_generator;
 
-		protected:
-			virtual void on_data_changed() = 0;
+        protected:
+            virtual void on_data_changed() = 0;
 
-	}; /* generator_listener */
+    }; /* generator_listener */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */
 

@@ -31,21 +31,21 @@
 
 namespace hyenae
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class illegal_state :
-		public runtime_error_t
-	{
-		public:
-			illegal_state(const string_t& message)
-				: illegal_state(message.c_str()) {}
+    class illegal_state :
+        public runtime_error_t
+    {
+        public:
+            illegal_state(const string_t& message)
+                : illegal_state(message.c_str()) {}
 
-			illegal_state(char const* const message)
-				: runtime_error(message) {}
+            illegal_state(char const* const message)
+                : runtime_error(message) {}
 
-	}; /* illegal_state */
+    }; /* illegal_state */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae */
 

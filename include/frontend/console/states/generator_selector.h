@@ -35,79 +35,79 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class main_menu;
-	class ip_frame_setup;
-	class ethernet_frame_setup;
+    class main_menu;
+    class ip_frame_setup;
+    class ethernet_frame_setup;
 
-	class generator_selector :
-		public generator_setup
-	{
-		private:
-			/* Generator Flags */
-			static const size_t GFLAG_ETHERNET_FRAME = 0x1 << 0;
-			static const size_t GFLAG_IPV4_FRAME = 0x1 << 1;
-			static const size_t GFLAG_IPV6_FRAME = 0x1 << 2;
-			static const size_t GFLAG_UDP_FRAME = 0x1 << 3;
-			static const size_t GFLAG_TEXT_BUFFER = 0x1 << 4;
+    class generator_selector :
+        public generator_setup
+    {
+        private:
+            /* Generator Flags */
+            static const size_t GFLAG_ETHERNET_FRAME = 0x1 << 0;
+            static const size_t GFLAG_IPV4_FRAME = 0x1 << 1;
+            static const size_t GFLAG_IPV6_FRAME = 0x1 << 2;
+            static const size_t GFLAG_UDP_FRAME = 0x1 << 3;
+            static const size_t GFLAG_TEXT_BUFFER = 0x1 << 4;
 
-			bool _init = false;
-			string_t _title;
-			size_t _generator_flags;
-			console_menu* _menu = NULL;
+            bool _init = false;
+            string_t _title;
+            size_t _generator_flags;
+            console_menu* _menu = NULL;
 
-			unordered_map_t<
-				console_menu::item*,
-				generator_setup*> _menu_items;
+            unordered_map_t<
+                console_menu::item*,
+                generator_setup*> _menu_items;
 
-			console_menu::item* _none_item = NULL;
-			console_menu::item* _back_item = NULL;
-			console_menu::item* _selected_item = NULL;
-			generator_setup* _selected_setup = NULL;
+            console_menu::item* _none_item = NULL;
+            console_menu::item* _back_item = NULL;
+            console_menu::item* _selected_item = NULL;
+            generator_setup* _selected_setup = NULL;
 
-		public:
-			generator_selector(
-				string_t title,
-				console_app_state_context* context,
-				console_io* console_io,
-				console_app_state* parent);
+        public:
+            generator_selector(
+                string_t title,
+                console_app_state_context* context,
+                console_io* console_io,
+                console_app_state* parent);
 
-			generator_selector(
-				string_t title,
-				console_app_state_context* context,
-				console_io* console_io,
-				generator_setup* parent);
+            generator_selector(
+                string_t title,
+                console_app_state_context* context,
+                console_io* console_io,
+                generator_setup* parent);
 
-			generator_selector(
-				string_t title,
-				console_app_state_context* context,
-				console_io* console_io,
-				ethernet_frame_setup* parent);
+            generator_selector(
+                string_t title,
+                console_app_state_context* context,
+                console_io* console_io,
+                ethernet_frame_setup* parent);
 
-			generator_selector(
-				string_t title,
-				console_app_state_context* context,
-				console_io* console_io,
-				ip_frame_setup* parent);
+            generator_selector(
+                string_t title,
+                console_app_state_context* context,
+                console_io* console_io,
+                ip_frame_setup* parent);
 
-			~generator_selector();
-			bool run();
-			string_t get_generator_name() const;
-			data_generator_t* get_generator() const;
-			void update_generator();
+            ~generator_selector();
+            bool run();
+            string_t get_generator_name() const;
+            data_generator_t* get_generator() const;
+            void update_generator();
 
-		protected:
-			void on_select() {};
+        protected:
+            void on_select() {};
 
-		private:
-			void inizialize();
-			void update_menu_items();
-			void add_generator(generator_setup* setup_state);
+        private:
+            void inizialize();
+            void update_menu_items();
+            void add_generator(generator_setup* setup_state);
 
-	}; /* generator_selector */
+    }; /* generator_selector */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 

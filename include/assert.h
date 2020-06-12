@@ -31,71 +31,71 @@
 
 namespace hyenae
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class assert
-	{
-		private:
-			assert() {}
+    class assert
+    {
+        private:
+            assert() {}
 
-		public:
-			static void known_endianess();
+        public:
+            static void known_endianess();
 
-			static void in_range(
-				bool expression,
-				string_t param_name = "",
-				string_t message = "");
+            static void in_range(
+                bool expression,
+                string_t param_name = "",
+                string_t message = "");
 
-			static void no_overflow(
-				bool expression,
-				string_t param_name = "",
-				string_t message = "");
+            static void no_overflow(
+                bool expression,
+                string_t param_name = "",
+                string_t message = "");
 
-			static void valid_format(
-				bool expression,
-				string_t param_name = "",
-				string_t message = "");
+            static void valid_format(
+                bool expression,
+                string_t param_name = "",
+                string_t message = "");
 
-			static void valid_argument(
-				bool expression,
-				string_t param_name = "",
-				string_t message = "");
+            static void valid_argument(
+                bool expression,
+                string_t param_name = "",
+                string_t message = "");
 
-			static void argument_not_null(
-				void* pointer,
-				string_t param_name = "",
-				string_t message = "");
+            static void argument_not_null(
+                void* pointer,
+                string_t param_name = "",
+                string_t message = "");
 
-			static void legal_call(
-				bool expression,
-				string_t param_name = "",
-				string_t message = "");
+            static void legal_call(
+                bool expression,
+                string_t param_name = "",
+                string_t message = "");
 
-			static void legal_state(
-				bool expression,
-				string_t param_name = "",
-				string_t message = "");
+            static void legal_state(
+                bool expression,
+                string_t param_name = "",
+                string_t message = "");
 
-			static void in_time(
-				bool expression,
-				string_t param_name = "",
-				string_t message = "");
+            static void in_time(
+                bool expression,
+                string_t param_name = "",
+                string_t message = "");
 
-			static void in_time(
-				func_t<bool()> expression,
-				int64_t timeout_in_ms,
-				string_t param_name = "",
-				string_t message = "");
+            static void in_time(
+                func_t<bool()> expression,
+                int64_t timeout_in_ms,
+                string_t param_name = "",
+                string_t message = "");
 
-		private:
-			static string_t build_message(
-				string_t param_name,
-				string_t message,
-				string_t default_message);
+        private:
+            static string_t build_message(
+                string_t param_name,
+                string_t message,
+                string_t default_message);
 
-	}; /* assert */
+    }; /* assert */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae */
 

@@ -32,34 +32,34 @@
 
 namespace hyenae::frontend::console
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class console_app_state_context;
+    class console_app_state_context;
 
-	class console_app_state
-	{
-		private:
-			console_app_state_context* _context;
-			console_io* _console_io;
-			console_app_state* _parent;
+    class console_app_state
+    {
+        private:
+            console_app_state_context* _context;
+            console_io* _console_io;
+            console_app_state* _parent;
 
-		public:
-			console_app_state(
-				console_app_state_context* context,
-				console_io* console_io,
-				console_app_state* parent = NULL);
+        public:
+            console_app_state(
+                console_app_state_context* context,
+                console_io* console_io,
+                console_app_state* parent = NULL);
 
-			virtual ~console_app_state() {}
-			console_app_state_context* get_context() const;
-			console_io* get_console() const;
+            virtual ~console_app_state() {}
+            console_app_state_context* get_context() const;
+            console_io* get_console() const;
             console_app_state* get_parent() const;
-			void enter();
-			virtual bool run() = 0;
-			void back();
+            void enter();
+            virtual bool run() = 0;
+            void back();
 
-	}; /* console_app_state */
+    }; /* console_app_state */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console */
 

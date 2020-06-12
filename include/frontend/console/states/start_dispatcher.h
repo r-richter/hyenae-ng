@@ -34,58 +34,58 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class main_menu;
+    class main_menu;
 
-	class start_dispatcher :
-		public console_app_state, model::dispatcher_listener
-	{
-		using data_output_t = hyenae::model::data_output;
-		using data_generator_t = hyenae::model::data_generator;
-		using data_dispatcher_t = hyenae::model::data_dispatcher;
-		using limits_t = hyenae::model::data_dispatcher::limits;
-		using delay_t = hyenae::model::duration_generator;
+    class start_dispatcher :
+        public console_app_state, model::dispatcher_listener
+    {
+        using data_output_t = hyenae::model::data_output;
+        using data_generator_t = hyenae::model::data_generator;
+        using data_dispatcher_t = hyenae::model::data_dispatcher;
+        using limits_t = hyenae::model::data_dispatcher::limits;
+        using delay_t = hyenae::model::duration_generator;
 
-		private:
-			const int64_t WARMUP_TIMEOUT = 3000;
+        private:
+            const int64_t WARMUP_TIMEOUT = 3000;
 
-			data_output_t* _output = NULL;
-			data_generator_t* _generator = NULL;
-			limits_t* _limits = NULL;
-			delay_t* _delay = NULL;
-			data_dispatcher_t* _dispatcher = NULL;
-			exception_t* _thread_exception = NULL;
+            data_output_t* _output = NULL;
+            data_generator_t* _generator = NULL;
+            limits_t* _limits = NULL;
+            delay_t* _delay = NULL;
+            data_dispatcher_t* _dispatcher = NULL;
+            exception_t* _thread_exception = NULL;
 
-		public:
-			start_dispatcher(
-				console_app_state_context* context,
-				console_io* console_io,
-				console_app_state* parent);
+        public:
+            start_dispatcher(
+                console_app_state_context* context,
+                console_io* console_io,
+                console_app_state* parent);
 
-			~start_dispatcher();
+            ~start_dispatcher();
 
-			bool run();
+            bool run();
 
-			void enter(
-				data_output_t* output,
-				data_generator_t* generator,
-				limits_t* limits,
-				delay_t* delay);
+            void enter(
+                data_output_t* output,
+                data_generator_t* generator,
+                limits_t* limits,
+                delay_t* delay);
 
-		protected:
-			void on_state_changed() {};
-			void on_stats_changed() {};
-			void on_limit_reached() {};
-			void on_thread_exception(const exception_t& exception);
+        protected:
+            void on_state_changed() {};
+            void on_stats_changed() {};
+            void on_limit_reached() {};
+            void on_thread_exception(const exception_t& exception);
 
-		private:
-			bool start_screen();
-			void result_screen();
+        private:
+            bool start_screen();
+            void result_screen();
 
-	}; /* start_dispatcher */
+    }; /* start_dispatcher */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 

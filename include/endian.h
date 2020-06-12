@@ -29,21 +29,21 @@
 
 namespace hyenae
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class endian
-	{
-		private:
-			endian() {}
+    class endian
+    {
+        private:
+            endian() {}
 
-		public:
-			static bool is_big_endian();
-			static bool is_little_endian();
-			static bool is_unknown_endianess();
+        public:
+            static bool is_big_endian();
+            static bool is_little_endian();
+            static bool is_unknown_endianess();
 
-	}; /* endian */
+    }; /* endian */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae */
 

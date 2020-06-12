@@ -31,60 +31,60 @@
 
 namespace hyenae::frontend::console
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class console_menu
-	{
-		public:
-			class item
-			{
-				friend class console_menu;
+    class console_menu
+    {
+        public:
+            class item
+            {
+                friend class console_menu;
 
-				private:
-					bool _selected;
-					string_t _caption;
-					string_t _hint;
-					string_t _info;
+                private:
+                    bool _selected;
+                    string_t _caption;
+                    string_t _hint;
+                    string_t _info;
 
-				public:
-					item();
-					
-					item(
-						const string_t& caption,
-						const string_t& hint = "",
-						const string_t& info = "");
-					
-					bool is_selected() const;
-					void set_selected(bool selected);
-					string_t get_caption() const;
-					void set_caption(const string_t& caption);
-					string_t get_hint() const;
-					void set_hint(string_t hint);
-					string_t get_info() const;
-					void set_info(string_t info);
+                public:
+                    item();
+                    
+                    item(
+                        const string_t& caption,
+                        const string_t& hint = "",
+                        const string_t& info = "");
+                    
+                    bool is_selected() const;
+                    void set_selected(bool selected);
+                    string_t get_caption() const;
+                    void set_caption(const string_t& caption);
+                    string_t get_hint() const;
+                    void set_hint(string_t hint);
+                    string_t get_info() const;
+                    void set_info(string_t info);
 
-			}; /* item */
+            }; /* item */
 
-		private:
-			console_io* _console_io;
-			vector_t<item*> _items;
-			string_t _title;
-			string_t _last_error;
+        private:
+            console_io* _console_io;
+            vector_t<item*> _items;
+            string_t _title;
+            string_t _last_error;
 
-		public:
-			console_menu(console_io* console_io, const string_t& title);
-			void add_item(item* item);
-			item* prompt(item* default_choice = NULL, string_t error = "");
-			void select_all(bool selected);
+        public:
+            console_menu(console_io* console_io, const string_t& title);
+            void add_item(item* item);
+            item* prompt(item* default_choice = NULL, string_t error = "");
+            void select_all(bool selected);
 
-		private:
-			void item_out(size_t pos, item* item);
-			item* choice_in(item* default_choice);
-			size_t item_choice_pos(item* item);
+        private:
+            void item_out(size_t pos, item* item);
+            item* choice_in(item* default_choice);
+            size_t item_choice_pos(item* item);
 
-	}; /* console_menu */
+    }; /* console_menu */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console */
 

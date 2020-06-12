@@ -31,11 +31,11 @@
 
 int main(int argc, char** argv)
 {
-	using namespace hyenae::frontend::console;
+    using namespace hyenae::frontend::console;
 
-	return (
-		new console_app(
-			io::std_console_io::get_instance()))->run(argc, argv);
+    return (
+        new console_app(
+            io::std_console_io::get_instance()))->run(argc, argv);
 
 } /* main */
 

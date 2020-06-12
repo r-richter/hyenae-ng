@@ -31,22 +31,22 @@
 
 namespace hyenae::frontend::console
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class console_app_state;
+    class console_app_state;
 
-	class console_app_state_context
-	{
-		private:
-			console_app_state* _state;
+    class console_app_state_context
+    {
+        private:
+            console_app_state* _state;
 
-		public:
-			void set_state(console_app_state* state);
-			void run(console_app_state* initial_state);
+        public:
+            void set_state(console_app_state* state);
+            void run(console_app_state* initial_state);
 
-	}; /* console_app_state_context */
+    }; /* console_app_state_context */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console */
 

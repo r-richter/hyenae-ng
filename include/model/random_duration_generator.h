@@ -31,27 +31,27 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class random_duration_generator :
-		public duration_generator
-	{
-		private:
-			duration_t _min_duration;
-			duration_t _max_duration;
+    class random_duration_generator :
+        public duration_generator
+    {
+        private:
+            duration_t _min_duration;
+            duration_t _max_duration;
 
-		public:
-			random_duration_generator(
-				duration_t min_duration, duration_t max_duration);
+        public:
+            random_duration_generator(
+                duration_t min_duration, duration_t max_duration);
 
-			duration_t get_min_duration();
-			duration_t get_max_duration();
-			duration_t next();
-			void reset() {}
+            duration_t get_min_duration();
+            duration_t get_max_duration();
+            duration_t next();
+            void reset() {}
 
-	}; /* random_duration */
+    }; /* random_duration */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */
 

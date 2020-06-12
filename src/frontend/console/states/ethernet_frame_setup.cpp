@@ -28,260 +28,260 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
-
-	ethernet_frame_setup::ethernet_frame_setup(
-		console_app_state_context* context,
-		console_io* console_io,
-		console_app_state* parent) :
-			generator_setup(context, console_io, parent)
-	{
-		_menu = new console_menu(
-			console_io, get_generator_name() + " Setup");
-
-		_payload = new generator_selector(
-			"Payload Setup", context, console_io, this);
-
-		// Default values
-		_add_preamble_sfd = false;
-		_src_mac_pattern = address_generator_t::RAND_MAC_PATTERN;
-		_dst_mac_pattern = address_generator_t::RAND_MAC_PATTERN;
-		_type = 0;
-		_add_fcs = false;
-
-		// Preamble & SFD
-		_add_preamble_sfd_item = new console_menu::item("Preamble & SFD");
-		_menu->add_item(_add_preamble_sfd_item);
-
-		// Source-MAC
-		_src_mac_pattern_item = new console_menu::item("Source-Address");
-		_menu->add_item(_src_mac_pattern_item);
-
-		// Destination-MAC
-		_dst_mac_pattern_item = new console_menu::item("Destination-Address");
-		_menu->add_item(_dst_mac_pattern_item);
-
-		// Type
-		_type_item = new console_menu::item("Type");
-		_menu->add_item(_type_item);
-
-		// FCS
-		_add_fcs_item = new console_menu::item("FCS");
-		_menu->add_item(_add_fcs_item);
-
-		// Payload
-		_payload_item =
-			new console_menu::item("Payload");
-		_menu->add_item(_payload_item);
-
-		// Back
-		_back_item = new console_menu::item("Back");
-		_menu->add_item(_back_item);
-
-		update_generator();
-
-	} /* ethernet_frame_setup */
-
-	/*---------------------------------------------------------------------- */
-
-	ethernet_frame_setup::~ethernet_frame_setup()
-	{
-		safe_delete(_menu);
-		safe_delete(_add_preamble_sfd_item);
-		safe_delete(_src_mac_pattern_item);
-		safe_delete(_dst_mac_pattern_item);
-		safe_delete(_type_item);
-		safe_delete(_add_fcs_item);
-		safe_delete(_payload_item);
-		safe_delete(_back_item);
-		safe_delete(_generator);
-		safe_delete(_payload);
-
-	} /* ~ethernet_frame_setup */
-
-	/*---------------------------------------------------------------------- */
-
-	bool ethernet_frame_setup::run()
-	{
-		update_generator();
-		update_menu_items();
-
-		console_menu::item* choice = _menu->prompt();
-
-		if (choice == _add_preamble_sfd_item)
-		{
-			prompt_add_preamble_sfd();
-		}
-		else if (choice == _src_mac_pattern_item)
-		{
-			prompt_src_mac_pattern();
-		}
-		else if (choice == _dst_mac_pattern_item)
-		{
-			prompt_dst_mac_pattern();
-		}
-		else if (choice == _type_item)
-		{
-			prompt_type();
-		}
-		else if (choice == _add_fcs_item)
-		{
-			prompt_add_fcs();
-		}
-		else if (choice == _payload_item)
-		{
-			_payload->enter();
-		}
-		else if (choice == _back_item)
-		{
-			back();
-		}
+    /*---------------------------------------------------------------------- */
+
+    ethernet_frame_setup::ethernet_frame_setup(
+        console_app_state_context* context,
+        console_io* console_io,
+        console_app_state* parent) :
+            generator_setup(context, console_io, parent)
+    {
+        _menu = new console_menu(
+            console_io, get_generator_name() + " Setup");
+
+        _payload = new generator_selector(
+            "Payload Setup", context, console_io, this);
+
+        // Default values
+        _add_preamble_sfd = false;
+        _src_mac_pattern = address_generator_t::RAND_MAC_PATTERN;
+        _dst_mac_pattern = address_generator_t::RAND_MAC_PATTERN;
+        _type = 0;
+        _add_fcs = false;
+
+        // Preamble & SFD
+        _add_preamble_sfd_item = new console_menu::item("Preamble & SFD");
+        _menu->add_item(_add_preamble_sfd_item);
+
+        // Source-MAC
+        _src_mac_pattern_item = new console_menu::item("Source-Address");
+        _menu->add_item(_src_mac_pattern_item);
+
+        // Destination-MAC
+        _dst_mac_pattern_item = new console_menu::item("Destination-Address");
+        _menu->add_item(_dst_mac_pattern_item);
+
+        // Type
+        _type_item = new console_menu::item("Type");
+        _menu->add_item(_type_item);
+
+        // FCS
+        _add_fcs_item = new console_menu::item("FCS");
+        _menu->add_item(_add_fcs_item);
+
+        // Payload
+        _payload_item =
+            new console_menu::item("Payload");
+        _menu->add_item(_payload_item);
+
+        // Back
+        _back_item = new console_menu::item("Back");
+        _menu->add_item(_back_item);
+
+        update_generator();
+
+    } /* ethernet_frame_setup */
+
+    /*---------------------------------------------------------------------- */
+
+    ethernet_frame_setup::~ethernet_frame_setup()
+    {
+        safe_delete(_menu);
+        safe_delete(_add_preamble_sfd_item);
+        safe_delete(_src_mac_pattern_item);
+        safe_delete(_dst_mac_pattern_item);
+        safe_delete(_type_item);
+        safe_delete(_add_fcs_item);
+        safe_delete(_payload_item);
+        safe_delete(_back_item);
+        safe_delete(_generator);
+        safe_delete(_payload);
+
+    } /* ~ethernet_frame_setup */
+
+    /*---------------------------------------------------------------------- */
+
+    bool ethernet_frame_setup::run()
+    {
+        update_generator();
+        update_menu_items();
+
+        console_menu::item* choice = _menu->prompt();
+
+        if (choice == _add_preamble_sfd_item)
+        {
+            prompt_add_preamble_sfd();
+        }
+        else if (choice == _src_mac_pattern_item)
+        {
+            prompt_src_mac_pattern();
+        }
+        else if (choice == _dst_mac_pattern_item)
+        {
+            prompt_dst_mac_pattern();
+        }
+        else if (choice == _type_item)
+        {
+            prompt_type();
+        }
+        else if (choice == _add_fcs_item)
+        {
+            prompt_add_fcs();
+        }
+        else if (choice == _payload_item)
+        {
+            _payload->enter();
+        }
+        else if (choice == _back_item)
+        {
+            back();
+        }
 
-		return true;
+        return true;
 
-	} /* run */
+    } /* run */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	uint16_t ethernet_frame_setup::get_type() const
-	{
-		return _type;
+    uint16_t ethernet_frame_setup::get_type() const
+    {
+        return _type;
 
-	} /* get_type */
+    } /* get_type */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void ethernet_frame_setup::set_type(uint16_t type)
-	{
-		_type = type;
+    void ethernet_frame_setup::set_type(uint16_t type)
+    {
+        _type = type;
 
-	} /* set_type */
+    } /* set_type */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	string_t ethernet_frame_setup::get_generator_name() const
-	{
-		return "Ethernet-Frame";
+    string_t ethernet_frame_setup::get_generator_name() const
+    {
+        return "Ethernet-Frame";
 
-	} /* get_generator_name */
+    } /* get_generator_name */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	ethernet_frame_setup::data_generator_t*
-		ethernet_frame_setup::get_generator() const
-	{
-		return _generator;
+    ethernet_frame_setup::data_generator_t*
+        ethernet_frame_setup::get_generator() const
+    {
+        return _generator;
 
-	} /* get_generator */
+    } /* get_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void ethernet_frame_setup::update_generator()
-	{
-		update_generator(_src_mac_pattern, _dst_mac_pattern);
+    void ethernet_frame_setup::update_generator()
+    {
+        update_generator(_src_mac_pattern, _dst_mac_pattern);
 
-	} /* update_generator */
+    } /* update_generator */
 
-	/*---------------------------------------------------------------------- */
-	
-	void ethernet_frame_setup::update_menu_items()
-	{
-		_add_preamble_sfd_item->set_info(_add_preamble_sfd ? "On" : "Off");
-		_src_mac_pattern_item->set_info(_src_mac_pattern);
-		_dst_mac_pattern_item->set_info(_dst_mac_pattern);
-		_type_item->set_info(std::to_string(_type));
-		_add_fcs_item->set_info(_add_fcs ? "On" : "Off");
-		_payload_item->set_info(_payload->get_generator_name());
+    /*---------------------------------------------------------------------- */
+    
+    void ethernet_frame_setup::update_menu_items()
+    {
+        _add_preamble_sfd_item->set_info(_add_preamble_sfd ? "On" : "Off");
+        _src_mac_pattern_item->set_info(_src_mac_pattern);
+        _dst_mac_pattern_item->set_info(_dst_mac_pattern);
+        _type_item->set_info(std::to_string(_type));
+        _add_fcs_item->set_info(_add_fcs ? "On" : "Off");
+        _payload_item->set_info(_payload->get_generator_name());
 
-	} /* update_menu_items */
+    } /* update_menu_items */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void ethernet_frame_setup::prompt_add_preamble_sfd()
-	{
-		_add_preamble_sfd = get_console()->prompt(
-			0, 1, "Enable Preamble & SFD", "0 = Off, 1 = On");
+    void ethernet_frame_setup::prompt_add_preamble_sfd()
+    {
+        _add_preamble_sfd = get_console()->prompt(
+            0, 1, "Enable Preamble & SFD", "0 = Off, 1 = On");
 
-	} /* prompt_add_preamble_sfd */
+    } /* prompt_add_preamble_sfd */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void ethernet_frame_setup::prompt_src_mac_pattern()
-	{
-		_src_mac_pattern = get_console()->prompt([this](string_t input)
-		{
-			update_generator(input, _dst_mac_pattern);
+    void ethernet_frame_setup::prompt_src_mac_pattern()
+    {
+        _src_mac_pattern = get_console()->prompt([this](string_t input)
+        {
+            update_generator(input, _dst_mac_pattern);
 
-			return input;
+            return input;
 
-		},
-		"Enter Source-Address Pattern",
-		_src_mac_pattern,
-		_src_mac_pattern);
+        },
+        "Enter Source-Address Pattern",
+        _src_mac_pattern,
+        _src_mac_pattern);
 
-	} /* prompt_src_mac_pattern */
+    } /* prompt_src_mac_pattern */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void ethernet_frame_setup::prompt_dst_mac_pattern()
-	{
-		_dst_mac_pattern = get_console()->prompt([this](string_t input)
-		{
-			update_generator(_src_mac_pattern, input);
+    void ethernet_frame_setup::prompt_dst_mac_pattern()
+    {
+        _dst_mac_pattern = get_console()->prompt([this](string_t input)
+        {
+            update_generator(_src_mac_pattern, input);
 
-			return input;
+            return input;
 
-		},
-		"Enter Destination-Address Pattern",
-		_dst_mac_pattern,
-		_dst_mac_pattern);
+        },
+        "Enter Destination-Address Pattern",
+        _dst_mac_pattern,
+        _dst_mac_pattern);
 
-	} /* prompt_dst_mac_pattern */
+    } /* prompt_dst_mac_pattern */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void ethernet_frame_setup::prompt_add_fcs()
-	{
-		_add_fcs = get_console()->prompt(
-			0, 1, "Enable FCS", "0 = Off, 1 = On");
+    void ethernet_frame_setup::prompt_add_fcs()
+    {
+        _add_fcs = get_console()->prompt(
+            0, 1, "Enable FCS", "0 = Off, 1 = On");
 
-	} /* prompt_add_fcs */
+    } /* prompt_add_fcs */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void ethernet_frame_setup::prompt_type()
-	{
-		// TODO: Have type entered as hexadecimal number
+    void ethernet_frame_setup::prompt_type()
+    {
+        // TODO: Have type entered as hexadecimal number
 
-		_type = (uint16_t) get_console()->prompt(
-			0, INT64_MAX, "Enter Type (Decimal)");
+        _type = (uint16_t) get_console()->prompt(
+            0, INT64_MAX, "Enter Type (Decimal)");
 
-		update_generator();
+        update_generator();
 
-	} /* prompt_type */
+    } /* prompt_type */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void ethernet_frame_setup::update_generator(
-		string_t src_mac_pattern, string_t dst_mac_pattern)
-	{
-		safe_delete(_generator);
-		
-		_generator = new ethernet_frame_generator_t(
-			_add_preamble_sfd,
-			src_mac_pattern,
-			dst_mac_pattern,
-			_type,
-			_add_fcs);
+    void ethernet_frame_setup::update_generator(
+        string_t src_mac_pattern, string_t dst_mac_pattern)
+    {
+        safe_delete(_generator);
+        
+        _generator = new ethernet_frame_generator_t(
+            _add_preamble_sfd,
+            src_mac_pattern,
+            dst_mac_pattern,
+            _type,
+            _add_fcs);
 
-		if (_payload->get_generator() != NULL)
-		{
-			((ethernet_frame_generator_t*)_generator)->
-				get_payload()->add_generator(_payload->get_generator());
-		}
+        if (_payload->get_generator() != NULL)
+        {
+            ((ethernet_frame_generator_t*)_generator)->
+                get_payload()->add_generator(_payload->get_generator());
+        }
 
-	} /* update_generator */
+    } /* update_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */

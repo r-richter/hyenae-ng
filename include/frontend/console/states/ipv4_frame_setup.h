@@ -36,85 +36,85 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class ipv4_frame_setup :
-		public ip_frame_setup
-	{
-		using address_generator_t =
-			model::generators::protocols::address_generator;
+    class ipv4_frame_setup :
+        public ip_frame_setup
+    {
+        using address_generator_t =
+            model::generators::protocols::address_generator;
 
-		using ethernet_frame_generator_t =
-			model::generators::protocols::ethernet_frame_generator;
+        using ethernet_frame_generator_t =
+            model::generators::protocols::ethernet_frame_generator;
 
-		using ipv4_frame_generator_t =
-			model::generators::protocols::ipv4_frame_generator;
+        using ipv4_frame_generator_t =
+            model::generators::protocols::ipv4_frame_generator;
 
-		private:
-			console_menu* _menu = NULL;
-			console_menu::item* _type_of_service_item = NULL;
-			console_menu::item* _id_pattern_item = NULL;
-			console_menu::item* _dont_frag_item = NULL;
-			console_menu::item* _more_frags_item = NULL;
-			console_menu::item* _frag_offset_item = NULL;
-			console_menu::item* _time_to_live_item = NULL;
-			console_menu::item* _protocol_item = NULL;
-			console_menu::item* _src_ip_pattern_item = NULL;
-			console_menu::item* _dst_ip_pattern_item = NULL;
-			console_menu::item* _payload_item = NULL;
-			console_menu::item* _back_item = NULL;
-			data_generator_t* _generator = NULL;
-			uint8_t _type_of_service;
-			string_t _id_pattern;
-			bool _dont_frag;
-			bool _more_frags;
-			string_t _frag_offset_pattern;
-			uint8_t _time_to_live;
-			uint8_t _protocol;
-			string_t _src_ip_pattern;
-			string_t _dst_ip_pattern;
-			generator_selector* _payload = NULL;
+        private:
+            console_menu* _menu = NULL;
+            console_menu::item* _type_of_service_item = NULL;
+            console_menu::item* _id_pattern_item = NULL;
+            console_menu::item* _dont_frag_item = NULL;
+            console_menu::item* _more_frags_item = NULL;
+            console_menu::item* _frag_offset_item = NULL;
+            console_menu::item* _time_to_live_item = NULL;
+            console_menu::item* _protocol_item = NULL;
+            console_menu::item* _src_ip_pattern_item = NULL;
+            console_menu::item* _dst_ip_pattern_item = NULL;
+            console_menu::item* _payload_item = NULL;
+            console_menu::item* _back_item = NULL;
+            data_generator_t* _generator = NULL;
+            uint8_t _type_of_service;
+            string_t _id_pattern;
+            bool _dont_frag;
+            bool _more_frags;
+            string_t _frag_offset_pattern;
+            uint8_t _time_to_live;
+            uint8_t _protocol;
+            string_t _src_ip_pattern;
+            string_t _dst_ip_pattern;
+            generator_selector* _payload = NULL;
 
-		public:
-			ipv4_frame_setup(
-				console_app_state_context* context,
-				console_io* console_io,
-				console_app_state* parent,
-				ethernet_frame_setup* ethernet_frame_setup);
+        public:
+            ipv4_frame_setup(
+                console_app_state_context* context,
+                console_io* console_io,
+                console_app_state* parent,
+                ethernet_frame_setup* ethernet_frame_setup);
 
-			~ipv4_frame_setup();
-			bool run();
-			uint8_t get_protocol() const;
-			void set_protocol(uint8_t protocol);
-			string_t get_generator_name() const;
-			data_generator_t* get_generator() const;
-			data_generator_t* get_pseudo_header() const;
-			void update_generator();
+            ~ipv4_frame_setup();
+            bool run();
+            uint8_t get_protocol() const;
+            void set_protocol(uint8_t protocol);
+            string_t get_generator_name() const;
+            data_generator_t* get_generator() const;
+            data_generator_t* get_pseudo_header() const;
+            void update_generator();
 
-		protected:
-			void on_select();
+        protected:
+            void on_select();
 
-		private:
-			void update_menu_items();
-			void prompt_type_of_service();
-			void prompt_id_pattern();
-			void prompt_dont_frag();
-			void prompt_more_frags();
-			void prompt_frag_offset();
-			void prompt_time_to_live();
-			void prompt_protocol();
-			void prompt_src_ip_pattern();
-			void prompt_dst_ip_pattern();
+        private:
+            void update_menu_items();
+            void prompt_type_of_service();
+            void prompt_id_pattern();
+            void prompt_dont_frag();
+            void prompt_more_frags();
+            void prompt_frag_offset();
+            void prompt_time_to_live();
+            void prompt_protocol();
+            void prompt_src_ip_pattern();
+            void prompt_dst_ip_pattern();
 
-			void update_generator(
-				string_t id_pattern,
-				string_t frag_offset_pattern,
-				string_t src_ip_pattern,
-				string_t dst_ip_pattern);
+            void update_generator(
+                string_t id_pattern,
+                string_t frag_offset_pattern,
+                string_t src_ip_pattern,
+                string_t dst_ip_pattern);
 
-	}; /* ipv4_frame_setup */
+    }; /* ipv4_frame_setup */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 

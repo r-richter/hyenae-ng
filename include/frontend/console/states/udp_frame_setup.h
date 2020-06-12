@@ -34,56 +34,56 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class udp_frame_setup :
-		public generator_setup
-	{
-		using udp_frame_generator_t =
-			model::generators::protocols::udp_frame_generator;
+    class udp_frame_setup :
+        public generator_setup
+    {
+        using udp_frame_generator_t =
+            model::generators::protocols::udp_frame_generator;
 
-		private:
-			static const uint8_t PROTOCOL = 17;
+        private:
+            static const uint8_t PROTOCOL = 17;
 
-			ip_frame_setup* _ip_frame_setup;
-			console_menu* _menu = NULL;
-			console_menu::item* _src_port_pattern_item = NULL;
-			console_menu::item* _dst_port_pattern_item = NULL;
-			console_menu::item* _payload_item = NULL;
-			console_menu::item* _back_item = NULL;
-			data_generator_t* _generator = NULL;
-			string_t _src_port_pattern;
-			string_t _dst_port_pattern;
-			generator_selector* _payload = NULL;
+            ip_frame_setup* _ip_frame_setup;
+            console_menu* _menu = NULL;
+            console_menu::item* _src_port_pattern_item = NULL;
+            console_menu::item* _dst_port_pattern_item = NULL;
+            console_menu::item* _payload_item = NULL;
+            console_menu::item* _back_item = NULL;
+            data_generator_t* _generator = NULL;
+            string_t _src_port_pattern;
+            string_t _dst_port_pattern;
+            generator_selector* _payload = NULL;
 
-		public:
-			udp_frame_setup(
-				console_app_state_context* context,
-				console_io* console_io,
-				console_app_state* parent,
-				ip_frame_setup* ip_frame_setup);
+        public:
+            udp_frame_setup(
+                console_app_state_context* context,
+                console_io* console_io,
+                console_app_state* parent,
+                ip_frame_setup* ip_frame_setup);
 
-			~udp_frame_setup();
-			bool run();
-			string_t get_generator_name() const;
-			data_generator_t* get_generator() const;
-			void update_generator();
+            ~udp_frame_setup();
+            bool run();
+            string_t get_generator_name() const;
+            data_generator_t* get_generator() const;
+            void update_generator();
 
-		protected:
-			void on_select();
+        protected:
+            void on_select();
 
-		private:
-			void update_menu_items();
-			void prompt_src_port_pattern();
-			void prompt_dst_port_pattern();
-			
-			void update_generator(
-				string_t src_port_pattern,
-				string_t dst_port_pattern);
+        private:
+            void update_menu_items();
+            void prompt_src_port_pattern();
+            void prompt_dst_port_pattern();
+            
+            void update_generator(
+                string_t src_port_pattern,
+                string_t dst_port_pattern);
 
-	}; /* udp_frame_setup */
+    }; /* udp_frame_setup */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 

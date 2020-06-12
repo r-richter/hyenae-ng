@@ -32,32 +32,32 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class generator_setup :
-		public console_app_state
-	{
+    class generator_setup :
+        public console_app_state
+    {
         friend class generator_selector;
 
-		public:
-			using data_generator_t = hyenae::model::data_generator;
+        public:
+            using data_generator_t = hyenae::model::data_generator;
 
-		public:
-			generator_setup(
-				console_app_state_context* context,
-				console_io* console_io,
-				console_app_state* parent = NULL);
+        public:
+            generator_setup(
+                console_app_state_context* context,
+                console_io* console_io,
+                console_app_state* parent = NULL);
 
-			virtual string_t get_generator_name() const = 0;
-			virtual data_generator_t* get_generator() const = 0;
+            virtual string_t get_generator_name() const = 0;
+            virtual data_generator_t* get_generator() const = 0;
             virtual void update_generator() = 0;
 
         protected:
             virtual void on_select() = 0;
 
-	}; /* generator_setup */
+    }; /* generator_setup */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 

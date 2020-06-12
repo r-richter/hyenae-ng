@@ -31,72 +31,72 @@
 
 namespace hyenae::frontend::console
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class console_io
-	{
-		public:
-			/* Lengths */
-			static const size_t MENU_WIDTH = 60;
+    class console_io
+    {
+        public:
+            /* Lengths */
+            static const size_t MENU_WIDTH = 60;
 
-			/* Margins */
-			static const size_t BASE_MARGIN = 1;
-			static const size_t MENU_ITEM_MARGIN = 2;
-			static const size_t MENU_ITEM_INFO_MARGIN = 38;
+            /* Margins */
+            static const size_t BASE_MARGIN = 1;
+            static const size_t MENU_ITEM_MARGIN = 2;
+            static const size_t MENU_ITEM_INFO_MARGIN = 38;
 
-		public:
-			void header_out(string_t title);
-			void separator_out(bool nl_before, bool nl_after);
+        public:
+            void header_out(string_t title);
+            void separator_out(bool nl_before, bool nl_after);
 
-			void menu_item_out(
-				size_t pos,
-				bool selected,
-				string_t caption,
-				string_t hint,
-				string_t info,
-				size_t highest_index);
+            void menu_item_out(
+                size_t pos,
+                bool selected,
+                string_t caption,
+                string_t hint,
+                string_t info,
+                size_t highest_index);
 
-			void error_out(string_t message, bool menu_item_margin = false);
-			void task_out(string_t name);
-			bool task_out(string_t name, func_t<bool()> task);
-			void result_out(string_t name, string_t value);
-			void prompt_out(string_t prompt, string_t hint);
+            void error_out(string_t message, bool menu_item_margin = false);
+            void task_out(string_t name);
+            bool task_out(string_t name, func_t<bool()> task);
+            void result_out(string_t name, string_t value);
+            void prompt_out(string_t prompt, string_t hint);
 
-			string_t prompt(
-				string_t prompt,
-				string_t hint = "",
-				string_t default_value = "");
+            string_t prompt(
+                string_t prompt,
+                string_t hint = "",
+                string_t default_value = "");
 
-			string_t prompt(
-				func_t<string_t(string_t input)> parse,
-				string_t prompt,
-				string_t hint = "",
-				string_t default_value = "");
+            string_t prompt(
+                func_t<string_t(string_t input)> parse,
+                string_t prompt,
+                string_t hint = "",
+                string_t default_value = "");
 
-			int64_t prompt(
-				int64_t min_value,
-				int64_t max_value,
-				string_t prompt,
-				string_t hint = "");
+            int64_t prompt(
+                int64_t min_value,
+                int64_t max_value,
+                string_t prompt,
+                string_t hint = "");
 
-			size_t prompt_list_choice(const vector_t<string_t>& items);
+            size_t prompt_list_choice(const vector_t<string_t>& items);
 
-			void wait_for_key_press(
-				string_t prompt = "Press any key to continue");
+            void wait_for_key_press(
+                string_t prompt = "Press any key to continue");
 
-			virtual bool was_key_pressed() = 0;
-			
-		protected:
-			virtual void out(string_t out) = 0;
-			virtual string_t in() = 0;
-			virtual void clear() = 0;
+            virtual bool was_key_pressed() = 0;
+            
+        protected:
+            virtual void out(string_t out) = 0;
+            virtual string_t in() = 0;
+            virtual void clear() = 0;
 
-		private:
-			void pad_to_margin(string_t& text, size_t margin);
+        private:
+            void pad_to_margin(string_t& text, size_t margin);
 
-	}; /* console_io */
+    }; /* console_io */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console */
 

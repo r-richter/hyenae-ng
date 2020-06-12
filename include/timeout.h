@@ -31,21 +31,21 @@
 
 namespace hyenae
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class timeout :
-		public runtime_error_t
-	{
-		public:
-			timeout(const string_t& message)
-				: timeout(message.c_str()) {}
+    class timeout :
+        public runtime_error_t
+    {
+        public:
+            timeout(const string_t& message)
+                : timeout(message.c_str()) {}
 
-			timeout(char const* const message)
-				: runtime_error(message) {}
+            timeout(char const* const message)
+                : runtime_error(message) {}
 
-	}; /* timeout */
+    }; /* timeout */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae */
 

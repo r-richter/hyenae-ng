@@ -33,24 +33,24 @@
 
 namespace hyenae::model::outputs
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class file_output :
-		public data_output
-	{
-		private:
-			string_t _path;
-			std::ofstream _stream;
+    class file_output :
+        public data_output
+    {
+        private:
+            string_t _path;
+            std::ofstream _stream;
 
-		public:
-			file_output(const string_t& path);
-			void open();
-			void close() noexcept;
-			void send(byte_t* data, size_t size);
+        public:
+            file_output(const string_t& path);
+            void open();
+            void close() noexcept;
+            void send(byte_t* data, size_t size);
 
-	}; /* file_output */
+    }; /* file_output */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::outputs */
 

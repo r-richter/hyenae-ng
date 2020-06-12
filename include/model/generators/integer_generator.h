@@ -31,93 +31,93 @@
 
 namespace hyenae::model::generators
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class integer_generator :
-		public data_generator
-	{
-		public:
-			/* Bases */
-			static const size_t BASE_BINARY = 2;
-			static const size_t BASE_OCTAL = 8;
-			static const size_t BASE_DECIMAL = 10;
-			static const size_t BASE_HEXADECIMAL = 16;
-			static const size_t BASE_MIN = BASE_BINARY;
-			static const size_t BASE_MAX = BASE_HEXADECIMAL;
+    class integer_generator :
+        public data_generator
+    {
+        public:
+            /* Bases */
+            static const size_t BASE_BINARY = 2;
+            static const size_t BASE_OCTAL = 8;
+            static const size_t BASE_DECIMAL = 10;
+            static const size_t BASE_HEXADECIMAL = 16;
+            static const size_t BASE_MIN = BASE_BINARY;
+            static const size_t BASE_MAX = BASE_HEXADECIMAL;
 
-			/* Bit sizes*/
-			static const size_t BITS_UINT8 = 8;
-			static const size_t BITS_UINT16 = 16;
-			static const size_t BITS_UINT32 = 32;
-			static const size_t BITS_UINT64 = 64;
-			static const size_t BITS_MIN = 1;
-			static const size_t BITS_MAX = BITS_UINT64;
+            /* Bit sizes*/
+            static const size_t BITS_UINT8 = 8;
+            static const size_t BITS_UINT16 = 16;
+            static const size_t BITS_UINT32 = 32;
+            static const size_t BITS_UINT64 = 64;
+            static const size_t BITS_MIN = 1;
+            static const size_t BITS_MAX = BITS_UINT64;
 
-			/* Wildcards */
-			static const char RAND_WILDCARD = '*';
-			static const char INCR_WILDCARD = '+';
-			static const char DECR_WILDCARD = '-';
+            /* Wildcards */
+            static const char RAND_WILDCARD = '*';
+            static const char INCR_WILDCARD = '+';
+            static const char DECR_WILDCARD = '-';
 
-		private:
-			static const char* BASE_CHARS;
-			string_t _pattern;
-			size_t _pattern_len;
-			size_t _base;
-			size_t _bits;
-			uint64_t _result_min;
-			uint64_t _result_max;
-			uint64_t _result;
-			uint64_t _offset;
+        private:
+            static const char* BASE_CHARS;
+            string_t _pattern;
+            size_t _pattern_len;
+            size_t _base;
+            size_t _bits;
+            uint64_t _result_min;
+            uint64_t _result_max;
+            uint64_t _result;
+            uint64_t _offset;
 
-		public:
-			integer_generator(
-				const string_t& pattern, size_t base, size_t bits);
+        public:
+            integer_generator(
+                const string_t& pattern, size_t base, size_t bits);
 
-			static integer_generator* create_uint8(
-				const string_t& pattern, size_t base);
+            static integer_generator* create_uint8(
+                const string_t& pattern, size_t base);
 
-			static integer_generator* create_uint16(
-				const string_t& pattern, size_t base);
+            static integer_generator* create_uint16(
+                const string_t& pattern, size_t base);
 
-			static integer_generator* create_uint32(
-				const string_t& pattern, size_t base);
+            static integer_generator* create_uint32(
+                const string_t& pattern, size_t base);
 
-			static integer_generator* create_uint64(
-				const string_t& pattern, size_t base);
+            static integer_generator* create_uint64(
+                const string_t& pattern, size_t base);
 
-			void next(bool data_changed = true);
-			void reset(bool data_changed = true);
-			uint8_t get_uint8() const;
-			uint16_t get_uint16() const;
-			uint32_t get_uint32() const;
-			uint64_t get_uint64() const;
+            void next(bool data_changed = true);
+            void reset(bool data_changed = true);
+            uint8_t get_uint8() const;
+            uint16_t get_uint16() const;
+            uint32_t get_uint32() const;
+            uint64_t get_uint64() const;
 
-		protected:
-			size_t data_size() const;
-			byte_t* data_to_buffer(byte_t* buffer, size_t size) const;
-			
-		private:
-			static uint64_t int_max(size_t bits);
-			static size_t bit_to_byte_size(size_t bits);
-			static uint8_t chr_value(char chr, size_t base);
-			static void validate_format(const string_t& pattern, size_t base);
+        protected:
+            size_t data_size() const;
+            byte_t* data_to_buffer(byte_t* buffer, size_t size) const;
+            
+        private:
+            static uint64_t int_max(size_t bits);
+            static size_t bit_to_byte_size(size_t bits);
+            static uint8_t chr_value(char chr, size_t base);
+            static void validate_format(const string_t& pattern, size_t base);
 
-			static uint64_t digit_value(
-				uint64_t value, size_t base, size_t pos);
+            static uint64_t digit_value(
+                uint64_t value, size_t base, size_t pos);
 
-			static uint64_t replace_wildcards(
-				const string_t& pattern,
-				size_t base,
-				size_t value,
-				uint64_t max);
+            static uint64_t replace_wildcards(
+                const string_t& pattern,
+                size_t base,
+                size_t value,
+                uint64_t max);
 
-			uint64_t result_min(uint64_t max) const;
-			uint64_t result_max(uint64_t max) const;
-			uint64_t result() const;
+            uint64_t result_min(uint64_t max) const;
+            uint64_t result_max(uint64_t max) const;
+            uint64_t result() const;
 
-	}; /* integer_generator */
+    }; /* integer_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::generators */
 

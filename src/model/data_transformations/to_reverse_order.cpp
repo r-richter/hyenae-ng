@@ -31,43 +31,43 @@
 
 namespace hyenae::model::data_transformations
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	to_reverse_order* to_reverse_order::_instance = NULL;
+    to_reverse_order* to_reverse_order::_instance = NULL;
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	to_reverse_order* to_reverse_order::get_instance()
-	{
-		if (_instance == NULL)
-		{
-			_instance = new to_reverse_order();
-		}
+    to_reverse_order* to_reverse_order::get_instance()
+    {
+        if (_instance == NULL)
+        {
+            _instance = new to_reverse_order();
+        }
 
-		return _instance;
+        return _instance;
 
-	} /* get_instance */
+    } /* get_instance */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	size_t to_reverse_order::result_size(size_t data_size) const
-	{
-		return data_size;
+    size_t to_reverse_order::result_size(size_t data_size) const
+    {
+        return data_size;
 
-	} /* result_size */
+    } /* result_size */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	byte_t* to_reverse_order::transform(byte_t* data, size_t size) const
-	{
-		assert::argument_not_null(data, "data");
+    byte_t* to_reverse_order::transform(byte_t* data, size_t size) const
+    {
+        assert::argument_not_null(data, "data");
 
-		std::reverse(data, data + size);
+        std::reverse(data, data + size);
 
-		return data;
+        return data;
 
-	} /* transform */
+    } /* transform */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::data_transformations */

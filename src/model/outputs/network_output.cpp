@@ -74,10 +74,10 @@ namespace hyenae::model::outputs
         
     } /* list_devices */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void network_output::open()
-	{
+    void network_output::open()
+    {
         char error[PCAP_ERRBUF_SIZE];
 
         assert::legal_call(_pcap == NULL, "", "already open");
@@ -88,12 +88,12 @@ namespace hyenae::model::outputs
         assert::legal_state(
             _pcap != NULL, "", "Failed to open network device");
 
-	} /* open */
+    } /* open */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void network_output::close() noexcept
-	{
+    void network_output::close() noexcept
+    {
         if (_pcap != NULL)
         {
             pcap_close(_pcap);
@@ -104,12 +104,12 @@ namespace hyenae::model::outputs
             _pcap = NULL;
         }
 
-	} /* close */
+    } /* close */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void network_output::send(byte_t* data, size_t size)
-	{
+    void network_output::send(byte_t* data, size_t size)
+    {
         int result = 0;
 
         assert::legal_call(_pcap != NULL, "", "not open");
@@ -120,8 +120,8 @@ namespace hyenae::model::outputs
 
         assert::legal_state(result == 0, "", "Failed to write to network");
         
-	} /* send */
+    } /* send */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::outputs */

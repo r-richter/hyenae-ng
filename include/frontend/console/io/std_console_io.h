@@ -31,26 +31,26 @@
 
 namespace hyenae::frontend::console::io
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class std_console_io :
-		public console_io
-	{
-		private:
-			static std_console_io* _instance;
+    class std_console_io :
+        public console_io
+    {
+        private:
+            static std_console_io* _instance;
 
-		public:
-			static std_console_io* get_instance();
-			bool was_key_pressed();
-			
-		protected:
-			void out(string_t out);
-			string_t in();
-			void clear();
+        public:
+            static std_console_io* get_instance();
+            bool was_key_pressed();
+            
+        protected:
+            void out(string_t out);
+            string_t in();
+            void clear();
 
-	}; /* std_console_io */
+    }; /* std_console_io */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::io */
 

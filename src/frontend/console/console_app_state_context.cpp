@@ -29,28 +29,28 @@
 
 namespace hyenae::frontend::console
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void console_app_state_context::set_state(console_app_state* state)
-	{
-		assert::argument_not_null(state, "state");
+    void console_app_state_context::set_state(console_app_state* state)
+    {
+        assert::argument_not_null(state, "state");
 
-		_state = state;
+        _state = state;
 
-	} /* set_state */
+    } /* set_state */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void console_app_state_context::run(console_app_state* initial_state)
-	{
-		assert::argument_not_null(initial_state, "initial_state");
+    void console_app_state_context::run(console_app_state* initial_state)
+    {
+        assert::argument_not_null(initial_state, "initial_state");
 
-		initial_state->enter();
+        initial_state->enter();
 
-		while (_state->run());
+        while (_state->run());
 
-	} /* run */
+    } /* run */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console */

@@ -32,87 +32,87 @@
 
 namespace hyenae::model::generators
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	string_generator::string_generator(
-		const string_t& pattern, encoding encoding)
-	{
-		_pattern = pattern;
-		_pattern_len = pattern.size();
-		_encoding = encoding;
+    string_generator::string_generator(
+        const string_t& pattern, encoding encoding)
+    {
+        _pattern = pattern;
+        _pattern_len = pattern.size();
+        _encoding = encoding;
 
-	} /* string_generator */
+    } /* string_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	size_t string_generator::data_size() const
-	{
-		return data_size(_encoding);
+    size_t string_generator::data_size() const
+    {
+        return data_size(_encoding);
 
-	} /* data_size */
+    } /* data_size */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	byte_t* string_generator::data_to_buffer(byte_t* buffer, size_t size) const
-	{
-		assert::no_overflow(size >= this->data_size());
+    byte_t* string_generator::data_to_buffer(byte_t* buffer, size_t size) const
+    {
+        assert::no_overflow(size >= this->data_size());
 
-		switch (_encoding)
-		{
-			case encoding::ASCII:
-				ascii_data_to_buffer(buffer, size);
-				break;
+        switch (_encoding)
+        {
+            case encoding::ASCII:
+                ascii_data_to_buffer(buffer, size);
+                break;
 
-			default:
-				assert::in_range(false, "encoding", "unknown encoding");
-		}
+            default:
+                assert::in_range(false, "encoding", "unknown encoding");
+        }
 
-		return buffer;
+        return buffer;
 
-	} /* data_to_buffer */
+    } /* data_to_buffer */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	size_t string_generator::data_size(encoding encoding) const
-	{
-		size_t size = 0;
+    size_t string_generator::data_size(encoding encoding) const
+    {
+        size_t size = 0;
 
-		for (char chr : _pattern)
-		{
-			size += char_size(chr, encoding);
-		}
+        for (char chr : _pattern)
+        {
+            size += char_size(chr, encoding);
+        }
 
-		return size;
+        return size;
 
-	} /* data_size */
+    } /* data_size */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	size_t string_generator::char_size(char chr, encoding encoding) const
-	{
-		switch (encoding)
-		{
-			case encoding::ASCII:
-				return 1;
+    size_t string_generator::char_size(char chr, encoding encoding) const
+    {
+        switch (encoding)
+        {
+            case encoding::ASCII:
+                return 1;
 
-			default:
-				assert::in_range(false, "encoding", "unknown encoding");
-		}
+            default:
+                assert::in_range(false, "encoding", "unknown encoding");
+        }
 
-		return ((size_t)-1);
+        return ((size_t)-1);
 
-	} /* char_size */
+    } /* char_size */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void string_generator::ascii_data_to_buffer(
-		byte_t* buffer, size_t size) const
-	{
-		memset(buffer, 0, size);
-		memcpy(buffer, _pattern.c_str(), size);
+    void string_generator::ascii_data_to_buffer(
+        byte_t* buffer, size_t size) const
+    {
+        memset(buffer, 0, size);
+        memcpy(buffer, _pattern.c_str(), size);
 
-	} /* ascii_data_to_buffer */
+    } /* ascii_data_to_buffer */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::generators */

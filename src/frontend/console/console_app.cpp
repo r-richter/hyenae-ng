@@ -30,28 +30,28 @@
 
 namespace hyenae::frontend::console
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	console_app::console_app(console_io* console_io)
-	{
-		assert::argument_not_null(console_io, "console_io");
+    console_app::console_app(console_io* console_io)
+    {
+        assert::argument_not_null(console_io, "console_io");
 
-		_console_io = console_io;
+        _console_io = console_io;
 
-	} /* console_app */
+    } /* console_app */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	int console_app::run(int argc, char** argv)
-	{
-		states::main_menu main_menu(this, _console_io);
+    int console_app::run(int argc, char** argv)
+    {
+        states::main_menu main_menu(this, _console_io);
 
-		console_app_state_context::run(&main_menu);
+        console_app_state_context::run(&main_menu);
 
-		return 0;
+        return 0;
 
-	} /* run */
+    } /* run */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console */

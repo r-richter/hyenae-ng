@@ -33,74 +33,74 @@
 
 namespace hyenae::model::generators::protocols
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class address_generator :
-		public data_generator
-	{
-		public:
-			/* Bit sizes*/
-			static const size_t BITS_OCTET = 8;
-			static const size_t BITS_HEXTET = 16;
+    class address_generator :
+        public data_generator
+    {
+        public:
+            /* Bit sizes*/
+            static const size_t BITS_OCTET = 8;
+            static const size_t BITS_HEXTET = 16;
 
-			/* Default patterns */
-			static const string_t RAND_MAC_PATTERN;
-			static const string_t RAND_IP_V4_PATTERN;
-			static const string_t RAND_IP_V6_PATTERN;
+            /* Default patterns */
+            static const string_t RAND_MAC_PATTERN;
+            static const string_t RAND_IP_V4_PATTERN;
+            static const string_t RAND_IP_V6_PATTERN;
 
-		private:
-			generator_group* _address;
-			size_t _field_count;
-			size_t _field_bits;
-			size_t _base;
+        private:
+            generator_group* _address;
+            size_t _field_count;
+            size_t _field_bits;
+            size_t _base;
 
-		public:
-			address_generator(
-				const string_t& pattern,
-				size_t base,
-				size_t field_count,
-				size_t field_bits,
-				char field_delimiter,
-				data_transformation* field_transformation = NULL);
+        public:
+            address_generator(
+                const string_t& pattern,
+                size_t base,
+                size_t field_count,
+                size_t field_bits,
+                char field_delimiter,
+                data_transformation* field_transformation = NULL);
 
-			~address_generator();
+            ~address_generator();
 
-			static address_generator* create_mac_address(
-				const string_t& pattern = RAND_MAC_PATTERN,
-				data_transformation* field_transformation = NULL);
+            static address_generator* create_mac_address(
+                const string_t& pattern = RAND_MAC_PATTERN,
+                data_transformation* field_transformation = NULL);
 
-			static address_generator* create_ipv4_address(
-				const string_t& pattern = RAND_IP_V4_PATTERN,
-				data_transformation* field_transformation = NULL);
+            static address_generator* create_ipv4_address(
+                const string_t& pattern = RAND_IP_V4_PATTERN,
+                data_transformation* field_transformation = NULL);
 
-			static address_generator* create_ipv6_address(
-				const string_t& pattern = RAND_IP_V6_PATTERN,
-				data_transformation* field_transformation = NULL);
+            static address_generator* create_ipv6_address(
+                const string_t& pattern = RAND_IP_V6_PATTERN,
+                data_transformation* field_transformation = NULL);
 
-			void next(bool data_changed = true);
-			void reset(bool data_changed = true);
-			void to_mac_address(mac_address_t& result) const;
-			void to_ipv4_address(ipv4_address_t& result) const;
-			void to_ipv6_address(ipv6_address_t& result) const;
+            void next(bool data_changed = true);
+            void reset(bool data_changed = true);
+            void to_mac_address(mac_address_t& result) const;
+            void to_ipv4_address(ipv4_address_t& result) const;
+            void to_ipv6_address(ipv6_address_t& result) const;
 
-		protected:
-			size_t data_size() const;
-			byte_t* data_to_buffer(byte_t* buffer, size_t size) const;
+        protected:
+            size_t data_size() const;
+            byte_t* data_to_buffer(byte_t* buffer, size_t size) const;
 
-		private:
-			static generator_group* parse_address(
-				const string_t& pattern,
-				size_t base,
-				size_t field_count,
-				size_t field_bits,
-				char field_delimiter,
-				data_transformation* field_transformation);
+        private:
+            static generator_group* parse_address(
+                const string_t& pattern,
+                size_t base,
+                size_t field_count,
+                size_t field_bits,
+                char field_delimiter,
+                data_transformation* field_transformation);
 
-			static void free_address(generator_group* address);
+            static void free_address(generator_group* address);
 
-	}; /* address_generator */
+    }; /* address_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::generators::protocols */
 

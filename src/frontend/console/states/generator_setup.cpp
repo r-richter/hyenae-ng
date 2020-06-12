@@ -28,14 +28,14 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	generator_setup::generator_setup(
-		console_app_state_context* context,
-		console_io* console_io,
-		console_app_state* parent) :
-			console_app_state(context, console_io, parent) {}
+    generator_setup::generator_setup(
+        console_app_state_context* context,
+        console_io* console_io,
+        console_app_state* parent) :
+            console_app_state(context, console_io, parent) {}
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */

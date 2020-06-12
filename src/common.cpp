@@ -28,38 +28,38 @@
 
 namespace hyenae
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	int64_t to_ms(duration_t duration)
-	{
-		return
-			std::chrono::duration_cast<std::chrono::milliseconds>(
-				duration).count();
+    int64_t to_ms(duration_t duration)
+    {
+        return
+            std::chrono::duration_cast<std::chrono::milliseconds>(
+                duration).count();
 
-	} /* to_ms */
+    } /* to_ms */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	string_t to_ms_string(duration_t duration)
-	{
-		string_t text = "";
+    string_t to_ms_string(duration_t duration)
+    {
+        string_t text = "";
 
-		text.append(std::to_string(to_ms(duration)));
-		text.append(" ms");
-		
-		return text;
+        text.append(std::to_string(to_ms(duration)));
+        text.append(" ms");
+        
+        return text;
 
-	} /* to_ms_string */
+    } /* to_ms_string */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	// TODO: Refactor to va_list or remove
-	string_t concat(string_t a, string_t b)
-	{
-		return a + b;
+    // TODO: Refactor to va_list or remove
+    string_t concat(string_t a, string_t b)
+    {
+        return a + b;
 
-	} /* concat */
+    } /* concat */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae */

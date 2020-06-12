@@ -31,19 +31,19 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class data_output
-	{
-		public:
-			virtual ~data_output() {}
-			virtual void open() = 0;
-			virtual void close() noexcept = 0;
-			virtual void send(byte_t* data, size_t size) = 0;
+    class data_output
+    {
+        public:
+            virtual ~data_output() {}
+            virtual void open() = 0;
+            virtual void close() noexcept = 0;
+            virtual void send(byte_t* data, size_t size) = 0;
 
-	}; /* data_output */
+    }; /* data_output */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */
 

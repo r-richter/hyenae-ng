@@ -35,106 +35,106 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class data_dispatcher :
-		public observable<dispatcher_listener>
-	{
-		public:
-			enum class state
-			{
-				STOPPED,
-				RUNNING,
-				PAUSED
+    class data_dispatcher :
+        public observable<dispatcher_listener>
+    {
+        public:
+            enum class state
+            {
+                STOPPED,
+                RUNNING,
+                PAUSED
 
-			}; /* state */
+            }; /* state */
 
-			class stats
-			{
-				friend class data_dispatcher;
+            class stats
+            {
+                friend class data_dispatcher;
 
-				private:
-					size_t _byte_count;
-					size_t _packet_count;
-					duration_t _duration;
-					stats();
+                private:
+                    size_t _byte_count;
+                    size_t _packet_count;
+                    duration_t _duration;
+                    stats();
 
-				public:
-					size_t get_byte_count() const;
-					size_t get_packet_count() const;
-					duration_t get_duration() const;
-					void reset();
+                public:
+                    size_t get_byte_count() const;
+                    size_t get_packet_count() const;
+                    duration_t get_duration() const;
+                    void reset();
 
-			}; /* stats */
+            }; /* stats */
 
-			class limits
-			{
-				public:
-					static const size_t SIZE_UNLIMITED = 0;
-					static const duration_t DURATION_UNLIMITED;
+            class limits
+            {
+                public:
+                    static const size_t SIZE_UNLIMITED = 0;
+                    static const duration_t DURATION_UNLIMITED;
 
-				private:
-					size_t _byte_limit;
-					size_t _packet_limit;
-					duration_t _duration_limit;
+                private:
+                    size_t _byte_limit;
+                    size_t _packet_limit;
+                    duration_t _duration_limit;
 
-				public:
-					limits(
-						size_t byte_limit,
-						size_t packet_limit,
-						duration_t duration_limit);
+                public:
+                    limits(
+                        size_t byte_limit,
+                        size_t packet_limit,
+                        duration_t duration_limit);
 
-					bool has_byte_limit() const;
-					size_t get_byte_limit() const;
-					bool has_packet_limit() const;
-					size_t get_packet_limit() const;
-					bool has_duration_limit() const;
-					duration_t get_duration_limit() const;
-					
-			}; /* limits */
+                    bool has_byte_limit() const;
+                    size_t get_byte_limit() const;
+                    bool has_packet_limit() const;
+                    size_t get_packet_limit() const;
+                    bool has_duration_limit() const;
+                    duration_t get_duration_limit() const;
+                    
+            }; /* limits */
 
-		private:
-			const long long START_TIMEOUT = 3000;
+        private:
+            const long long START_TIMEOUT = 3000;
 
-			data_output* _output;
-			data_generator* _generator;
-			duration_generator* _delay;
-			limits* _limits;
-			volatile state _state = state::STOPPED;
-			stats _stats;
-			thread_t* _thread = NULL;
+            data_output* _output;
+            data_generator* _generator;
+            duration_generator* _delay;
+            limits* _limits;
+            volatile state _state = state::STOPPED;
+            stats _stats;
+            thread_t* _thread = NULL;
 
-		public:
-			data_dispatcher(
-				data_output* output,
-				data_generator* generator,
-				duration_generator* delay = NULL,
-				limits* limits = NULL);
+        public:
+            data_dispatcher(
+                data_output* output,
+                data_generator* generator,
+                duration_generator* delay = NULL,
+                limits* limits = NULL);
 
-			~data_dispatcher();
-			state get_state() const;
-			const stats* get_stats() const;
-			bool is_stopped() const;
-			bool is_running() const;
-			bool is_paused() const;
-			void start(bool wait_for_start = false);
-			void pause();
-			void resume();
-			void stop();
+            ~data_dispatcher();
+            state get_state() const;
+            const stats* get_stats() const;
+            bool is_stopped() const;
+            bool is_running() const;
+            bool is_paused() const;
+            void start(bool wait_for_start = false);
+            void pause();
+            void resume();
+            void stop();
 
-		private:
-			void set_state(state state);
-			void state_changed();
-			static void thread_proc(void* param);
-			void dispatcher_loop();
-			bool is_limit_reached() const;
-			void limit_reached();
-			void thread_exception(const exception_t& exception);
-			void stats_changed();
+        private:
+            void set_state(state state);
+            void state_changed();
+            static void thread_proc(void* param);
+            void dispatcher_loop();
+            bool is_limit_reached() const;
+            void limit_reached();
+            void thread_exception(const exception_t& exception);
+            void stats_changed();
 
-	}; /* data_dispatcher */
+    }; /* data_dispatcher */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */
 

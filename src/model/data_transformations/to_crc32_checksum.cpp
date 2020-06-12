@@ -32,72 +32,72 @@
 
 namespace hyenae::model::data_transformations
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	to_crc32_checksum::to_crc32_checksum(uint32_t polynomial)
-	{
-		_polynomial = polynomial;
+    to_crc32_checksum::to_crc32_checksum(uint32_t polynomial)
+    {
+        _polynomial = polynomial;
 
-	} /* to_crc32_checksum */
+    } /* to_crc32_checksum */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	size_t to_crc32_checksum::result_size(size_t data_size) const
-	{
-		return sizeof(uint32_t);
+    size_t to_crc32_checksum::result_size(size_t data_size) const
+    {
+        return sizeof(uint32_t);
 
-	} /* result_size */
+    } /* result_size */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	byte_t* to_crc32_checksum::transform(byte_t* data, size_t size) const
-	{
-		byte_t* result = NULL;
-		size_t result_size = 0;
-		uint32_t checksum = 0;
+    byte_t* to_crc32_checksum::transform(byte_t* data, size_t size) const
+    {
+        byte_t* result = NULL;
+        size_t result_size = 0;
+        uint32_t checksum = 0;
 
-		assert::argument_not_null(data, "data");
+        assert::argument_not_null(data, "data");
 
-		checksum = this->checksum(data, size);
-		result_size = this->result_size(size);
-		
-		result = (byte_t*) malloc(result_size);
-		memset(result, 0, result_size);
-		memcpy(result, &checksum, result_size);
+        checksum = this->checksum(data, size);
+        result_size = this->result_size(size);
+        
+        result = (byte_t*) malloc(result_size);
+        memset(result, 0, result_size);
+        memcpy(result, &checksum, result_size);
 
-		free(data);
+        free(data);
 
-		return result;
+        return result;
 
-	} /* transform */
+    } /* transform */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	uint32_t to_crc32_checksum::checksum(byte_t* data, size_t size) const
-	{
-		uint32_t result = 0xFFFFFFFF;
+    uint32_t to_crc32_checksum::checksum(byte_t* data, size_t size) const
+    {
+        uint32_t result = 0xFFFFFFFF;
 
-		for (size_t pos = 0; pos < size; pos++)
-		{
-			result ^= *((uint8_t*)(data + pos));
+        for (size_t pos = 0; pos < size; pos++)
+        {
+            result ^= *((uint8_t*)(data + pos));
 
-			for (uint32_t i = 0; i < 8; i++)
-			{
-				if (result & 1)
-				{
-					result = (result >> 1) ^ _polynomial;
-				}
-				else
-				{
-					result = result >> 1;
-				}
-			}
-		}
+            for (uint32_t i = 0; i < 8; i++)
+            {
+                if (result & 1)
+                {
+                    result = (result >> 1) ^ _polynomial;
+                }
+                else
+                {
+                    result = result >> 1;
+                }
+            }
+        }
 
-		return ~result;
+        return ~result;
 
-	} /* checksum */
+    } /* checksum */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::data_transformations */

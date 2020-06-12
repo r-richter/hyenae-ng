@@ -31,28 +31,28 @@
 
 namespace hyenae::model::data_transformations
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class to_crc32_checksum :
-		public data_transformation
-	{
-		public:
-			static const uint32_t POLYNOMIAL_ETHERNET = 0xEDB88320;
+    class to_crc32_checksum :
+        public data_transformation
+    {
+        public:
+            static const uint32_t POLYNOMIAL_ETHERNET = 0xEDB88320;
 
-		private:
-			uint32_t _polynomial;
+        private:
+            uint32_t _polynomial;
 
-		public:
-			to_crc32_checksum(uint32_t polynomial);
-			size_t result_size(size_t data_size) const;
-			byte_t* transform(byte_t* data, size_t size) const;
+        public:
+            to_crc32_checksum(uint32_t polynomial);
+            size_t result_size(size_t data_size) const;
+            byte_t* transform(byte_t* data, size_t size) const;
 
-		private:
-			uint32_t checksum(byte_t* data, size_t size) const;
+        private:
+            uint32_t checksum(byte_t* data, size_t size) const;
 
-	}; /* to_crc32_checksum */
+    }; /* to_crc32_checksum */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::data_transformations */
 

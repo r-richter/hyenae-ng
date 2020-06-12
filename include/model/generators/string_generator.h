@@ -31,40 +31,40 @@
 
 namespace hyenae::model::generators
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class string_generator :
-		public data_generator
-	{
-		public:
-			enum class encoding
-			{
-				ASCII = 1
+    class string_generator :
+        public data_generator
+    {
+        public:
+            enum class encoding
+            {
+                ASCII = 1
 
-			}; /* encoding */
+            }; /* encoding */
 
-		private:
-			string_t _pattern;
-			size_t _pattern_len;
-			encoding _encoding;
+        private:
+            string_t _pattern;
+            size_t _pattern_len;
+            encoding _encoding;
 
-		public:
-			string_generator(const string_t& pattern, encoding encoding);
-			void next(bool data_changed = true) {}
-			void reset(bool data_changed = true) {}
+        public:
+            string_generator(const string_t& pattern, encoding encoding);
+            void next(bool data_changed = true) {}
+            void reset(bool data_changed = true) {}
 
-		protected:
-			size_t data_size() const;
-			byte_t* data_to_buffer(byte_t* buffer, size_t size) const;
+        protected:
+            size_t data_size() const;
+            byte_t* data_to_buffer(byte_t* buffer, size_t size) const;
 
-		private:
-			size_t data_size(encoding encoding) const;
-			size_t char_size(char chr, encoding encoding) const;
-			void ascii_data_to_buffer(byte_t* buffer, size_t size) const;
+        private:
+            size_t data_size(encoding encoding) const;
+            size_t char_size(char chr, encoding encoding) const;
+            void ascii_data_to_buffer(byte_t* buffer, size_t size) const;
 
-	}; /* string_generator */
+    }; /* string_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::generators */
 

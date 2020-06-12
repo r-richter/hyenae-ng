@@ -31,26 +31,26 @@
 
 namespace hyenae
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class stop_watch
-	{
-		using clock_t = std::chrono::system_clock;
+    class stop_watch
+    {
+        using clock_t = std::chrono::system_clock;
 
-		private:
-			duration_t _started_at;
-			duration_t _stopped_at;
+        private:
+            duration_t _started_at;
+            duration_t _stopped_at;
 
-		public:
-			stop_watch();
-			duration_t get_time_passed() const;
-			void start();
-			void stop();
-			void reset();
+        public:
+            stop_watch();
+            duration_t get_time_passed() const;
+            void start();
+            void stop();
+            void reset();
 
-	}; /* stop_watch */
+    }; /* stop_watch */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae */
 

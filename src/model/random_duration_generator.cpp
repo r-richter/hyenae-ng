@@ -32,50 +32,50 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	random_duration_generator::random_duration_generator(
-		duration_t min_duration, duration_t max_duration)
-	{
-		assert::in_range(
-			min_duration <= max_duration, "min_duration", "bigger than max");
+    random_duration_generator::random_duration_generator(
+        duration_t min_duration, duration_t max_duration)
+    {
+        assert::in_range(
+            min_duration <= max_duration, "min_duration", "bigger than max");
 
-		_min_duration = min_duration;
-		_max_duration = max_duration;
+        _min_duration = min_duration;
+        _max_duration = max_duration;
 
-		srand((unsigned int)time(NULL));
+        srand((unsigned int)time(NULL));
 
-	} /* random_duration_generator */
+    } /* random_duration_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	duration_t random_duration_generator::get_min_duration()
-	{
-		return _min_duration;
+    duration_t random_duration_generator::get_min_duration()
+    {
+        return _min_duration;
 
-	} /* get_min_duration */
+    } /* get_min_duration */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	duration_t random_duration_generator::get_max_duration()
-	{
-		return _max_duration;
+    duration_t random_duration_generator::get_max_duration()
+    {
+        return _max_duration;
 
-	} /* get_max_duration */
+    } /* get_max_duration */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	duration_t random_duration_generator::next()
-	{
-		return duration_t
-		{
-			rand() %
-			(_max_duration.count() - _min_duration.count() + 1) +
-			_min_duration.count()
-		};
+    duration_t random_duration_generator::next()
+    {
+        return duration_t
+        {
+            rand() %
+            (_max_duration.count() - _min_duration.count() + 1) +
+            _min_duration.count()
+        };
 
-	} /* next */
+    } /* next */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */

@@ -31,32 +31,32 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class generator_group :
-		public data_generator, generator_listener
-	{
-		private:
-			vector_t<data_generator*> _generators;
+    class generator_group :
+        public data_generator, generator_listener
+    {
+        private:
+            vector_t<data_generator*> _generators;
 
-		public:
-			size_t generator_count() const;
-			data_generator* generator_at(const size_t pos) const;
-			void add_generator(data_generator* generator);
-			void remove_generator_at(const size_t pos);
-			void next(bool data_changed = true);
-			void reset(bool data_changed = true);
+        public:
+            size_t generator_count() const;
+            data_generator* generator_at(const size_t pos) const;
+            void add_generator(data_generator* generator);
+            void remove_generator_at(const size_t pos);
+            void next(bool data_changed = true);
+            void reset(bool data_changed = true);
 
-		protected:
-			size_t data_size() const;
-			byte_t* data_to_buffer(byte_t* buffer, size_t size) const;
+        protected:
+            size_t data_size() const;
+            byte_t* data_to_buffer(byte_t* buffer, size_t size) const;
 
-		protected:
-			void on_data_changed();
+        protected:
+            void on_data_changed();
 
-	}; /* generator_group */
+    }; /* generator_group */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */
 

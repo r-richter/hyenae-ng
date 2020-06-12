@@ -31,50 +31,50 @@
 
 namespace hyenae
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	template <class T>
-	void observable<T>::add_listener(T* listener)
-	{
-		assert::argument_not_null(listener, "listener");
-		
-		auto pos = std::find(_listeners.begin(), _listeners.end(), listener);
+    template <class T>
+    void observable<T>::add_listener(T* listener)
+    {
+        assert::argument_not_null(listener, "listener");
+        
+        auto pos = std::find(_listeners.begin(), _listeners.end(), listener);
 
-		if (pos == _listeners.end())
-		{
-			_listeners.push_back(listener);
-		}
+        if (pos == _listeners.end())
+        {
+            _listeners.push_back(listener);
+        }
 
-	} /* add_listener */
+    } /* add_listener */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	template <class T>
-	void observable<T>::remove_listener(T* listener)
-	{
-		assert::argument_not_null(listener, "listener");
+    template <class T>
+    void observable<T>::remove_listener(T* listener)
+    {
+        assert::argument_not_null(listener, "listener");
 
-		auto pos = std::find(_listeners.begin(), _listeners.end(), listener);
+        auto pos = std::find(_listeners.begin(), _listeners.end(), listener);
 
-		if (pos != _listeners.end())
-		{
-			_listeners.erase(pos);
-		}
+        if (pos != _listeners.end())
+        {
+            _listeners.erase(pos);
+        }
 
-	} /* remove_listener */
+    } /* remove_listener */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	template <class T>
-	void observable<T>::listeners(func_t<void (T*)> action)
-	{
-		for (auto cur_listener : _listeners)
-		{
-			action(cur_listener);
-		}
+    template <class T>
+    void observable<T>::listeners(func_t<void (T*)> action)
+    {
+        for (auto cur_listener : _listeners)
+        {
+            action(cur_listener);
+        }
 
-	} /* listeners */
+    } /* listeners */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae */

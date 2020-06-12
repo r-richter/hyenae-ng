@@ -31,24 +31,24 @@
 
 namespace hyenae
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	template <class T>
-	class observable
-	{
-		private:
-			vector_t<T*> _listeners;
+    template <class T>
+    class observable
+    {
+        private:
+            vector_t<T*> _listeners;
 
-		public:
-			void add_listener(T* listener);
-			void remove_listener(T* listener);
-			
-		protected:
-			void listeners(func_t<void (T*)> action);
+        public:
+            void add_listener(T* listener);
+            void remove_listener(T* listener);
+            
+        protected:
+            void listeners(func_t<void (T*)> action);
 
-	}; /* observable */
+    }; /* observable */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae */
 

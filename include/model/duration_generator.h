@@ -31,18 +31,18 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class duration_generator
-	{
-		public:
-			virtual ~duration_generator() {}
-			virtual duration_t next() = 0;
-			virtual void reset() = 0;
+    class duration_generator
+    {
+        public:
+            virtual ~duration_generator() {}
+            virtual duration_t next() = 0;
+            virtual void reset() = 0;
 
-	}; /* duration_generator */
+    }; /* duration_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */
 

@@ -32,38 +32,38 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
     class ethernet_frame_setup;
 
-	class ip_frame_setup :
-		public generator_setup
-	{
-		private:
-			ethernet_frame_setup* _ethernet_frame_setup;
+    class ip_frame_setup :
+        public generator_setup
+    {
+        private:
+            ethernet_frame_setup* _ethernet_frame_setup;
 
-		public:
-			ip_frame_setup(
-				console_app_state_context* context,
-				console_io* console_io,
-				console_app_state* parent,
-				ethernet_frame_setup* ethernet_frame_setup);
+        public:
+            ip_frame_setup(
+                console_app_state_context* context,
+                console_io* console_io,
+                console_app_state* parent,
+                ethernet_frame_setup* ethernet_frame_setup);
 
-			virtual ~ip_frame_setup() {};
-			virtual bool run() = 0;
+            virtual ~ip_frame_setup() {};
+            virtual bool run() = 0;
             virtual uint8_t get_protocol() const = 0;
             virtual void set_protocol(uint8_t protocol) = 0;
-			virtual string_t get_generator_name() const = 0;
-			virtual data_generator_t* get_generator() const = 0;
+            virtual string_t get_generator_name() const = 0;
+            virtual data_generator_t* get_generator() const = 0;
             virtual data_generator_t* get_pseudo_header() const = 0;
 
-		protected:
-			virtual void on_select() = 0;
+        protected:
+            virtual void on_select() = 0;
             ethernet_frame_setup* get_ethernet_frame_setup() const;
 
-	}; /* ethernet_frame_setup */
+    }; /* ethernet_frame_setup */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 

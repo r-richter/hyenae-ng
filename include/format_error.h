@@ -31,21 +31,21 @@
 
 namespace hyenae
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class format_error :
-		public runtime_error_t
-	{
-		public:
-			format_error(const string_t& message)
-				: format_error(message.c_str()) {}
+    class format_error :
+        public runtime_error_t
+    {
+        public:
+            format_error(const string_t& message)
+                : format_error(message.c_str()) {}
 
-			format_error(const char* message)
-				: runtime_error(message) {}
+            format_error(const char* message)
+                : runtime_error(message) {}
 
-	}; /* format_error */
+    }; /* format_error */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae */
 

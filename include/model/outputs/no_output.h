@@ -32,19 +32,19 @@
 
 namespace hyenae::model::outputs
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class no_output :
-		public data_output
-	{
-		public:
-			void open() {}
-			void close() noexcept {}
-			void send(byte_t* data, size_t size) {};
+    class no_output :
+        public data_output
+    {
+        public:
+            void open() {}
+            void close() noexcept {}
+            void send(byte_t* data, size_t size) {};
 
-	}; /* no_output */
+    }; /* no_output */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::outputs */
 

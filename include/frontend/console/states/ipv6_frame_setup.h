@@ -36,75 +36,75 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class ipv6_frame_setup :
-		public ip_frame_setup
-	{
-		using address_generator_t =
-			model::generators::protocols::address_generator;
+    class ipv6_frame_setup :
+        public ip_frame_setup
+    {
+        using address_generator_t =
+            model::generators::protocols::address_generator;
 
-		using ethernet_frame_generator_t =
-			model::generators::protocols::ethernet_frame_generator;
+        using ethernet_frame_generator_t =
+            model::generators::protocols::ethernet_frame_generator;
 
-		using ipv6_frame_generator_t =
-			model::generators::protocols::ipv6_frame_generator;
+        using ipv6_frame_generator_t =
+            model::generators::protocols::ipv6_frame_generator;
 
-		private:
-			console_menu* _menu = NULL;
-			console_menu::item* _traffic_class_item = NULL;
-			console_menu::item* _flow_label_pattern_item = NULL;
-			console_menu::item* _next_header_item = NULL;
-			console_menu::item* _hop_limit_item = NULL;
-			console_menu::item* _src_ip_pattern_item = NULL;
-			console_menu::item* _dst_ip_pattern_item = NULL;
-			console_menu::item* _payload_item = NULL;
-			console_menu::item* _back_item = NULL;
-			data_generator_t* _generator = NULL;
-			uint8_t _traffic_class;
-			string_t _flow_label_pattern;
-			uint8_t _next_header;
-			uint8_t _hop_limit;
-			string_t _src_ip_pattern;
-			string_t _dst_ip_pattern;
-			generator_selector* _payload = NULL;
+        private:
+            console_menu* _menu = NULL;
+            console_menu::item* _traffic_class_item = NULL;
+            console_menu::item* _flow_label_pattern_item = NULL;
+            console_menu::item* _next_header_item = NULL;
+            console_menu::item* _hop_limit_item = NULL;
+            console_menu::item* _src_ip_pattern_item = NULL;
+            console_menu::item* _dst_ip_pattern_item = NULL;
+            console_menu::item* _payload_item = NULL;
+            console_menu::item* _back_item = NULL;
+            data_generator_t* _generator = NULL;
+            uint8_t _traffic_class;
+            string_t _flow_label_pattern;
+            uint8_t _next_header;
+            uint8_t _hop_limit;
+            string_t _src_ip_pattern;
+            string_t _dst_ip_pattern;
+            generator_selector* _payload = NULL;
 
-		public:
-			ipv6_frame_setup(
-				console_app_state_context* context,
-				console_io* console_io,
-				console_app_state* parent,
-				ethernet_frame_setup* ethernet_frame_setup);
+        public:
+            ipv6_frame_setup(
+                console_app_state_context* context,
+                console_io* console_io,
+                console_app_state* parent,
+                ethernet_frame_setup* ethernet_frame_setup);
 
-			~ipv6_frame_setup();
-			bool run();
-			uint8_t get_protocol() const;
-			void set_protocol(uint8_t protocol);
-			string_t get_generator_name() const;
-			data_generator_t* get_generator() const;
-			data_generator_t* get_pseudo_header() const;
-			void update_generator();
+            ~ipv6_frame_setup();
+            bool run();
+            uint8_t get_protocol() const;
+            void set_protocol(uint8_t protocol);
+            string_t get_generator_name() const;
+            data_generator_t* get_generator() const;
+            data_generator_t* get_pseudo_header() const;
+            void update_generator();
 
-		protected:
-			void on_select();
+        protected:
+            void on_select();
 
-		private:
-			void update_menu_items();
-			void prompt_traffic_class();
-			void prompt_flow_label_pattern();
-			void prompt_next_header();
-			void prompt_hop_limit();
-			void prompt_src_ip_pattern();
-			void prompt_dst_ip_pattern();
-			
-			void update_generator(
-				string_t flow_label_pattern,
-				string_t src_ip_pattern,
-				string_t dst_ip_pattern);
+        private:
+            void update_menu_items();
+            void prompt_traffic_class();
+            void prompt_flow_label_pattern();
+            void prompt_next_header();
+            void prompt_hop_limit();
+            void prompt_src_ip_pattern();
+            void prompt_dst_ip_pattern();
+            
+            void update_generator(
+                string_t flow_label_pattern,
+                string_t src_ip_pattern,
+                string_t dst_ip_pattern);
 
-	}; /* ipv6_frame_setup */
+    }; /* ipv6_frame_setup */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 

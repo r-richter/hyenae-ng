@@ -31,23 +31,23 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class fixed_duration_generator :
-		public duration_generator
-	{
-		private:
-			duration_t _duration;
+    class fixed_duration_generator :
+        public duration_generator
+    {
+        private:
+            duration_t _duration;
 
-		public:
-			fixed_duration_generator(duration_t duration);
-			duration_t get_duration() const;
-			duration_t next();
-			void reset() {}
+        public:
+            fixed_duration_generator(duration_t duration);
+            duration_t get_duration() const;
+            duration_t next();
+            void reset() {}
 
-	}; /* fixed_duration_generator */
+    }; /* fixed_duration_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */
 

@@ -28,85 +28,85 @@
 
 namespace hyenae::frontend::console
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	console_menu::item::item() :
-		item("Unnamed Item") {}
+    console_menu::item::item() :
+        item("Unnamed Item") {}
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	console_menu::item::item(
-		const string_t& caption, const string_t& hint, const string_t& info)
-	{
-		_selected = false;
-		_caption = caption;
-		_hint = hint;
-		_info = info;
+    console_menu::item::item(
+        const string_t& caption, const string_t& hint, const string_t& info)
+    {
+        _selected = false;
+        _caption = caption;
+        _hint = hint;
+        _info = info;
 
-	} /* item */
+    } /* item */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	bool console_menu::item::is_selected() const
-	{
-		return _selected;
+    bool console_menu::item::is_selected() const
+    {
+        return _selected;
 
-	} /* is_selected */
+    } /* is_selected */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void console_menu::item::set_selected(bool selected)
-	{
-		_selected = selected;
+    void console_menu::item::set_selected(bool selected)
+    {
+        _selected = selected;
 
-	} /* set_selected */
+    } /* set_selected */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	string_t console_menu::item::get_caption() const
-	{
-		return _caption;
+    string_t console_menu::item::get_caption() const
+    {
+        return _caption;
 
-	} /* get_caption */
+    } /* get_caption */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void console_menu::item::set_caption(const string_t& caption)
-	{
-		_caption = caption;
+    void console_menu::item::set_caption(const string_t& caption)
+    {
+        _caption = caption;
 
-	} /* set_caption */
+    } /* set_caption */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	string_t console_menu::item::get_hint() const
-	{
-		return _hint;
+    string_t console_menu::item::get_hint() const
+    {
+        return _hint;
 
-	} /* get_hint */
+    } /* get_hint */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void console_menu::item::set_hint(string_t hint)
-	{
-		_hint = hint;
+    void console_menu::item::set_hint(string_t hint)
+    {
+        _hint = hint;
 
-	} /* set_hint */
+    } /* set_hint */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	string_t console_menu::item::get_info() const
-	{
-		return _info;
+    string_t console_menu::item::get_info() const
+    {
+        return _info;
 
-	} /* get_info */
+    } /* get_info */
 
-	void console_menu::item::set_info(string_t info)
-	{
-		_info = info;
+    void console_menu::item::set_info(string_t info)
+    {
+        _info = info;
 
-	} /* set_info */
+    } /* set_info */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console */

@@ -35,60 +35,60 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class main_menu;
+    class main_menu;
 
-	class dispatcher_setup :
-		public console_app_state
-	{
-		using limits_t = hyenae::model::data_dispatcher::limits;
-		using delay_t = hyenae::model::duration_generator;
-		using fixed_delay_t = hyenae::model::fixed_duration_generator;
-		using random_delay_t = hyenae::model::random_duration_generator;
+    class dispatcher_setup :
+        public console_app_state
+    {
+        using limits_t = hyenae::model::data_dispatcher::limits;
+        using delay_t = hyenae::model::duration_generator;
+        using fixed_delay_t = hyenae::model::fixed_duration_generator;
+        using random_delay_t = hyenae::model::random_duration_generator;
 
-		private:
-			enum class delay_type
-			{
-				NONE = 0,
-				FIXED = 1,
-				RANDOM = 2
+        private:
+            enum class delay_type
+            {
+                NONE = 0,
+                FIXED = 1,
+                RANDOM = 2
 
-			}; /* delay_type */
+            }; /* delay_type */
 
-			console_menu* _menu = NULL;
-			console_menu::item* _byte_limit_item = NULL;
-			console_menu::item* _packet_limit_item = NULL;
-			console_menu::item* _duration_limit_item = NULL;
-			console_menu::item* _send_delay_item = NULL;
-			console_menu::item* _back_item = NULL;
-			limits_t* _limits;
-			delay_t* _delay;
-			delay_type _delay_type;
+            console_menu* _menu = NULL;
+            console_menu::item* _byte_limit_item = NULL;
+            console_menu::item* _packet_limit_item = NULL;
+            console_menu::item* _duration_limit_item = NULL;
+            console_menu::item* _send_delay_item = NULL;
+            console_menu::item* _back_item = NULL;
+            limits_t* _limits;
+            delay_t* _delay;
+            delay_type _delay_type;
 
-		public:
-			dispatcher_setup(
-				console_app_state_context* context,
-				console_io* console_io,
-				console_app_state* parent);
+        public:
+            dispatcher_setup(
+                console_app_state_context* context,
+                console_io* console_io,
+                console_app_state* parent);
 
-			~dispatcher_setup();
-			bool run();
-			limits_t* get_limits();
-			delay_t* get_delay();
+            ~dispatcher_setup();
+            bool run();
+            limits_t* get_limits();
+            delay_t* get_delay();
 
-		private:
-			void update_menu_items();
-			void prompt_byte_limit();
-			void prompt_packet_limit();
-			void prompt_duration_limit();
-			void prompt_send_delay();
-			void prompt_fixed_send_delay();
-			void prompt_random_send_delay();
+        private:
+            void update_menu_items();
+            void prompt_byte_limit();
+            void prompt_packet_limit();
+            void prompt_duration_limit();
+            void prompt_send_delay();
+            void prompt_fixed_send_delay();
+            void prompt_random_send_delay();
 
-	}; /* main_menu */
+    }; /* main_menu */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 

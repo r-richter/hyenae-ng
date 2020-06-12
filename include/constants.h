@@ -29,20 +29,20 @@
 
 namespace hyenae
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class constants
-	{
-		private:
-			constants();
+    class constants
+    {
+        private:
+            constants();
 
-		public:
-			static const char* APP_NAME;
-			static const char* APP_VERSION;
+        public:
+            static const char* APP_NAME;
+            static const char* APP_VERSION;
 
-	}; /* constants */
+    }; /* constants */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae */
 

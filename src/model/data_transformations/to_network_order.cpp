@@ -30,39 +30,39 @@
 
 namespace hyenae::model::data_transformations
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	to_network_order* to_network_order::_instance = NULL;
+    to_network_order* to_network_order::_instance = NULL;
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	to_network_order* to_network_order::get_instance()
-	{
-		if (_instance == NULL)
-		{
-			_instance = new to_network_order();
-		}
+    to_network_order* to_network_order::get_instance()
+    {
+        if (_instance == NULL)
+        {
+            _instance = new to_network_order();
+        }
 
-		return _instance;
+        return _instance;
 
-	} /* get_instance */
+    } /* get_instance */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	byte_t* to_network_order::transform(byte_t* data, size_t size) const
-	{
-		assert::known_endianess();
-		assert::argument_not_null(data, "data");
+    byte_t* to_network_order::transform(byte_t* data, size_t size) const
+    {
+        assert::known_endianess();
+        assert::argument_not_null(data, "data");
 
-		if (endian::is_little_endian())
-		{
-			return to_reverse_order::transform(data, size);
-		}
+        if (endian::is_little_endian())
+        {
+            return to_reverse_order::transform(data, size);
+        }
 
-		return data;
+        return data;
 
-	} /* transform */
+    } /* transform */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::data_transformations */

@@ -36,36 +36,36 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class main_menu :
-		public console_app_state
-	{
-		using limits_t = model::data_dispatcher::limits;
-		using delay_t = model::duration_generator;
+    class main_menu :
+        public console_app_state
+    {
+        using limits_t = model::data_dispatcher::limits;
+        using delay_t = model::duration_generator;
 
-		private:
-			console_menu* _menu = NULL;
-			console_menu::item* _output_setup_item = NULL;
-			console_menu::item* _generator_selector_item = NULL;
-			console_menu::item* _dispatcher_setup_item = NULL;
-			console_menu::item* _start_dispatcher_item = NULL;
-			console_menu::item* _exit_item = NULL;
-			states::output_setup* _output_setup = NULL;
-			states::generator_selector* _generator_selector = NULL;
-			states::dispatcher_setup* _dispatcher_setup = NULL;
-			states::start_dispatcher* _start_dispatcher = NULL;
+        private:
+            console_menu* _menu = NULL;
+            console_menu::item* _output_setup_item = NULL;
+            console_menu::item* _generator_selector_item = NULL;
+            console_menu::item* _dispatcher_setup_item = NULL;
+            console_menu::item* _start_dispatcher_item = NULL;
+            console_menu::item* _exit_item = NULL;
+            states::output_setup* _output_setup = NULL;
+            states::generator_selector* _generator_selector = NULL;
+            states::dispatcher_setup* _dispatcher_setup = NULL;
+            states::start_dispatcher* _start_dispatcher = NULL;
 
-		public:
-			main_menu(
-				console_app_state_context* context, console_io* console_io);
+        public:
+            main_menu(
+                console_app_state_context* context, console_io* console_io);
 
-			~main_menu();
-			bool run();
+            ~main_menu();
+            bool run();
 
-	}; /* main_menu */
+    }; /* main_menu */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 

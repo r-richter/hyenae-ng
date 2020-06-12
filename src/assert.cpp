@@ -34,153 +34,153 @@
 
 namespace hyenae
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void assert::known_endianess()
-	{
-		if (endian::is_unknown_endianess())
-		{
-			throw runtime_error_t("unknown endianess");
-		}
+    void assert::known_endianess()
+    {
+        if (endian::is_unknown_endianess())
+        {
+            throw runtime_error_t("unknown endianess");
+        }
 
-	} /* known_endianess */
+    } /* known_endianess */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void assert::in_range(
-		bool expression, string_t param_name, string_t message)
-	{
-		if (!expression)
-		{
-			throw std::out_of_range(
-				build_message(param_name, message, "out of range"));
-		}
+    void assert::in_range(
+        bool expression, string_t param_name, string_t message)
+    {
+        if (!expression)
+        {
+            throw std::out_of_range(
+                build_message(param_name, message, "out of range"));
+        }
 
-	} /* in_range */
+    } /* in_range */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void assert::no_overflow(
-		bool expression, string_t param_name, string_t message)
-	{
-		if (!expression)
-		{
-			throw std::overflow_error(
-				build_message(param_name, message, "overflow"));
-		}
+    void assert::no_overflow(
+        bool expression, string_t param_name, string_t message)
+    {
+        if (!expression)
+        {
+            throw std::overflow_error(
+                build_message(param_name, message, "overflow"));
+        }
 
-	} /* no_overflow */
+    } /* no_overflow */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void assert::valid_format(
-		bool expression, string_t param_name, string_t message)
-	{
-		if (!expression)
-		{
-			throw format_error(
-				build_message(param_name, message, "invalid format"));
-		}
+    void assert::valid_format(
+        bool expression, string_t param_name, string_t message)
+    {
+        if (!expression)
+        {
+            throw format_error(
+                build_message(param_name, message, "invalid format"));
+        }
 
-	} /* valid_format */
+    } /* valid_format */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void assert::valid_argument(
-		bool expression, string_t param_name, string_t message)
-	{
-		if (!expression)
-		{
-			throw std::invalid_argument(
-				build_message(param_name, message, "invalid argument"));
-		}
+    void assert::valid_argument(
+        bool expression, string_t param_name, string_t message)
+    {
+        if (!expression)
+        {
+            throw std::invalid_argument(
+                build_message(param_name, message, "invalid argument"));
+        }
 
-	} /* valid_argument */
+    } /* valid_argument */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void assert::argument_not_null(
-		void* pointer, string_t param_name, string_t message)
-	{
-		valid_argument(
-			pointer != NULL, param_name, message != "" ? message : "is null");
+    void assert::argument_not_null(
+        void* pointer, string_t param_name, string_t message)
+    {
+        valid_argument(
+            pointer != NULL, param_name, message != "" ? message : "is null");
 
-	} /* argument_not_null */
+    } /* argument_not_null */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void assert::legal_call(
-		bool expression, string_t param_name, string_t message)
-	{
-		if (!expression)
-		{
-			throw illegal_call(
-				build_message(param_name, message, "illegal call"));
-		}
+    void assert::legal_call(
+        bool expression, string_t param_name, string_t message)
+    {
+        if (!expression)
+        {
+            throw illegal_call(
+                build_message(param_name, message, "illegal call"));
+        }
 
-	} /* legal_call */
+    } /* legal_call */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void assert::legal_state(
-		bool expression, string_t param_name, string_t message)
-	{
-		if (!expression)
-		{
-			throw illegal_state(
-				build_message(param_name, message, "illegal state"));
-		}
+    void assert::legal_state(
+        bool expression, string_t param_name, string_t message)
+    {
+        if (!expression)
+        {
+            throw illegal_state(
+                build_message(param_name, message, "illegal state"));
+        }
 
-	} /* legal_state */
+    } /* legal_state */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void assert::in_time(
-		bool expression, string_t param_name, string_t message)
-	{
-		if (!expression)
-		{
-			throw std::out_of_range(
-				build_message(param_name, message, "timeout"));
-		}
+    void assert::in_time(
+        bool expression, string_t param_name, string_t message)
+    {
+        if (!expression)
+        {
+            throw std::out_of_range(
+                build_message(param_name, message, "timeout"));
+        }
 
-	} /* in_time */
+    } /* in_time */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void assert::in_time(
-		func_t<bool()> expression,
-		int64_t timeout_in_ms,
-		string_t param_name,
-		string_t message)
-	{
-		stop_watch timeout_watch;
+    void assert::in_time(
+        func_t<bool()> expression,
+        int64_t timeout_in_ms,
+        string_t param_name,
+        string_t message)
+    {
+        stop_watch timeout_watch;
 
-		timeout_watch.start();
+        timeout_watch.start();
 
-		while (to_ms(timeout_watch.get_time_passed()) < timeout_in_ms)
-		{
-			if (expression())
-			{
-				return;
-			}
-		}
+        while (to_ms(timeout_watch.get_time_passed()) < timeout_in_ms)
+        {
+            if (expression())
+            {
+                return;
+            }
+        }
 
-		assert::in_time(false, param_name, message);
-	}
+        assert::in_time(false, param_name, message);
+    }
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	string_t assert::build_message(
-		string_t param_name, string_t message, string_t default_message)
-	{
-		return
-			param_name +
-			(param_name != "" ? ": " : "") +
-			(message != "" ? message : default_message);
+    string_t assert::build_message(
+        string_t param_name, string_t message, string_t default_message)
+    {
+        return
+            param_name +
+            (param_name != "" ? ": " : "") +
+            (message != "" ? message : default_message);
 
-	} /* build_message */
+    } /* build_message */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae */

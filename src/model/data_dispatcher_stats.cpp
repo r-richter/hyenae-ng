@@ -30,46 +30,46 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	data_dispatcher::stats::stats()
-	{
-		reset();
+    data_dispatcher::stats::stats()
+    {
+        reset();
 
-	} /* stats */
+    } /* stats */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	size_t data_dispatcher::stats::get_byte_count() const
-	{
-		return _byte_count;
+    size_t data_dispatcher::stats::get_byte_count() const
+    {
+        return _byte_count;
 
-	} /* get_byte_count */
+    } /* get_byte_count */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	size_t data_dispatcher::stats::get_packet_count() const
-	{
-		return _packet_count;
+    size_t data_dispatcher::stats::get_packet_count() const
+    {
+        return _packet_count;
 
-	} /* get_packet_count */
+    } /* get_packet_count */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	duration_t data_dispatcher::stats::get_duration() const
-	{
-		return _duration;
+    duration_t data_dispatcher::stats::get_duration() const
+    {
+        return _duration;
 
-	} /* get_duration */
+    } /* get_duration */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void data_dispatcher::stats::reset()
-	{
-		memset(this, 0, sizeof(stats));
+    void data_dispatcher::stats::reset()
+    {
+        memset(this, 0, sizeof(stats));
 
-	} /* reset */
+    } /* reset */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */

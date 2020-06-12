@@ -31,21 +31,21 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class dispatcher_listener
-	{
-		friend class data_dispatcher;
+    class dispatcher_listener
+    {
+        friend class data_dispatcher;
 
-		protected:
-			virtual void on_state_changed() = 0;
-			virtual void on_stats_changed() = 0;
-			virtual void on_limit_reached() = 0;
-			virtual void on_thread_exception(const exception_t& exception) = 0;
+        protected:
+            virtual void on_state_changed() = 0;
+            virtual void on_stats_changed() = 0;
+            virtual void on_limit_reached() = 0;
+            virtual void on_thread_exception(const exception_t& exception) = 0;
 
-	}; /* dispatcher_listener */
+    }; /* dispatcher_listener */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */
 

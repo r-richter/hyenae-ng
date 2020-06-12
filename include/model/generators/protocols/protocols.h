@@ -31,39 +31,39 @@
 
 namespace hyenae::model::generators::protocols
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	typedef struct octet
-	{
-		byte_t byte;
+    typedef struct octet
+    {
+        byte_t byte;
 
-	} octet_t;
+    } octet_t;
 
-	typedef struct hextet
-	{
-		byte_t bytes[2];
+    typedef struct hextet
+    {
+        byte_t bytes[2];
 
-	} hextet_t;
+    } hextet_t;
 
-	typedef struct mac_address
-	{
-		octet_t octets[6];
+    typedef struct mac_address
+    {
+        octet_t octets[6];
 
-	} mac_address_t;
+    } mac_address_t;
 
-	typedef struct ipv4_address
-	{
-		octet_t octets[4];
+    typedef struct ipv4_address
+    {
+        octet_t octets[4];
 
-	} ipv4_address_t;
+    } ipv4_address_t;
 
-	typedef struct ipv6_address
-	{
-		hextet_t hextets[8];
+    typedef struct ipv6_address
+    {
+        hextet_t hextets[8];
 
-	} ipv6_address_t;
+    } ipv6_address_t;
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::generators::protocols */
 

@@ -31,18 +31,18 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class data_transformation
-	{
-		public:
-			virtual ~data_transformation() {};
-			virtual size_t result_size(size_t data_size) const = 0;
-			virtual byte_t* transform(byte_t* data, size_t size) const = 0;
+    class data_transformation
+    {
+        public:
+            virtual ~data_transformation() {};
+            virtual size_t result_size(size_t data_size) const = 0;
+            virtual byte_t* transform(byte_t* data, size_t size) const = 0;
 
-	}; /* data_transformation */
+    }; /* data_transformation */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */
 

@@ -33,43 +33,43 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class text_buffer_setup :
-		public generator_setup
-	{
-		using string_generator_t = model::generators::string_generator;
+    class text_buffer_setup :
+        public generator_setup
+    {
+        using string_generator_t = model::generators::string_generator;
 
-		private:
-			console_menu* _menu = NULL;
-			console_menu::item* _text_item = NULL;
-			console_menu::item* _back_item = NULL;
-			data_generator_t* _generator = NULL;
-			string_t _text;
+        private:
+            console_menu* _menu = NULL;
+            console_menu::item* _text_item = NULL;
+            console_menu::item* _back_item = NULL;
+            data_generator_t* _generator = NULL;
+            string_t _text;
 
-		public:
-			text_buffer_setup(
-				console_app_state_context* context,
-				console_io* console_io,
-				console_app_state* parent);
+        public:
+            text_buffer_setup(
+                console_app_state_context* context,
+                console_io* console_io,
+                console_app_state* parent);
 
-			~text_buffer_setup();
-			bool run();
-			string_t get_generator_name() const;
-			data_generator_t* get_generator() const;
-			void update_generator();
+            ~text_buffer_setup();
+            bool run();
+            string_t get_generator_name() const;
+            data_generator_t* get_generator() const;
+            void update_generator();
 
-		protected:
-			void on_select() {};
+        protected:
+            void on_select() {};
 
-		private:
-			void update_menu_items();
-			void prompt_text();
-			void update_generator(string_t text);
+        private:
+            void update_menu_items();
+            void prompt_text();
+            void update_generator(string_t text);
 
-	}; /* text_buffer_setup */
+    }; /* text_buffer_setup */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 

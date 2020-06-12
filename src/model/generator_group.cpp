@@ -31,119 +31,119 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	size_t generator_group::generator_count() const
-	{
-		return _generators.size();
+    size_t generator_group::generator_count() const
+    {
+        return _generators.size();
 
-	} /* generator_count */
+    } /* generator_count */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	data_generator* generator_group::generator_at(const size_t pos) const
-	{
-		return _generators.at(pos);
+    data_generator* generator_group::generator_at(const size_t pos) const
+    {
+        return _generators.at(pos);
 
-	} /* generator_at */
+    } /* generator_at */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void generator_group::add_generator(data_generator* generator)
-	{
-		_generators.push_back(generator);
-		generator->add_listener(this);
+    void generator_group::add_generator(data_generator* generator)
+    {
+        _generators.push_back(generator);
+        generator->add_listener(this);
 
-	} /* add_generator */
+    } /* add_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void generator_group::remove_generator_at(const size_t pos)
-	{
-		assert::in_range(pos < _generators.size(), "pos");
+    void generator_group::remove_generator_at(const size_t pos)
+    {
+        assert::in_range(pos < _generators.size(), "pos");
 
-		_generators[pos]->remove_listener(this);
-		_generators.erase(_generators.begin() + pos);
+        _generators[pos]->remove_listener(this);
+        _generators.erase(_generators.begin() + pos);
 
-	} /* remove_generator_at */
+    } /* remove_generator_at */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void generator_group::next(bool data_changed)
-	{
-		for (auto generator : _generators)
-		{
-			generator->next(false);
-		}
+    void generator_group::next(bool data_changed)
+    {
+        for (auto generator : _generators)
+        {
+            generator->next(false);
+        }
 
-		if (data_changed)
-		{
-			this->data_changed();
-		}
+        if (data_changed)
+        {
+            this->data_changed();
+        }
 
-	} /* next */
+    } /* next */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void generator_group::reset(bool data_changed)
-	{
-		for (auto generator : _generators)
-		{
-			generator->reset(false);
-		}
+    void generator_group::reset(bool data_changed)
+    {
+        for (auto generator : _generators)
+        {
+            generator->reset(false);
+        }
 
-		if (data_changed)
-		{
-			this->data_changed();
-		}
+        if (data_changed)
+        {
+            this->data_changed();
+        }
 
-	} /* reset */
+    } /* reset */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	size_t generator_group::data_size() const
-	{
-		size_t size = 0;
+    size_t generator_group::data_size() const
+    {
+        size_t size = 0;
 
-		for (auto generator : _generators)
-		{
-			size += generator->size();
-		}
+        for (auto generator : _generators)
+        {
+            size += generator->size();
+        }
 
-		return size;
+        return size;
 
-	} /* data_size */
+    } /* data_size */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	byte_t* generator_group::data_to_buffer(byte_t* buffer, size_t size) const
-	{
-		size_t pos = 0;
-		size_t data_size = 0;
+    byte_t* generator_group::data_to_buffer(byte_t* buffer, size_t size) const
+    {
+        size_t pos = 0;
+        size_t data_size = 0;
 
-		assert::argument_not_null(buffer, "buffer");
-		assert::no_overflow(size >= this->data_size());
+        assert::argument_not_null(buffer, "buffer");
+        assert::no_overflow(size >= this->data_size());
 
-		for (auto generator : _generators)
-		{
-			data_size = generator->size();
+        for (auto generator : _generators)
+        {
+            data_size = generator->size();
 
-			generator->to_buffer(buffer + pos, data_size);
-			pos += data_size;
-		}
+            generator->to_buffer(buffer + pos, data_size);
+            pos += data_size;
+        }
 
-		return buffer;
+        return buffer;
 
-	} /* data_to_buffer */
+    } /* data_to_buffer */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void generator_group::on_data_changed()
-	{
-		data_changed();
+    void generator_group::on_data_changed()
+    {
+        data_changed();
 
-	} /* on_data_changed */
+    } /* on_data_changed */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */

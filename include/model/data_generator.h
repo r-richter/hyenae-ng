@@ -33,37 +33,37 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class data_generator :
-		public observable<generator_listener>
-	{
-		private:
-			vector_t<data_transformation*> _transformations;
+    class data_generator :
+        public observable<generator_listener>
+    {
+        private:
+            vector_t<data_transformation*> _transformations;
 
-		public:
-			virtual ~data_generator() {}
-			size_t transformation_count() const;
-			data_transformation* transformation_at(const size_t pos) const;
-			void add_transformation(data_transformation* transformation);
-			void remove_transformation_at(const size_t pos);
-			size_t size() const;
-			virtual void next(bool data_changed = true) = 0;
-			virtual void reset(bool data_changed = true) = 0;
-			byte_t* to_buffer(byte_t* buffer, size_t size) const;
+        public:
+            virtual ~data_generator() {}
+            size_t transformation_count() const;
+            data_transformation* transformation_at(const size_t pos) const;
+            void add_transformation(data_transformation* transformation);
+            void remove_transformation_at(const size_t pos);
+            size_t size() const;
+            virtual void next(bool data_changed = true) = 0;
+            virtual void reset(bool data_changed = true) = 0;
+            byte_t* to_buffer(byte_t* buffer, size_t size) const;
 
-		protected:
-			virtual size_t data_size() const = 0;
+        protected:
+            virtual size_t data_size() const = 0;
 
-			virtual byte_t* data_to_buffer(
-				byte_t* buffer, size_t size) const = 0;
+            virtual byte_t* data_to_buffer(
+                byte_t* buffer, size_t size) const = 0;
 
-		protected:
-			void data_changed();
+        protected:
+            void data_changed();
 
-	}; /* data_generator */
+    }; /* data_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */
 

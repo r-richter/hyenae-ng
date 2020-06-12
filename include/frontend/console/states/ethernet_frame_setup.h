@@ -34,67 +34,67 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class generator_selector;
+    class generator_selector;
 
-	class ethernet_frame_setup :
-		public generator_setup
-	{
-		using address_generator_t =
-			model::generators::protocols::address_generator;
+    class ethernet_frame_setup :
+        public generator_setup
+    {
+        using address_generator_t =
+            model::generators::protocols::address_generator;
 
-		using ethernet_frame_generator_t =
-			model::generators::protocols::ethernet_frame_generator;
+        using ethernet_frame_generator_t =
+            model::generators::protocols::ethernet_frame_generator;
 
-		private:
-			console_menu* _menu = NULL;
-			console_menu::item* _add_preamble_sfd_item = NULL;
-			console_menu::item* _src_mac_pattern_item = NULL;
-			console_menu::item* _dst_mac_pattern_item = NULL;
-			console_menu::item* _type_item = NULL;
-			console_menu::item* _add_fcs_item = NULL;
-			console_menu::item* _payload_item = NULL;
-			console_menu::item* _back_item = NULL;
-			data_generator_t* _generator = NULL;
-			bool _add_preamble_sfd;
-			string_t _src_mac_pattern;
-			string_t _dst_mac_pattern;
-			uint16_t _type;
-			bool _add_fcs;
-			generator_selector* _payload = NULL;
+        private:
+            console_menu* _menu = NULL;
+            console_menu::item* _add_preamble_sfd_item = NULL;
+            console_menu::item* _src_mac_pattern_item = NULL;
+            console_menu::item* _dst_mac_pattern_item = NULL;
+            console_menu::item* _type_item = NULL;
+            console_menu::item* _add_fcs_item = NULL;
+            console_menu::item* _payload_item = NULL;
+            console_menu::item* _back_item = NULL;
+            data_generator_t* _generator = NULL;
+            bool _add_preamble_sfd;
+            string_t _src_mac_pattern;
+            string_t _dst_mac_pattern;
+            uint16_t _type;
+            bool _add_fcs;
+            generator_selector* _payload = NULL;
 
-		public:
-			ethernet_frame_setup(
-				console_app_state_context* context,
-				console_io* console_io,
-				console_app_state* parent);
+        public:
+            ethernet_frame_setup(
+                console_app_state_context* context,
+                console_io* console_io,
+                console_app_state* parent);
 
-			~ethernet_frame_setup();
-			bool run();
-			uint16_t get_type() const;
-			void set_type(uint16_t type);
-			string_t get_generator_name() const;
-			data_generator_t* get_generator() const;
-			void update_generator();
+            ~ethernet_frame_setup();
+            bool run();
+            uint16_t get_type() const;
+            void set_type(uint16_t type);
+            string_t get_generator_name() const;
+            data_generator_t* get_generator() const;
+            void update_generator();
 
-		protected:
-			void on_select() {};
+        protected:
+            void on_select() {};
 
-		private:
-			void update_menu_items();
-			void prompt_add_preamble_sfd();
-			void prompt_src_mac_pattern();
-			void prompt_dst_mac_pattern();
-			void prompt_add_fcs();
-			void prompt_type();
-			
-			void update_generator(
-				string_t src_mac_pattern, string_t dst_mac_pattern);
+        private:
+            void update_menu_items();
+            void prompt_add_preamble_sfd();
+            void prompt_src_mac_pattern();
+            void prompt_dst_mac_pattern();
+            void prompt_add_fcs();
+            void prompt_type();
+            
+            void update_generator(
+                string_t src_mac_pattern, string_t dst_mac_pattern);
 
-	}; /* ethernet_frame_setup */
+    }; /* ethernet_frame_setup */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 

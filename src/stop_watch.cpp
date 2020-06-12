@@ -28,67 +28,67 @@
 
 namespace hyenae
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	stop_watch::stop_watch()
-	{
-		reset();
+    stop_watch::stop_watch()
+    {
+        reset();
 
-	} /* stop_watch */
+    } /* stop_watch */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	duration_t stop_watch::get_time_passed() const
-	{
-		duration_t now = duration_t{ 0 };
+    duration_t stop_watch::get_time_passed() const
+    {
+        duration_t now = duration_t{ 0 };
 
-		if (_started_at != duration_t{ 0 })
-		{
-			if (_stopped_at != duration_t{ 0 })
-			{
-				now = _stopped_at;
-			}
-			else
-			{
-				now = clock_t::now().time_since_epoch();
-			}
+        if (_started_at != duration_t{ 0 })
+        {
+            if (_stopped_at != duration_t{ 0 })
+            {
+                now = _stopped_at;
+            }
+            else
+            {
+                now = clock_t::now().time_since_epoch();
+            }
 
-			return now - _started_at;
-		}
-		
-		return duration_t{ 0 };
+            return now - _started_at;
+        }
+        
+        return duration_t{ 0 };
 
-	} /* get_time_passed */
+    } /* get_time_passed */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void stop_watch::start()
-	{
-		_started_at = clock_t::now().time_since_epoch();
-		_stopped_at = duration_t{ 0 };
+    void stop_watch::start()
+    {
+        _started_at = clock_t::now().time_since_epoch();
+        _stopped_at = duration_t{ 0 };
 
-	} /* start */
+    } /* start */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void stop_watch::stop()
-	{
-		if (_started_at != duration_t{ 0 })
-		{
-			_stopped_at = clock_t::now().time_since_epoch();
-		}
+    void stop_watch::stop()
+    {
+        if (_started_at != duration_t{ 0 })
+        {
+            _stopped_at = clock_t::now().time_since_epoch();
+        }
 
-	} /* stop */
+    } /* stop */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void stop_watch::reset()
-	{
-		_started_at = duration_t{ 0 };
-		_stopped_at = duration_t{ 0 };
+    void stop_watch::reset()
+    {
+        _started_at = duration_t{ 0 };
+        _stopped_at = duration_t{ 0 };
 
-	} /* reset */
+    } /* reset */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae */

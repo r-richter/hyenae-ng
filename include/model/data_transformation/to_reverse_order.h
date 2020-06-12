@@ -31,22 +31,22 @@
 
 namespace hyenae::model::data_transformations
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	class to_reverse_order :
-		public data_transformation
-	{
-		private:
-			static to_reverse_order* _instance;
+    class to_reverse_order :
+        public data_transformation
+    {
+        private:
+            static to_reverse_order* _instance;
 
-		public:
-			static to_reverse_order* get_instance();
-			size_t result_size(size_t data_size) const;
-			byte_t* transform(byte_t* data, size_t size) const;
+        public:
+            static to_reverse_order* get_instance();
+            size_t result_size(size_t data_size) const;
+            byte_t* transform(byte_t* data, size_t size) const;
 
-	}; /* to_reverse_order */
+    }; /* to_reverse_order */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::data_transformations */
 

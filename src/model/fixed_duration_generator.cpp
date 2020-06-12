@@ -28,30 +28,30 @@
 
 namespace hyenae::model
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	fixed_duration_generator::fixed_duration_generator(duration_t duration)
-	{
-		_duration = duration;
+    fixed_duration_generator::fixed_duration_generator(duration_t duration)
+    {
+        _duration = duration;
 
-	} /* fixed_duration_generator */
+    } /* fixed_duration_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	duration_t fixed_duration_generator::get_duration() const
-	{
-		return _duration;
+    duration_t fixed_duration_generator::get_duration() const
+    {
+        return _duration;
 
-	} /* get_duration */
+    } /* get_duration */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	duration_t fixed_duration_generator::next()
-	{
-		return _duration;
+    duration_t fixed_duration_generator::next()
+    {
+        return _duration;
 
-	} /* next */
+    } /* next */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model */

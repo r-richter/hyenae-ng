@@ -29,7 +29,7 @@
 
 namespace hyenae::frontend::console::states
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
     ip_frame_setup::ip_frame_setup(
         console_app_state_context* context,
@@ -44,8 +44,8 @@ namespace hyenae::frontend::console::states
         _ethernet_frame_setup = ethernet_frame_setup;
 
     } /* ip_frame_setup */
-	
-	/*---------------------------------------------------------------------- */
+    
+    /*---------------------------------------------------------------------- */
 
     ethernet_frame_setup* ip_frame_setup::get_ethernet_frame_setup() const
     {

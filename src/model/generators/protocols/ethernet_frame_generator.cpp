@@ -29,136 +29,136 @@
 
 namespace hyenae::model::generators::protocols
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	ethernet_frame_generator::ethernet_frame_generator(
-		bool add_preamble_sfd,
-		const string_t& src_mac_pattern,
-		const string_t& dst_mac_pattern,
-		uint16_t type,
-		bool add_fcs)
-	{
-		_to_crc32_checksum = new data_transformations::to_crc32_checksum(
-			data_transformations::to_crc32_checksum::POLYNOMIAL_ETHERNET);
+    ethernet_frame_generator::ethernet_frame_generator(
+        bool add_preamble_sfd,
+        const string_t& src_mac_pattern,
+        const string_t& dst_mac_pattern,
+        uint16_t type,
+        bool add_fcs)
+    {
+        _to_crc32_checksum = new data_transformations::to_crc32_checksum(
+            data_transformations::to_crc32_checksum::POLYNOMIAL_ETHERNET);
 
-		// Preamble & SFD
-		if (add_preamble_sfd)
-		{
-			_preamble_sfd = new fixed_data_generator(PREAMBLE_SFD);
-			_packet.add_generator(_preamble_sfd);
-		}
-		
-		// Source MAC
-		_src_mac_addr = address_generator::create_mac_address(
-			src_mac_pattern, to_network_order_t::get_instance());
-		_packet.add_generator(_src_mac_addr);
-		
-		// Destination MAC
-		_dst_mac_addr = address_generator::create_mac_address(
-			dst_mac_pattern, to_network_order_t::get_instance());
-		_packet.add_generator(_dst_mac_addr);
+        // Preamble & SFD
+        if (add_preamble_sfd)
+        {
+            _preamble_sfd = new fixed_data_generator(PREAMBLE_SFD);
+            _packet.add_generator(_preamble_sfd);
+        }
+        
+        // Source MAC
+        _src_mac_addr = address_generator::create_mac_address(
+            src_mac_pattern, to_network_order_t::get_instance());
+        _packet.add_generator(_src_mac_addr);
+        
+        // Destination MAC
+        _dst_mac_addr = address_generator::create_mac_address(
+            dst_mac_pattern, to_network_order_t::get_instance());
+        _packet.add_generator(_dst_mac_addr);
 
-		// Type
-		_type = new fixed_data_generator(type);
-		_type->add_transformation(to_network_order_t::get_instance());
-		_packet.add_generator(_type);
+        // Type
+        _type = new fixed_data_generator(type);
+        _type->add_transformation(to_network_order_t::get_instance());
+        _packet.add_generator(_type);
 
-		// Payload
-		_packet.add_generator(&_payload);
-		
-		// FCS
-		// Network order transformation does not have to be applied to the
-		// checksum since the checksum itself is computed over the already
-		// transformed data fields.
-		if (add_fcs)
-		{
-			_fcs = new generator_group();
-			_fcs->add_transformation(_to_crc32_checksum);
-			_packet.add_generator(_fcs);
+        // Payload
+        _packet.add_generator(&_payload);
+        
+        // FCS
+        // Network order transformation does not have to be applied to the
+        // checksum since the checksum itself is computed over the already
+        // transformed data fields.
+        if (add_fcs)
+        {
+            _fcs = new generator_group();
+            _fcs->add_transformation(_to_crc32_checksum);
+            _packet.add_generator(_fcs);
 
-			// FCS targets
+            // FCS targets
 
-			if (add_preamble_sfd)
-			{
-				_fcs->add_generator(_preamble_sfd);
-			}
+            if (add_preamble_sfd)
+            {
+                _fcs->add_generator(_preamble_sfd);
+            }
 
-			_fcs->add_generator(_src_mac_addr);
-			_fcs->add_generator(_dst_mac_addr);
-			_fcs->add_generator(_type);
-			_fcs->add_generator(&_payload);
-		}
+            _fcs->add_generator(_src_mac_addr);
+            _fcs->add_generator(_dst_mac_addr);
+            _fcs->add_generator(_type);
+            _fcs->add_generator(&_payload);
+        }
 
-	} /* ethernet_frame_generator */
+    } /* ethernet_frame_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	ethernet_frame_generator::~ethernet_frame_generator()
-	{
-		safe_delete(_preamble_sfd);
-		safe_delete(_to_crc32_checksum);
-		safe_delete(_src_mac_addr);
-		safe_delete(_dst_mac_addr);
-		safe_delete(_type);
-		safe_delete(_fcs);
+    ethernet_frame_generator::~ethernet_frame_generator()
+    {
+        safe_delete(_preamble_sfd);
+        safe_delete(_to_crc32_checksum);
+        safe_delete(_src_mac_addr);
+        safe_delete(_dst_mac_addr);
+        safe_delete(_type);
+        safe_delete(_fcs);
 
-	} /* ~ethernet_frame_generator */
+    } /* ~ethernet_frame_generator */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void ethernet_frame_generator::next(bool data_changed)
-	{
-		_src_mac_addr->next(false);
-		_dst_mac_addr->next(false);
-		_payload.next();
+    void ethernet_frame_generator::next(bool data_changed)
+    {
+        _src_mac_addr->next(false);
+        _dst_mac_addr->next(false);
+        _payload.next();
 
-		if (data_changed)
-		{
-			this->data_changed();
-		}
+        if (data_changed)
+        {
+            this->data_changed();
+        }
 
-	} /* next */
+    } /* next */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	void ethernet_frame_generator::reset(bool data_changed)
-	{
-		_src_mac_addr->reset(false);
-		_dst_mac_addr->reset(false);
-		_payload.next();
+    void ethernet_frame_generator::reset(bool data_changed)
+    {
+        _src_mac_addr->reset(false);
+        _dst_mac_addr->reset(false);
+        _payload.next();
 
-		if (data_changed)
-		{
-			this->data_changed();
-		}
+        if (data_changed)
+        {
+            this->data_changed();
+        }
 
-	} /* reset */
+    } /* reset */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	generator_group* ethernet_frame_generator::get_payload()
-	{
-		return &_payload;
+    generator_group* ethernet_frame_generator::get_payload()
+    {
+        return &_payload;
 
-	} /* get_payload */
+    } /* get_payload */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	size_t ethernet_frame_generator::data_size() const
-	{
-		return _packet.size();
+    size_t ethernet_frame_generator::data_size() const
+    {
+        return _packet.size();
 
-	} /* data_size */
+    } /* data_size */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	byte_t* ethernet_frame_generator::data_to_buffer(
-		byte_t* buffer, size_t size) const
-	{
-		return _packet.to_buffer(buffer, size);
+    byte_t* ethernet_frame_generator::data_to_buffer(
+        byte_t* buffer, size_t size) const
+    {
+        return _packet.to_buffer(buffer, size);
 
-	} /* data_to_buffer */
+    } /* data_to_buffer */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::generators::protocols */

@@ -28,30 +28,30 @@
 
 namespace hyenae
 {
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	bool endian::is_big_endian()
-	{
-		return (0xFFFFFFFF & 1) == 0x01000000;
+    bool endian::is_big_endian()
+    {
+        return (0xFFFFFFFF & 1) == 0x01000000;
 
-	} /* is_big_endian */
+    } /* is_big_endian */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	bool endian::is_little_endian()
-	{
-		return (0xFFFFFFFF & 1) == 0x00000001;
+    bool endian::is_little_endian()
+    {
+        return (0xFFFFFFFF & 1) == 0x00000001;
 
-	} /* is_little_endian */
+    } /* is_little_endian */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
-	bool endian::is_unknown_endianess()
-	{
-		return !is_big_endian() && !is_little_endian();
+    bool endian::is_unknown_endianess()
+    {
+        return !is_big_endian() && !is_little_endian();
 
-	} /* is_unknown_endianess */
+    } /* is_unknown_endianess */
 
-	/*---------------------------------------------------------------------- */
+    /*---------------------------------------------------------------------- */
 
 }/* hyenae */
