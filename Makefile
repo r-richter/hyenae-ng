@@ -28,49 +28,49 @@ CXX = g++
 CXXFLAGS = -std=c++17 -g -Wall
 
 ifeq ($(OS),Windows_NT)
-    LIBS=-l wpcap
+	LIBS=-l wpcap
 else
-    LIBS=-l pcap -l pthread
+	LIBS=-l pcap -l pthread
 endif
 
 all :\
-    common.o\
-    model.o\
-    model_data_transformations.o\
-    model_generators.o\
-    model_generators_protocols.o\
-    model_outputs.o\
-    console_io.o\
-    console_states.o\
-    console.o
-    $(CXX) $(CXXFLAGS) -o $(APP) ./*.o $(LIBS)
+	common.o\
+	model.o\
+	model_data_transformations.o\
+	model_generators.o\
+	model_generators_protocols.o\
+	model_outputs.o\
+	console_io.o\
+	console_states.o\
+	console.o
+	$(CXX) $(CXXFLAGS) -o $(APP) ./*.o $(LIBS)
 
 common.o:
-    $(CXX) $(CXXFLAGS) -c ./src/*.cpp
+	$(CXX) $(CXXFLAGS) -c ./src/*.cpp
 
 model.o:
-    $(CXX) $(CXXFLAGS) -c ./src/model/*.cpp
+	$(CXX) $(CXXFLAGS) -c ./src/model/*.cpp
 
 model_data_transformations.o:
-    $(CXX) $(CXXFLAGS) -c ./src/model/data_transformations/*.cpp
+	$(CXX) $(CXXFLAGS) -c ./src/model/data_transformations/*.cpp
 
 model_generators.o:
-    $(CXX) $(CXXFLAGS) -c ./src/model/generators/*.cpp
+	$(CXX) $(CXXFLAGS) -c ./src/model/generators/*.cpp
 
 model_generators_protocols.o:
-    $(CXX) $(CXXFLAGS) -c ./src/model/generators/protocols/*.cpp
+	$(CXX) $(CXXFLAGS) -c ./src/model/generators/protocols/*.cpp
 
 model_outputs.o:
-    $(CXX) $(CXXFLAGS) -c ./src/model/outputs/*.cpp
+	$(CXX) $(CXXFLAGS) -c ./src/model/outputs/*.cpp
 
 console_io.o:
-    $(CXX) $(CXXFLAGS) -c ./src/frontend/console/io/*.cpp
+	$(CXX) $(CXXFLAGS) -c ./src/frontend/console/io/*.cpp
 
 console_states.o:
-    $(CXX) $(CXXFLAGS) -c ./src/frontend/console/states/*.cpp
+	$(CXX) $(CXXFLAGS) -c ./src/frontend/console/states/*.cpp
 
 console.o:
-    $(CXX) $(CXXFLAGS) -c ./src/frontend/console/*.cpp
+	$(CXX) $(CXXFLAGS) -c ./src/frontend/console/*.cpp
 
 clean:
-    rm -f *.o $(APP) $(APP).exe
+	rm -f *.o $(APP) $(APP).exe
