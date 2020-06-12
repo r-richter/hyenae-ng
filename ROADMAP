@@ -25,7 +25,7 @@
    [*] Ethernet-Frame generator
    [*] IPv4-Frame generator
    [*] IPv6-Frame generator
-   [X] UDP-Frame generator
+   [*] UDP-Frame generator
    [X] TCP-Frame generator
 
 --------------------------------------------------------------------------------
