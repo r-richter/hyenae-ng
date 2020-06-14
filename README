@@ -1,0 +1,67 @@
+--------------------------------------------------------------------------------
+
+                                Hyenae NG
+
+                                  Readme
+
+--------------------------------------------------------------------------------
+
+  1. About Hyenae NG
+
+  Hyenae NG (Next Generation) is a re-write of the original Hyenae tool which
+  was originally published back in the year 2010.
+
+  Besides switching from C to C++, using modern design concepts, Hyenae NG was
+  (just like the original Hyenae) written with maximum portability in mind.
+  Since the original Hyenae had a very complex command line syntax Hyenae NG
+  comes with a fast and intuitively usable command line menu that will allow
+  you to effectively set up even complex stress-tests or attacks scenarios
+  within seconds. 
+
+--------------------------------------------------------------------------------
+
+ 2. Basic Usage
+
+ Once you start Hyenae NG, it will enter the main menu state. From here you can
+ set up your desired output, generator and dispatcher configuration.
+
+   2.1 Output Setup
+ 
+   The output setup let you choose from several different output option. You can
+   either have Hyenae NG's output ignore by selecting "No Output" our you can
+   have it send to either a file or a network adapter. Once you have selected
+   an output, you can enter it's sub setup by selecting it again by either
+   entering it's menu item number again or by simply pressing enter. Outputs
+   that have a sub-setup are marked with a (...) once they are selected.
+
+   2.2 Generator Setup
+
+   The generator setup let you chose from several different generators. Most
+   generators feature a payload option for which you can select another
+   generator and so on. Since network frame generators are nested in transport
+   layers, their available payload generators will differ based on the
+   previously chosen frame generator. Here is an example of a typical
+   payload nesting for an ethernet packet:
+
+     Ethernet +-> IPv4 +-> TCP
+               |        +-> UDP
+               |
+               +-> IPv6 +-> TCP
+                        +-> UPD
+
+   2.3 Dispatcher Setup
+
+   The dispatcher setup will let you set up the actual data dispatcher. You can
+   define stop-limits or configure a fixed or random send delay in order to
+   break flood detection mechanisms on your target system.
+
+   2.4 Start Dispatcher
+
+   Once you have set a generator, you can choose this option to start up the
+   dispatcher and start sending packets. If you haven't set a generator yet, 
+   an error message will be shown instead. The dispatcher will operate until
+   either a stop-limit (if set) is reached or the user presses any key. After
+   the dispatcher has stopped you can either return to the main menu by entering
+   0 or start it again by either entering 1 or simply pressing enter.
+
+--------------------------------------------------------------------------------
