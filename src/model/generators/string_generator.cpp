@@ -99,7 +99,7 @@ namespace hyenae::model::generators
                 assert::in_range(false, "encoding", "unknown encoding");
         }
 
-        return ((size_t)-1);
+        return SIZE_NONE;
 
     } /* char_size */
 

@@ -333,7 +333,11 @@ namespace hyenae::frontend::console
     /*---------------------------------------------------------------------- */
 
     int64_t console_io::prompt(
-        int64_t min_value, int64_t max_value, string_t prompt, string_t hint)
+        int64_t min_value,
+        int64_t max_value,
+        string_t prompt,
+        string_t hint,
+        size_t default_choice)
     {
         string_t input;
         int64_t result = 0;
@@ -347,9 +351,16 @@ namespace hyenae::frontend::console
 
                 input = in();
 
-                result = std::stoll(input);
+                if (input == "" && default_choice != SIZE_NONE)
+                {
+                    result = (int64_t) default_choice;
+                }
+                else
+                {
+                    result = std::stoll(input);
 
-                assert::in_range(result >= min_value && result <= max_value);
+                    assert::in_range(result >= min_value && result <= max_value);
+                }
 
                 success = true;
             }
