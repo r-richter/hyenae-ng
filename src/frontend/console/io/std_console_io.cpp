@@ -101,6 +101,7 @@ namespace hyenae::frontend::console::io
             {
                 // Prevent overhang input such as when
                 // return is pressed.
+
                 getchar();
             }
         #endif
