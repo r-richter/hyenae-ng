@@ -97,10 +97,18 @@ namespace hyenae::frontend::console::io
             int bytes_waiting;
             ioctl(STDIN, FIONREAD, &bytes_waiting);
 
-            // TODO: Prevent overhang input...
-
-            result = bytes_waiting;
+            if ((result = bytes_waiting))
+            {
+                // Prevent overhang input such as when
+                // return is pressed.
+                getchar();
+            }
         #endif
+
+        // Flush io streams to make this method safe
+        // be called from a loop.
+        fflush(stdout);
+        fflush(stdin);
 
         return result;
 
