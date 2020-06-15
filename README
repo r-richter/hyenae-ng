@@ -44,7 +44,7 @@
    payload nesting for an ethernet packet:
 
      Ethernet +-> IPv4 +-> TCP
-               |        +-> UDP
+               |       +-> UDP
                |
                +-> IPv6 +-> TCP
                         +-> UPD
