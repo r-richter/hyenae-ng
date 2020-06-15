@@ -4,8 +4,8 @@
  *
  * Copyright (C) 2020 Robin Richter
  *
- *   Contact  : richterr@users.sourceforge.net
- *   Homepage : http://sourceforge.net/projects/hyenae-ng/
+ *   Contact  : hyenae.tool@googlemail.com
+ *   Homepage : https://github.com/r-richter/hyenae-ng
  *
  * This file is part of Hyenae NG.
  *
@@ -24,21 +24,23 @@
  *
  */
 
-#ifndef IPV6_FRAME_SETUP_H
-#define IPV6_FRAME_SETUP_H
+#ifndef IP_V6_FRAME_SETUP_H
+#define IP_V6_FRAME_SETUP_H
 
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/states/ip_frame_setup.h"
 #include "../../../../include/frontend/console/states/generator_selector.h"
 #include "../../../../include/frontend/console/states/ethernet_frame_setup.h"
 #include "../../../../include/model/generators/protocols/ethernet_frame_generator.h"
-#include "../../../../include/model/generators/protocols/ipv6_frame_generator.h"
+#include "../../../../include/model/generators/protocols/ip_v6_frame_generator.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    class ipv6_frame_setup :
+    class generator_selector;
+
+    class ip_v6_frame_setup :
         public ip_frame_setup
     {
         using address_generator_t =
@@ -47,8 +49,8 @@ namespace hyenae::frontend::console::states
         using ethernet_frame_generator_t =
             model::generators::protocols::ethernet_frame_generator;
 
-        using ipv6_frame_generator_t =
-            model::generators::protocols::ipv6_frame_generator;
+        using ip_v6_frame_generator_t =
+            model::generators::protocols::ip_v6_frame_generator;
 
         private:
             console_menu* _menu = NULL;
@@ -70,13 +72,13 @@ namespace hyenae::frontend::console::states
             generator_selector* _payload = NULL;
 
         public:
-            ipv6_frame_setup(
+            ip_v6_frame_setup(
                 console_app_state_context* context,
                 console_io* console_io,
                 console_app_state* parent,
                 ethernet_frame_setup* ethernet_frame_setup);
 
-            ~ipv6_frame_setup();
+            ~ip_v6_frame_setup();
             bool run();
             uint8_t get_protocol() const;
             void set_protocol(uint8_t protocol);
@@ -102,10 +104,10 @@ namespace hyenae::frontend::console::states
                 string_t src_ip_pattern,
                 string_t dst_ip_pattern);
 
-    }; /* ipv6_frame_setup */
+    }; /* ip_v6_frame_setup */
 
     /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 
-#endif /* IPV6_FRAME_SETUP_H */
+#endif /* IP_V6_FRAME_SETUP_H */

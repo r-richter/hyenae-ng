@@ -4,8 +4,8 @@
  *
  * Copyright (C) 2020 Robin Richter
  *
- *   Contact  : richterr@users.sourceforge.net
- *   Homepage : http://sourceforge.net/projects/hyenae-ng/
+ *   Contact  : hyenae.tool@googlemail.com
+ *   Homepage : https://github.com/r-richter/hyenae-ng
  *
  * This file is part of Hyenae NG.
  *
@@ -69,19 +69,19 @@ namespace hyenae::model::generators::protocols
                 const string_t& pattern = RAND_MAC_PATTERN,
                 data_transformation* field_transformation = NULL);
 
-            static address_generator* create_ipv4_address(
+            static address_generator* create_ip_v4_address(
                 const string_t& pattern = RAND_IP_V4_PATTERN,
                 data_transformation* field_transformation = NULL);
 
-            static address_generator* create_ipv6_address(
+            static address_generator* create_ip_v6_address(
                 const string_t& pattern = RAND_IP_V6_PATTERN,
                 data_transformation* field_transformation = NULL);
 
             void next(bool data_changed = true);
             void reset(bool data_changed = true);
             void to_mac_address(mac_address_t& result) const;
-            void to_ipv4_address(ipv4_address_t& result) const;
-            void to_ipv6_address(ipv6_address_t& result) const;
+            void to_ip_v4_address(ip_v4_address_t& result) const;
+            void to_ip_v6_address(ip_v6_address_t& result) const;
 
         protected:
             size_t data_size() const;

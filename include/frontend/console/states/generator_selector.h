@@ -4,8 +4,8 @@
  *
  * Copyright (C) 2020 Robin Richter
  *
- *   Contact  : richterr@users.sourceforge.net
- *   Homepage : http://sourceforge.net/projects/hyenae-ng/
+ *   Contact  : hyenae.tool@googlemail.com
+ *   Homepage : https://github.com/r-richter/hyenae-ng
  *
  * This file is part of Hyenae NG.
  *
@@ -24,21 +24,23 @@
  *
  */
 
-#ifndef GENERATOR_SELECTION_H
-#define GENERATOR_SELECTION_H
+#ifndef GENERATOR_SELECTOR_H
+#define GENERATOR_SELECTOR_H
 
 #include "../../../../include/model/data_generator.h"
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/states/generator_setup.h"
-#include "../../../../include/frontend/console/states/ethernet_frame_setup.h"
-#include "../../../../include/frontend/console/states/ip_frame_setup.h"
+
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
     class main_menu;
-    class ip_frame_setup;
+    class ip_v4_frame_setup;
+    class ip_v6_frame_setup;
+    class icmp_v4_frame_setup;
+    class icmp_v6_frame_setup;
     class ethernet_frame_setup;
 
     class generator_selector :
@@ -47,11 +49,17 @@ namespace hyenae::frontend::console::states
         private:
             /* Generator Flags */
             static const size_t GFLAG_ETHERNET_FRAME = 0x1 << 0;
-            static const size_t GFLAG_IPV4_FRAME = 0x1 << 1;
-            static const size_t GFLAG_IPV6_FRAME = 0x1 << 2;
-            static const size_t GFLAG_TCP_FRAME = 0x1 << 3;
-            static const size_t GFLAG_UDP_FRAME = 0x1 << 4;
-            static const size_t GFLAG_TEXT_BUFFER = 0x1 << 5;
+            static const size_t GFLAG_IP_V4_FRAME = 0x1 << 1;
+            static const size_t GFLAG_IP_V6_FRAME = 0x1 << 2;
+            static const size_t GFLAG_ICMP_V4_FRAME = 0x1 << 3;
+            static const size_t GFLAG_ICMP_V6_FRAME = 0x1 << 4;
+            static const size_t GFLAG_ICMP_V4_ECHO_PAYLOAD = 0x1 << 5;
+            static const size_t GFLAG_ICMP_V6_ECHO_PAYLOAD = 0x1 << 6;
+            static const size_t GFLAG_TCP_OVER_IP_V4_FRAME = 0x1 << 7;
+            static const size_t GFLAG_TCP_OVER_IP_V6_FRAME = 0x1 << 8;
+            static const size_t GFLAG_UDP_OVER_IP_V4_FRAME = 0x1 << 9;
+            static const size_t GFLAG_UDP_OVER_IP_V6_FRAME = 0x1 << 10;
+            static const size_t GFLAG_TEXT_BUFFER = 0x1 << 11;
 
             bool _init = false;
             string_t _title;
@@ -90,7 +98,25 @@ namespace hyenae::frontend::console::states
                 string_t title,
                 console_app_state_context* context,
                 console_io* console_io,
-                ip_frame_setup* parent);
+                ip_v4_frame_setup* parent);
+
+            generator_selector(
+                string_t title,
+                console_app_state_context* context,
+                console_io* console_io,
+                ip_v6_frame_setup* parent);
+
+            generator_selector(
+                string_t title,
+                console_app_state_context* context,
+                console_io* console_io,
+                icmp_v4_frame_setup* parent);
+
+            generator_selector(
+                string_t title,
+                console_app_state_context* context,
+                console_io* console_io,
+                icmp_v6_frame_setup* parent);
 
             ~generator_selector();
             bool run();
@@ -112,4 +138,4 @@ namespace hyenae::frontend::console::states
 
 } /* hyenae::frontend::console::states */
 
-#endif /* GENERATOR_SELECTION_H */
+#endif /* GENERATOR_SELECTOR_H */

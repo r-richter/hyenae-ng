@@ -4,8 +4,8 @@
  *
  * Copyright (C) 2020 Robin Richter
  *
- *   Contact  : richterr@users.sourceforge.net
- *   Homepage : http://sourceforge.net/projects/hyenae-ng/
+ *   Contact  : hyenae.tool@googlemail.com
+ *   Homepage : https://github.com/r-richter/hyenae-ng
  *
  * This file is part of Hyenae NG.
  *
@@ -26,8 +26,11 @@
 
 #include "../../../../include/frontend/console/states/generator_selector.h"
 #include "../../../../include/frontend/console/states/ethernet_frame_setup.h"
-#include "../../../../include/frontend/console/states/ipv4_frame_setup.h"
-#include "../../../../include/frontend/console/states/ipv6_frame_setup.h"
+#include "../../../../include/frontend/console/states/ip_v4_frame_setup.h"
+#include "../../../../include/frontend/console/states/ip_v6_frame_setup.h"
+#include "../../../../include/frontend/console/states/icmp_v4_frame_setup.h"
+#include "../../../../include/frontend/console/states/icmp_v6_frame_setup.h"
+#include "../../../../include/frontend/console/states/icmp_echo_payload_setup.h"
 #include "../../../../include/frontend/console/states/udp_frame_setup.h"
 #include "../../../../include/frontend/console/states/tcp_frame_setup.h"
 #include "../../../../include/frontend/console/states/text_buffer_setup.h"
@@ -79,8 +82,8 @@ namespace hyenae::frontend::console::states
         _title = title;
 
         _generator_flags =
-            GFLAG_IPV4_FRAME |
-            GFLAG_IPV6_FRAME |
+            GFLAG_IP_V4_FRAME |
+            GFLAG_IP_V6_FRAME |
             GFLAG_TEXT_BUFFER;
 
     } /* generator_selector */
@@ -91,16 +94,70 @@ namespace hyenae::frontend::console::states
         string_t title,
         console_app_state_context* context,
         console_io* console_io,
-        ip_frame_setup* parent) :
+        ip_v4_frame_setup* parent) :
             generator_setup(context, console_io, parent)
     {
         _title = title;
 
         _generator_flags =
-            GFLAG_TCP_FRAME |
-            GFLAG_UDP_FRAME |
+            GFLAG_ICMP_V4_FRAME |
+            GFLAG_TCP_OVER_IP_V4_FRAME |
+            GFLAG_UDP_OVER_IP_V4_FRAME |
             GFLAG_TEXT_BUFFER;
-    }
+
+    } /* generator_selector */
+
+    /*---------------------------------------------------------------------- */
+
+    generator_selector::generator_selector(
+        string_t title,
+        console_app_state_context* context,
+        console_io* console_io,
+        ip_v6_frame_setup* parent) :
+        generator_setup(context, console_io, parent)
+    {
+        _title = title;
+
+        _generator_flags =
+            GFLAG_ICMP_V4_FRAME |
+            GFLAG_ICMP_V6_FRAME |
+            GFLAG_TCP_OVER_IP_V6_FRAME |
+            GFLAG_UDP_OVER_IP_V6_FRAME |
+            GFLAG_TEXT_BUFFER;
+
+    } /* generator_selector */
+
+    /*---------------------------------------------------------------------- */
+
+    generator_selector::generator_selector(
+        string_t title,
+        console_app_state_context* context,
+        console_io* console_io,
+        icmp_v4_frame_setup* parent) :
+            generator_setup(context, console_io, parent)
+    {
+        _title = title;
+
+        _generator_flags =
+            GFLAG_ICMP_V4_ECHO_PAYLOAD;
+
+    } /* generator_selector */
+
+    /*---------------------------------------------------------------------- */
+
+    generator_selector::generator_selector(
+        string_t title,
+        console_app_state_context* context,
+        console_io* console_io,
+        icmp_v6_frame_setup* parent) :
+        generator_setup(context, console_io, parent)
+    {
+        _title = title;
+
+        _generator_flags =
+            GFLAG_ICMP_V6_ECHO_PAYLOAD;
+
+    } /* generator_selector */
 
     /*---------------------------------------------------------------------- */
 
@@ -218,6 +275,8 @@ namespace hyenae::frontend::console::states
 
     void generator_selector::inizialize()
     {
+        using namespace model::generators::protocols;
+
         _menu = new console_menu(get_console(), _title);
 
         // None
@@ -231,40 +290,108 @@ namespace hyenae::frontend::console::states
                 get_context(), get_console(), get_parent()));
         }
 
-        if (_generator_flags & GFLAG_IPV4_FRAME)
+        if (_generator_flags & GFLAG_IP_V4_FRAME)
         {
             // IPv4-Frame
-            add_generator(new ipv4_frame_setup(
+            add_generator(new ip_v4_frame_setup(
                 get_context(),
                 get_console(),
                 get_parent(),
                 (ethernet_frame_setup*) get_parent()));
         }
 
-        if (_generator_flags & GFLAG_IPV6_FRAME)
+        if (_generator_flags & GFLAG_IP_V6_FRAME)
         {
             // IPv6-Frame
-            add_generator(new ipv6_frame_setup(
+            add_generator(new ip_v6_frame_setup(
                 get_context(),
                 get_console(),
                 get_parent(),
                 (ethernet_frame_setup*)get_parent()));
         }
 
-        if (_generator_flags & GFLAG_TCP_FRAME)
+        if (_generator_flags & GFLAG_ICMP_V4_FRAME)
         {
-            // UDP-Frame
-            add_generator(new tcp_frame_setup(
+            // ICMPv4-Frame
+            add_generator(new icmp_v4_frame_setup(
                 get_context(),
                 get_console(),
                 get_parent(),
                 (ip_frame_setup*)get_parent()));
         }
 
-        if (_generator_flags & GFLAG_UDP_FRAME)
+        if (_generator_flags & GFLAG_ICMP_V6_FRAME)
         {
-            // UDP-Frame
+            // ICMPv6-Frame
+            add_generator(new icmp_v6_frame_setup(
+                get_context(),
+                get_console(),
+                get_parent(),
+                (ip_frame_setup*)get_parent()));
+        }
+
+        if (_generator_flags & GFLAG_ICMP_V4_ECHO_PAYLOAD)
+        {
+            // ICMPv4-Echo Payload
+            add_generator(new icmp_echo_payload_setup(
+                icmp_echo_payload_generator::ICMP_V4_TYPE,
+                icmp_echo_payload_generator::ICMP_V4_CODE,
+                get_context(),
+                get_console(),
+                get_parent(),
+                (icmp_frame_setup*)get_parent()));
+        }
+
+        if (_generator_flags & GFLAG_ICMP_V6_ECHO_PAYLOAD)
+        {
+            // ICMPv6-Echo Payload
+            add_generator(new icmp_echo_payload_setup(
+                icmp_echo_payload_generator::ICMP_V6_TYPE,
+                icmp_echo_payload_generator::ICMP_V6_CODE,
+                get_context(),
+                get_console(),
+                get_parent(),
+                (icmp_frame_setup*)get_parent()));
+        }
+
+        if (_generator_flags & GFLAG_TCP_OVER_IP_V4_FRAME)
+        {
+            // TCP over IPv4 Frame
+            add_generator(new tcp_frame_setup(
+                tcp_frame_generator::IP_V4_PROTOCOL,
+                get_context(),
+                get_console(),
+                get_parent(),
+                (ip_frame_setup*)get_parent()));
+        }
+
+        if (_generator_flags & GFLAG_TCP_OVER_IP_V6_FRAME)
+        {
+            // TCP over IPv6 Frame
+            add_generator(new tcp_frame_setup(
+                tcp_frame_generator::IP_V6_NEXT_HEADER,
+                get_context(),
+                get_console(),
+                get_parent(),
+                (ip_frame_setup*)get_parent()));
+        }
+
+        if (_generator_flags & GFLAG_UDP_OVER_IP_V4_FRAME)
+        {
+            // UDP over IPv4 Frame
             add_generator(new udp_frame_setup(
+                udp_frame_generator::IP_V4_PROTOCOL,
+                get_context(),
+                get_console(),
+                get_parent(),
+                (ip_frame_setup*)get_parent()));
+        }
+
+        if (_generator_flags & GFLAG_UDP_OVER_IP_V6_FRAME)
+        {
+            // UDP over IPv4 Frame
+            add_generator(new udp_frame_setup(
+                udp_frame_generator::IP_V6_NEXT_HEADER,
                 get_context(),
                 get_console(),
                 get_parent(),

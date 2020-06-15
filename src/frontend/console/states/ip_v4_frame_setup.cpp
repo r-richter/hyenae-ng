@@ -4,8 +4,8 @@
  *
  * Copyright (C) 2020 Robin Richter
  *
- *   Contact  : richterr@users.sourceforge.net
- *   Homepage : http://sourceforge.net/projects/hyenae-ng/
+ *   Contact  : hyenae.tool@googlemail.com
+ *   Homepage : https://github.com/r-richter/hyenae-ng
  *
  * This file is part of Hyenae NG.
  *
@@ -24,13 +24,13 @@
  *
  */
 
-#include "../../../../include/frontend/console/states/ipv4_frame_setup.h"
+#include "../../../../include/frontend/console/states/ip_v4_frame_setup.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    ipv4_frame_setup::ipv4_frame_setup(
+    ip_v4_frame_setup::ip_v4_frame_setup(
         console_app_state_context* context,
         console_io* console_io,
         console_app_state* parent,
@@ -101,11 +101,11 @@ namespace hyenae::frontend::console::states
 
         update_generator();
 
-    } /* ipv4_frame_setup */
+    } /* ip_v4_frame_setup */
 
     /*---------------------------------------------------------------------- */
 
-    ipv4_frame_setup::~ipv4_frame_setup()
+    ip_v4_frame_setup::~ip_v4_frame_setup()
     {
         safe_delete(_menu);
         safe_delete(_type_of_service_item);
@@ -122,11 +122,11 @@ namespace hyenae::frontend::console::states
         safe_delete(_generator);
         safe_delete(_payload);
 
-    } /* ~ipv4_frame_setup */
+    } /* ~ip_v4_frame_setup */
 
     /*---------------------------------------------------------------------- */
 
-    bool ipv4_frame_setup::run()
+    bool ip_v4_frame_setup::run()
     {
         update_generator();
         update_menu_items();
@@ -184,7 +184,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    uint8_t ipv4_frame_setup::get_protocol() const
+    uint8_t ip_v4_frame_setup::get_protocol() const
     {
         return _protocol;
 
@@ -192,7 +192,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::set_protocol(uint8_t protocol)
+    void ip_v4_frame_setup::set_protocol(uint8_t protocol)
     {
         _protocol = protocol;
 
@@ -200,7 +200,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    string_t ipv4_frame_setup::get_generator_name() const
+    string_t ip_v4_frame_setup::get_generator_name() const
     {
         return "IPv4-Frame";
 
@@ -208,8 +208,8 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    ipv4_frame_setup::data_generator_t*
-        ipv4_frame_setup::get_generator() const
+    ip_v4_frame_setup::data_generator_t*
+        ip_v4_frame_setup::get_generator() const
     {
         return _generator;
 
@@ -217,16 +217,16 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    ipv4_frame_setup::data_generator_t*
-        ipv4_frame_setup::get_pseudo_header() const
+    ip_v4_frame_setup::data_generator_t*
+        ip_v4_frame_setup::get_pseudo_header() const
     {
-        return ((ipv4_frame_generator_t*)_generator)->get_pseudo_header();
+        return ((ip_v4_frame_generator_t*)_generator)->get_pseudo_header();
 
     } /* get_pseudo_header */
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::update_generator()
+    void ip_v4_frame_setup::update_generator()
     {
         update_generator(
             _id_pattern,
@@ -238,16 +238,16 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::on_select()
+    void ip_v4_frame_setup::on_select()
     {
         get_ethernet_frame_setup()->set_type(
-            ethernet_frame_generator_t::TYPE_IPV4);
+            ethernet_frame_generator_t::TYPE_IP_V4);
 
     } /* on_select */
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::update_menu_items()
+    void ip_v4_frame_setup::update_menu_items()
     {
         _type_of_service_item->set_info(std::to_string(_type_of_service));
         _id_pattern_item->set_info(_id_pattern);
@@ -264,16 +264,16 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::prompt_type_of_service()
+    void ip_v4_frame_setup::prompt_type_of_service()
     {
         _type_of_service = (uint8_t)get_console()->prompt(
-            0, INT64_MAX, "Enter Type Of Service (Decimal)");
+            0, UINT8_MAX, "Enter Type Of Service (Decimal)");
 
     } /* prompt_type_of_service */
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::prompt_id_pattern()
+    void ip_v4_frame_setup::prompt_id_pattern()
     {
         _id_pattern = get_console()->prompt([this](string_t input)
         {
@@ -294,7 +294,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::prompt_dont_frag()
+    void ip_v4_frame_setup::prompt_dont_frag()
     {
         _dont_frag = get_console()->prompt(
             0, 1, "Don't Fragment", "0 = Off, 1 = On");
@@ -303,7 +303,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::prompt_more_frags()
+    void ip_v4_frame_setup::prompt_more_frags()
     {
         _more_frags = get_console()->prompt(
             0, 1, "More Fragments", "0 = Off, 1 = On");
@@ -312,7 +312,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::prompt_frag_offset()
+    void ip_v4_frame_setup::prompt_frag_offset()
     {
         _frag_offset_pattern = get_console()->prompt([this](string_t input)
             {
@@ -333,7 +333,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::prompt_time_to_live()
+    void ip_v4_frame_setup::prompt_time_to_live()
     {
         _time_to_live = (uint8_t)get_console()->prompt(
             0, 255, "Enter Time To Live (Decimal)", "0-255");
@@ -342,7 +342,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::prompt_protocol()
+    void ip_v4_frame_setup::prompt_protocol()
     {
         _protocol = (uint8_t)get_console()->prompt(
             0, 255, "Enter Protocol (Decimal)", "0-255");
@@ -351,7 +351,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::prompt_src_ip_pattern()
+    void ip_v4_frame_setup::prompt_src_ip_pattern()
     {
         _src_ip_pattern = get_console()->prompt([this](string_t input)
             {
@@ -372,7 +372,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::prompt_dst_ip_pattern()
+    void ip_v4_frame_setup::prompt_dst_ip_pattern()
     {
         _dst_ip_pattern = get_console()->prompt([this](string_t input)
             {
@@ -393,7 +393,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_setup::update_generator(
+    void ip_v4_frame_setup::update_generator(
         string_t id_pattern,
         string_t _frag_offset,
         string_t src_ip_pattern,
@@ -401,7 +401,7 @@ namespace hyenae::frontend::console::states
     {
         safe_delete(_generator);
 
-        _generator = new ipv4_frame_generator_t(
+        _generator = new ip_v4_frame_generator_t(
             _type_of_service,
             id_pattern,
             10,
@@ -420,7 +420,7 @@ namespace hyenae::frontend::console::states
 
         if (_payload->get_generator() != NULL)
         {
-            ((ipv4_frame_generator_t*)_generator)->
+            ((ip_v4_frame_generator_t*)_generator)->
                 get_payload()->add_generator(_payload->get_generator());
         }
 

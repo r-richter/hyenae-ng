@@ -4,8 +4,8 @@
  *
  * Copyright (C) 2020 Robin Richter
  *
- *   Contact  : richterr@users.sourceforge.net
- *   Homepage : http://sourceforge.net/projects/hyenae-ng/
+ *   Contact  : hyenae.tool@googlemail.com
+ *   Homepage : https://github.com/r-richter/hyenae-ng
  *
  * This file is part of Hyenae NG.
  *
@@ -31,15 +31,19 @@ namespace hyenae::frontend::console::states
 	/*---------------------------------------------------------------------- */
 
 	tcp_frame_setup::tcp_frame_setup(
+		uint8_t protocol,
 		console_app_state_context* context,
 		console_io* console_io,
 		console_app_state* parent,
 		ip_frame_setup* ip_frame_setup) :
-			generator_setup(context, console_io, parent)
+			ip_based_frame_setup(
+				context,
+				console_io,
+				parent,
+				ip_frame_setup)
 	{
-		assert::argument_not_null(
-			_ip_frame_setup = ip_frame_setup, "ip_frame_setup");
-		
+		_protocol = protocol;
+
 		_menu = new console_menu(
 			console_io, get_generator_name() + " Setup");
 
@@ -270,7 +274,7 @@ namespace hyenae::frontend::console::states
 
 	void tcp_frame_setup::on_select()
 	{
-		_ip_frame_setup->set_protocol(PROTOCOL);
+		get_ip_frame_setup()->set_protocol(_protocol);
 
 	} /* on_select */
 
@@ -516,7 +520,7 @@ namespace hyenae::frontend::console::states
 		safe_delete(_generator);
 
 		_generator = new tcp_frame_generator_t(
-			_ip_frame_setup->get_pseudo_header(),
+			get_ip_frame_setup()->get_pseudo_header(),
 			src_port_pattern,
 			10,
 			dst_port_pattern,

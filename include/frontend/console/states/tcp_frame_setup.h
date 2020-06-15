@@ -4,8 +4,8 @@
  *
  * Copyright (C) 2020 Robin Richter
  *
- *   Contact  : richterr@users.sourceforge.net
- *   Homepage : http://sourceforge.net/projects/hyenae-ng/
+ *   Contact  : hyenae.tool@googlemail.com
+ *   Homepage : https://github.com/r-richter/hyenae-ng
  *
  * This file is part of Hyenae NG.
  *
@@ -28,7 +28,7 @@
 #define TCP_FRAME_SETUP_H
 
 #include "../../../../include/frontend/console/console_menu.h"
-#include "../../../../include/frontend/console/states/ip_frame_setup.h"
+#include "../../../../include/frontend/console/states/ip_based_frame_setup.h"
 #include "../../../../include/frontend/console/states/generator_selector.h"
 #include "../../../../include/model/generators/protocols/tcp_frame_generator.h"
 
@@ -37,15 +37,13 @@ namespace hyenae::frontend::console::states
 	/*---------------------------------------------------------------------- */
 
 	class tcp_frame_setup :
-		public generator_setup
+		public ip_based_frame_setup
 	{
 		using tcp_frame_generator_t =
 			model::generators::protocols::tcp_frame_generator;
 
 		private:
-			static const uint8_t PROTOCOL = 6;
-
-			ip_frame_setup* _ip_frame_setup;
+			uint8_t _protocol;
 			console_menu* _menu = NULL;
 			console_menu::item* _src_port_pattern_item = NULL;
 			console_menu::item* _dst_port_pattern_item = NULL;
@@ -82,6 +80,7 @@ namespace hyenae::frontend::console::states
 
 		public:
 			tcp_frame_setup(
+				uint8_t protocol,
 				console_app_state_context* context,
 				console_io* console_io,
 				console_app_state* parent,

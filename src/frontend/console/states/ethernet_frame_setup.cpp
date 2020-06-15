@@ -4,8 +4,8 @@
  *
  * Copyright (C) 2020 Robin Richter
  *
- *   Contact  : richterr@users.sourceforge.net
- *   Homepage : http://sourceforge.net/projects/hyenae-ng/
+ *   Contact  : hyenae.tool@googlemail.com
+ *   Homepage : https://github.com/r-richter/hyenae-ng
  *
  * This file is part of Hyenae NG.
  *
@@ -254,7 +254,7 @@ namespace hyenae::frontend::console::states
         // TODO: Have type entered as hexadecimal number
 
         _type = (uint16_t) get_console()->prompt(
-            0, INT64_MAX, "Enter Type (Decimal)");
+            0, UINT16_MAX, "Enter Type (Decimal)");
 
         update_generator();
 

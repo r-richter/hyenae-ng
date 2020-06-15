@@ -4,8 +4,8 @@
  *
  * Copyright (C) 2020 Robin Richter
  *
- *   Contact  : richterr@users.sourceforge.net
- *   Homepage : http://sourceforge.net/projects/hyenae-ng/
+ *   Contact  : hyenae.tool@googlemail.com
+ *   Homepage : https://github.com/r-richter/hyenae-ng
  *
  * This file is part of Hyenae NG.
  *
@@ -51,17 +51,17 @@ namespace hyenae::model::generators::protocols
 
     } mac_address_t;
 
-    typedef struct ipv4_address
+    typedef struct ip_v4_address
     {
         octet_t octets[4];
 
-    } ipv4_address_t;
+    } ip_v4_address_t;
 
-    typedef struct ipv6_address
+    typedef struct ip_v6_address
     {
         hextet_t hextets[8];
 
-    } ipv6_address_t;
+    } ip_v6_address_t;
 
     /*---------------------------------------------------------------------- */
 

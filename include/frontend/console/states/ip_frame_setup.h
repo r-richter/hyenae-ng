@@ -4,8 +4,8 @@
  *
  * Copyright (C) 2020 Robin Richter
  *
- *   Contact  : richterr@users.sourceforge.net
- *   Homepage : http://sourceforge.net/projects/hyenae-ng/
+ *   Contact  : hyenae.tool@googlemail.com
+ *   Homepage : https://github.com/r-richter/hyenae-ng
  *
  * This file is part of Hyenae NG.
  *
@@ -61,7 +61,7 @@ namespace hyenae::frontend::console::states
             virtual void on_select() = 0;
             ethernet_frame_setup* get_ethernet_frame_setup() const;
 
-    }; /* ethernet_frame_setup */
+    }; /* ip_frame_setup */
 
     /*---------------------------------------------------------------------- */
 

@@ -4,8 +4,8 @@
  *
  * Copyright (C) 2020 Robin Richter
  *
- *   Contact  : richterr@users.sourceforge.net
- *   Homepage : http://sourceforge.net/projects/hyenae-ng/
+ *   Contact  : hyenae.tool@googlemail.com
+ *   Homepage : https://github.com/r-richter/hyenae-ng
  *
  * This file is part of Hyenae NG.
  *
@@ -90,7 +90,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    address_generator* address_generator::create_ipv4_address(
+    address_generator* address_generator::create_ip_v4_address(
         const string_t& pattern, data_transformation* field_transformation)
     {
         return new address_generator(
@@ -101,11 +101,11 @@ namespace hyenae::model::generators::protocols
             '.',
             field_transformation);
 
-    } /* create_ipv4_address */
+    } /* create_ip_v4_address */
 
     /*---------------------------------------------------------------------- */
 
-    address_generator* address_generator::create_ipv6_address(
+    address_generator* address_generator::create_ip_v6_address(
         const string_t& pattern, data_transformation* field_transformation)
     {
         return new address_generator(
@@ -116,7 +116,7 @@ namespace hyenae::model::generators::protocols
             ':',
             field_transformation);
 
-    } /* create_ipv6_address */
+    } /* create_ip_v6_address */
 
     /*---------------------------------------------------------------------- */
 
@@ -163,9 +163,9 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    void address_generator::to_ipv4_address(ipv4_address_t& result) const
+    void address_generator::to_ip_v4_address(ip_v4_address_t& result) const
     {
-        size_t size = sizeof(ipv4_address_t);
+        size_t size = sizeof(ip_v4_address_t);
 
         if (_field_count != 4 ||
             _field_bits != BITS_OCTET ||
@@ -176,13 +176,13 @@ namespace hyenae::model::generators::protocols
 
         to_buffer((byte_t*)&result, size);
 
-    } /* to_ipv4_address */
+    } /* to_ip_v4_address */
 
     /*---------------------------------------------------------------------- */
 
-    void address_generator::to_ipv6_address(ipv6_address_t& result) const
+    void address_generator::to_ip_v6_address(ip_v6_address_t& result) const
     {
-        size_t size = sizeof(ipv6_address_t);
+        size_t size = sizeof(ip_v6_address_t);
 
         if (_field_count != 8 ||
             _field_bits != BITS_HEXTET ||
@@ -193,7 +193,7 @@ namespace hyenae::model::generators::protocols
 
         to_buffer((byte_t*)&result, size);
 
-    } /* to_ipv6_address */
+    } /* to_ip_v6_address */
 
     /*---------------------------------------------------------------------- */
 
