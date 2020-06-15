@@ -84,7 +84,7 @@ namespace hyenae::frontend::console::states
 				console_app_state_context* context,
 				console_io* console_io,
 				console_app_state* parent,
-				ethernet_based_frame_setup* ethernet_based_frame_setup);
+				ip_frame_setup* ip_frame_setup);
 
 			~tcp_frame_setup();
 			bool run();

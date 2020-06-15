@@ -28,7 +28,7 @@
 #define IP_BASED_FRAME_SETUP_H
 
 #include "../../../../include/frontend/console/states/generator_setup.h"
-#include "../../../../include/frontend/console/states/ethernet_based_frame_setup.h"
+#include "../../../../include/frontend/console/states/ip_frame_setup.h"
 
 namespace hyenae::frontend::console::states
 {
@@ -40,14 +40,14 @@ namespace hyenae::frontend::console::states
         public generator_setup
     {
         private:
-            ethernet_based_frame_setup* _ethernet_based_frame_setup;
+            ip_frame_setup* _ip_frame_setup;
 
         public:
             ip_based_frame_setup(
                 console_app_state_context* context,
                 console_io* console_io,
                 console_app_state* parent,
-                ethernet_based_frame_setup* ethernet_based_frame_setup);
+                ip_frame_setup* ip_frame_setup);
 
             virtual ~ip_based_frame_setup() {};
             virtual bool run() = 0;
@@ -56,7 +56,7 @@ namespace hyenae::frontend::console::states
 
         protected:
             virtual void on_select() = 0;
-            ethernet_based_frame_setup* get_ethernet_based_frame_setup() const;
+            ip_frame_setup* get_ip_frame_setup() const;
 
     }; /* ip_based_frame_setup */
 

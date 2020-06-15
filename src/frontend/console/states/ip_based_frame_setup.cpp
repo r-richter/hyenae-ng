@@ -35,21 +35,21 @@ namespace hyenae::frontend::console::states
         console_app_state_context* context,
         console_io* console_io,
         console_app_state* parent,
-        ethernet_based_frame_setup* ethernet_based_frame_setup) :
+        ip_frame_setup* ip_frame_setup) :
             generator_setup(context, console_io, parent)
     {
-        _ethernet_based_frame_setup = ethernet_based_frame_setup;
+        _ip_frame_setup = ip_frame_setup;
 
     } /* ip_based_frame_setup */
 
     /*---------------------------------------------------------------------- */
 
-    ethernet_based_frame_setup*
-        ip_based_frame_setup::get_ethernet_based_frame_setup() const
+    ip_frame_setup*
+        ip_based_frame_setup::get_ip_frame_setup() const
     {
-        return _ethernet_based_frame_setup;
+        return _ip_frame_setup;
 
-    } /* get_ethernet_based_frame_setup */
+    } /* get_ip_frame_setup */
 
     /*---------------------------------------------------------------------- */
 

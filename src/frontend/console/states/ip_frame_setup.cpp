@@ -25,13 +25,13 @@
  */
 
 #include "../../../../include/assert.h"
-#include "../../../../include/frontend/console/states/ethernet_based_frame_setup.h"
+#include "../../../../include/frontend/console/states/ip_frame_setup.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    ethernet_based_frame_setup::ethernet_based_frame_setup(
+    ip_frame_setup::ip_frame_setup(
         console_app_state_context* context,
         console_io* console_io,
         console_app_state* parent,
@@ -43,12 +43,12 @@ namespace hyenae::frontend::console::states
 
         _ethernet_frame_setup = ethernet_frame_setup;
 
-    } /* ethernet_based_frame_setup */
+    } /* ip_frame_setup */
     
     /*---------------------------------------------------------------------- */
 
     ethernet_frame_setup*
-        ethernet_based_frame_setup::get_ethernet_frame_setup() const
+        ip_frame_setup::get_ethernet_frame_setup() const
     {
         return _ethernet_frame_setup;
 
