@@ -254,7 +254,7 @@ namespace hyenae::frontend::console::states
         // TODO: Have type entered as hexadecimal number
 
         _type = (uint16_t) get_console()->prompt(
-            0, INT64_MAX, "Enter Type (Decimal)");
+            0, UINT16_MAX, "Enter Type (Decimal)");
 
         update_generator();
 

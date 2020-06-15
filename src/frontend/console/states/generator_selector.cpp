@@ -28,6 +28,8 @@
 #include "../../../../include/frontend/console/states/ethernet_frame_setup.h"
 #include "../../../../include/frontend/console/states/ip_v4_frame_setup.h"
 #include "../../../../include/frontend/console/states/ip_v6_frame_setup.h"
+#include "../../../../include/frontend/console/states/icmp_v4_frame_setup.h"
+#include "../../../../include/frontend/console/states/icmp_v6_frame_setup.h"
 #include "../../../../include/frontend/console/states/udp_frame_setup.h"
 #include "../../../../include/frontend/console/states/tcp_frame_setup.h"
 #include "../../../../include/frontend/console/states/text_buffer_setup.h"
@@ -91,16 +93,38 @@ namespace hyenae::frontend::console::states
         string_t title,
         console_app_state_context* context,
         console_io* console_io,
-        ip_frame_setup* parent) :
+        ip_v4_frame_setup* parent) :
             generator_setup(context, console_io, parent)
     {
         _title = title;
 
         _generator_flags =
+            GFLAG_ICMP_V4_FRAME |
             GFLAG_TCP_FRAME |
             GFLAG_UDP_FRAME |
             GFLAG_TEXT_BUFFER;
-    }
+
+    } /* generator_selector */
+
+    /*---------------------------------------------------------------------- */
+
+    generator_selector::generator_selector(
+        string_t title,
+        console_app_state_context* context,
+        console_io* console_io,
+        ip_v6_frame_setup* parent) :
+        generator_setup(context, console_io, parent)
+    {
+        _title = title;
+
+        _generator_flags =
+            GFLAG_ICMP_V4_FRAME |
+            GFLAG_ICMP_V6_FRAME |
+            GFLAG_TCP_FRAME |
+            GFLAG_UDP_FRAME |
+            GFLAG_TEXT_BUFFER;
+
+    } /* generator_selector */
 
     /*---------------------------------------------------------------------- */
 
@@ -249,6 +273,26 @@ namespace hyenae::frontend::console::states
                 get_console(),
                 get_parent(),
                 (ethernet_frame_setup*)get_parent()));
+        }
+
+        if (_generator_flags & GFLAG_ICMP_V4_FRAME)
+        {
+            // ICMPv4-Frame
+            add_generator(new icmp_v4_frame_setup(
+                get_context(),
+                get_console(),
+                get_parent(),
+                (ip_frame_setup*)get_parent()));
+        }
+
+        if (_generator_flags & GFLAG_ICMP_V6_FRAME)
+        {
+            // ICMPv6-Frame
+            add_generator(new icmp_v6_frame_setup(
+                get_context(),
+                get_console(),
+                get_parent(),
+                (ip_frame_setup*)get_parent()));
         }
 
         if (_generator_flags & GFLAG_TCP_FRAME)

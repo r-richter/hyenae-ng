@@ -38,6 +38,8 @@ namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
+    class generator_selector;
+
     class ip_v6_frame_setup :
         public ip_frame_setup
     {

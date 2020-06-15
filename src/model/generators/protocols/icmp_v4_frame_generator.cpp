@@ -57,6 +57,7 @@ namespace hyenae::model::generators::protocols
         // Checksum targets
         _checksum->add_generator(_type);
         _checksum->add_generator(_code);
+        _checksum->add_generator(&_payload);
 
         // Payload
         _packet.add_generator(&_payload);

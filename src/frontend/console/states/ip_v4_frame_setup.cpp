@@ -267,7 +267,7 @@ namespace hyenae::frontend::console::states
     void ip_v4_frame_setup::prompt_type_of_service()
     {
         _type_of_service = (uint8_t)get_console()->prompt(
-            0, INT64_MAX, "Enter Type Of Service (Decimal)");
+            0, UINT8_MAX, "Enter Type Of Service (Decimal)");
 
     } /* prompt_type_of_service */
 

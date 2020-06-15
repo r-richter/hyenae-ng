@@ -233,7 +233,7 @@ namespace hyenae::frontend::console::states
     void ip_v6_frame_setup::prompt_traffic_class()
     {
         _traffic_class = (uint8_t)get_console()->prompt(
-            0, INT64_MAX, "Enter Traffic Class (Decimal)");
+            0, UINT8_MAX, "Enter Traffic Class (Decimal)");
 
     } /* prompt_traffic_class */
 
@@ -262,7 +262,7 @@ namespace hyenae::frontend::console::states
     void ip_v6_frame_setup::prompt_next_header()
     {
         _next_header = (uint8_t)get_console()->prompt(
-            0, 255, "Enter Next Header (Decimal)", "0-255");
+            0, UINT8_MAX, "Enter Next Header (Decimal)", "0-255");
 
     } /* prompt_next_header */
 
@@ -271,7 +271,7 @@ namespace hyenae::frontend::console::states
     void ip_v6_frame_setup::prompt_hop_limit()
     {
         _hop_limit = (uint8_t)get_console()->prompt(
-            0, 255, "Enter Hop Limit (Decimal)", "0-255");
+            0, UINT8_MAX, "Enter Hop Limit (Decimal)", "0-255");
 
     } /* prompt_hop_limit */
 
