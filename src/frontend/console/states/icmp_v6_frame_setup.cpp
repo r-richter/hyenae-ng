@@ -35,7 +35,7 @@ namespace hyenae::frontend::console::states
         console_io* console_io,
         console_app_state* parent,
         ip_frame_setup* ip_frame_setup) :
-            ip_based_frame_setup(
+            icmp_frame_setup(
                 context,
                 console_io,
                 parent,
@@ -132,6 +132,38 @@ namespace hyenae::frontend::console::states
         return _generator;
 
     } /* get_generator */
+
+    /*---------------------------------------------------------------------- */
+
+    uint8_t icmp_v6_frame_setup::get_type() const
+    {
+        return _type;
+
+    } /* get_type */
+
+    /*---------------------------------------------------------------------- */
+
+    void icmp_v6_frame_setup::set_type(uint8_t type)
+    {
+        _type = type;
+
+    } /* set_type */
+
+    /*---------------------------------------------------------------------- */
+
+    uint8_t icmp_v6_frame_setup::get_code() const
+    {
+        return _code;
+
+    } /* get_code */
+
+    /*---------------------------------------------------------------------- */
+
+    void icmp_v6_frame_setup::set_code(uint8_t code)
+    {
+        _code = code;
+
+    } /* set_code */
 
     /*---------------------------------------------------------------------- */
 
