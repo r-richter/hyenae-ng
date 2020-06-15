@@ -282,7 +282,7 @@ namespace hyenae::frontend::console::states
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ip_frame_setup*)get_parent()));
+                (ethernet_based_frame_setup*)get_parent()));
         }
 
         if (_generator_flags & GFLAG_ICMP_V6_FRAME)
@@ -292,7 +292,7 @@ namespace hyenae::frontend::console::states
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ip_frame_setup*)get_parent()));
+                (ethernet_based_frame_setup*)get_parent()));
         }
 
         if (_generator_flags & GFLAG_TCP_FRAME)
@@ -302,7 +302,7 @@ namespace hyenae::frontend::console::states
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ip_frame_setup*)get_parent()));
+                (ethernet_based_frame_setup*)get_parent()));
         }
 
         if (_generator_flags & GFLAG_UDP_FRAME)
@@ -312,7 +312,7 @@ namespace hyenae::frontend::console::states
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ip_frame_setup*)get_parent()));
+                (ethernet_based_frame_setup*)get_parent()));
         }
 
         if (_generator_flags & GFLAG_TEXT_BUFFER)

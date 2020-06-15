@@ -28,7 +28,7 @@
 #define TCP_FRAME_SETUP_H
 
 #include "../../../../include/frontend/console/console_menu.h"
-#include "../../../../include/frontend/console/states/ip_frame_setup.h"
+#include "../../../../include/frontend/console/states/ip_based_frame_setup.h"
 #include "../../../../include/frontend/console/states/generator_selector.h"
 #include "../../../../include/model/generators/protocols/tcp_frame_generator.h"
 
@@ -37,7 +37,7 @@ namespace hyenae::frontend::console::states
 	/*---------------------------------------------------------------------- */
 
 	class tcp_frame_setup :
-		public generator_setup
+		public ip_based_frame_setup
 	{
 		using tcp_frame_generator_t =
 			model::generators::protocols::tcp_frame_generator;
@@ -45,7 +45,6 @@ namespace hyenae::frontend::console::states
 		private:
 			static const uint8_t PROTOCOL = 6;
 
-			ip_frame_setup* _ip_frame_setup;
 			console_menu* _menu = NULL;
 			console_menu::item* _src_port_pattern_item = NULL;
 			console_menu::item* _dst_port_pattern_item = NULL;
@@ -85,7 +84,7 @@ namespace hyenae::frontend::console::states
 				console_app_state_context* context,
 				console_io* console_io,
 				console_app_state* parent,
-				ip_frame_setup* ip_frame_setup);
+				ethernet_based_frame_setup* ethernet_based_frame_setup);
 
 			~tcp_frame_setup();
 			bool run();

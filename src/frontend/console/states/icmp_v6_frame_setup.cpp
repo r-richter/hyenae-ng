@@ -34,12 +34,13 @@ namespace hyenae::frontend::console::states
         console_app_state_context* context,
         console_io* console_io,
         console_app_state* parent,
-        ip_frame_setup* ip_frame_setup) :
-            generator_setup(context, console_io, parent)
+        ethernet_based_frame_setup* ethernet_based_frame_setup) :
+            ip_based_frame_setup(
+                context,
+                console_io,
+                parent,
+                ethernet_based_frame_setup)
     {
-        assert::argument_not_null(
-            _ip_frame_setup = ip_frame_setup, "ip_frame_setup");
-        
         _menu = new console_menu(
             console_io, get_generator_name() + " Setup");
 
@@ -137,9 +138,9 @@ namespace hyenae::frontend::console::states
     void icmp_v6_frame_setup::update_generator()
     {
         safe_delete(_generator);
-
+        
         _generator = new icmp_v6_frame_generator_t(
-            _ip_frame_setup->get_pseudo_header(),
+            get_ethernet_based_frame_setup()->get_pseudo_header(),
             _type,
             _code);
 
@@ -155,7 +156,7 @@ namespace hyenae::frontend::console::states
 
     void icmp_v6_frame_setup::on_select()
     {
-        _ip_frame_setup->set_protocol(PROTOCOL);
+        get_ethernet_based_frame_setup()->set_protocol(PROTOCOL);
 
     } /* on_select */
 

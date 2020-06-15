@@ -35,7 +35,7 @@ namespace hyenae::frontend::console::states
         console_io* console_io,
         console_app_state* parent,
         ethernet_frame_setup* ethernet_frame_setup) :
-            ip_frame_setup(context, console_io, parent, ethernet_frame_setup)
+            ethernet_based_frame_setup(context, console_io, parent, ethernet_frame_setup)
     {
         _menu = new console_menu(
             console_io, get_generator_name() + " Setup");

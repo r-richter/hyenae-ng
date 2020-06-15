@@ -28,7 +28,7 @@
 #define IP_V4_FRAME_SETUP_H
 
 #include "../../../../include/frontend/console/console_menu.h"
-#include "../../../../include/frontend/console/states/ip_frame_setup.h"
+#include "../../../../include/frontend/console/states/ethernet_based_frame_setup.h"
 #include "../../../../include/frontend/console/states/generator_selector.h"
 #include "../../../../include/frontend/console/states/ethernet_frame_setup.h"
 #include "../../../../include/model/generators/protocols/ethernet_frame_generator.h"
@@ -41,7 +41,7 @@ namespace hyenae::frontend::console::states
     class generator_selector;
 
     class ip_v4_frame_setup :
-        public ip_frame_setup
+        public ethernet_based_frame_setup
     {
         using address_generator_t =
             model::generators::protocols::address_generator;
