@@ -101,8 +101,8 @@ namespace hyenae::frontend::console::states
 
         _generator_flags =
             GFLAG_ICMP_V4_FRAME |
-            GFLAG_TCP_FRAME |
-            GFLAG_UDP_FRAME |
+            GFLAG_TCP_OVER_IP_V4_FRAME |
+            GFLAG_UDP_OVER_IP_V4_FRAME |
             GFLAG_TEXT_BUFFER;
 
     } /* generator_selector */
@@ -121,8 +121,8 @@ namespace hyenae::frontend::console::states
         _generator_flags =
             GFLAG_ICMP_V4_FRAME |
             GFLAG_ICMP_V6_FRAME |
-            GFLAG_TCP_FRAME |
-            GFLAG_UDP_FRAME |
+            GFLAG_TCP_OVER_IP_V6_FRAME |
+            GFLAG_UDP_OVER_IP_V6_FRAME |
             GFLAG_TEXT_BUFFER;
 
     } /* generator_selector */
@@ -354,22 +354,44 @@ namespace hyenae::frontend::console::states
                 (icmp_frame_setup*)get_parent()));
         }
 
-        if (_generator_flags & GFLAG_TCP_FRAME)
+        if (_generator_flags & GFLAG_TCP_OVER_IP_V4_FRAME)
         {
-            // TCP-Frame
+            // TCP over IPv4 Frame
             add_generator(new tcp_frame_setup(
-                tcp_frame_generator::PROTOCOL,
+                tcp_frame_generator::IP_V4_PROTOCOL,
                 get_context(),
                 get_console(),
                 get_parent(),
                 (ip_frame_setup*)get_parent()));
         }
 
-        if (_generator_flags & GFLAG_UDP_FRAME)
+        if (_generator_flags & GFLAG_TCP_OVER_IP_V6_FRAME)
         {
-            // UDP-Frame
+            // TCP over IPv6 Frame
+            add_generator(new tcp_frame_setup(
+                tcp_frame_generator::IP_V6_NEXT_HEADER,
+                get_context(),
+                get_console(),
+                get_parent(),
+                (ip_frame_setup*)get_parent()));
+        }
+
+        if (_generator_flags & GFLAG_UDP_OVER_IP_V4_FRAME)
+        {
+            // UDP over IPv4 Frame
             add_generator(new udp_frame_setup(
-                udp_frame_generator::PROTOCOL,
+                udp_frame_generator::IP_V4_PROTOCOL,
+                get_context(),
+                get_console(),
+                get_parent(),
+                (ip_frame_setup*)get_parent()));
+        }
+
+        if (_generator_flags & GFLAG_UDP_OVER_IP_V6_FRAME)
+        {
+            // UDP over IPv4 Frame
+            add_generator(new udp_frame_setup(
+                udp_frame_generator::IP_V6_NEXT_HEADER,
                 get_context(),
                 get_console(),
                 get_parent(),

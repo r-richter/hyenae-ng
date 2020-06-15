@@ -48,7 +48,11 @@ namespace hyenae::model::generators::protocols
                 data_transformations::to_tcp_udp_checksum;
 
         public:
-            static const uint8_t PROTOCOL = 17;
+            /* IPv4 */
+            static const uint8_t IP_V4_PROTOCOL = 0x11;
+            
+            /* IPv6 */
+            static const uint8_t IP_V6_NEXT_HEADER = 0x11;
 
         private:
             integer_generator* _src_port = NULL;
