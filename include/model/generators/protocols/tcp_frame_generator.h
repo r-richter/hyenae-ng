@@ -47,6 +47,9 @@ namespace hyenae::model::generators::protocols
             using to_tcp_udp_checksum_t =
                 data_transformations::to_tcp_udp_checksum;
 
+        public:
+            static const uint8_t PROTOCOL = 6;
+
         private:
             static const uint8_t DATA_OFFSET = 0X50;
 

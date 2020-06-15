@@ -30,6 +30,7 @@
 #include "../../../../include/frontend/console/states/ip_v6_frame_setup.h"
 #include "../../../../include/frontend/console/states/icmp_v4_frame_setup.h"
 #include "../../../../include/frontend/console/states/icmp_v6_frame_setup.h"
+#include "../../../../include/frontend/console/states/icmp_echo_payload_setup.h"
 #include "../../../../include/frontend/console/states/udp_frame_setup.h"
 #include "../../../../include/frontend/console/states/tcp_frame_setup.h"
 #include "../../../../include/frontend/console/states/text_buffer_setup.h"
@@ -123,6 +124,38 @@ namespace hyenae::frontend::console::states
             GFLAG_TCP_FRAME |
             GFLAG_UDP_FRAME |
             GFLAG_TEXT_BUFFER;
+
+    } /* generator_selector */
+
+    /*---------------------------------------------------------------------- */
+
+    generator_selector::generator_selector(
+        string_t title,
+        console_app_state_context* context,
+        console_io* console_io,
+        icmp_v4_frame_setup* parent) :
+            generator_setup(context, console_io, parent)
+    {
+        _title = title;
+
+        _generator_flags =
+            GFLAG_ICMP_V4_ECHO_PAYLOAD;
+
+    } /* generator_selector */
+
+    /*---------------------------------------------------------------------- */
+
+    generator_selector::generator_selector(
+        string_t title,
+        console_app_state_context* context,
+        console_io* console_io,
+        icmp_v6_frame_setup* parent) :
+        generator_setup(context, console_io, parent)
+    {
+        _title = title;
+
+        _generator_flags =
+            GFLAG_ICMP_V6_ECHO_PAYLOAD;
 
     } /* generator_selector */
 
@@ -242,6 +275,8 @@ namespace hyenae::frontend::console::states
 
     void generator_selector::inizialize()
     {
+        using namespace model::generators::protocols;
+
         _menu = new console_menu(get_console(), _title);
 
         // None
@@ -295,10 +330,35 @@ namespace hyenae::frontend::console::states
                 (ip_frame_setup*)get_parent()));
         }
 
+        if (_generator_flags & GFLAG_ICMP_V4_ECHO_PAYLOAD)
+        {
+            // ICMPv4-Echo Payload
+            add_generator(new icmp_echo_payload_setup(
+                icmp_echo_payload_generator::ICMP_V4_TYPE,
+                icmp_echo_payload_generator::ICMP_V4_CODE,
+                get_context(),
+                get_console(),
+                get_parent(),
+                (icmp_frame_setup*)get_parent()));
+        }
+
+        if (_generator_flags & GFLAG_ICMP_V6_ECHO_PAYLOAD)
+        {
+            // ICMPv6-Echo Payload
+            add_generator(new icmp_echo_payload_setup(
+                icmp_echo_payload_generator::ICMP_V6_TYPE,
+                icmp_echo_payload_generator::ICMP_V6_CODE,
+                get_context(),
+                get_console(),
+                get_parent(),
+                (icmp_frame_setup*)get_parent()));
+        }
+
         if (_generator_flags & GFLAG_TCP_FRAME)
         {
-            // UDP-Frame
+            // TCP-Frame
             add_generator(new tcp_frame_setup(
+                tcp_frame_generator::PROTOCOL,
                 get_context(),
                 get_console(),
                 get_parent(),
@@ -309,6 +369,7 @@ namespace hyenae::frontend::console::states
         {
             // UDP-Frame
             add_generator(new udp_frame_setup(
+                udp_frame_generator::PROTOCOL,
                 get_context(),
                 get_console(),
                 get_parent(),

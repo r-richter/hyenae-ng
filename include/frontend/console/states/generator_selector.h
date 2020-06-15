@@ -39,6 +39,8 @@ namespace hyenae::frontend::console::states
     class main_menu;
     class ip_v4_frame_setup;
     class ip_v6_frame_setup;
+    class icmp_v4_frame_setup;
+    class icmp_v6_frame_setup;
     class ethernet_frame_setup;
 
     class generator_selector :
@@ -51,9 +53,11 @@ namespace hyenae::frontend::console::states
             static const size_t GFLAG_IP_V6_FRAME = 0x1 << 2;
             static const size_t GFLAG_ICMP_V4_FRAME = 0x1 << 3;
             static const size_t GFLAG_ICMP_V6_FRAME = 0x1 << 4;
-            static const size_t GFLAG_TCP_FRAME = 0x1 << 5;
-            static const size_t GFLAG_UDP_FRAME = 0x1 << 6;
-            static const size_t GFLAG_TEXT_BUFFER = 0x1 << 7;
+            static const size_t GFLAG_ICMP_V4_ECHO_PAYLOAD = 0x1 << 5;
+            static const size_t GFLAG_ICMP_V6_ECHO_PAYLOAD = 0x1 << 6;
+            static const size_t GFLAG_TCP_FRAME = 0x1 << 7;
+            static const size_t GFLAG_UDP_FRAME = 0x1 << 8;
+            static const size_t GFLAG_TEXT_BUFFER = 0x1 << 9;
 
             bool _init = false;
             string_t _title;
@@ -99,6 +103,18 @@ namespace hyenae::frontend::console::states
                 console_app_state_context* context,
                 console_io* console_io,
                 ip_v6_frame_setup* parent);
+
+            generator_selector(
+                string_t title,
+                console_app_state_context* context,
+                console_io* console_io,
+                icmp_v4_frame_setup* parent);
+
+            generator_selector(
+                string_t title,
+                console_app_state_context* context,
+                console_io* console_io,
+                icmp_v6_frame_setup* parent);
 
             ~generator_selector();
             bool run();

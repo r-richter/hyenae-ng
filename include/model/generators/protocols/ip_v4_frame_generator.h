@@ -51,10 +51,6 @@ namespace hyenae::model::generators::protocols
             static const uint8_t VERSION = 4;
             static const uint8_t IHL = 5;
 
-            /* Protocols */
-            static const uint8_t PROTOCOL_TCP = 0x06;
-            static const uint8_t PROTOCOL_UDP = 0x11;
-
         private:
             fixed_data_generator* _version_ihl = NULL;
             fixed_data_generator* _type_of_service = NULL;
@@ -86,7 +82,7 @@ namespace hyenae::model::generators::protocols
                 const string_t& frag_offset_pattern = "0",
                 size_t frag_offset_pattern_base = 10,
                 uint8_t time_to_live = 128,
-                uint8_t protocol = PROTOCOL_TCP,
+                uint8_t protocol = 0,
                 const string_t& src_ip_pattern =
                     address_generator::RAND_IP_V4_PATTERN,
                 const string_t dst_ip_pattern =

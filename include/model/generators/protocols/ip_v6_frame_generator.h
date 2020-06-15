@@ -46,10 +46,6 @@ namespace hyenae::model::generators::protocols
         public:
             static const uint8_t VERSION = 6;
 
-            /* Next header */
-            static const uint8_t NEXT_HEADER_TCP = 0x06;
-            static const uint8_t NEXT_HEADER_UDP = 0x11;
-
         private:
             uint8_t _traffic_class;
             integer_generator* _flow_label = NULL;
@@ -70,7 +66,7 @@ namespace hyenae::model::generators::protocols
                 uint8_t traffic_class = 0,
                 const string_t& flow_label_pattern = "*****",
                 size_t flow_label_pattern_base = 10,
-                uint8_t next_header = NEXT_HEADER_TCP,
+                uint8_t next_header = 0,
                 uint8_t hop_limit = 128,
                 const string_t& src_ip_pattern =
                     address_generator::RAND_IP_V6_PATTERN,

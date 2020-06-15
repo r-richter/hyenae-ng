@@ -24,45 +24,46 @@
  *
  */
 
-#ifndef UDP_FRAME_SETUP_H
-#define UDP_FRAME_SETUP_H
+#ifndef ICMP_ECHO_PAYLOAD_SETUP_H
+#define ICMP_ECHO_PAYLOAD_SETUP_H
 
 #include "../../../../include/frontend/console/console_menu.h"
-#include "../../../../include/frontend/console/states/ip_based_frame_setup.h"
+#include "../../../../include/frontend/console/states/icmp_frame_setup.h"
 #include "../../../../include/frontend/console/states/generator_selector.h"
-#include "../../../../include/model/generators/protocols/udp_frame_generator.h"
+#include "../../../../include/model/generators/protocols/icmp_echo_payload_generator.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    class udp_frame_setup :
-        public ip_based_frame_setup
+    class icmp_echo_payload_setup :
+        public generator_setup
     {
-        using udp_frame_generator_t =
-            model::generators::protocols::udp_frame_generator;
+        using icmp_echo_payload_generator_t =
+            model::generators::protocols::icmp_echo_payload_generator;
 
         private:
-            uint8_t _protocol;
+            uint8_t _type;
+            uint8_t _code;
+            icmp_frame_setup* _icmp_frame_setup;
             console_menu* _menu = NULL;
-            console_menu::item* _src_port_pattern_item = NULL;
-            console_menu::item* _dst_port_pattern_item = NULL;
-            console_menu::item* _payload_item = NULL;
+            console_menu::item* _id_pattern_item = NULL;
+            console_menu::item* _seq_num_pattern_item = NULL;
             console_menu::item* _back_item = NULL;
             data_generator_t* _generator = NULL;
-            string_t _src_port_pattern;
-            string_t _dst_port_pattern;
-            generator_selector* _payload = NULL;
+            string_t _id_pattern;
+            string_t _seq_num_pattern;
 
         public:
-            udp_frame_setup(
-                uint8_t protocol,
+            icmp_echo_payload_setup(
+                uint8_t type,
+                uint8_t code,
                 console_app_state_context* context,
                 console_io* console_io,
                 console_app_state* parent,
-                ip_frame_setup* ip_frame_setup);
+                icmp_frame_setup* icmp_frame_setup);
 
-            ~udp_frame_setup();
+            ~icmp_echo_payload_setup();
             bool run();
             string_t get_generator_name() const;
             data_generator_t* get_generator() const;
@@ -73,17 +74,17 @@ namespace hyenae::frontend::console::states
 
         private:
             void update_menu_items();
-            void prompt_src_port_pattern();
-            void prompt_dst_port_pattern();
+            void prompt_id_pattern();
+            void prompt_seq_num_pattern();
             
             void update_generator(
-                string_t src_port_pattern,
-                string_t dst_port_pattern);
+                string_t id_pattern,
+                string_t seq_num_pattern);
 
-    }; /* udp_frame_setup */
+    }; /* icmp_echo_payload_setup */
 
     /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 
-#endif /* UDP_FRAME_SETUP_H */
+#endif /* ICMP_ECHO_PAYLOAD_SETUP_H */

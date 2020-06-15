@@ -47,6 +47,9 @@ namespace hyenae::model::generators::protocols
             using to_tcp_udp_checksum_t =
                 data_transformations::to_tcp_udp_checksum;
 
+        public:
+            static const uint8_t PROTOCOL = 17;
+
         private:
             integer_generator* _src_port = NULL;
             integer_generator* _dst_port = NULL;

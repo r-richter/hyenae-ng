@@ -43,8 +43,13 @@ namespace hyenae::model::generators::protocols
                 data_transformations::to_network_order;
 
         public:
-            static const uint8_t ICMP_TYPE = 0;
-            static const uint8_t ICMP_CODE = 0;
+            /* ICMPv4 */
+            static const uint8_t ICMP_V4_TYPE = 0;
+            static const uint8_t ICMP_V4_CODE = 0;
+
+            /* ICMPv6 */
+            static const uint8_t ICMP_V6_TYPE = 128;
+            static const uint8_t ICMP_V6_CODE = 0;
 
         private:
             integer_generator* _id = NULL;

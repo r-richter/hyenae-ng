@@ -43,8 +43,7 @@ namespace hyenae::frontend::console::states
 			model::generators::protocols::tcp_frame_generator;
 
 		private:
-			static const uint8_t PROTOCOL = 6;
-
+			uint8_t _protocol;
 			console_menu* _menu = NULL;
 			console_menu::item* _src_port_pattern_item = NULL;
 			console_menu::item* _dst_port_pattern_item = NULL;
@@ -81,6 +80,7 @@ namespace hyenae::frontend::console::states
 
 		public:
 			tcp_frame_setup(
+				uint8_t protocol,
 				console_app_state_context* context,
 				console_io* console_io,
 				console_app_state* parent,
