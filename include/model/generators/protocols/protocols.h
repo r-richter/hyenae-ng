@@ -51,17 +51,17 @@ namespace hyenae::model::generators::protocols
 
     } mac_address_t;
 
-    typedef struct ipv4_address
+    typedef struct ip_v4_address
     {
         octet_t octets[4];
 
-    } ipv4_address_t;
+    } ip_v4_address_t;
 
-    typedef struct ipv6_address
+    typedef struct ip_v6_address
     {
         hextet_t hextets[8];
 
-    } ipv6_address_t;
+    } ip_v6_address_t;
 
     /*---------------------------------------------------------------------- */
 

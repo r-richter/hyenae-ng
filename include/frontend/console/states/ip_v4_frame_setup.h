@@ -24,21 +24,21 @@
  *
  */
 
-#ifndef IPV6_FRAME_SETUP_H
-#define IPV6_FRAME_SETUP_H
+#ifndef IP_V4_FRAME_SETUP_H
+#define IP_V4_FRAME_SETUP_H
 
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/states/ip_frame_setup.h"
 #include "../../../../include/frontend/console/states/generator_selector.h"
 #include "../../../../include/frontend/console/states/ethernet_frame_setup.h"
 #include "../../../../include/model/generators/protocols/ethernet_frame_generator.h"
-#include "../../../../include/model/generators/protocols/ipv6_frame_generator.h"
+#include "../../../../include/model/generators/protocols/ip_v4_frame_generator.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    class ipv6_frame_setup :
+    class ip_v4_frame_setup :
         public ip_frame_setup
     {
         using address_generator_t =
@@ -47,36 +47,42 @@ namespace hyenae::frontend::console::states
         using ethernet_frame_generator_t =
             model::generators::protocols::ethernet_frame_generator;
 
-        using ipv6_frame_generator_t =
-            model::generators::protocols::ipv6_frame_generator;
+        using ip_v4_frame_generator_t =
+            model::generators::protocols::ip_v4_frame_generator;
 
         private:
             console_menu* _menu = NULL;
-            console_menu::item* _traffic_class_item = NULL;
-            console_menu::item* _flow_label_pattern_item = NULL;
-            console_menu::item* _next_header_item = NULL;
-            console_menu::item* _hop_limit_item = NULL;
+            console_menu::item* _type_of_service_item = NULL;
+            console_menu::item* _id_pattern_item = NULL;
+            console_menu::item* _dont_frag_item = NULL;
+            console_menu::item* _more_frags_item = NULL;
+            console_menu::item* _frag_offset_item = NULL;
+            console_menu::item* _time_to_live_item = NULL;
+            console_menu::item* _protocol_item = NULL;
             console_menu::item* _src_ip_pattern_item = NULL;
             console_menu::item* _dst_ip_pattern_item = NULL;
             console_menu::item* _payload_item = NULL;
             console_menu::item* _back_item = NULL;
             data_generator_t* _generator = NULL;
-            uint8_t _traffic_class;
-            string_t _flow_label_pattern;
-            uint8_t _next_header;
-            uint8_t _hop_limit;
+            uint8_t _type_of_service;
+            string_t _id_pattern;
+            bool _dont_frag;
+            bool _more_frags;
+            string_t _frag_offset_pattern;
+            uint8_t _time_to_live;
+            uint8_t _protocol;
             string_t _src_ip_pattern;
             string_t _dst_ip_pattern;
             generator_selector* _payload = NULL;
 
         public:
-            ipv6_frame_setup(
+            ip_v4_frame_setup(
                 console_app_state_context* context,
                 console_io* console_io,
                 console_app_state* parent,
                 ethernet_frame_setup* ethernet_frame_setup);
 
-            ~ipv6_frame_setup();
+            ~ip_v4_frame_setup();
             bool run();
             uint8_t get_protocol() const;
             void set_protocol(uint8_t protocol);
@@ -90,22 +96,26 @@ namespace hyenae::frontend::console::states
 
         private:
             void update_menu_items();
-            void prompt_traffic_class();
-            void prompt_flow_label_pattern();
-            void prompt_next_header();
-            void prompt_hop_limit();
+            void prompt_type_of_service();
+            void prompt_id_pattern();
+            void prompt_dont_frag();
+            void prompt_more_frags();
+            void prompt_frag_offset();
+            void prompt_time_to_live();
+            void prompt_protocol();
             void prompt_src_ip_pattern();
             void prompt_dst_ip_pattern();
-            
+
             void update_generator(
-                string_t flow_label_pattern,
+                string_t id_pattern,
+                string_t frag_offset_pattern,
                 string_t src_ip_pattern,
                 string_t dst_ip_pattern);
 
-    }; /* ipv6_frame_setup */
+    }; /* ip_v4_frame_setup */
 
     /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 
-#endif /* IPV6_FRAME_SETUP_H */
+#endif /* IP_V4_FRAME_SETUP_H */

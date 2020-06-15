@@ -24,13 +24,13 @@
  *
  */
 
-#include "../../../../include/frontend/console/states/ipv6_frame_setup.h"
+#include "../../../../include/frontend/console/states/ip_v4_frame_setup.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    ipv6_frame_setup::ipv6_frame_setup(
+    ip_v4_frame_setup::ip_v4_frame_setup(
         console_app_state_context* context,
         console_io* console_io,
         console_app_state* parent,
@@ -44,28 +44,43 @@ namespace hyenae::frontend::console::states
             "Payload Setup", context, console_io, this);
 
         // Default values
-        _traffic_class = 0;
-        _flow_label_pattern = "*****";
-        _next_header = 0;
-        _hop_limit = 128;
-        _src_ip_pattern = address_generator_t::RAND_IP_V6_PATTERN;
-        _dst_ip_pattern = address_generator_t::RAND_IP_V6_PATTERN;
+        _type_of_service = 0;
+        _id_pattern = "*****";
+        _dont_frag = false;
+        _more_frags = false;
+        _frag_offset_pattern = "0";
+        _time_to_live = 128;
+        _protocol = 0;
+        _src_ip_pattern = address_generator_t::RAND_IP_V4_PATTERN;
+        _dst_ip_pattern = address_generator_t::RAND_IP_V4_PATTERN;
 
-        // Traffic Class
-        _traffic_class_item = new console_menu::item("Traffic Class");
-        _menu->add_item(_traffic_class_item);
+        // Type Of Service
+        _type_of_service_item = new console_menu::item("Type Of Service");
+        _menu->add_item(_type_of_service_item);
 
-        // FLow-Label Pattern
-        _flow_label_pattern_item = new console_menu::item("Flow Label");
-        _menu->add_item(_flow_label_pattern_item);
+        // ID-Pattern
+        _id_pattern_item = new console_menu::item("Identification");
+        _menu->add_item(_id_pattern_item);
 
-        // Next Header
-        _next_header_item = new console_menu::item("Next Header");
-        _menu->add_item(_next_header_item);
+        // Don't Fragment
+        _dont_frag_item = new console_menu::item("Don't Fragment");
+        _menu->add_item(_dont_frag_item);
 
-        // Hop Limit
-        _hop_limit_item = new console_menu::item("Hop Limit");
-        _menu->add_item(_hop_limit_item);
+        // More Fragments
+        _more_frags_item = new console_menu::item("More Fragments");
+        _menu->add_item(_more_frags_item);
+
+        // Fragment-Offset
+        _frag_offset_item = new console_menu::item("Fragment-Offset");
+        _menu->add_item(_frag_offset_item);
+
+        // Time To Live
+        _time_to_live_item = new console_menu::item("Time To Live");
+        _menu->add_item(_time_to_live_item);
+
+        // Protocol
+        _protocol_item = new console_menu::item("Protocol");
+        _menu->add_item(_protocol_item);
 
         // Source-Address
         _src_ip_pattern_item = new console_menu::item("Source-Address");
@@ -86,17 +101,20 @@ namespace hyenae::frontend::console::states
 
         update_generator();
 
-    } /* ipv6_frame_setup */
+    } /* ip_v4_frame_setup */
 
     /*---------------------------------------------------------------------- */
 
-    ipv6_frame_setup::~ipv6_frame_setup()
+    ip_v4_frame_setup::~ip_v4_frame_setup()
     {
         safe_delete(_menu);
-        safe_delete(_traffic_class_item);
-        safe_delete(_flow_label_pattern_item);
-        safe_delete(_next_header_item);
-        safe_delete(_hop_limit_item);
+        safe_delete(_type_of_service_item);
+        safe_delete(_id_pattern_item);
+        safe_delete(_dont_frag_item);
+        safe_delete(_more_frags_item);
+        safe_delete(_frag_offset_item);
+        safe_delete(_time_to_live_item);
+        safe_delete(_protocol_item);
         safe_delete(_src_ip_pattern_item);
         safe_delete(_dst_ip_pattern_item);
         safe_delete(_payload_item);
@@ -104,32 +122,44 @@ namespace hyenae::frontend::console::states
         safe_delete(_generator);
         safe_delete(_payload);
 
-    } /* ~ipv6_frame_setup */
+    } /* ~ip_v4_frame_setup */
 
     /*---------------------------------------------------------------------- */
 
-    bool ipv6_frame_setup::run()
+    bool ip_v4_frame_setup::run()
     {
         update_generator();
         update_menu_items();
 
         console_menu::item* choice = _menu->prompt();
 
-        if (choice == _traffic_class_item)
+        if (choice == _type_of_service_item)
         {
-            prompt_traffic_class();
+            prompt_type_of_service();
         }
-        else if (choice == _flow_label_pattern_item)
+        else if (choice == _id_pattern_item)
         {
-            prompt_flow_label_pattern();
+            prompt_id_pattern();
         }
-        else if (choice == _next_header_item)
+        else if (choice == _dont_frag_item)
         {
-            prompt_next_header();
+            prompt_dont_frag();
         }
-        else if (choice == _hop_limit_item)
+        else if (choice == _more_frags_item)
         {
-            prompt_hop_limit();
+            prompt_more_frags();
+        }
+        else if (choice == _frag_offset_item)
+        {
+            prompt_frag_offset();
+        }
+        else if (choice == _time_to_live_item)
+        {
+            prompt_time_to_live();
+        }
+        else if (choice == _protocol_item)
+        {
+            prompt_protocol();
         }
         else if (choice == _src_ip_pattern_item)
         {
@@ -154,32 +184,32 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    uint8_t ipv6_frame_setup::get_protocol() const
+    uint8_t ip_v4_frame_setup::get_protocol() const
     {
-        return _next_header;
+        return _protocol;
 
     } /* get_protocol */
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_setup::set_protocol(uint8_t protocol)
+    void ip_v4_frame_setup::set_protocol(uint8_t protocol)
     {
-        _next_header = protocol;
+        _protocol = protocol;
 
     } /* set_protocol */
 
     /*---------------------------------------------------------------------- */
 
-    string_t ipv6_frame_setup::get_generator_name() const
+    string_t ip_v4_frame_setup::get_generator_name() const
     {
-        return "IPv6-Frame";
+        return "IPv4-Frame";
 
     } /* get_generator_name */
 
     /*---------------------------------------------------------------------- */
 
-    ipv6_frame_setup::data_generator_t*
-        ipv6_frame_setup::get_generator() const
+    ip_v4_frame_setup::data_generator_t*
+        ip_v4_frame_setup::get_generator() const
     {
         return _generator;
 
@@ -187,19 +217,20 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    ipv6_frame_setup::data_generator_t*
-        ipv6_frame_setup::get_pseudo_header() const
+    ip_v4_frame_setup::data_generator_t*
+        ip_v4_frame_setup::get_pseudo_header() const
     {
-        return ((ipv6_frame_generator_t*)_generator)->get_pseudo_header();
+        return ((ip_v4_frame_generator_t*)_generator)->get_pseudo_header();
 
     } /* get_pseudo_header */
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_setup::update_generator()
+    void ip_v4_frame_setup::update_generator()
     {
         update_generator(
-            _flow_label_pattern,
+            _id_pattern,
+            _frag_offset_pattern,
             _src_ip_pattern,
             _dst_ip_pattern);
 
@@ -207,21 +238,24 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_setup::on_select()
+    void ip_v4_frame_setup::on_select()
     {
         get_ethernet_frame_setup()->set_type(
-            ethernet_frame_generator_t::TYPE_IPV6);
+            ethernet_frame_generator_t::TYPE_IP_V4);
 
     } /* on_select */
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_setup::update_menu_items()
+    void ip_v4_frame_setup::update_menu_items()
     {
-        _traffic_class_item->set_info(std::to_string(_traffic_class));
-        _flow_label_pattern_item->set_info(_flow_label_pattern);
-        _next_header_item->set_info(std::to_string(_next_header));
-        _hop_limit_item->set_info(std::to_string(_hop_limit));
+        _type_of_service_item->set_info(std::to_string(_type_of_service));
+        _id_pattern_item->set_info(_id_pattern);
+        _dont_frag_item->set_info(_dont_frag ? "On" : "Off");
+        _more_frags_item->set_info(_more_frags ? "On" : "Off");
+        _frag_offset_item->set_info(concat(_frag_offset_pattern, " (x 8)"));
+        _time_to_live_item->set_info(std::to_string(_time_to_live));
+        _protocol_item->set_info(std::to_string(_protocol));
         _src_ip_pattern_item->set_info(_src_ip_pattern);
         _dst_ip_pattern_item->set_info(_dst_ip_pattern);
         _payload_item->set_info(_payload->get_generator_name());
@@ -230,59 +264,100 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_setup::prompt_traffic_class()
+    void ip_v4_frame_setup::prompt_type_of_service()
     {
-        _traffic_class = (uint8_t)get_console()->prompt(
-            0, INT64_MAX, "Enter Traffic Class (Decimal)");
+        _type_of_service = (uint8_t)get_console()->prompt(
+            0, INT64_MAX, "Enter Type Of Service (Decimal)");
 
-    } /* prompt_traffic_class */
+    } /* prompt_type_of_service */
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_setup::prompt_flow_label_pattern()
+    void ip_v4_frame_setup::prompt_id_pattern()
     {
-        _flow_label_pattern = get_console()->prompt([this](string_t input)
+        _id_pattern = get_console()->prompt([this](string_t input)
         {
             update_generator(
                 input,
+                _frag_offset_pattern,
                 _src_ip_pattern,
                 _dst_ip_pattern);
 
             return input;
 
         },
-        "Enter Flow-Label Pattern",
-            _flow_label_pattern,
-            _flow_label_pattern);
+        "Enter Identification Pattern",
+            _id_pattern,
+            _id_pattern);
 
-    } /* prompt_flow_label_pattern */
+    } /* prompt_id_pattern */
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_setup::prompt_next_header()
+    void ip_v4_frame_setup::prompt_dont_frag()
     {
-        _next_header = (uint8_t)get_console()->prompt(
-            0, 255, "Enter Next Header (Decimal)", "0-255");
+        _dont_frag = get_console()->prompt(
+            0, 1, "Don't Fragment", "0 = Off, 1 = On");
 
-    } /* prompt_next_header */
+    } /* prompt_dont_frag */
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_setup::prompt_hop_limit()
+    void ip_v4_frame_setup::prompt_more_frags()
     {
-        _hop_limit = (uint8_t)get_console()->prompt(
-            0, 255, "Enter Hop Limit (Decimal)", "0-255");
+        _more_frags = get_console()->prompt(
+            0, 1, "More Fragments", "0 = Off, 1 = On");
 
-    } /* prompt_hop_limit */
+    } /* prompt_more_frags */
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_setup::prompt_src_ip_pattern()
+    void ip_v4_frame_setup::prompt_frag_offset()
+    {
+        _frag_offset_pattern = get_console()->prompt([this](string_t input)
+            {
+                update_generator(
+                    _id_pattern,
+                    input,
+                    _src_ip_pattern,
+                    _dst_ip_pattern);
+
+                return input;
+
+            },
+            "Enter Fragment-Offset Pattern (1 Unit = 8 Bytes)",
+                _frag_offset_pattern,
+                _frag_offset_pattern);
+
+    } /* prompt_frag_offset */
+
+    /*---------------------------------------------------------------------- */
+
+    void ip_v4_frame_setup::prompt_time_to_live()
+    {
+        _time_to_live = (uint8_t)get_console()->prompt(
+            0, 255, "Enter Time To Live (Decimal)", "0-255");
+
+    } /* prompt_time_to_live */
+
+    /*---------------------------------------------------------------------- */
+
+    void ip_v4_frame_setup::prompt_protocol()
+    {
+        _protocol = (uint8_t)get_console()->prompt(
+            0, 255, "Enter Protocol (Decimal)", "0-255");
+
+    } /* prompt_protocol */
+
+    /*---------------------------------------------------------------------- */
+
+    void ip_v4_frame_setup::prompt_src_ip_pattern()
     {
         _src_ip_pattern = get_console()->prompt([this](string_t input)
             {
                 update_generator(
-                    _flow_label_pattern,
+                    _id_pattern,
+                    _frag_offset_pattern,
                     input,
                     _dst_ip_pattern);
 
@@ -297,12 +372,13 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_setup::prompt_dst_ip_pattern()
+    void ip_v4_frame_setup::prompt_dst_ip_pattern()
     {
         _dst_ip_pattern = get_console()->prompt([this](string_t input)
             {
                 update_generator(
-                    _flow_label_pattern,
+                    _id_pattern,
+                    _frag_offset_pattern,
                     _src_ip_pattern,
                     input);
 
@@ -317,19 +393,24 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_setup::update_generator(
-        string_t flow_label_pattern,
+    void ip_v4_frame_setup::update_generator(
+        string_t id_pattern,
+        string_t _frag_offset,
         string_t src_ip_pattern,
         string_t dst_ip_pattern)
     {
         safe_delete(_generator);
 
-        _generator = new ipv6_frame_generator_t(
-            _traffic_class,
-            flow_label_pattern,
+        _generator = new ip_v4_frame_generator_t(
+            _type_of_service,
+            id_pattern,
             10,
-            _next_header,
-            _hop_limit,
+            _dont_frag,
+            _more_frags,
+            _frag_offset,
+            10,
+            _time_to_live,
+            _protocol,
             src_ip_pattern,
             dst_ip_pattern);
 
@@ -339,7 +420,7 @@ namespace hyenae::frontend::console::states
 
         if (_payload->get_generator() != NULL)
         {
-            ((ipv6_frame_generator_t*)_generator)->
+            ((ip_v4_frame_generator_t*)_generator)->
                 get_payload()->add_generator(_payload->get_generator());
         }
 

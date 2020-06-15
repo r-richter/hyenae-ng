@@ -25,7 +25,7 @@
  */
 
 #include "../../../../include/assert.h"
-#include "../../../../include/model/generators/protocols/ipv6_frame_generator.h"
+#include "../../../../include/model/generators/protocols/ip_v6_frame_generator.h"
 
 #include <cstdlib>
 #include <cstring>
@@ -34,7 +34,7 @@ namespace hyenae::model::generators::protocols
 {
     /*---------------------------------------------------------------------- */
 
-    ipv6_frame_generator::ipv6_frame_generator(
+    ip_v6_frame_generator::ip_v6_frame_generator(
         uint8_t traffic_class,
         const string_t& flow_label_pattern,
         size_t flow_label_pattern_base,
@@ -70,12 +70,12 @@ namespace hyenae::model::generators::protocols
         _packet.add_generator(_hop_limit);
 
         // Source IP
-        _src_ip_addr = address_generator::create_ipv6_address(
+        _src_ip_addr = address_generator::create_ip_v6_address(
             src_ip_pattern, to_network_order_t::get_instance());
         _packet.add_generator(_src_ip_addr);
 
         // Destination IP
-        _dst_ip_addr = address_generator::create_ipv6_address(
+        _dst_ip_addr = address_generator::create_ip_v6_address(
             dst_ip_pattern, to_network_order_t::get_instance());
         _packet.add_generator(_dst_ip_addr);
 
@@ -94,11 +94,11 @@ namespace hyenae::model::generators::protocols
         update_version_traffic_flow();
         update_payload_length();
 
-    } /* ipv6_frame_generator */
+    } /* ip_v6_frame_generator */
 
     /*---------------------------------------------------------------------- */
 
-    ipv6_frame_generator::~ipv6_frame_generator()
+    ip_v6_frame_generator::~ip_v6_frame_generator()
     {
         safe_delete(_flow_label);
         safe_delete(_version_traffic_flow);
@@ -110,11 +110,11 @@ namespace hyenae::model::generators::protocols
         safe_delete(_reserved_24bit);
         safe_delete(_payload_length_32bit);
 
-    } /* ~ipv6_frame_generator */
+    } /* ~ip_v6_frame_generator */
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_generator::next(bool data_changed)
+    void ip_v6_frame_generator::next(bool data_changed)
     {
         _flow_label->next(false);
         _src_ip_addr->next(false);
@@ -133,7 +133,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_generator::reset(bool data_changed)
+    void ip_v6_frame_generator::reset(bool data_changed)
     {
         _flow_label->reset(false);
         _src_ip_addr->reset(false);
@@ -152,7 +152,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    generator_group* ipv6_frame_generator::get_payload()
+    generator_group* ip_v6_frame_generator::get_payload()
     {
         return &_payload;
 
@@ -160,7 +160,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    data_generator* ipv6_frame_generator::get_pseudo_header() const
+    data_generator* ip_v6_frame_generator::get_pseudo_header() const
     {
         return (data_generator*)&_pseudo_header;
 
@@ -168,7 +168,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    size_t ipv6_frame_generator::data_size() const
+    size_t ip_v6_frame_generator::data_size() const
     {
         return _packet.size();
 
@@ -176,7 +176,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    byte_t* ipv6_frame_generator::data_to_buffer(
+    byte_t* ip_v6_frame_generator::data_to_buffer(
         byte_t* buffer, size_t size) const
     {
         return _packet.to_buffer(buffer, size);
@@ -185,7 +185,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_generator::update_payload_length()
+    void ip_v6_frame_generator::update_payload_length()
     {
         _payload_length_16bit->set_uint16((uint16_t)_payload.size());
         _payload_length_32bit->set_uint32((uint16_t)_payload.size());
@@ -194,7 +194,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    void ipv6_frame_generator::update_version_traffic_flow()
+    void ip_v6_frame_generator::update_version_traffic_flow()
     {
         _version_traffic_flow->set_uint32(
             (VERSION << 28) +

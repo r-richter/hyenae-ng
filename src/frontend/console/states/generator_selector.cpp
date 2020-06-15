@@ -26,8 +26,8 @@
 
 #include "../../../../include/frontend/console/states/generator_selector.h"
 #include "../../../../include/frontend/console/states/ethernet_frame_setup.h"
-#include "../../../../include/frontend/console/states/ipv4_frame_setup.h"
-#include "../../../../include/frontend/console/states/ipv6_frame_setup.h"
+#include "../../../../include/frontend/console/states/ip_v4_frame_setup.h"
+#include "../../../../include/frontend/console/states/ip_v6_frame_setup.h"
 #include "../../../../include/frontend/console/states/udp_frame_setup.h"
 #include "../../../../include/frontend/console/states/tcp_frame_setup.h"
 #include "../../../../include/frontend/console/states/text_buffer_setup.h"
@@ -79,8 +79,8 @@ namespace hyenae::frontend::console::states
         _title = title;
 
         _generator_flags =
-            GFLAG_IPV4_FRAME |
-            GFLAG_IPV6_FRAME |
+            GFLAG_IP_V4_FRAME |
+            GFLAG_IP_V6_FRAME |
             GFLAG_TEXT_BUFFER;
 
     } /* generator_selector */
@@ -231,20 +231,20 @@ namespace hyenae::frontend::console::states
                 get_context(), get_console(), get_parent()));
         }
 
-        if (_generator_flags & GFLAG_IPV4_FRAME)
+        if (_generator_flags & GFLAG_IP_V4_FRAME)
         {
             // IPv4-Frame
-            add_generator(new ipv4_frame_setup(
+            add_generator(new ip_v4_frame_setup(
                 get_context(),
                 get_console(),
                 get_parent(),
                 (ethernet_frame_setup*) get_parent()));
         }
 
-        if (_generator_flags & GFLAG_IPV6_FRAME)
+        if (_generator_flags & GFLAG_IP_V6_FRAME)
         {
             // IPv6-Frame
-            add_generator(new ipv6_frame_setup(
+            add_generator(new ip_v6_frame_setup(
                 get_context(),
                 get_console(),
                 get_parent(),

@@ -24,8 +24,8 @@
  *
  */
 
-#ifndef IPV4_FRAME_GENERATOR_H
-#define IPV4_FRAME_GENERATOR_H
+#ifndef IP_V4_FRAME_GENERATOR_H
+#define IP_V4_FRAME_GENERATOR_H
 
 #include "address_generator.h"
 #include "../fixed_data_generator.h"
@@ -37,7 +37,7 @@ namespace hyenae::model::generators::protocols
 {
     /*---------------------------------------------------------------------- */
 
-    class ipv4_frame_generator :
+    class ip_v4_frame_generator :
         public data_generator
     {
         private:
@@ -77,7 +77,7 @@ namespace hyenae::model::generators::protocols
             generator_group _pseudo_header;
             
         public:
-            ipv4_frame_generator(
+            ip_v4_frame_generator(
                 uint8_t type_of_service = 0, // TODO: Add TOS constants...
                 const string_t& id_pattern = "*****",
                 size_t id_pattern_base = 10,
@@ -92,7 +92,7 @@ namespace hyenae::model::generators::protocols
                 const string_t dst_ip_pattern =
                     address_generator::RAND_IP_V4_PATTERN);
 
-            ~ipv4_frame_generator();
+            ~ip_v4_frame_generator();
             void next(bool data_changed = true);
             void reset(bool data_changed = true);
             generator_group* get_payload();
@@ -104,10 +104,10 @@ namespace hyenae::model::generators::protocols
             void update_payload_length();
             void update_flags_frag_offset();
 
-    }; /* ipv4_frame_generator */
+    }; /* ip_v4_frame_generator */
 
     /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::generators::protocols */
 
-#endif /* IPV4_FRAME_GENERATOR_H */
+#endif /* IP_V4_FRAME_GENERATOR_H */

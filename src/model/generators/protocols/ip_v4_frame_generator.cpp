@@ -24,13 +24,13 @@
  *
  */
 
-#include "../../../../include/model/generators/protocols/ipv4_frame_generator.h"
+#include "../../../../include/model/generators/protocols/ip_v4_frame_generator.h"
 
 namespace hyenae::model::generators::protocols
 {
     /*---------------------------------------------------------------------- */
 
-    ipv4_frame_generator::ipv4_frame_generator(
+    ip_v4_frame_generator::ip_v4_frame_generator(
         uint8_t type_of_service,
         const string_t& id_pattern,
         size_t id_pattern_base,
@@ -93,12 +93,12 @@ namespace hyenae::model::generators::protocols
         _packet.add_generator(_checksum);
 
         // Source IP
-        _src_ip_addr = address_generator::create_ipv4_address(
+        _src_ip_addr = address_generator::create_ip_v4_address(
             src_ip_pattern, to_network_order_t::get_instance());
         _packet.add_generator(_src_ip_addr);
 
         // Destination IP
-        _dst_ip_addr = address_generator::create_ipv4_address(
+        _dst_ip_addr = address_generator::create_ip_v4_address(
             dst_ip_pattern, to_network_order_t::get_instance());
         _packet.add_generator(_dst_ip_addr);
 
@@ -130,11 +130,11 @@ namespace hyenae::model::generators::protocols
         update_flags_frag_offset();
         update_payload_length();
 
-    } /* ipv4_frame_generator */
+    } /* ip_v4_frame_generator */
 
     /*---------------------------------------------------------------------- */
 
-    ipv4_frame_generator::~ipv4_frame_generator()
+    ip_v4_frame_generator::~ip_v4_frame_generator()
     {
         safe_delete(_version_ihl);
         safe_delete(_type_of_service);
@@ -151,11 +151,11 @@ namespace hyenae::model::generators::protocols
         safe_delete(_reserved_8bit);
         safe_delete(_payload_length);
 
-    } /* ~ipv4_frame_generator */
+    } /* ~ip_v4_frame_generator */
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_generator::next(bool data_changed)
+    void ip_v4_frame_generator::next(bool data_changed)
     {
         _frag_offset->next(false);
         _id->next(false);
@@ -175,7 +175,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_generator::reset(bool data_changed)
+    void ip_v4_frame_generator::reset(bool data_changed)
     {
         _frag_offset->reset(false);
         _id->reset(false);
@@ -195,7 +195,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    generator_group* ipv4_frame_generator::get_payload()
+    generator_group* ip_v4_frame_generator::get_payload()
     {
         return &_payload;
 
@@ -203,7 +203,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    data_generator* ipv4_frame_generator::get_pseudo_header() const
+    data_generator* ip_v4_frame_generator::get_pseudo_header() const
     {
         return (data_generator*)&_pseudo_header;
 
@@ -211,7 +211,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    size_t ipv4_frame_generator::data_size() const
+    size_t ip_v4_frame_generator::data_size() const
     {
         return _packet.size();
 
@@ -219,7 +219,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    byte_t* ipv4_frame_generator::data_to_buffer(
+    byte_t* ip_v4_frame_generator::data_to_buffer(
         byte_t* buffer, size_t size) const
     {
         return _packet.to_buffer(buffer, size);
@@ -228,7 +228,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_generator::update_payload_length()
+    void ip_v4_frame_generator::update_payload_length()
     {
         _total_length->set_uint16(
             (uint16_t)((IHL * 4) + _payload.size()));
@@ -239,7 +239,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    void ipv4_frame_generator::update_flags_frag_offset()
+    void ip_v4_frame_generator::update_flags_frag_offset()
     {
         _flags_frag_offset->set_uint16(
             (_dont_frag << 14) +

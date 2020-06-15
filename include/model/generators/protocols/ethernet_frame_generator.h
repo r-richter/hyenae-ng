@@ -51,8 +51,8 @@ namespace hyenae::model::generators::protocols
                 0b1010101010101010101010101010101010101010101010101010101010101011;
 
             /* Types */
-            static const uint16_t TYPE_IPV4 = 0x0800;
-            static const uint16_t TYPE_IPV6 = 0x86DD;
+            static const uint16_t TYPE_IP_V4 = 0x0800;
+            static const uint16_t TYPE_IP_V6 = 0x86DD;
 
         private:
             fixed_data_generator* _preamble_sfd = NULL;
@@ -71,7 +71,7 @@ namespace hyenae::model::generators::protocols
                 address_generator::RAND_MAC_PATTERN,
                 const string_t& dst_mac_pattern =
                 address_generator::RAND_MAC_PATTERN,
-                uint16_t type = TYPE_IPV4,
+                uint16_t type = TYPE_IP_V4,
                 bool add_fcs = false);
 
             ~ethernet_frame_generator();
