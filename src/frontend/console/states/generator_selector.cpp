@@ -100,7 +100,7 @@ namespace hyenae::frontend::console::states
         _title = title;
 
         _generator_flags =
-            GFLAG_ICMP_V4_FRAME |
+            GFLAG_ICMP_V4_OVER_IP_V4_FRAME |
             GFLAG_TCP_OVER_IP_V4_FRAME |
             GFLAG_UDP_OVER_IP_V4_FRAME |
             GFLAG_TEXT_BUFFER;
@@ -119,7 +119,7 @@ namespace hyenae::frontend::console::states
         _title = title;
 
         _generator_flags =
-            GFLAG_ICMP_V4_FRAME |
+            GFLAG_ICMP_V4_OVER_IP_V6_FRAME |
             GFLAG_ICMP_V6_FRAME |
             GFLAG_TCP_OVER_IP_V6_FRAME |
             GFLAG_UDP_OVER_IP_V6_FRAME |
@@ -310,10 +310,22 @@ namespace hyenae::frontend::console::states
                 (ethernet_frame_setup*)get_parent()));
         }
 
-        if (_generator_flags & GFLAG_ICMP_V4_FRAME)
+        if (_generator_flags & GFLAG_ICMP_V4_OVER_IP_V4_FRAME)
         {
-            // ICMPv4-Frame
+            // ICMPv4 over IPv4 Frame
             add_generator(new icmp_v4_frame_setup(
+                icmp_v4_frame_generator::IP_V4_PROTOCOL,
+                get_context(),
+                get_console(),
+                get_parent(),
+                (ip_frame_setup*)get_parent()));
+        }
+
+        if (_generator_flags & GFLAG_ICMP_V4_OVER_IP_V6_FRAME)
+        {
+            // ICMPv4 over IPv4 Frame
+            add_generator(new icmp_v4_frame_setup(
+                icmp_v4_frame_generator::IP_V6_PROTOCOL,
                 get_context(),
                 get_console(),
                 get_parent(),
@@ -324,6 +336,7 @@ namespace hyenae::frontend::console::states
         {
             // ICMPv6-Frame
             add_generator(new icmp_v6_frame_setup(
+                icmp_v6_frame_generator::IP_V6_PROTOCOL,
                 get_context(),
                 get_console(),
                 get_parent(),

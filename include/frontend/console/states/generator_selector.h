@@ -51,15 +51,16 @@ namespace hyenae::frontend::console::states
             static const size_t GFLAG_ETHERNET_FRAME = 0x1 << 0;
             static const size_t GFLAG_IP_V4_FRAME = 0x1 << 1;
             static const size_t GFLAG_IP_V6_FRAME = 0x1 << 2;
-            static const size_t GFLAG_ICMP_V4_FRAME = 0x1 << 3;
-            static const size_t GFLAG_ICMP_V6_FRAME = 0x1 << 4;
-            static const size_t GFLAG_ICMP_V4_ECHO_PAYLOAD = 0x1 << 5;
-            static const size_t GFLAG_ICMP_V6_ECHO_PAYLOAD = 0x1 << 6;
-            static const size_t GFLAG_TCP_OVER_IP_V4_FRAME = 0x1 << 7;
-            static const size_t GFLAG_TCP_OVER_IP_V6_FRAME = 0x1 << 8;
-            static const size_t GFLAG_UDP_OVER_IP_V4_FRAME = 0x1 << 9;
-            static const size_t GFLAG_UDP_OVER_IP_V6_FRAME = 0x1 << 10;
-            static const size_t GFLAG_TEXT_BUFFER = 0x1 << 11;
+            static const size_t GFLAG_ICMP_V4_OVER_IP_V4_FRAME = 0x1 << 3;
+            static const size_t GFLAG_ICMP_V4_OVER_IP_V6_FRAME = 0x1 << 4;
+            static const size_t GFLAG_ICMP_V6_FRAME = 0x1 << 5;
+            static const size_t GFLAG_ICMP_V4_ECHO_PAYLOAD = 0x1 << 6;
+            static const size_t GFLAG_ICMP_V6_ECHO_PAYLOAD = 0x1 << 7;
+            static const size_t GFLAG_TCP_OVER_IP_V4_FRAME = 0x1 << 8;
+            static const size_t GFLAG_TCP_OVER_IP_V6_FRAME = 0x1 << 9;
+            static const size_t GFLAG_UDP_OVER_IP_V4_FRAME = 0x1 << 10;
+            static const size_t GFLAG_UDP_OVER_IP_V6_FRAME = 0x1 << 11;
+            static const size_t GFLAG_TEXT_BUFFER = 0x1 << 12;
 
             bool _init = false;
             string_t _title;
