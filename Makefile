@@ -4,7 +4,7 @@
 #
 # Copyright (C) 2020 Robin Richter
 #
-#   Contact  : richterr@users.sourceforge.net
+#   Contact  : hyenae.tool@googlemail.com
 #   Homepage : https://github.com/r-richter/hyenae-ng
 #
 # This file is part of Hyenae NG.
