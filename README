@@ -37,17 +37,22 @@
    2.2 Generator Setup
 
    The generator setup let you chose from several different generators. Most
-   generators feature a payload option for which you can select another
+   generators provide a payload option for which you can select another
    generator and so on. Since network frame generators are nested in transport
    layers, their available payload generators will differ based on the
    previously chosen frame generator. Here is an example of a typical
    payload nesting for an ethernet packet:
 
-     Ethernet +-> IPv4 +-> TCP
-               |       +-> UDP
-               |
-               +-> IPv6 +-> TCP
-                        +-> UPD
+     Ethernet +-> IPv4 +-> ICMPv4 -> ICMP Echo Payload
+	          |        +-> TCP
+              |        +-> UDP
+			  |        +-> ...
+              |
+              +-> IPv6 +-> ICMPv4 -> ICMP Echo Payload
+			           +-> ICMPv6 -> ICMP Echo Payload
+			           +-> TCP
+                       +-> UPD
+					   +-> ...
 
    2.3 Dispatcher Setup
 
@@ -63,5 +68,51 @@
    either a stop-limit (if set) is reached or the user presses any key. After
    the dispatcher has stopped you can either return to the main menu by entering
    0 or start it again by either entering 1 or simply pressing enter.
+
+--------------------------------------------------------------------------------
+
+ 3. Generator Patterns
+ 
+ A lot of packet generator parameters can be providing with a generator pattern.
+ These patterns will be used in order to generate a new value on every new
+ packet. Here are some examples of a few basic patterns:
+ 
+   # Random 5-digit number
+   
+     *****
+	 
+   # Incremental 3-digit number
+   
+     +++
+   
+   # Decremental 2-digit number
+   
+     --
+   
+   # Random number between 100 and 199
+   
+     1**
+   
+   # Incremental number from 1 to 991
+   
+	 ++1
+   
+   # Decremental number from 299 to 200
+   
+     2--
+   
+ Generator patterns can be used in address fields too, such as for:
+ 
+   # Random IPv4 address between .200 and .255
+   
+     129.168.0.2**
+	 
+   # Incremental MAC address between :00 and :FF
+   
+     AA:BB:CC:DD:EE:++
+	 
+   # Decremental IPv6 address between :FFFF and :FF00
+   
+     1000:2000:3000:4000:5000:6000:7000:FF--
 
 --------------------------------------------------------------------------------
