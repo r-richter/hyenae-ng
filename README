@@ -43,12 +43,6 @@
   Hyenae in a clean and easy to use command line tool which can be instantly
   used without any futher research on the command line arguments to pass for
   the specific scenarios.
-   
-  I also stripped all external dependencies of the original Hyenae tool which
-  allows you to compile and run Hyenae NG natively on allmost every system out
-  there. Currently the only dependencies for Windows systems is NPCap,
-  *nix based systems will use raw sockets to write to the network and won't 
-  have any external dependencies or libraries in order to have Hyenae NG build.
 
 --------------------------------------------------------------------------------
 
