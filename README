@@ -6,6 +6,16 @@
 
 --------------------------------------------------------------------------------
 
+  Hyenae NG
+    Advanced Network Packet Generator
+
+  Copyright (C) 2020 Robin Richter
+
+  Contact  : hyenae.tool@googlemail.com
+  Homepage : https://github.com/r-richter/hyenae-ng
+  
+--------------------------------------------------------------------------------
+
   1. About Hyenae NG
 
   Hyenae NG (Next Generation) is a re-write of the original Hyenae tool which
@@ -16,16 +26,38 @@
   Since the original Hyenae had a very complex command line syntax Hyenae NG
   comes with a fast and intuitively usable command line menu that will allow
   you to effectively set up even complex stress-tests or attacks scenarios
-  within seconds. 
+  within seconds.
+  
+--------------------------------------------------------------------------------
+
+ 2. Project Goals
+ 
+   The original Hyenae project started out as a study of network stack
+   implementations but then quickly gained more complex features such as a
+   remote daemon and an attack asistent. Even if it was widely accepted and is
+   still a very commonly used tool in todays pen-testing workflows it has a
+   complex command line syntax and requires some training and research in order
+   to be used properly.
+   
+   With Hyenae NG i would like to provide the complexity and felxibility of
+   Hyenae in a clean and easy to use command line tool which can be instantly
+   used without any futher research on the command line arguments to pass for
+   the specific scenarios.
+   
+   I also stripped all external dependencies of the original Hyenae tool which
+   allows you to compile and run Hyenae NG natively on allmost every system out
+   there. Currently the only dependencies for Windows systems is NPCap,
+   *nix based systems will use raw sockets to write to the network and won't 
+   have any external dependencies or libraries in order to have Hyenae NG build.
 
 --------------------------------------------------------------------------------
 
- 2. Basic Usage
+ 3. Basic Usage
 
  Once you start Hyenae NG, it will enter the main menu state. From here you can
  set up your desired output, generator and dispatcher configuration.
 
-   2.1 Output Setup
+   3.1 Output Setup
  
    The output setup let you choose from several different output option. You can
    either have Hyenae NG's output ignore by selecting "No Output" our you can
@@ -34,7 +66,7 @@
    entering it's menu item number again or by simply pressing enter. Outputs
    that have a sub-setup are marked with a (...) once they are selected.
 
-   2.2 Generator Setup
+   3.2 Generator Setup
 
    The generator setup let you chose from several different generators. Most
    generators provide a payload option for which you can select another
@@ -54,13 +86,13 @@
                        +-> UPD
 					   +-> ...
 
-   2.3 Dispatcher Setup
+   3.3 Dispatcher Setup
 
    The dispatcher setup will let you set up the actual data dispatcher. You can
    define stop-limits or configure a fixed or random send delay in order to
    break flood detection mechanisms on your target system.
 
-   2.4 Start Dispatcher
+   3.4 Start Dispatcher
 
    Once you have set a generator, you can choose this option to start up the
    dispatcher and start sending packets. If you haven't set a generator yet, 
@@ -71,7 +103,7 @@
 
 --------------------------------------------------------------------------------
 
- 3. Generator Patterns
+ 4. Generator Patterns
  
  A lot of packet generator parameters can be providing with a generator pattern.
  These patterns will be used in order to generate a new value on every new
@@ -101,7 +133,8 @@
    
      2--
    
- Generator patterns can be used in address fields too, such as for:
+ Generator patterns are used for address fields too, here are a few more
+ examples:
  
    # Random IPv4 address between .200 and .255
    

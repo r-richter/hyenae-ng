@@ -6,6 +6,16 @@
 
 --------------------------------------------------------------------------------
 
+  Hyenae NG
+    Advanced Network Packet Generator
+
+  Copyright (C) 2020 Robin Richter
+
+  Contact  : hyenae.tool@googlemail.com
+  Homepage : https://github.com/r-richter/hyenae-ng
+  
+--------------------------------------------------------------------------------
+
   1. Prerequisites
 
   In order to build and install Hyenae NG from source, you first need to make
