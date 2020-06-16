@@ -77,15 +77,15 @@
     payload nesting for an ethernet packet:
 
       Ethernet +-> IPv4 +-> ICMPv4 -> ICMP Echo Payload
-	           |        +-> TCP
+               |        +-> TCP
                |        +-> UDP
-		 	  |        +-> ...
+               |        +-> ...
                |
                +-> IPv6 +-> ICMPv4 -> ICMP Echo Payload
-			            +-> ICMPv6 -> ICMP Echo Payload
-			            +-> TCP
+                        +-> ICMPv6 -> ICMP Echo Payload
+                        +-> TCP
                         +-> UPD
-				        +-> ...
+                        +-> ...
 
     3.3 Dispatcher Setup
 
