@@ -54,12 +54,12 @@
     3.1 Output Setup
  
     The output setup let you choose from several different output option. You
-	can either have Hyenae NG's output ignore by selecting "No Output" our you
-	can have it send to either a file or a network adapter. Once you have
-	selected an output, you can enter it's sub setup by selecting it again by
-	either entering it's menu item number again or by simply pressing enter.
-	Outputs that have a sub-setup are marked with a (...) once they are
-	selected.
+    can either have Hyenae NG's output ignore by selecting "No Output" our you
+    can have it send to either a file or a network adapter. Once you have
+    selected an output, you can enter it's sub setup by selecting it again by
+    either entering it's menu item number again or by simply pressing enter.
+    Outputs that have a sub-setup are marked with a (...) once they are
+    selected.
 
     3.2 Generator Setup
 
@@ -84,8 +84,8 @@
     3.3 Dispatcher Setup
 
     The dispatcher setup will let you set up the actual data dispatcher. You
-	can define stop-limits or configure a fixed or random send delay in order
-	to break flood detection mechanisms on your target system.
+    can define stop-limits or configure a fixed or random send delay in order
+    to break flood detection mechanisms on your target system.
 
     3.4 Start Dispatcher
 
@@ -94,7 +94,7 @@
     an error message will be shown instead. The dispatcher will operate until
     either a stop-limit (if set) is reached or the user presses any key. After
     the dispatcher has stopped you can either return to the main menu by
-	entering 0 or start it again by either entering 1 or simply pressing enter.
+    entering 0 or start it again by either entering 1 or simply pressing enter.
 
 --------------------------------------------------------------------------------
 
@@ -107,7 +107,7 @@
      # Random 5-digit number
    
        *****
-	 
+     
      # Incremental 3-digit number
    
        +++
@@ -122,7 +122,7 @@
    
      # Incremental number from 1 to 991
    
-	   ++1
+       ++1
    
      # Decremental number from 299 to 200
    
@@ -134,11 +134,11 @@
     # Random IPv4 address between .200 and .255
    
       129.168.0.2**
-	 
+     
     # Incremental MAC address between :00 and :FF
    
       AA:BB:CC:DD:EE:++
-	 
+     
     # Decremental IPv6 address between :FFFF and :FF00
    
       1000:2000:3000:4000:5000:6000:7000:FF--
