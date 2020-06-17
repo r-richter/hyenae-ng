@@ -86,7 +86,7 @@ namespace hyenae::frontend::console
                 string_t prompt = "Press any key to continue");
 
             virtual bool was_key_pressed() = 0;
-            
+
         protected:
             virtual void out(string_t out) = 0;
             virtual string_t in() = 0;

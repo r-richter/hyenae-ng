@@ -64,6 +64,8 @@ namespace hyenae::frontend::console::io
     {
         bool result = false;
 
+        fflush(stdin);
+
         #ifdef OS_WINDOWS
             if ((result = _kbhit()))
             {
@@ -110,11 +112,6 @@ namespace hyenae::frontend::console::io
             }
         #endif
 
-        // Flush io streams to make this method safe
-        // be called from a loop.
-        fflush(stdout);
-        fflush(stdin);
-
         return result;
 
     } /* was_key_pressed */
@@ -123,7 +120,9 @@ namespace hyenae::frontend::console::io
 
     void std_console_io::out(string_t out)
     {
-        printf("%s", out.c_str());
+        fprintf(stdout, "%s", out.c_str());
+
+        fflush(stdout);
 
     } /* out */
 
@@ -134,6 +133,8 @@ namespace hyenae::frontend::console::io
         string_t input;
 
         std::getline(std::cin, input);
+
+        fflush(stdin);
 
         return input;
 

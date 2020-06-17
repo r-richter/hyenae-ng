@@ -81,7 +81,7 @@ namespace hyenae::frontend::console
         {
             text.append("\n\n");
         }
-        
+
         out(text);
 
     } /* separator_out */
@@ -130,7 +130,7 @@ namespace hyenae::frontend::console
         }
 
         text.append("\n");
-        
+
         out(text);
 
     } /* menu_item_out */
@@ -308,7 +308,7 @@ namespace hyenae::frontend::console
             try
             {
                 prompt_out(prompt, hint);
-                
+
                 input = in();
 
                 if (input == "")
@@ -401,7 +401,7 @@ namespace hyenae::frontend::console
             item_text.append(". ");
             item_text.append(items.at(pos));
             item_text.append("\n");
-            
+
             out(item_text);
         }
 
@@ -431,7 +431,7 @@ namespace hyenae::frontend::console
         {
             text.append(string_t(pad_len, ' '));
         }
-        
+
     } /* pad_to_margin */
 
     /*---------------------------------------------------------------------- */
