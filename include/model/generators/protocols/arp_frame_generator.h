@@ -65,6 +65,7 @@ namespace hyenae::model::generators::protocols
             address_generator* _target_proto_addr = NULL;
             generator_group _packet;
 
+        public:
             arp_frame_generator(
                 uint16_t hw_addr_type,
                 uint16_t proto_addr_type,
@@ -74,7 +75,6 @@ namespace hyenae::model::generators::protocols
                 address_generator* target_hw_addr,
                 address_generator* target_proto_addr);
 
-        public:
             static arp_frame_generator* create_for_ip_v4_over_ethernet(
                 uint16_t operation,
                 const string_t& sender_mac_addr_pattern =
