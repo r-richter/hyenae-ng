@@ -71,12 +71,12 @@ namespace hyenae::model::generators::protocols
 
         // HW-Address Length
         _hw_addr_len = fixed_data_generator::allocate_uint8();
-        _hw_addr_len->set_uint8(sender_hw_addr->size());
+        _hw_addr_len->set_uint8((uint8_t)sender_hw_addr->size());
         _packet.add_generator(_hw_addr_len);
 
         // Protocol-Address Length
         _proto_addr_len = fixed_data_generator::allocate_uint8();
-        _proto_addr_len->set_uint8(sender_proto_addr->size());
+        _proto_addr_len->set_uint8((uint8_t)sender_proto_addr->size());
         _packet.add_generator(_proto_addr_len);
 
         // Operation
@@ -106,7 +106,7 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    arp_frame_generator* arp_frame_generator::create_ip_v4_over_ethernet(
+    arp_frame_generator* arp_frame_generator::create_for_ip_v4_over_ethernet(
         uint16_t operation,
         const string_t& sender_mac_addr_pattern,
         const string_t& sender_ip_addr_pattern,
@@ -130,7 +130,7 @@ namespace hyenae::model::generators::protocols
                 target_ip_addr_pattern,
                 to_network_order_t::get_instance()));
 
-    } /* create_ip_v4_over_ethernet */
+    } /* create_for_ip_v4_over_ethernet */
 
     /*---------------------------------------------------------------------- */
 
