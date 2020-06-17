@@ -46,6 +46,13 @@ namespace hyenae::model::generators::protocols
             using to_internet_checksum_t =
                 data_transformations::to_internet_checksum;
 
+        public:
+            /* IPv4 */
+            static const uint8_t IP_V4_PROTOCOL = 1;
+
+            /* IPv6 */
+            static const uint8_t IP_V6_PROTOCOL = 1;
+        
         private:
             fixed_data_generator* _type = NULL;
             fixed_data_generator* _code = NULL;

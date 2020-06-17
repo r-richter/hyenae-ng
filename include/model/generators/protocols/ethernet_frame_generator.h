@@ -51,6 +51,7 @@ namespace hyenae::model::generators::protocols
                 0b1010101010101010101010101010101010101010101010101010101010101011;
 
             /* Types */
+            static const uint16_t TYPE_ARP = 0x0806;
             static const uint16_t TYPE_IP_V4 = 0x0800;
             static const uint16_t TYPE_IP_V6 = 0x86DD;
 

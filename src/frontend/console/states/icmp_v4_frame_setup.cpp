@@ -31,6 +31,7 @@ namespace hyenae::frontend::console::states
     /*---------------------------------------------------------------------- */
 
     icmp_v4_frame_setup::icmp_v4_frame_setup(
+        uint8_t protocol,
         console_app_state_context* context,
         console_io* console_io,
         console_app_state* parent,
@@ -41,6 +42,8 @@ namespace hyenae::frontend::console::states
                 parent,
                 ip_frame_setup)
     {
+        _protocol = protocol;
+
         _menu = new console_menu(
             console_io, get_generator_name() + " Setup");
 
@@ -187,7 +190,7 @@ namespace hyenae::frontend::console::states
 
     void icmp_v4_frame_setup::on_select()
     {
-        get_ip_frame_setup()->set_protocol(PROTOCOL);
+        get_ip_frame_setup()->set_protocol(_protocol);
 
     } /* on_select */
 
