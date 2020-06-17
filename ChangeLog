@@ -1,0 +1,43 @@
+--------------------------------------------------------------------------------
+
+                                Hyenae NG
+
+                                ChangeLog
+
+--------------------------------------------------------------------------------
+
+  Hyenae NG
+    Advanced Network Packet Generator
+
+  Copyright (C) 2020 Robin Richter
+
+  Contact  : hyenae.tool@googlemail.com
+  Homepage : https://github.com/r-richter/hyenae-ng
+  
+--------------------------------------------------------------------------------
+
+  Version 0.4 (...)
+  
+    * Implemented ARP-Support
+
+--------------------------------------------------------------------------------
+
+  Version 0.3 (June. 15th, 2020)
+  
+    * Implemented ICMPv4-Support
+	* Implemented ICMPv6-Support
+
+--------------------------------------------------------------------------------
+
+  Version 0.02 (June. 14th, 2020)
+  
+    * Implemented TCP-Support
+	* Implemented UDP-Support
+
+--------------------------------------------------------------------------------
+
+  Version 0.1 (June. 12th, 2020)
+  
+    * First public release
+
+--------------------------------------------------------------------------------
