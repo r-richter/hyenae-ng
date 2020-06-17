@@ -34,7 +34,6 @@
     #include <conio.h>
 #else
     #include <stdio.h>
-    #include <sys/ioctl.h>
     #include <sys/select.h>
     #include <termios.h>
 #endif
@@ -94,10 +93,15 @@ namespace hyenae::frontend::console::io
                 initialized = true;
             }
 
-            int bytes_waiting;
-            ioctl(STDIN, FIONREAD, &bytes_waiting);
+            timeval timeout;
+            fd_set rdset;
 
-            if ((result = bytes_waiting))
+            FD_ZERO(&rdset);
+            FD_SET(STDIN, &rdset);
+            timeout.tv_sec  = 0;
+            timeout.tv_usec = 0;
+
+            if ((result = select(STDIN + 1, &rdset, NULL, NULL, &timeout)))
             {
                 // Prevent overhang input such as when
                 // return is pressed.
@@ -146,7 +150,7 @@ namespace hyenae::frontend::console::io
         #endif
 
     } /* clear */
-    
+
     /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::io */
