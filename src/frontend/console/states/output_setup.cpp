@@ -52,7 +52,9 @@ namespace hyenae::frontend::console::states
         
         _menu = new console_menu(console_io, "Output Setup");
 
+        // Default values
         _file_path = FILE_OUTPUT_PATH;
+        _network_device_error = "";
 
         try
         {
@@ -120,8 +122,9 @@ namespace hyenae::frontend::console::states
 
         update_menu_items();
 
-        console_menu::item* choice =
-            _menu->prompt(_selected_item, _network_device_error);
+        _menu->set_error_message(_network_device_error);
+
+        console_menu::item* choice = _menu->prompt(_selected_item);
 
         if (choice != NULL)
         {

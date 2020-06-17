@@ -137,22 +137,17 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
+    void console_io::info_out(string_t message, bool menu_item_margin)
+    {
+        prefixed_out("(i)", message, menu_item_margin);
+
+    } /* info_out */
+
+    /*---------------------------------------------------------------------- */
+
     void console_io::error_out(string_t message, bool menu_item_margin)
     {
-        string_t text = "\n";
-
-        pad_to_margin(text, BASE_MARGIN + 1);
-
-        if (menu_item_margin)
-        {
-            pad_to_margin(text, MENU_ITEM_MARGIN + 1);
-        }
-
-        text.append("(!) ");
-        text.append(message);
-        text.append("\n");
-
-        out(text);
+        prefixed_out("(!)", message, menu_item_margin);
 
     } /* error_out */
 
@@ -433,6 +428,29 @@ namespace hyenae::frontend::console
         }
 
     } /* pad_to_margin */
+
+    /*---------------------------------------------------------------------- */
+
+    void console_io::prefixed_out(
+        string_t prefix, string_t message, bool menu_item_margin)
+    {
+        string_t text = "\n";
+
+        pad_to_margin(text, BASE_MARGIN + 1);
+
+        if (menu_item_margin)
+        {
+            pad_to_margin(text, MENU_ITEM_MARGIN + 1);
+        }
+
+        text.append(prefix);
+        text.append(" ");
+        text.append(message);
+        text.append("\n");
+
+        out(text);
+
+    } /* prefixed_out */
 
     /*---------------------------------------------------------------------- */
 

@@ -56,6 +56,8 @@ namespace hyenae::frontend::console
                 string_t info,
                 size_t highest_index);
 
+            // TODO: Refactor info & error out to use common code base
+            void info_out(string_t message, bool menu_item_margin = false);
             void error_out(string_t message, bool menu_item_margin = false);
             void task_out(string_t name);
             bool task_out(string_t name, func_t<bool()> task);
@@ -94,6 +96,11 @@ namespace hyenae::frontend::console
 
         private:
             void pad_to_margin(string_t& text, size_t margin);
+
+            void prefixed_out(
+                string_t prefix,
+                string_t message,
+                bool menu_item_margin = false);
 
     }; /* console_io */
 

@@ -39,6 +39,8 @@ namespace hyenae::frontend::console
 
         _console_io = console_io;
         _title = title;
+        _error_message = "";
+        _info_message = "";
         _last_error = "";
 
     } /* console_menu */
@@ -53,8 +55,7 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    console_menu::item* console_menu::prompt(
-        item* default_choice, string_t error)
+    console_menu::item* console_menu::prompt(item* default_choice)
     {
         _console_io->header_out(_title);
 
@@ -65,9 +66,14 @@ namespace hyenae::frontend::console
 
         item_out(0, _items.back());
 
-        if (error != "")
+        if (_error_message != "")
         {
-            _console_io->error_out(error, true);
+            _console_io->error_out(_error_message, true);
+        }
+
+        if (_info_message != "")
+        {
+            _console_io->info_out(_info_message, true);
         }
         
         return choice_in(default_choice);
@@ -84,6 +90,38 @@ namespace hyenae::frontend::console
         }
 
     } /* select_all */
+
+    /*---------------------------------------------------------------------- */
+
+    string_t console_menu::get_info_message() const
+    {
+        return _info_message;
+
+    } /* get_info_message */
+
+    /*---------------------------------------------------------------------- */
+
+    void console_menu::set_info_message(string_t message)
+    {
+        _info_message = message;
+
+    } /* set_info_message */
+
+    /*---------------------------------------------------------------------- */
+
+    string_t console_menu::get_error_message() const
+    {
+        return _error_message;
+
+    } /* get_error_message */
+
+    /*---------------------------------------------------------------------- */
+
+    void console_menu::set_error_message(string_t message)
+    {
+        _error_message = message;
+
+    } /* set_error_message */
 
     /*---------------------------------------------------------------------- */
 
