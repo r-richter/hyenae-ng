@@ -28,9 +28,41 @@
   you to effectively set up even complex stress-tests or attacks scenarios
   within seconds.
   
+  Hyenae NG currently has the following features:
+
+  - Ethernet-Frame generation (Fully customizable)
+  - ARP-Frame generation (Fully customizable)
+  - IPv4-Frame generation (Fully customizable)
+  - IPv6-Frame generation (Fully customizable)
+  - ICMPv4-Frame generation (Fully customizable)
+  - ICMPv6-Frame generation (Fully customizable)
+  - TCP-Frame generation (Fully customizable)
+  - UDP-Frame generation (Fully customizable)
+  - Fixed or Random Send Delay
+  - Pattern based address randomization
+  - Clean and easy to use command line menu (No RTFM'ing required;))
+  - Platform Independent
+
+  Hyenae NG can be used for a variety of stress- and pen-testing
+  scenarios such as:
+
+  - SYN-Flooding
+  - ICMP-Flooding
+  - SMURF-Attacks
+  - ARP-Cache Poisoning (MITM)
+  - ...and many more
+
 --------------------------------------------------------------------------------
 
-  2. Project Goals
+  2. Contribution
+
+  If you like this project and would like to contribute to it (in which way
+  ever), feel free to do so via my GitHub page or by contacting me. I'm also
+  always open for improvement ideas.
+
+--------------------------------------------------------------------------------
+
+  3. Project Goals
  
   The original Hyenae project started out as a study of network stack
   implementations but then quickly gained more complex features such as a
@@ -46,12 +78,12 @@
 
 --------------------------------------------------------------------------------
 
-  3. Basic Usage
+  4. Basic Usage
 
   Once you start Hyenae NG, it will enter the main menu state. From here you can
   set up your desired output, generator and dispatcher configuration.
 
-    3.1 Output Setup
+    4.1 Output Setup
  
     The output setup let you choose from several different output option. You
     can either have Hyenae NG's output ignore by selecting "No Output" our you
@@ -61,7 +93,7 @@
     Outputs that have a sub-setup are marked with a (...) once they are
     selected.
 
-    3.2 Generator Setup
+    4.2 Generator Setup
 
     The generator setup let you chose from several different generators. Most
     generators provide a payload option for which you can select another
@@ -70,7 +102,9 @@
     previously chosen frame generator. Here is an example of a typical
     payload nesting for an ethernet packet:
 
-      Ethernet +-> IPv4 +-> ICMPv4 -> ICMP Echo Payload
+      Ethernet +-> ARP
+               |
+               +-> IPv4 +-> ICMPv4 -> ICMP Echo Payload
                |        +-> TCP
                |        +-> UDP
                |        +-> ...
@@ -81,13 +115,13 @@
                         +-> UPD
                         +-> ...
 
-    3.3 Dispatcher Setup
+    4.3 Dispatcher Setup
 
     The dispatcher setup will let you set up the actual data dispatcher. You
     can define stop-limits or configure a fixed or random send delay in order
     to break flood detection mechanisms on your target system.
 
-    3.4 Start Dispatcher
+    4.4 Start Dispatcher
 
     Once you have set a generator, you can choose this option to start up the
     dispatcher and start sending packets. If you haven't set a generator yet, 
@@ -98,7 +132,7 @@
 
 --------------------------------------------------------------------------------
 
-  4. Generator Patterns
+  5. Generator Patterns
  
    A lot of packet generator parameters can be providing with a generator pattern.
    These patterns will be used in order to generate a new value on every new
