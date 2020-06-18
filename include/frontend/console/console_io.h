@@ -42,7 +42,7 @@ namespace hyenae::frontend::console
             /* Margins */
             static const size_t BASE_MARGIN = 1;
             static const size_t MENU_ITEM_MARGIN = 2;
-            static const size_t MENU_ITEM_INFO_MARGIN = 38;
+            static const size_t MENU_ITEM_INFO_MARGIN = 39;
 
         public:
             void header_out(string_t title);
