@@ -31,6 +31,9 @@
 #include "../../../../include/model/data_generator.h"
 #include "../../../../include/model/data_dispatcher.h"
 #include "../../../../include/frontend/console/console_app_state.h"
+#include "../../../../include/frontend/console/states/output_setup.h"
+#include "../../../../include/frontend/console/states/generator_selector.h"
+#include "../../../../include/frontend/console/states/dispatcher_setup.h"
 
 namespace hyenae::frontend::console::states
 {
@@ -50,10 +53,9 @@ namespace hyenae::frontend::console::states
         private:
             const int64_t WARMUP_TIMEOUT = 3000;
 
-            data_output_t* _output = NULL;
-            data_generator_t* _generator = NULL;
-            limits_t* _limits = NULL;
-            delay_t* _delay = NULL;
+            output_setup* _output_setup;
+            generator_setup* _generator_setup;
+            dispatcher_setup* _dispatcher_setup;
             data_dispatcher_t* _dispatcher = NULL;
             exception_t* _thread_exception = NULL;
 
@@ -61,17 +63,15 @@ namespace hyenae::frontend::console::states
             start_dispatcher(
                 console_app_state_context* context,
                 console_io* console_io,
-                console_app_state* parent);
+                output_setup* output_setup,
+                generator_setup* generator_setup,
+                dispatcher_setup* dispatcher_setup);
 
             ~start_dispatcher();
 
             bool run();
 
-            void enter(
-                data_output_t* output,
-                data_generator_t* generator,
-                limits_t* limits,
-                delay_t* delay);
+            void enter(console_app_state* parent);
 
         protected:
             void on_state_changed() {};

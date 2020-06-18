@@ -57,7 +57,11 @@ namespace hyenae::frontend::console::states
 
         // Start dispatcher
         _start_dispatcher = new states::start_dispatcher(
-            get_context(), console_io, this);
+            get_context(),
+            console_io,
+            _output_setup,
+            _generator_selector,
+            _dispatcher_setup);
         _start_dispatcher_item = new console_menu::item("Start Dispatcher");
         _menu->add_item(_start_dispatcher_item);
 
@@ -104,11 +108,7 @@ namespace hyenae::frontend::console::states
         }
         else if (choice == _start_dispatcher_item)
         {
-            _start_dispatcher->enter(
-                _output_setup->get_output(),
-                _generator_selector->get_generator(),
-                _dispatcher_setup->get_limits(),
-                _dispatcher_setup->get_delay());
+            _start_dispatcher->enter(this);
         }
         else if (choice == _exit_item)
         {
