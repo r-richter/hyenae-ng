@@ -105,12 +105,18 @@ namespace hyenae::frontend::console
         string_t caption,
         string_t hint,
         string_t info,
-        size_t highest_index)
+        size_t highest_index,
+        bool nl_before)
     {
         string_t text = "";
 
-        pad_to_margin(text, BASE_MARGIN);
-        pad_to_margin(text, MENU_ITEM_MARGIN);
+        if (nl_before)
+        {
+            text.append("\n");
+        }
+
+        pad_to_margin(text, BASE_MARGIN + text.size());
+        pad_to_margin(text, MENU_ITEM_MARGIN + text.size());
 
         text.append("[");
 

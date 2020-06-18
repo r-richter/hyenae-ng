@@ -54,7 +54,8 @@ namespace hyenae::frontend::console
                 string_t caption,
                 string_t hint,
                 string_t info,
-                size_t highest_index);
+                size_t highest_index,
+                bool nl_before = false);
 
             // TODO: Refactor info & error out to use common code base
             void info_out(string_t message, bool menu_item_margin = false);

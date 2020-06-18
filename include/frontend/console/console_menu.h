@@ -84,7 +84,7 @@ namespace hyenae::frontend::console
             void set_error_message(string_t message);
             
         private:
-            void item_out(size_t pos, item* item);
+            void item_out(size_t pos, item* item, bool nl_before);
             item* choice_in(item* default_choice);
             size_t item_choice_pos(item* item);
 
