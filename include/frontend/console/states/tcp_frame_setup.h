@@ -28,6 +28,7 @@
 #define TCP_FRAME_SETUP_H
 
 #include "../../../../include/frontend/console/console_menu.h"
+#include "../../../../include/frontend/console/states/tcp_flags_setup.h"
 #include "../../../../include/frontend/console/states/ip_based_frame_setup.h"
 #include "../../../../include/frontend/console/states/generator_selector.h"
 #include "../../../../include/model/generators/protocols/tcp_frame_generator.h"
@@ -44,19 +45,13 @@ namespace hyenae::frontend::console::states
 
         private:
             uint8_t _protocol;
+            tcp_flags_setup* _flags_setup = NULL;
             console_menu* _menu = NULL;
             console_menu::item* _src_port_pattern_item = NULL;
             console_menu::item* _dst_port_pattern_item = NULL;
             console_menu::item* _seq_num_pattern_item = NULL;
             console_menu::item* _ack_num_pattern_item = NULL;
-            console_menu::item* _cwr_flag_item = NULL;
-            console_menu::item* _ece_flag_item = NULL;
-            console_menu::item* _urg_flag_item = NULL;
-            console_menu::item* _ack_flag_item = NULL;
-            console_menu::item* _psh_flag_item = NULL;
-            console_menu::item* _rst_flag_item = NULL;
-            console_menu::item* _syn_flag_item = NULL;
-            console_menu::item* _fin_flag_item = NULL;
+            console_menu::item* _flags_item = NULL;
             console_menu::item* _win_size_pattern_item = NULL;
             console_menu::item* _urg_pointer_pattern_item = NULL;
             console_menu::item* _payload_item = NULL;
@@ -66,14 +61,6 @@ namespace hyenae::frontend::console::states
             string_t _dst_port_pattern;
             string_t _seq_num_pattern;
             string_t _ack_num_pattern;
-            bool _cwr_flag;
-            bool _ece_flag;
-            bool _urg_flag;
-            bool _ack_flag;
-            bool _psh_flag;
-            bool _rst_flag;
-            bool _syn_flag;
-            bool _fin_flag;
             string_t _win_size_pattern;
             string_t _urg_pointer_pattern;
             generator_selector* _payload = NULL;
@@ -101,14 +88,6 @@ namespace hyenae::frontend::console::states
             void prompt_dst_port_pattern();
             void prompt_seq_num_pattern();
             void prompt_ack_num_pattern();
-            void prompt_cwr_flag();
-            void prompt_ece_flag();
-            void prompt_urg_flag();
-            void prompt_ack_flag();
-            void prompt_psh_flag();
-            void prompt_rst_flag();
-            void prompt_syn_flag();
-            void prompt_fin_flag();
             void prompt_win_size_pattern();
             void prompt_urg_pointer_pattern();
             
