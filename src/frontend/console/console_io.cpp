@@ -53,7 +53,6 @@ namespace hyenae::frontend::console
         pad_to_margin(text, MENU_WIDTH - app_info.size() + 2);
 
         text.append(app_info);
-
         text.append("\n");
 
         out(text);
