@@ -34,28 +34,40 @@ namespace hyenae::frontend::console
 
     void console_io::header_out(string_t title)
     {
-        string_t text = "";
+        
+        string_t ascii_art = "";
+        string_t header = "";
         string_t app_info = "";
 
         clear();
+
+        // ASCII-Art
+
+        ascii_art.append(" _     _    __   __    _______    __   _    _______    _______\n");
+        ascii_art.append(" |_____|      \\_/      |______    | \\  |    |_____|    |______\n");
+        ascii_art.append(" |     |       |       |______    |  \\_|    |     |    |______\n");
+
+        out(ascii_art);
+
+        // Header
 
         app_info.append(constants::APP_NAME);
         app_info.append(" - Version ");
         app_info.append(constants::APP_VERSION);
 
-        text.append("\n");
+        header.append("\n");
 
-        pad_to_margin(text, BASE_MARGIN + text.size());
+        pad_to_margin(header, BASE_MARGIN + header.size());
 
-        text.append(">> ");
-        text.append(title);
+        header.append(">> ");
+        header.append(title);
 
-        pad_to_margin(text, MENU_WIDTH - app_info.size() + 2);
+        pad_to_margin(header, MENU_WIDTH - app_info.size() + 2);
 
-        text.append(app_info);
-        text.append("\n");
+        header.append(app_info);
+        header.append("\n");
 
-        out(text);
+        out(header);
 
         separator_out(false, true);
 

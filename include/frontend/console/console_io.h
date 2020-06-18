@@ -37,7 +37,7 @@ namespace hyenae::frontend::console
     {
         public:
             /* Lengths */
-            static const size_t MENU_WIDTH = 60;
+            static const size_t MENU_WIDTH = 61;
 
             /* Margins */
             static const size_t BASE_MARGIN = 1;
