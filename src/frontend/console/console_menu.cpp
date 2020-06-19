@@ -79,7 +79,7 @@ namespace hyenae::frontend::console
             item_out(pos + 1, _items[pos], false);
         }
 
-        item_out(0, _parent_state_item, false);
+        item_out(0, _parent_state_item, true);
 
         if (_error_message != "")
         {
