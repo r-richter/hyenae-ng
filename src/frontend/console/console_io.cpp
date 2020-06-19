@@ -453,11 +453,11 @@ namespace hyenae::frontend::console
     {
         string_t text = "\n";
 
-        pad_to_margin(text, BASE_MARGIN + 1);
+        pad_to_margin(text, BASE_MARGIN + text.size());
 
         if (menu_item_margin)
         {
-            pad_to_margin(text, MENU_ITEM_MARGIN + 1);
+            pad_to_margin(text, MENU_ITEM_MARGIN + text.size());
         }
 
         text.append(prefix);

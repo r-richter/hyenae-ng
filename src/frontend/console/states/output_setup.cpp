@@ -24,15 +24,10 @@
  *
  */
 
-#include "../../../../include/os.h"
 #include "../../../../include/assert.h"
 #include "../../../../include/model/outputs/no_output.h"
 #include "../../../../include/model/outputs/file_output.h"
 #include "../../../../include/frontend/console/states/output_setup.h"
-
-#ifdef OS_POSIX
-    #include <unistd.h>
-#endif
 
 namespace hyenae::frontend::console::states
 {
@@ -54,24 +49,6 @@ namespace hyenae::frontend::console::states
 
         // Default values
         _file_path = FILE_OUTPUT_PATH;
-        _network_device_error = "";
-
-        try
-        {
-            // Init network devices
-
-            #ifdef OS_POSIX
-                assert::legal_state(
-                    getuid() == 0, "", "network access denied, no root user");
-            #endif
-
-            model::outputs::network_output::list_devices(_network_devices);
-            _network_device = _network_devices.front();
-        }
-        catch (const exception_t& exception)
-        {
-            _network_device_error = exception.what();
-        }
         
         // No Output
         add_output("No Output", new model::outputs::no_output());
@@ -80,9 +57,18 @@ namespace hyenae::frontend::console::states
         _file_output_item = add_output("File System", NULL);
 
         // Send To Network
-        if (_network_devices.size() > 0)
+        try
         {
+            _network_error = "";
+
+            _network_device_selector = new network_device_selector(
+                context, console_io, this);
+
             _network_output_item = add_output("Network Adapter", NULL);
+        }
+        catch (const exception_t& exception)
+        {
+            _network_error = exception.what();
         }
         
         // Back
@@ -100,14 +86,7 @@ namespace hyenae::frontend::console::states
             delete item.second;
         }
 
-        if (_network_devices.size() > 0)
-        {
-            for (auto item : _network_devices)
-            {
-                delete item;
-            }
-        }
-
+        safe_delete(_network_device_selector);
         safe_delete(_menu);
         safe_delete(_back_item);
 
@@ -121,8 +100,9 @@ namespace hyenae::frontend::console::states
         data_output_t* output = NULL;
 
         update_menu_items();
+        update_network_output();
 
-        _menu->set_error_message(_network_device_error);
+        _menu->set_error_message(_network_error);
 
         console_menu::item* choice = _menu->prompt(_selected_item);
 
@@ -133,8 +113,12 @@ namespace hyenae::frontend::console::states
                 _menu->select_all(false);
 
                 _file_output_item->set_hint("");
-                _network_output_item->set_hint("");
-
+                
+                if (_network_output_item != NULL)
+                {
+                    _network_output_item->set_hint("");
+                }
+                
                 choice->set_selected(true);
 
                 output = _menu_items[choice];
@@ -149,7 +133,10 @@ namespace hyenae::frontend::console::states
                 {
                     _network_output_item->set_hint("...");
 
-                    _output = select_network_output(_selected_item == choice);
+                    if (_selected_item == _network_output_item)
+                    {
+                        _network_device_selector->enter();
+                    }
                 }
                 else
                 {
@@ -185,10 +172,24 @@ namespace hyenae::frontend::console::states
         if (_network_output_item != NULL)
         {
             _network_output_item->set_info(
-                _network_device->get_description());
+                _network_device_selector->get_device()->get_description());
         }
-
+        
     } /* update_menu_items */
+
+    /*---------------------------------------------------------------------- */
+
+    void output_setup::update_network_output()
+    {
+        if (_network_device_selector != NULL)
+        {
+            _output = new model::outputs::network_output(
+                _network_device_selector->get_device());
+
+            _menu_items[_network_output_item] = _output;
+        }
+        
+    } /* update_network_output */
 
     /*---------------------------------------------------------------------- */
 
@@ -232,35 +233,6 @@ namespace hyenae::frontend::console::states
         return _menu_items[_file_output_item];
 
     } /* select_file_output */
-
-    /*---------------------------------------------------------------------- */
-
-    output_setup::data_output_t* output_setup::select_network_output(
-        bool setup)
-    {
-        vector_t<string_t> device_list;
-
-        safe_delete(_menu_items[_network_output_item]);
-
-        if (setup)
-        {
-            for (auto device : _network_devices)
-            {
-                device_list.push_back(device->get_description());
-            }
-
-            size_t choice =
-                get_console()->prompt_list_choice(device_list);
-
-            _network_device = _network_devices.at(choice);
-        }
-
-        _menu_items[_network_output_item] =
-            new model::outputs::network_output(_network_device);
-
-        return _menu_items[_network_output_item];
-
-    } /* select_network_output */
 
     /*---------------------------------------------------------------------- */
 

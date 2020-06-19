@@ -24,60 +24,41 @@
  *
  */
 
-#ifndef OUTPUT_SETUP_H
-#define OUTPUT_SETUP_H
+#ifndef NETWORK_DEVICE_SELECTOR_H
+#define NETWORK_DEVICE_SELECTOR_H
 
-#include "../../../../include/model/data_output.h"
 #include "../../../../include/model/outputs/network_output.h"
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/console_app_state.h"
-#include "../../../../include/frontend/console/states/network_device_selector.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    class main_menu;
-
-    class output_setup :
+    class network_device_selector :
         public console_app_state
     {
-        using data_output_t = hyenae::model::data_output;
-
         using device_t = hyenae::model::outputs::network_output::device;
 
         private:
-            static const char* FILE_OUTPUT_PATH;
-
-            network_device_selector* _network_device_selector = NULL;
             console_menu* _menu = NULL;
-            unordered_map_t<console_menu::item*, data_output_t*> _menu_items;
-            console_menu::item* _file_output_item = NULL;
-            console_menu::item* _network_output_item = NULL;
+            unordered_map_t<console_menu::item*, device_t*> _menu_items;
             console_menu::item* _back_item = NULL;
             console_menu::item* _selected_item = NULL;
-            data_output_t* _output = NULL;
-            string_t _file_path;
-            string_t _network_error;
+            device_t* _device = NULL;
 
         public:
-            output_setup(
+            network_device_selector(
                 console_app_state_context* context,
                 console_io* console_io,
                 console_app_state* parent);
             
-            ~output_setup();
+            ~network_device_selector();
             bool run();
-            data_output_t* get_output() const;
+            device_t* get_device() const;
 
         private:
-            void update_menu_items();
-            void update_network_output();
-
-            console_menu::item* add_output(
-                string_t caption, data_output_t* output);
-
-            data_output_t* select_file_output(bool setup);
+            console_menu::item* add_device(device_t* device);
 
     }; /* main_menu */
 
@@ -85,4 +66,4 @@ namespace hyenae::frontend::console::states
 
 } /* hyenae::frontend::console::states */
 
-#endif /* OUTPUT_SETUP_H */
+#endif /* NETWORK_DEVICE_SELECTOR_H */

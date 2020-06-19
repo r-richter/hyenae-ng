@@ -24,8 +24,13 @@
  *
  */
 
+#include "../../../include/os.h"
 #include "../../../include/assert.h"
 #include "../../../include/model/outputs/network_output.h"
+
+#ifdef OS_POSIX
+    #include <unistd.h>
+#endif
 
 namespace hyenae::model::outputs
 {
@@ -54,6 +59,11 @@ namespace hyenae::model::outputs
         pcap_if_t* devices = NULL;
         char error[PCAP_ERRBUF_SIZE];
         
+        #ifdef OS_POSIX
+            assert::legal_state(
+                geteuid() == 0, "", "network access denied, no root user");
+        #endif
+
         result.clear();
 
         if (pcap_findalldevs(&devices, error) == -1)
@@ -66,6 +76,9 @@ namespace hyenae::model::outputs
         {
             result.push_back(new device(dev->name, dev->description));
         }
+
+        assert::legal_state(
+            result.size() > 0, "", "no network adapters found");
 
         if (devices != NULL)
         {
