@@ -127,29 +127,29 @@ be providing with a generator pattern. These patterns will be used in order to
 generate a new value on every new packet. Here are some examples of a few
 basic patterns:
 
-- Random 5-digit number
+- Random 5-digit number: 
   `*****`
  
-- Incremental 3-digit number
+- Incremental 3-digit number: 
    `+++`
 
-- Decremental 2-digit number
+- Decremental 2-digit number: 
    `--`
 
-- Random number between `100` and `199`
+- Random number between `100` and `199`: 
    `1**`
 
-- Incremental number from `1` to `991`
+- Incremental number from `1` to `991`: 
    `++1`
 
-- Decremental number from `299` to `200`
+- Decremental number from `299` to `200`: 
    `2--`
 
-- Random IPv4 address between `.200` and `.255`
+- Random IPv4 address between `.200` and `.255`: 
   `129.168.0.2**`
  
-- Incremental MAC address between `:00` and `:FF`
+- Incremental MAC address between `:00` and `:FF`: 
   `AA:BB:CC:DD:EE:++`
  
-- Decremental IPv6 address between `:FFFF` and `:FF00`
+- Decremental IPv6 address between `:FFFF` and `:FF00`: 
   `1000:2000:3000:4000:5000:6000:7000:FF--`
