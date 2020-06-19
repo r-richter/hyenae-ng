@@ -3,6 +3,7 @@
 Contact  : hyenae.tool@googlemail.com\
 Homepage : https://github.com/r-richter/hyenae-ng
 \
+\
 Copyright (C) 2020 Robin Richter
 
 ## About

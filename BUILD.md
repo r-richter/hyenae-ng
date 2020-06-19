@@ -1,9 +1,11 @@
 # Hyenae NG
 
-Contact  : hyenae.tool@googlemail.com
+Contact  : hyenae.tool@googlemail.com\
 Homepage : https://github.com/r-richter/hyenae-ng
-
+\
+\
 Copyright (C) 2020 Robin Richter
+
 
 ## Prerequisites
 
