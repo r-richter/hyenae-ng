@@ -123,10 +123,10 @@ set up your desired output, generator and dispatcher configuration.
 
 ## Generator Patterns
 
-A lot of packet generator parameters such as address, ports and fields fields can
-be providing with a generator pattern. These patterns will be used in order to
-generate a new value on every new packet. Here are some examples of a few
-basic patterns:
+A lot of packet generator parameters such as for address-, port- and number-
+fields can be providing with a generator pattern. These patterns will be used
+in order to generate a new value on every new packet. Here are some examples
+of a few basic patterns:
 
 - Random 5-digit number: 
   `*****`
