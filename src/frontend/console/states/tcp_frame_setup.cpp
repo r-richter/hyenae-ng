@@ -44,6 +44,8 @@ namespace hyenae::frontend::console::states
     {
         _protocol = protocol;
 
+        _flags_setup = new tcp_flags_setup(context, console_io, this);
+
         _menu = new console_menu(
             console_io, get_generator_name() + " Setup");
 
@@ -55,14 +57,6 @@ namespace hyenae::frontend::console::states
         _dst_port_pattern = "*****";
         _seq_num_pattern = "*****";
         _ack_num_pattern = "*****";
-        _cwr_flag = false;
-        _ece_flag = false;
-        _urg_flag = false;
-        _ack_flag = false;
-        _psh_flag = false;
-        _rst_flag = false;
-        _syn_flag = false;
-        _fin_flag = false;
         _win_size_pattern = "*****";
         _urg_pointer_pattern = "*****";
 
@@ -82,37 +76,9 @@ namespace hyenae::frontend::console::states
         _ack_num_pattern_item = new console_menu::item("Acknowledge Number");
         _menu->add_item(_ack_num_pattern_item);
 
-        // CWR-Flag
-        _cwr_flag_item = new console_menu::item("CWR-Flag");
-        _menu->add_item(_cwr_flag_item);
-
-        // ECE-Flag
-        _ece_flag_item = new console_menu::item("ECE-Flag");
-        _menu->add_item(_ece_flag_item);
-
-        // URG-Flag
-        _urg_flag_item = new console_menu::item("URG-Flag");
-        _menu->add_item(_urg_flag_item);
-
-        // ACK-Flag
-        _ack_flag_item = new console_menu::item("ACK-Flag");
-        _menu->add_item(_ack_flag_item);
-
-        // PSH-Flag
-        _psh_flag_item = new console_menu::item("PSH-Flag");
-        _menu->add_item(_psh_flag_item);
-
-        // RST-Flag
-        _rst_flag_item = new console_menu::item("RST-Flag");
-        _menu->add_item(_rst_flag_item);
-
-        // SYN-Flag
-        _syn_flag_item = new console_menu::item("SYN-Flag");
-        _menu->add_item(_syn_flag_item);
-
-        // FIN-Flag
-        _fin_flag_item = new console_menu::item("FIN-Flag");
-        _menu->add_item(_fin_flag_item);
+        // Flags
+        _flags_item = new console_menu::item("Flags");
+        _menu->add_item(_flags_item);
 
         // Window Size
         _win_size_pattern_item = new console_menu::item("Window Size");
@@ -139,19 +105,13 @@ namespace hyenae::frontend::console::states
 
     tcp_frame_setup::~tcp_frame_setup()
     {
+        safe_delete(_flags_setup);
         safe_delete(_menu);
         safe_delete(_src_port_pattern_item);
         safe_delete(_dst_port_pattern_item);
         safe_delete(_seq_num_pattern_item);
         safe_delete(_ack_num_pattern_item);
-        safe_delete(_cwr_flag_item);
-        safe_delete(_ece_flag_item);
-        safe_delete(_urg_flag_item);
-        safe_delete(_ack_flag_item);
-        safe_delete(_psh_flag_item);
-        safe_delete(_rst_flag_item);
-        safe_delete(_syn_flag_item);
-        safe_delete(_fin_flag_item);
+        safe_delete(_flags_item);
         safe_delete(_payload_item);
         safe_delete(_win_size_pattern_item);
         safe_delete(_urg_pointer_pattern_item);
@@ -186,37 +146,9 @@ namespace hyenae::frontend::console::states
         {
             prompt_ack_num_pattern();
         }
-        else if (choice == _cwr_flag_item)
+        else if (choice == _flags_item)
         {
-            prompt_cwr_flag();
-        }
-        else if (choice == _ece_flag_item)
-        {
-            prompt_ece_flag();
-        }
-        else if (choice == _urg_flag_item)
-        {
-            prompt_urg_flag();
-        }
-        else if (choice == _ack_flag_item)
-        {
-            prompt_ack_flag();
-        }
-        else if (choice == _psh_flag_item)
-        {
-            prompt_psh_flag();
-        }
-        else if (choice == _rst_flag_item)
-        {
-            prompt_rst_flag();
-        }
-        else if (choice == _syn_flag_item)
-        {
-            prompt_syn_flag();
-        }
-        else if (choice == _fin_flag_item)
-        {
-            prompt_fin_flag();
+            _flags_setup->enter();
         }
         else if (choice == _win_size_pattern_item)
         {
@@ -286,14 +218,7 @@ namespace hyenae::frontend::console::states
         _dst_port_pattern_item->set_info(_dst_port_pattern);
         _seq_num_pattern_item->set_info(_seq_num_pattern);
         _ack_num_pattern_item->set_info(_ack_num_pattern);
-        _cwr_flag_item->set_info(_cwr_flag ? "On" : "Off");
-        _ece_flag_item->set_info(_ece_flag ? "On" : "Off");
-        _urg_flag_item->set_info(_urg_flag ? "On" : "Off");
-        _ack_flag_item->set_info(_ack_flag ? "On" : "Off");
-        _psh_flag_item->set_info(_psh_flag ? "On" : "Off");
-        _rst_flag_item->set_info(_rst_flag ? "On" : "Off");
-        _syn_flag_item->set_info(_syn_flag ? "On" : "Off");
-        _fin_flag_item->set_info(_fin_flag ? "On" : "Off");
+        _flags_item->set_info(_flags_setup->get_flags_info());
         _win_size_pattern_item->set_info(_win_size_pattern);
         _urg_pointer_pattern_item->set_info(_urg_pointer_pattern);
         _payload_item->set_info(_payload->get_generator_name());
@@ -391,78 +316,6 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void tcp_frame_setup::prompt_cwr_flag()
-    {
-        _cwr_flag = get_console()->prompt(
-            0, 1, "CWR-Flag", "0 = Off, 1 = On");
-
-    } /* prompt_cwr_flag */
-
-    /*---------------------------------------------------------------------- */
-
-    void tcp_frame_setup::prompt_ece_flag()
-    {
-        _ece_flag = get_console()->prompt(
-            0, 1, "ECE-Flag", "0 = Off, 1 = On");
-
-    } /* prompt_ece_flag */
-
-    /*---------------------------------------------------------------------- */
-
-    void tcp_frame_setup::prompt_urg_flag()
-    {
-        _urg_flag = get_console()->prompt(
-            0, 1, "URG-Flag", "0 = Off, 1 = On");
-
-    } /* prompt_urg_flag */
-
-    /*---------------------------------------------------------------------- */
-
-    void tcp_frame_setup::prompt_ack_flag()
-    {
-        _ack_flag = get_console()->prompt(
-            0, 1, "ACK-Flag", "0 = Off, 1 = On");
-
-    } /* prompt_ack_flag */
-
-    /*---------------------------------------------------------------------- */
-
-    void tcp_frame_setup::prompt_psh_flag()
-    {
-        _psh_flag = get_console()->prompt(
-            0, 1, "PSH-Flag", "0 = Off, 1 = On");
-
-    } /* prompt_psh_flag */
-
-    /*---------------------------------------------------------------------- */
-
-    void tcp_frame_setup::prompt_rst_flag()
-    {
-        _rst_flag = get_console()->prompt(
-            0, 1, "RST-Flag", "0 = Off, 1 = On");
-
-    } /* prompt_rst_flag */
-
-    /*---------------------------------------------------------------------- */
-
-    void tcp_frame_setup::prompt_syn_flag()
-    {
-        _syn_flag = get_console()->prompt(
-            0, 1, "SYN-Flag", "0 = Off, 1 = On");
-
-    } /* prompt_syn_flag */
-    
-    /*---------------------------------------------------------------------- */
-
-    void tcp_frame_setup::prompt_fin_flag()
-    {
-        _fin_flag = get_console()->prompt(
-            0, 1, "FIN-Flag", "0 = Off, 1 = On");
-
-    } /* prompt_fin_flag */
-
-    /*---------------------------------------------------------------------- */
-
     void tcp_frame_setup::prompt_win_size_pattern()
     {
         _win_size_pattern = get_console()->prompt([this](string_t input)
@@ -529,14 +382,14 @@ namespace hyenae::frontend::console::states
             10,
             ack_num_pattern,
             10,
-            _cwr_flag,
-            _ece_flag,
-            _urg_flag,
-            _ack_flag,
-            _psh_flag,
-            _rst_flag,
-            _syn_flag,
-            _fin_flag,
+            _flags_setup->get_cwr_flag(),
+            _flags_setup->get_ece_flag(),
+            _flags_setup->get_urg_flag(),
+            _flags_setup->get_ack_flag(),
+            _flags_setup->get_psh_flag(),
+            _flags_setup->get_rst_flag(),
+            _flags_setup->get_syn_flag(),
+            _flags_setup->get_fin_flag(),
             win_size_pattern,
             10,
             urg_pointer_pattern,

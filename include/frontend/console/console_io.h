@@ -37,12 +37,12 @@ namespace hyenae::frontend::console
     {
         public:
             /* Lengths */
-            static const size_t MENU_WIDTH = 60;
+            static const size_t MENU_WIDTH = 61;
 
             /* Margins */
             static const size_t BASE_MARGIN = 1;
             static const size_t MENU_ITEM_MARGIN = 2;
-            static const size_t MENU_ITEM_INFO_MARGIN = 38;
+            static const size_t MENU_ITEM_INFO_MARGIN = 39;
 
         public:
             void header_out(string_t title);
@@ -54,8 +54,11 @@ namespace hyenae::frontend::console
                 string_t caption,
                 string_t hint,
                 string_t info,
-                size_t highest_index);
+                size_t highest_index,
+                bool nl_before = false);
 
+            // TODO: Refactor info & error out to use common code base
+            void info_out(string_t message, bool menu_item_margin = false);
             void error_out(string_t message, bool menu_item_margin = false);
             void task_out(string_t name);
             bool task_out(string_t name, func_t<bool()> task);
@@ -86,7 +89,7 @@ namespace hyenae::frontend::console
                 string_t prompt = "Press any key to continue");
 
             virtual bool was_key_pressed() = 0;
-            
+
         protected:
             virtual void out(string_t out) = 0;
             virtual string_t in() = 0;
@@ -94,6 +97,11 @@ namespace hyenae::frontend::console
 
         private:
             void pad_to_margin(string_t& text, size_t margin);
+
+            void prefixed_out(
+                string_t prefix,
+                string_t message,
+                bool menu_item_margin = false);
 
     }; /* console_io */
 

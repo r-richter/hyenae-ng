@@ -34,29 +34,40 @@ namespace hyenae::frontend::console
 
     void console_io::header_out(string_t title)
     {
-        string_t text = "";
+        
+        string_t ascii_art = "";
+        string_t header = "";
         string_t app_info = "";
 
         clear();
+
+        // ASCII-Art
+
+        ascii_art.append(" _     _    __   __    _______    __   _    _______    _______\n");
+        ascii_art.append(" |_____|      \\_/      |______    | \\  |    |_____|    |______\n");
+        ascii_art.append(" |     |       |       |______    |  \\_|    |     |    |______\n");
+
+        out(ascii_art);
+
+        // Header
 
         app_info.append(constants::APP_NAME);
         app_info.append(" - Version ");
         app_info.append(constants::APP_VERSION);
 
-        text.append("\n");
+        header.append("\n");
 
-        pad_to_margin(text, BASE_MARGIN + text.size());
+        pad_to_margin(header, BASE_MARGIN + header.size());
 
-        text.append(">> ");
-        text.append(title);
+        header.append(">> ");
+        header.append(title);
 
-        pad_to_margin(text, MENU_WIDTH - app_info.size() + 2);
+        pad_to_margin(header, MENU_WIDTH - app_info.size() + 2);
 
-        text.append(app_info);
+        header.append(app_info);
+        header.append("\n");
 
-        text.append("\n");
-
-        out(text);
+        out(header);
 
         separator_out(false, true);
 
@@ -81,7 +92,7 @@ namespace hyenae::frontend::console
         {
             text.append("\n\n");
         }
-        
+
         out(text);
 
     } /* separator_out */
@@ -94,12 +105,18 @@ namespace hyenae::frontend::console
         string_t caption,
         string_t hint,
         string_t info,
-        size_t highest_index)
+        size_t highest_index,
+        bool nl_before)
     {
         string_t text = "";
 
-        pad_to_margin(text, BASE_MARGIN);
-        pad_to_margin(text, MENU_ITEM_MARGIN);
+        if (nl_before)
+        {
+            text.append("\n");
+        }
+
+        pad_to_margin(text, BASE_MARGIN + text.size());
+        pad_to_margin(text, MENU_ITEM_MARGIN + text.size());
 
         text.append("[");
 
@@ -130,29 +147,24 @@ namespace hyenae::frontend::console
         }
 
         text.append("\n");
-        
+
         out(text);
 
     } /* menu_item_out */
 
     /*---------------------------------------------------------------------- */
 
+    void console_io::info_out(string_t message, bool menu_item_margin)
+    {
+        prefixed_out("(i)", message, menu_item_margin);
+
+    } /* info_out */
+
+    /*---------------------------------------------------------------------- */
+
     void console_io::error_out(string_t message, bool menu_item_margin)
     {
-        string_t text = "\n";
-
-        pad_to_margin(text, BASE_MARGIN + 1);
-
-        if (menu_item_margin)
-        {
-            pad_to_margin(text, MENU_ITEM_MARGIN + 1);
-        }
-
-        text.append("(!) ");
-        text.append(message);
-        text.append("\n");
-
-        out(text);
+        prefixed_out("(!)", message, menu_item_margin);
 
     } /* error_out */
 
@@ -308,7 +320,7 @@ namespace hyenae::frontend::console
             try
             {
                 prompt_out(prompt, hint);
-                
+
                 input = in();
 
                 if (input == "")
@@ -401,7 +413,7 @@ namespace hyenae::frontend::console
             item_text.append(". ");
             item_text.append(items.at(pos));
             item_text.append("\n");
-            
+
             out(item_text);
         }
 
@@ -431,8 +443,31 @@ namespace hyenae::frontend::console
         {
             text.append(string_t(pad_len, ' '));
         }
-        
+
     } /* pad_to_margin */
+
+    /*---------------------------------------------------------------------- */
+
+    void console_io::prefixed_out(
+        string_t prefix, string_t message, bool menu_item_margin)
+    {
+        string_t text = "\n";
+
+        pad_to_margin(text, BASE_MARGIN + text.size());
+
+        if (menu_item_margin)
+        {
+            pad_to_margin(text, MENU_ITEM_MARGIN + text.size());
+        }
+
+        text.append(prefix);
+        text.append(" ");
+        text.append(message);
+        text.append("\n");
+
+        out(text);
+
+    } /* prefixed_out */
 
     /*---------------------------------------------------------------------- */
 

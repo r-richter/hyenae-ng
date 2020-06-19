@@ -34,7 +34,6 @@
     #include <conio.h>
 #else
     #include <stdio.h>
-    #include <sys/ioctl.h>
     #include <sys/select.h>
     #include <termios.h>
 #endif
@@ -65,6 +64,8 @@ namespace hyenae::frontend::console::io
     {
         bool result = false;
 
+        fflush(stdin);
+
         #ifdef OS_WINDOWS
             if ((result = _kbhit()))
             {
@@ -94,10 +95,15 @@ namespace hyenae::frontend::console::io
                 initialized = true;
             }
 
-            int bytes_waiting;
-            ioctl(STDIN, FIONREAD, &bytes_waiting);
+            timeval timeout;
+            fd_set rdset;
 
-            if ((result = bytes_waiting))
+            FD_ZERO(&rdset);
+            FD_SET(STDIN, &rdset);
+            timeout.tv_sec  = 0;
+            timeout.tv_usec = 0;
+
+            if ((result = select(STDIN + 1, &rdset, NULL, NULL, &timeout)))
             {
                 // Prevent overhang input such as when
                 // return is pressed.
@@ -105,11 +111,6 @@ namespace hyenae::frontend::console::io
                 getchar();
             }
         #endif
-
-        // Flush io streams to make this method safe
-        // be called from a loop.
-        fflush(stdout);
-        fflush(stdin);
 
         return result;
 
@@ -119,7 +120,9 @@ namespace hyenae::frontend::console::io
 
     void std_console_io::out(string_t out)
     {
-        printf("%s", out.c_str());
+        fprintf(stdout, "%s", out.c_str());
+
+        fflush(stdout);
 
     } /* out */
 
@@ -130,6 +133,8 @@ namespace hyenae::frontend::console::io
         string_t input;
 
         std::getline(std::cin, input);
+
+        fflush(stdin);
 
         return input;
 
@@ -146,7 +151,7 @@ namespace hyenae::frontend::console::io
         #endif
 
     } /* clear */
-    
+
     /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::io */

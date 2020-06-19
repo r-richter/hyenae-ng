@@ -29,20 +29,18 @@
 
 #if defined(_WIN32) || defined(_WIN64)
     #define OS_WINDOWS
+#elif defined(unix) || defined(__unix) || defined(__unix__) || defined(__FreeBSD__)
+    #define OS_UNIX
+#elif defined(linux) || defined(__linux) || defined(__linux__)
+    #define OS_LINUX
+#elif defined(__APPLE__) || defined(__MACH__)
+    #define OS_OSX
 #else
-    #if defined(unix) || defined(__unix) || defined(__unix__) || defined(__FreeBSD__)
-        #define OS_UNIX
-    #elif defined(linux) || defined(__linux) || defined(__linux__)
-        #define OS_LINUX
-    #elif defined(__APPLE__) || defined(__MACH__)
-        #define OS_OSX
-    #endif
+    #error unknown os
+#endif
 
-    #if defined(OS_UNIX) || defined(OS_LINUX) || defined(OS_OSX)
-        #define OS_POSIX
-    #else
-        #error unknown os
-    #endif
+#if defined(OS_UNIX) || defined(OS_LINUX) || defined(OS_OSX)
+    #define OS_POSIX
 #endif
 
 #endif /* OS_H */

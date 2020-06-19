@@ -35,8 +35,20 @@ namespace hyenae::frontend::console::states
     start_dispatcher::start_dispatcher(
         console_app_state_context* context,
         console_io* console_io,
-        console_app_state* parent) :
-            console_app_state(context, console_io, parent) {}
+        output_setup* output_setup,
+        generator_setup* generator_setup,
+        dispatcher_setup* dispatcher_setup) :
+            console_app_state(context, console_io)
+    {
+        assert::argument_not_null(output_setup, "output_setup");
+        assert::argument_not_null(generator_setup, "generator_setup");
+        assert::argument_not_null(dispatcher_setup, "dispatcher_setup");
+
+        _output_setup = output_setup;
+        _generator_setup = generator_setup;
+        _dispatcher_setup = dispatcher_setup;
+    
+    } /* start_dispatcher */
 
     /*---------------------------------------------------------------------- */
 
@@ -69,18 +81,11 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void start_dispatcher::enter(
-        data_output_t* output,
-        data_generator_t* generator,
-        limits_t* limits,
-        delay_t* delay)
+    void start_dispatcher::enter(console_app_state* parent)
     {
-        _output = output;
-        _generator = generator;
-        _limits = limits;
-        _delay = delay;
+        set_parent(parent);
 
-        console_app_state::enter();
+        console::console_app_state::enter();
 
     } /* enter */
 
@@ -107,7 +112,10 @@ namespace hyenae::frontend::console::states
         task_result = get_console()->task_out("Init", [this]()
         {
             _dispatcher = new data_dispatcher_t(
-                _output, _generator, _delay, _limits);
+                _output_setup->get_output(),
+                _generator_setup->get_generator(),
+                _dispatcher_setup->get_delay(),
+                _dispatcher_setup->get_limits());
 
             _dispatcher->add_listener(this);
 

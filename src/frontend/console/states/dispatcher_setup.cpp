@@ -42,8 +42,9 @@ namespace hyenae::frontend::console::states
             limits_t::SIZE_UNLIMITED,
             limits_t::DURATION_UNLIMITED);
 
-        _delay = NULL;
+        // Default delay
         _delay_type = delay_type::NONE;
+        _delay = NULL;
 
         _menu = new console_menu(console_io, "Dispatcher Setup");
 

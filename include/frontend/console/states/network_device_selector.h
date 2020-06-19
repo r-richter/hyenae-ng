@@ -24,46 +24,46 @@
  *
  */
 
-#ifndef CONSOLE_APP_STATE_H
-#define CONSOLE_APP_STATE_H
+#ifndef NETWORK_DEVICE_SELECTOR_H
+#define NETWORK_DEVICE_SELECTOR_H
 
-#include "console_io.h"
-#include "console_app_state_context.h"
+#include "../../../../include/model/outputs/network_output.h"
+#include "../../../../include/frontend/console/console_menu.h"
+#include "../../../../include/frontend/console/console_app_state.h"
 
-namespace hyenae::frontend::console
+namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    class console_app_state_context;
-
-    class console_app_state
+    class network_device_selector :
+        public console_app_state
     {
+        using device_t = hyenae::model::outputs::network_output::device;
+
         private:
-            console_app_state_context* _context;
-            console_io* _console_io;
-            console_app_state* _parent;
+            console_menu* _menu = NULL;
+            unordered_map_t<console_menu::item*, device_t*> _menu_items;
+            console_menu::item* _back_item = NULL;
+            console_menu::item* _selected_item = NULL;
+            device_t* _device = NULL;
 
         public:
-            console_app_state(
+            network_device_selector(
                 console_app_state_context* context,
                 console_io* console_io,
-                console_app_state* parent = NULL);
+                console_app_state* parent);
+            
+            ~network_device_selector();
+            bool run();
+            device_t* get_device() const;
 
-            virtual ~console_app_state() {}
-            console_app_state_context* get_context() const;
-            console_io* get_console() const;
-            console_app_state* get_parent() const;
-            void enter();
-            virtual bool run() = 0;
-            void back();
+        private:
+            console_menu::item* add_device(device_t* device);
 
-        protected:
-            void set_parent(console_app_state* parent);
-
-    }; /* console_app_state */
+    }; /* main_menu */
 
     /*---------------------------------------------------------------------- */
 
-} /* hyenae::frontend::console */
+} /* hyenae::frontend::console::states */
 
-#endif /* CONSOLE_APP_STATE_H */
+#endif /* NETWORK_DEVICE_SELECTOR_H */

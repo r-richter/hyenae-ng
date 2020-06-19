@@ -24,65 +24,72 @@
  *
  */
 
-#ifndef OUTPUT_SETUP_H
-#define OUTPUT_SETUP_H
+#ifndef TCP_FLAGS_SETUP_H
+#define TCP_FLAGS_SETUP_H
 
-#include "../../../../include/model/data_output.h"
-#include "../../../../include/model/outputs/network_output.h"
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/console_app_state.h"
-#include "../../../../include/frontend/console/states/network_device_selector.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    class main_menu;
-
-    class output_setup :
+    class tcp_flags_setup :
         public console_app_state
     {
-        using data_output_t = hyenae::model::data_output;
-
-        using device_t = hyenae::model::outputs::network_output::device;
-
         private:
-            static const char* FILE_OUTPUT_PATH;
-
-            network_device_selector* _network_device_selector = NULL;
             console_menu* _menu = NULL;
-            unordered_map_t<console_menu::item*, data_output_t*> _menu_items;
-            console_menu::item* _file_output_item = NULL;
-            console_menu::item* _network_output_item = NULL;
+            console_menu::item* _cwr_flag_item = NULL;
+            console_menu::item* _ece_flag_item = NULL;
+            console_menu::item* _urg_flag_item = NULL;
+            console_menu::item* _ack_flag_item = NULL;
+            console_menu::item* _psh_flag_item = NULL;
+            console_menu::item* _rst_flag_item = NULL;
+            console_menu::item* _syn_flag_item = NULL;
+            console_menu::item* _fin_flag_item = NULL;
             console_menu::item* _back_item = NULL;
-            console_menu::item* _selected_item = NULL;
-            data_output_t* _output = NULL;
-            string_t _file_path;
-            string_t _network_error;
+            bool _cwr_flag;
+            bool _ece_flag;
+            bool _urg_flag;
+            bool _ack_flag;
+            bool _psh_flag;
+            bool _rst_flag;
+            bool _syn_flag;
+            bool _fin_flag;
 
         public:
-            output_setup(
+            tcp_flags_setup(
                 console_app_state_context* context,
                 console_io* console_io,
                 console_app_state* parent);
-            
-            ~output_setup();
+
+            ~tcp_flags_setup();
             bool run();
-            data_output_t* get_output() const;
+            bool get_cwr_flag() const;
+            bool get_ece_flag() const;
+            bool get_urg_flag() const;
+            bool get_ack_flag() const;
+            bool get_psh_flag() const;
+            bool get_rst_flag() const;
+            bool get_syn_flag() const;
+            bool get_fin_flag() const;
+            string_t get_flags_info() const;
 
         private:
             void update_menu_items();
-            void update_network_output();
+            void prompt_cwr_flag();
+            void prompt_ece_flag();
+            void prompt_urg_flag();
+            void prompt_ack_flag();
+            void prompt_psh_flag();
+            void prompt_rst_flag();
+            void prompt_syn_flag();
+            void prompt_fin_flag();
 
-            console_menu::item* add_output(
-                string_t caption, data_output_t* output);
-
-            data_output_t* select_file_output(bool setup);
-
-    }; /* main_menu */
+    }; /* tcp_flags_setup */
 
     /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 
-#endif /* OUTPUT_SETUP_H */
+#endif /* TCP_FLAGS_SETUP_H */

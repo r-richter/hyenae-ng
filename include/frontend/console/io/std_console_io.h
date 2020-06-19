@@ -42,7 +42,7 @@ namespace hyenae::frontend::console::io
         public:
             static std_console_io* get_instance();
             bool was_key_pressed();
-            
+
         protected:
             void out(string_t out);
             string_t in();
