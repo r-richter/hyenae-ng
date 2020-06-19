@@ -40,7 +40,7 @@ namespace hyenae::frontend::console::states
                 parent)
     {
         _menu = new console_menu(
-            console_io, "TCP-Flags Setup");
+            console_io, "TCP-Flags Setup", parent);
         
         _cwr_flag = false;
         _ece_flag = false;
@@ -140,10 +140,6 @@ namespace hyenae::frontend::console::states
         else if (choice == _fin_flag_item)
         {
             prompt_fin_flag();
-        }
-        else if (choice == _menu->get_back_item())
-        {
-            back();
         }
 
         return true;

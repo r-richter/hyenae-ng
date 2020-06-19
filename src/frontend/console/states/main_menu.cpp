@@ -36,7 +36,6 @@ namespace hyenae::frontend::console::states
             console_app_state(context, console_io)
     {
         _menu = new console_menu(console_io, "Main Menu");
-        _menu->get_back_item()->set_caption("Exit");
         
         // Output setup
         _output_setup_item = new console_menu::item("Output Setup");
@@ -106,7 +105,7 @@ namespace hyenae::frontend::console::states
         {
             _start_dispatcher->enter(this);
         }
-        else if (choice == _menu->get_back_item())
+        else if (choice == NULL)
         {
             return get_console()->prompt(
                 0, 1, "Confirm Exit", "0 = Abort, 1 = Confirm] [0", 0) == 0;

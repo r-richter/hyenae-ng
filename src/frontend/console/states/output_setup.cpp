@@ -45,7 +45,7 @@ namespace hyenae::frontend::console::states
     {
         string_t caption;
         
-        _menu = new console_menu(console_io, "Output Setup");
+        _menu = new console_menu(console_io, "Output Setup", parent);
 
         // Default values
         _file_path = FILE_OUTPUT_PATH;
@@ -103,47 +103,40 @@ namespace hyenae::frontend::console::states
 
         if (choice != NULL)
         {
-            if (choice != _menu->get_back_item())
+            _menu->select_all(false);
+
+            _file_output_item->set_hint("");
+
+            if (_network_output_item != NULL)
             {
-                _menu->select_all(false);
+                _network_output_item->set_hint("");
+            }
 
-                _file_output_item->set_hint("");
-                
-                if (_network_output_item != NULL)
+            choice->set_selected(true);
+
+            output = _menu_items[choice];
+
+            if (choice == _file_output_item)
+            {
+                _file_output_item->set_hint("...");
+
+                _output = select_file_output(_selected_item == choice);
+            }
+            else if (choice == _network_output_item)
+            {
+                _network_output_item->set_hint("...");
+
+                if (_selected_item == _network_output_item)
                 {
-                    _network_output_item->set_hint("");
+                    _network_device_selector->enter();
                 }
-                
-                choice->set_selected(true);
-
-                output = _menu_items[choice];
-
-                if (choice == _file_output_item)
-                {
-                    _file_output_item->set_hint("...");
-
-                    _output = select_file_output(_selected_item == choice);
-                }
-                else if (choice == _network_output_item)
-                {
-                    _network_output_item->set_hint("...");
-
-                    if (_selected_item == _network_output_item)
-                    {
-                        _network_device_selector->enter();
-                    }
-                }
-                else
-                {
-                    _output = output;
-                }
-
-                _selected_item = choice;
             }
             else
             {
-                back();
+                _output = output;
             }
+
+            _selected_item = choice;
         }
         
         return true;

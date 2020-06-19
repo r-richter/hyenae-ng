@@ -43,7 +43,7 @@ namespace hyenae::frontend::console::states
             "ethernet_frame_setup");
 
         _menu = new console_menu(
-            console_io, get_generator_name() + " Setup");
+            console_io, get_generator_name() + " Setup", parent);
 
         // Default values
         _operation = arp_frame_generator_t::OPERATION_REQUEST;
@@ -120,10 +120,6 @@ namespace hyenae::frontend::console::states
         else if (choice == _target_proto_addr_pattern_item)
         {
             prompt_target_proto_addr_pattern();
-        }
-        else if (choice == _menu->get_back_item())
-        {
-            back();
         }
 
         return true;

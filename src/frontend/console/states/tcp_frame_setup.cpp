@@ -47,7 +47,7 @@ namespace hyenae::frontend::console::states
         _flags_setup = new tcp_flags_setup(context, console_io, this);
 
         _menu = new console_menu(
-            console_io, get_generator_name() + " Setup");
+            console_io, get_generator_name() + " Setup", parent);
 
         _payload = new generator_selector(
             "Payload Setup", context, console_io, this);
@@ -156,10 +156,6 @@ namespace hyenae::frontend::console::states
         else if (choice == _payload_item)
         {
             _payload->enter();
-        }
-        else if (choice == _menu->get_back_item())
-        {
-            back();
         }
 
         return true;

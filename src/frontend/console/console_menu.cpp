@@ -33,17 +33,22 @@ namespace hyenae::frontend::console
 {
     /*---------------------------------------------------------------------- */
 
-    console_menu::console_menu(console_io* console_io, const string_t& title)
+    console_menu::console_menu(
+        console_io* console_io,
+        const string_t& title,
+        console_app_state* parent_state)
     {
         assert::argument_not_null(console_io, "console_io");
 
         _console_io = console_io;
+        _parent_state = parent_state;
+
         _title = title;
         _error_message = "";
         _info_message = "";
         _last_error = "";
 
-        _back_item = new item("Back");
+        _parent_state_item = new item(parent_state != NULL ? "Back" : "Exit");
 
     } /* console_menu */
 
@@ -51,7 +56,7 @@ namespace hyenae::frontend::console
 
     console_menu::~console_menu()
     {
-        safe_delete(_back_item);
+        safe_delete(_parent_state_item);
 
     } /* ~console_menu */
 
@@ -74,7 +79,7 @@ namespace hyenae::frontend::console
             item_out(pos + 1, _items[pos], false);
         }
 
-        item_out(0, _back_item, true);
+        item_out(0, _parent_state_item, true);
 
         if (_error_message != "")
         {
@@ -133,14 +138,6 @@ namespace hyenae::frontend::console
 
     } /* set_error_message */
 
-    /*---------------------------------------------------------------------- */
-
-    console_menu::item* console_menu::get_back_item() const
-    {
-        return _back_item;
-
-    } /* get_back_item */
-    
     /*---------------------------------------------------------------------- */
 
     void console_menu::item_out(size_t pos, item* item, bool nl_before)
@@ -204,7 +201,10 @@ namespace hyenae::frontend::console
             
             if (choice_pos == 0)
             {
-                return _back_item;
+                if (_parent_state != NULL)
+                {
+                    _parent_state->enter();
+                }
             }
             else
             {
@@ -230,7 +230,7 @@ namespace hyenae::frontend::console
 
     size_t console_menu::item_choice_pos(item* item)
     {
-        if (item != _back_item)
+        if (item != _parent_state_item)
         {
             for (size_t pos = 0; pos < _items.size(); pos++)
             {

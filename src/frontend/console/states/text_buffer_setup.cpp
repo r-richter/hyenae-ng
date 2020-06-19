@@ -37,7 +37,7 @@ namespace hyenae::frontend::console::states
         generator_setup(context, console_io, parent)
     {
         _menu = new console_menu(
-            console_io, get_generator_name() + " Setup");
+            console_io, get_generator_name() + " Setup", parent);
 
         _text = "Test";
 
@@ -71,10 +71,6 @@ namespace hyenae::frontend::console::states
         if (choice == _text_item)
         {
             prompt_text();
-        }
-        else if (choice == _menu->get_back_item())
-        {
-            back();
         }
 
         return true;

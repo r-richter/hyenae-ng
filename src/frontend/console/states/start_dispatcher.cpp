@@ -67,7 +67,7 @@ namespace hyenae::frontend::console::states
         {
             if (!start_screen())
             {
-                back();
+                get_parent()->enter();
             }
         }
         else
@@ -217,7 +217,7 @@ namespace hyenae::frontend::console::states
         if (get_console()->prompt(
             0, 1, "Restart?", "0 = Main Menu, 1 = Restart] [1", 1) == 0)
         {
-            back();
+            get_parent()->enter();
         }
 
     } /* result_screen */

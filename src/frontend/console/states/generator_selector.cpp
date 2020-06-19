@@ -197,35 +197,28 @@ namespace hyenae::frontend::console::states
 
         if (choice != NULL)
         {
-            if (choice != _menu->get_back_item())
+            if (choice != _none_item)
             {
-                if (choice != _none_item)
+                if (_selected_setup != _menu_items[choice])
                 {
-                    if (_selected_setup != _menu_items[choice])
-                    {
-                        _selected_setup = _menu_items[choice];
+                    _selected_setup = _menu_items[choice];
 
-                        _selected_setup->on_select();
-                    }
-                    else
-                    {
-                        _selected_setup->enter();
-                    }
-
-                    _selected_item = choice;
+                    _selected_setup->on_select();
                 }
                 else
                 {
-                    _selected_item = NULL;
-                    _selected_setup = NULL;
+                    _selected_setup->enter();
                 }
+
+                _selected_item = choice;
             }
             else
             {
-                back();
+                _selected_item = NULL;
+                _selected_setup = NULL;
             }
         }
-        
+
         return true;
 
     } /* run */
@@ -278,7 +271,7 @@ namespace hyenae::frontend::console::states
     {
         using namespace model::generators::protocols;
 
-        _menu = new console_menu(get_console(), _title);
+        _menu = new console_menu(get_console(), _title, get_parent());
 
         // None
         _none_item = new console_menu::item("None");

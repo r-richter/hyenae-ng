@@ -46,7 +46,7 @@ namespace hyenae::frontend::console::states
         _code = code;
 
         _menu = new console_menu(
-            console_io, get_generator_name() + " Setup");
+            console_io, get_generator_name() + " Setup", parent);
 
         // Default values
         _id_pattern = "*****";
@@ -91,10 +91,6 @@ namespace hyenae::frontend::console::states
         else if (choice == _seq_num_pattern_item)
         {
             prompt_seq_num_pattern();
-        }
-        else if (choice == _menu->get_back_item())
-        {
-            back();
         }
 
         return true;

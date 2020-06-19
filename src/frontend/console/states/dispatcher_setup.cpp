@@ -46,7 +46,7 @@ namespace hyenae::frontend::console::states
         _delay_type = delay_type::NONE;
         _delay = NULL;
 
-        _menu = new console_menu(console_io, "Dispatcher Setup");
+        _menu = new console_menu(console_io, "Dispatcher Setup", parent);
 
         // Byte Limit
         _byte_limit_item = new console_menu::item("Byte Limit");
@@ -102,10 +102,6 @@ namespace hyenae::frontend::console::states
         else if (choice == _send_delay_item)
         {
             prompt_send_delay();
-        }
-        else if (choice == _menu->get_back_item())
-        {
-            back();
         }
 
         return true;
