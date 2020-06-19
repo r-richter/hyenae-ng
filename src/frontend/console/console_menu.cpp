@@ -79,7 +79,7 @@ namespace hyenae::frontend::console
             item_out(pos + 1, _items[pos], false);
         }
 
-        item_out(0, _parent_state_item, true);
+        item_out(0, _parent_state_item, false);
 
         if (_error_message != "")
         {
@@ -143,7 +143,8 @@ namespace hyenae::frontend::console
     void console_menu::item_out(size_t pos, item* item, bool nl_before)
     {
         _console_io->menu_item_out(
-            pos, item->is_selected(),
+            pos,
+            item->is_selected(),
             item->get_caption(),
             item->get_hint(),
             item->get_info(),
