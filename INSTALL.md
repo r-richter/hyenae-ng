@@ -22,7 +22,7 @@ sure that the following software packages are installed on your system:
 - **Linux/BSD**
   - [GNU Make](http://www.gnu.org/software/make/)
   - [GNU Compiler Collection (g++)](http://gcc.gnu.org/)
-  - [libpcap](http://sourceforge.net/projects/libpcap/)
+  - [libpcap](https://github.com/the-tcpdump-group/libpcap/)
 
 ## Compilation
 
