@@ -136,8 +136,8 @@ of a few basic patterns:
 - Decremental 2-digit number: 
    `--`
 
-- Random number between `100` and `199`: 
-   `1**`
+- Random number between `100` and `190`: 
+   `1*0`
 
 - Incremental number from `1` to `991`: 
    `++1`
