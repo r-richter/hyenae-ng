@@ -63,10 +63,6 @@ namespace hyenae::frontend::console::states
         // Send-Delay
         _send_delay_item = new console_menu::item("Send-Delay");
         _menu->add_item(_send_delay_item);
-
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
     }
 
     /*---------------------------------------------------------------------- */
@@ -78,7 +74,6 @@ namespace hyenae::frontend::console::states
         safe_delete(_packet_limit_item);
         safe_delete(_duration_limit_item);
         safe_delete(_send_delay_item);
-        safe_delete(_back_item);
         safe_delete(_limits);
         safe_delete(_delay);
 
@@ -108,7 +103,7 @@ namespace hyenae::frontend::console::states
         {
             prompt_send_delay();
         }
-        else if (choice == _back_item)
+        else if (choice == _menu->get_back_item())
         {
             back();
         }

@@ -43,7 +43,6 @@ namespace hyenae::frontend::console::states
         private:
             console_menu* _menu = NULL;
             unordered_map_t<console_menu::item*, device_t*> _menu_items;
-            console_menu::item* _back_item = NULL;
             console_menu::item* _selected_item = NULL;
             device_t* _device = NULL;
 

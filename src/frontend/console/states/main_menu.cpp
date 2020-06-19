@@ -36,6 +36,7 @@ namespace hyenae::frontend::console::states
             console_app_state(context, console_io)
     {
         _menu = new console_menu(console_io, "Main Menu");
+        _menu->get_back_item()->set_caption("Exit");
         
         // Output setup
         _output_setup_item = new console_menu::item("Output Setup");
@@ -65,10 +66,6 @@ namespace hyenae::frontend::console::states
         _start_dispatcher_item = new console_menu::item("Start Dispatcher");
         _menu->add_item(_start_dispatcher_item);
 
-        // Exit
-        _exit_item = new console_menu::item("Exit");
-        _menu->add_item(_exit_item);
-
     } /* main_menu */
 
     /*---------------------------------------------------------------------- */
@@ -80,7 +77,6 @@ namespace hyenae::frontend::console::states
         safe_delete(_generator_selector_item);
         safe_delete(_dispatcher_setup_item);
         safe_delete(_start_dispatcher_item);
-        safe_delete(_exit_item);
         safe_delete(_output_setup);
         safe_delete(_generator_selector);
         safe_delete(_dispatcher_setup);
@@ -110,7 +106,7 @@ namespace hyenae::frontend::console::states
         {
             _start_dispatcher->enter(this);
         }
-        else if (choice == _exit_item)
+        else if (choice == _menu->get_back_item())
         {
             return get_console()->prompt(
                 0, 1, "Confirm Exit", "0 = Abort, 1 = Confirm] [0", 0) == 0;

@@ -67,10 +67,6 @@ namespace hyenae::frontend::console::states
             new console_menu::item("Payload");
         _menu->add_item(_payload_item);
 
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
-
         update_generator();
 
     } /* udp_frame_setup */
@@ -83,7 +79,6 @@ namespace hyenae::frontend::console::states
         safe_delete(_src_port_pattern_item);
         safe_delete(_dst_port_pattern_item);
         safe_delete(_payload_item);
-        safe_delete(_back_item);
         safe_delete(_generator);
         safe_delete(_payload);
 
@@ -110,7 +105,7 @@ namespace hyenae::frontend::console::states
         {
             _payload->enter();
         }
-        else if (choice == _back_item)
+        else if (choice == _menu->get_back_item())
         {
             back();
         }

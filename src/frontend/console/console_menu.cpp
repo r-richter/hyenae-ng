@@ -43,7 +43,17 @@ namespace hyenae::frontend::console
         _info_message = "";
         _last_error = "";
 
+        _back_item = new item("Back");
+
     } /* console_menu */
+
+    /*---------------------------------------------------------------------- */
+
+    console_menu::~console_menu()
+    {
+        safe_delete(_back_item);
+
+    } /* ~console_menu */
 
     /*---------------------------------------------------------------------- */
 
@@ -59,12 +69,12 @@ namespace hyenae::frontend::console
     {
         _console_io->header_out(_title);
 
-        for (size_t pos = 0; pos < _items.size() - 1; pos++)
+        for (size_t pos = 0; pos < _items.size(); pos++)
         {
             item_out(pos + 1, _items[pos], false);
         }
 
-        item_out(0, _items.back(), true);
+        item_out(0, _back_item, true);
 
         if (_error_message != "")
         {
@@ -125,6 +135,14 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
+    console_menu::item* console_menu::get_back_item() const
+    {
+        return _back_item;
+
+    } /* get_back_item */
+    
+    /*---------------------------------------------------------------------- */
+
     void console_menu::item_out(size_t pos, item* item, bool nl_before)
     {
         _console_io->menu_item_out(
@@ -161,7 +179,7 @@ namespace hyenae::frontend::console
             _last_error = "";
 
             hint.append("0-");
-            hint.append(std::to_string(_items.size() - 1));
+            hint.append(std::to_string(_items.size()));
 
             if (default_choice != NULL)
             {
@@ -181,12 +199,12 @@ namespace hyenae::frontend::console
             {
                 choice_pos = std::stoi(input);
 
-                assert::in_range(choice_pos < _items.size());
+                assert::in_range(choice_pos <= _items.size());
             }
             
             if (choice_pos == 0)
             {
-                return _items.back();
+                return _back_item;
             }
             else
             {
@@ -212,14 +230,21 @@ namespace hyenae::frontend::console
 
     size_t console_menu::item_choice_pos(item* item)
     {
-        for (size_t pos = 0; pos < _items.size(); pos++)
+        if (item != _back_item)
         {
-            if (_items[pos] == item)
+            for (size_t pos = 0; pos < _items.size(); pos++)
             {
-                return pos < _items.size() - 1 ? pos + 1 : 0;
+                if (_items[pos] == item)
+                {
+                    return pos + 1;
+                }
             }
         }
-
+        else
+        {
+            return 0;
+        }
+        
         assert::legal_state(false, "", "item could not be found");
 
         return SIZE_NONE;

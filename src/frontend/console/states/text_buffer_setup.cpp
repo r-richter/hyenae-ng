@@ -45,10 +45,6 @@ namespace hyenae::frontend::console::states
         _text_item = new console_menu::item("Text");
         _menu->add_item(_text_item);
 
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
-
         update_generator();
 
     } /* ethernet_frame_setup */
@@ -59,7 +55,6 @@ namespace hyenae::frontend::console::states
     {
         safe_delete(_menu);
         safe_delete(_text_item);
-        safe_delete(_back_item);
         safe_delete(_generator);
 
     } /* ~ethernet_frame_setup */
@@ -77,7 +72,7 @@ namespace hyenae::frontend::console::states
         {
             prompt_text();
         }
-        else if (choice == _back_item)
+        else if (choice == _menu->get_back_item())
         {
             back();
         }

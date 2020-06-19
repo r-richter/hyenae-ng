@@ -74,10 +74,6 @@ namespace hyenae::frontend::console::states
             "Target Protocol-Address");
         _menu->add_item(_target_proto_addr_pattern_item);
 
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
-
         update_generator();
 
     } /* arp_frame_setup */
@@ -92,7 +88,6 @@ namespace hyenae::frontend::console::states
         safe_delete(_sender_proto_addr_pattern_item);
         safe_delete(_target_hw_addr_pattern_item);
         safe_delete(_target_proto_addr_pattern_item);
-        safe_delete(_back_item);
         safe_delete(_generator);
 
     } /* ~arp_frame_setup */
@@ -126,7 +121,7 @@ namespace hyenae::frontend::console::states
         {
             prompt_target_proto_addr_pattern();
         }
-        else if (choice == _back_item)
+        else if (choice == _menu->get_back_item())
         {
             back();
         }

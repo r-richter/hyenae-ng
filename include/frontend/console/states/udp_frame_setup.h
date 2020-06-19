@@ -48,7 +48,6 @@ namespace hyenae::frontend::console::states
             console_menu::item* _src_port_pattern_item = NULL;
             console_menu::item* _dst_port_pattern_item = NULL;
             console_menu::item* _payload_item = NULL;
-            console_menu::item* _back_item = NULL;
             data_generator_t* _generator = NULL;
             string_t _src_port_pattern;
             string_t _dst_port_pattern;

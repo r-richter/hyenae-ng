@@ -55,7 +55,6 @@ namespace hyenae::frontend::console::states
             console_menu::item* _type_item = NULL;
             console_menu::item* _add_fcs_item = NULL;
             console_menu::item* _payload_item = NULL;
-            console_menu::item* _back_item = NULL;
             data_generator_t* _generator = NULL;
             bool _add_preamble_sfd;
             string_t _src_mac_pattern;

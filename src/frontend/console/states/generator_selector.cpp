@@ -173,7 +173,6 @@ namespace hyenae::frontend::console::states
 
         safe_delete(_menu);
         safe_delete(_none_item);
-        safe_delete(_back_item);
 
     } /* ~generator_selector */
 
@@ -198,7 +197,7 @@ namespace hyenae::frontend::console::states
 
         if (choice != NULL)
         {
-            if (choice != _back_item)
+            if (choice != _menu->get_back_item())
             {
                 if (choice != _none_item)
                 {
@@ -429,10 +428,6 @@ namespace hyenae::frontend::console::states
             add_generator(new text_buffer_setup(
                 get_context(), get_console(), get_parent()));
         }
-
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
 
     } /* inizialize */
 

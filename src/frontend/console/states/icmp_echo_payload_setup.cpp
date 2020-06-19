@@ -60,10 +60,6 @@ namespace hyenae::frontend::console::states
         _seq_num_pattern_item = new console_menu::item("Sequence Number");
         _menu->add_item(_seq_num_pattern_item);
 
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
-
         update_generator();
 
     } /* icmp_echo_payload_setup */
@@ -75,7 +71,6 @@ namespace hyenae::frontend::console::states
         safe_delete(_menu);
         safe_delete(_id_pattern_item);
         safe_delete(_seq_num_pattern_item);
-        safe_delete(_back_item);
         safe_delete(_generator);
 
     } /* ~icmp_echo_payload_setup */
@@ -97,7 +92,7 @@ namespace hyenae::frontend::console::states
         {
             prompt_seq_num_pattern();
         }
-        else if (choice == _back_item)
+        else if (choice == _menu->get_back_item())
         {
             back();
         }

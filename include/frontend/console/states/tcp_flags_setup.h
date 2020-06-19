@@ -47,7 +47,6 @@ namespace hyenae::frontend::console::states
             console_menu::item* _rst_flag_item = NULL;
             console_menu::item* _syn_flag_item = NULL;
             console_menu::item* _fin_flag_item = NULL;
-            console_menu::item* _back_item = NULL;
             bool _cwr_flag;
             bool _ece_flag;
             bool _urg_flag;

@@ -83,10 +83,6 @@ namespace hyenae::frontend::console::states
         _fin_flag_item = new console_menu::item("FIN-Flag");
         _menu->add_item(_fin_flag_item);
 
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
-
     } /* tcp_flags_setup */
 
     /*---------------------------------------------------------------------- */
@@ -102,7 +98,6 @@ namespace hyenae::frontend::console::states
         safe_delete(_rst_flag_item);
         safe_delete(_syn_flag_item);
         safe_delete(_fin_flag_item);
-        safe_delete(_back_item);
 
     } /* ~tcp_flags_setup */
 
@@ -146,7 +141,7 @@ namespace hyenae::frontend::console::states
         {
             prompt_fin_flag();
         }
-        else if (choice == _back_item)
+        else if (choice == _menu->get_back_item())
         {
             back();
         }

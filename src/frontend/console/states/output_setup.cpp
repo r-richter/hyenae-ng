@@ -70,10 +70,6 @@ namespace hyenae::frontend::console::states
         {
             _network_error = exception.what();
         }
-        
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
     }
 
     /*---------------------------------------------------------------------- */
@@ -88,7 +84,6 @@ namespace hyenae::frontend::console::states
 
         safe_delete(_network_device_selector);
         safe_delete(_menu);
-        safe_delete(_back_item);
 
     } /* ~output_setup */
 
@@ -108,7 +103,7 @@ namespace hyenae::frontend::console::states
 
         if (choice != NULL)
         {
-            if (choice != _back_item)
+            if (choice != _menu->get_back_item())
             {
                 _menu->select_all(false);
 

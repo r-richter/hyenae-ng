@@ -54,7 +54,6 @@ namespace hyenae::frontend::console::states
             unordered_map_t<console_menu::item*, data_output_t*> _menu_items;
             console_menu::item* _file_output_item = NULL;
             console_menu::item* _network_output_item = NULL;
-            console_menu::item* _back_item = NULL;
             console_menu::item* _selected_item = NULL;
             data_output_t* _output = NULL;
             string_t _file_path;

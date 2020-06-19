@@ -45,16 +45,14 @@ namespace hyenae::frontend::console::states
         
         _menu = new console_menu(console_io, "Network Device Selection");
 
+        // Load devices
+
         model::outputs::network_output::list_devices(devices_list);
 
         for (auto device : devices_list)
         {
             add_device(device);
         }
-        
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
     }
 
     /*---------------------------------------------------------------------- */
@@ -68,7 +66,6 @@ namespace hyenae::frontend::console::states
         }
 
         safe_delete(_menu);
-        safe_delete(_back_item);
 
     } /* ~network_device_selector */
 
@@ -82,7 +79,7 @@ namespace hyenae::frontend::console::states
 
         if (choice != NULL)
         {
-            if (choice != _back_item)
+            if (choice != _menu->get_back_item())
             {
                 _menu->select_all(false);
                 choice->set_selected(true);

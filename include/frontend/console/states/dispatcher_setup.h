@@ -61,7 +61,6 @@ namespace hyenae::frontend::console::states
             console_menu::item* _packet_limit_item = NULL;
             console_menu::item* _duration_limit_item = NULL;
             console_menu::item* _send_delay_item = NULL;
-            console_menu::item* _back_item = NULL;
             limits_t* _limits;
             delay_t* _delay;
             delay_type _delay_type;

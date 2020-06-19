@@ -68,6 +68,7 @@ namespace hyenae::frontend::console
         private:
             console_io* _console_io;
             vector_t<item*> _items;
+            item* _back_item = NULL;
             string_t _title;
             string_t _error_message;
             string_t _info_message;
@@ -75,6 +76,7 @@ namespace hyenae::frontend::console
 
         public:
             console_menu(console_io* console_io, const string_t& title);
+            ~console_menu();
             void add_item(item* item);
             item* prompt(item* default_choice = NULL);
             void select_all(bool selected);
@@ -82,6 +84,7 @@ namespace hyenae::frontend::console
             void set_info_message(string_t message);
             string_t get_error_message() const;
             void set_error_message(string_t message);
+            item* get_back_item() const;
             
         private:
             void item_out(size_t pos, item* item, bool nl_before);

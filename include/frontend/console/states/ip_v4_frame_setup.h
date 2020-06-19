@@ -64,7 +64,6 @@ namespace hyenae::frontend::console::states
             console_menu::item* _src_ip_pattern_item = NULL;
             console_menu::item* _dst_ip_pattern_item = NULL;
             console_menu::item* _payload_item = NULL;
-            console_menu::item* _back_item = NULL;
             data_generator_t* _generator = NULL;
             uint8_t _type_of_service;
             string_t _id_pattern;

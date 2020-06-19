@@ -57,7 +57,6 @@ namespace hyenae::frontend::console::states
             console_menu::item* _sender_proto_addr_pattern_item = NULL;
             console_menu::item* _target_hw_addr_pattern_item = NULL;
             console_menu::item* _target_proto_addr_pattern_item = NULL;
-            console_menu::item* _back_item = NULL;
             data_generator_t* _generator = NULL;
             uint16_t _operation;
             string_t _sender_hw_addr_pattern;
