@@ -72,7 +72,7 @@ Improvement ideas and bug reports are very welcomed.
 Once you start Hyenae NG, it will enter the main menu state. From here you can
 set up your desired output, generator and dispatcher configuration.
 
-- ## Output Setup
+- **Output Setup**\
   The output setup let you choose from several different output option. You
   can either have Hyenae NG's output ignore by selecting "No Output" our you
   can have it send to either a file or a network adapter. Once you have
@@ -81,7 +81,7 @@ set up your desired output, generator and dispatcher configuration.
   Outputs that have a sub-setup are marked with a (...) once they are
   selected.
 
-- ## Generator Setup
+- **Generator Setup**\
   The generator setup let you chose from several different generators. Most
   generators provide a payload option for which you can select another
   generator and so on. Since network frame generators are nested in transport
@@ -102,7 +102,7 @@ set up your desired output, generator and dispatcher configuration.
                         +-> UPD
                         +-> ...
 
-- ## Dispatcher Setup
+- **Dispatcher Setup**\
   The dispatcher setup will let you set up the actual data dispatcher. You
   can define stop-limits or configure a fixed or random send delay in order
   to break flood detection mechanisms on your target system.
@@ -112,7 +112,7 @@ set up your desired output, generator and dispatcher configuration.
   spec systems such as the GPD Pocket 2 in order to prevent key-press
   detection issues.
 
-- ## Start Dispatcher
+- **Start Dispatcher**\
 
   Once you have set a generator, you can choose this option to start up the
   dispatcher and start sending packets. If you haven't set a generator yet, 
