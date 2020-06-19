@@ -107,13 +107,12 @@ set up your desired output, generator and dispatcher configuration.
   can define stop-limits or configure a fixed or random send delay in order
   to break flood detection mechanisms on your target system.
 
-  **IMPORTANT**:
+  **IMPORTANT**\
   It is reccomended to use a fixed send delay of at least 100 ms on low
   spec systems such as the GPD Pocket 2 in order to prevent key-press
   detection issues.
 
 - **Start Dispatcher**\
-
   Once you have set a generator, you can choose this option to start up the
   dispatcher and start sending packets. If you haven't set a generator yet, 
   an error message will be shown instead. The dispatcher will operate until
