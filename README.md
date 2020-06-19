@@ -11,14 +11,14 @@ Copyright (C) 2020 Robin Richter
 Hyenae NG (Next Generation) is a re-write of the original Hyenae tool which
 was originally published back in the year 2010.
 
-![Main Menu](msc/main_menu.png "Main Menu")
-
 Besides switching from C to C++, using modern design concepts, Hyenae NG was
 (just like the original Hyenae) written with maximum portability in mind.
 Since the original Hyenae had a very complex command line syntax Hyenae NG
 comes with a fast and intuitively usable command line menu that will allow
 you to effectively set up even complex stress-tests or attacks scenarios
 within seconds.
+
+![Main Menu](msc/main_menu.png "Main Menu")
 
 ## Features
 
