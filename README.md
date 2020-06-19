@@ -19,6 +19,8 @@ you to effectively set up even complex stress-tests or attacks scenarios
 within seconds.
 
 ![Main Menu](msc/main_menu.png "Main Menu")
+![Main Menu](msc/ip_v4_setup.png "Main Menu")
+![Main Menu](msc/start_dispatcher.png "Main Menu")
 
 ## Features
 
