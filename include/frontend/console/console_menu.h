@@ -86,8 +86,8 @@ namespace hyenae::frontend::console
             console_menu(
                 console_io* console_io,
                 const string_t& title,
-                console_app_state* calling_state, // TODO: Make NULL default
-                console_app_state* parent_state); // TODO: Make NULL default
+                console_app_state* calling_state,
+                console_app_state* parent_state);
 
             ~console_menu();
             void add_item(item* item);
