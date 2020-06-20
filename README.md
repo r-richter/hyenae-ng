@@ -1,13 +1,5 @@
 # Hyenae NG
 
-Contact  : [E-Mail](hyenae.tool@googlemail.com)\
-Homepage : [GitHub-Repository](https://github.com/r-richter/hyenae-ng)
-\
-\
-Copyright (C) 2020 Robin Richter
-
-## About
-
 Hyenae NG (Next Generation) is a re-write of the original Hyenae tool which
 was originally published back in the year 2010.
 
@@ -21,6 +13,8 @@ within seconds.
 ![Main Menu](msc/main_menu.png "Main Menu")
 ![IPv4 Setup](msc/ip_v4_setup.png "IPv4 Setup")
 ![Start Dispatcher](msc/start_dispatcher.png "Start Dispatcher")
+
+Copyright (C) 2020 Robin Richter
 
 ## Features
 
@@ -157,3 +151,8 @@ of a few basic patterns:
  
 - Decremental IPv6 address between `:FFFF` and `:FF00`: 
   `1000:2000:3000:4000:5000:6000:7000:FF--`
+
+## Contact
+
+- [E-Mail](mailto:hyenae.tool@googlemail.com)\
+- [GitHub-Repository](https://github.com/r-richter/hyenae-ng)
