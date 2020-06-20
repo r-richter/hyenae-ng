@@ -40,7 +40,7 @@ namespace hyenae::frontend::console::states
                 parent)
     {
         _menu = new console_menu(
-            console_io, "TCP-Flags Setup", parent);
+            console_io, "TCP-Flags Setup", this, parent);
         
         _cwr_flag = false;
         _ece_flag = false;
@@ -108,6 +108,8 @@ namespace hyenae::frontend::console::states
         update_menu_items();
 
         ((tcp_frame_setup*)get_parent())->update_generator();
+
+        _menu->set_start_state(get_start_state());
 
         console_menu::item* choice = _menu->prompt();
 

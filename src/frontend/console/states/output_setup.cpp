@@ -45,7 +45,7 @@ namespace hyenae::frontend::console::states
     {
         string_t caption;
         
-        _menu = new console_menu(console_io, "Output Setup", parent);
+        _menu = new console_menu(console_io, "Output Setup", this, parent);
 
         // Default values
         _file_path = FILE_OUTPUT_PATH;
@@ -97,11 +97,16 @@ namespace hyenae::frontend::console::states
         update_menu_items();
         update_network_output();
 
+        _menu->set_start_state(get_start_state());
         _menu->set_error_message(_network_error);
 
+        _network_device_selector->set_start_state(get_start_state());
+        
         console_menu::item* choice = _menu->prompt(_selected_item);
 
-        if (choice != NULL)
+        if (choice != _menu->get_start_state_item() &&
+            choice != _menu->get_parent_state_item() &&
+            choice != NULL)
         {
             _menu->select_all(false);
 

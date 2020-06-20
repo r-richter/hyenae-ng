@@ -81,16 +81,6 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void start_dispatcher::enter(console_app_state* parent)
-    {
-        set_parent(parent);
-
-        console::console_app_state::enter();
-
-    } /* enter */
-
-    /*---------------------------------------------------------------------- */
-
     void start_dispatcher::on_thread_exception(const exception_t& exception)
     {
         _thread_exception = new exception_t(exception);
@@ -111,6 +101,8 @@ namespace hyenae::frontend::console::states
         // Init
         task_result = get_console()->task_out("Init", [this]()
         {
+            _generator_setup->update_generator();
+
             _dispatcher = new data_dispatcher_t(
                 _output_setup->get_output(),
                 _generator_setup->get_generator(),

@@ -43,7 +43,7 @@ namespace hyenae::frontend::console::states
             "ethernet_frame_setup");
 
         _menu = new console_menu(
-            console_io, get_generator_name() + " Setup", parent);
+            console_io, get_generator_name() + " Setup", this, parent);
 
         // Default values
         _operation = arp_frame_generator_t::OPERATION_REQUEST;
@@ -98,6 +98,8 @@ namespace hyenae::frontend::console::states
     {
         update_generator();
         update_menu_items();
+
+        _menu->set_start_state(get_start_state());
 
         console_menu::item* choice = _menu->prompt();
 

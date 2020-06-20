@@ -31,6 +31,7 @@
 #include "../../../../include/model/outputs/network_output.h"
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/console_app_state.h"
+#include "../../../../include/frontend/console/states/startable_state.h"
 #include "../../../../include/frontend/console/states/network_device_selector.h"
 
 namespace hyenae::frontend::console::states
@@ -41,6 +42,7 @@ namespace hyenae::frontend::console::states
     class network_device_selector;
 
     class output_setup :
+        public startable_state,
         public console_app_state
     {
         friend class network_device_selector;

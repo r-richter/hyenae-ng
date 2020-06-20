@@ -71,8 +71,11 @@ namespace hyenae::frontend::console
 
         private:
             console_io* _console_io;
+            console_app_state* _start_state;
+            console_app_state* _calling_state;
             console_app_state* _parent_state;
             vector_t<item*> _items;
+            item* _start_state_item = NULL;
             item* _parent_state_item = NULL;
             string_t _title;
             string_t _error_message;
@@ -83,7 +86,8 @@ namespace hyenae::frontend::console
             console_menu(
                 console_io* console_io,
                 const string_t& title,
-                console_app_state* parent_state = NULL);
+                console_app_state* calling_state, // TODO: Make NULL default
+                console_app_state* parent_state); // TODO: Make NULL default
 
             ~console_menu();
             void add_item(item* item);
@@ -93,6 +97,10 @@ namespace hyenae::frontend::console
             void set_info_message(string_t message);
             string_t get_error_message() const;
             void set_error_message(string_t message);
+            console_app_state* get_start_state() const;
+            void set_start_state(console_app_state* state);
+            item* get_start_state_item() const;
+            item* get_parent_state_item() const;
             
         private:
             void item_out(item* item, bool nl_before);

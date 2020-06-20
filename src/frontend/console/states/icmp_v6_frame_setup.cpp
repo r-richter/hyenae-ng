@@ -45,7 +45,7 @@ namespace hyenae::frontend::console::states
         _protocol = protocol;
 
         _menu = new console_menu(
-            console_io, get_generator_name() + " Setup", parent);
+            console_io, get_generator_name() + " Setup", this, parent);
 
         _payload = new generator_selector(
             "Payload Setup", context, console_io, this);
@@ -90,6 +90,9 @@ namespace hyenae::frontend::console::states
     {
         update_generator();
         update_menu_items();
+
+        _menu->set_start_state(get_start_state());
+        _payload->set_start_state(get_start_state());
 
         console_menu::item* choice = _menu->prompt();
 
@@ -169,6 +172,8 @@ namespace hyenae::frontend::console::states
             get_ip_frame_setup()->get_pseudo_header(),
             _type,
             _code);
+
+        _payload->update_generator();
 
         if (_payload->get_generator() != NULL)
         {

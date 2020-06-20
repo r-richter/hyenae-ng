@@ -44,7 +44,7 @@ namespace hyenae::frontend::console::states
         vector_t<device_t*> devices_list;
         
         _menu = new console_menu(
-            console_io, "Network Device Selection", parent);
+            console_io, "Network Device Selection", this, parent);
 
         // Load devices
 
@@ -78,9 +78,13 @@ namespace hyenae::frontend::console::states
 
         ((output_setup*)get_parent())->update_network_output();
 
+        _menu->set_start_state(get_start_state());
+
         console_menu::item* choice = _menu->prompt();
 
-        if (choice != NULL)
+        if (choice != _menu->get_start_state_item() &&
+            choice != _menu->get_parent_state_item() &&
+            choice != NULL)
         {
             _menu->select_all(false);
             choice->set_selected(true);
