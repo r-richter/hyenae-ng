@@ -1,6 +1,6 @@
 # Hyenae NG
 
-Contact  : [E-Mail](hyenae.tool@googlemail.com\)
+Contact  : [E-Mail](hyenae.tool@googlemail.com)\
 Homepage : [GitHub-Repository](https://github.com/r-richter/hyenae-ng)
 \
 \
