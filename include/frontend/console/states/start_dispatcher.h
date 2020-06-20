@@ -71,8 +71,6 @@ namespace hyenae::frontend::console::states
 
             bool run();
 
-            void enter(console_app_state* parent);
-
         protected:
             void on_state_changed() {};
             void on_stats_changed() {};

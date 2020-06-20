@@ -40,7 +40,7 @@ namespace hyenae::frontend::console::states
                 parent)
     {
         _menu = new console_menu(
-            console_io, "TCP-Flags Setup", parent);
+            console_io, "TCP-Flags Setup", this, parent);
         
         _cwr_flag = false;
         _ece_flag = false;

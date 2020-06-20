@@ -36,17 +36,22 @@ namespace hyenae::frontend::console
     console_menu::console_menu(
         console_io* console_io,
         const string_t& title,
+        console_app_state* calling_state,
         console_app_state* parent_state)
     {
         assert::argument_not_null(console_io, "console_io");
 
         _console_io = console_io;
+        _calling_state = calling_state;
         _parent_state = parent_state;
 
         _title = title;
         _error_message = "";
         _info_message = "";
         _last_error = "";
+
+        _start_state_item = new item("Start");
+        _start_state_item->set_choice("x");
 
         _parent_state_item = new item(parent_state != NULL ? "Back" : "Exit");
         _parent_state_item->set_choice("0");
@@ -82,7 +87,12 @@ namespace hyenae::frontend::console
             item_out(_items[pos], false);
         }
 
-        item_out(_parent_state_item, true);
+        if (_start_state != NULL)
+        {
+            item_out(_start_state_item, true);
+        }
+
+        item_out(_parent_state_item, _start_state == NULL);
 
         if (_error_message != "")
         {
@@ -143,8 +153,39 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    void console_menu::item_out(
-        item* item, bool nl_before)
+    console_app_state* console_menu::get_start_state() const
+    {
+        return _start_state;
+
+    } /* get_parent_state */
+
+    /*---------------------------------------------------------------------- */
+
+    void console_menu::set_start_state(console_app_state* state)
+    {
+        _start_state = state;
+
+    } /* set_parent_state */
+
+    /*---------------------------------------------------------------------- */
+
+    console_menu::item* console_menu::get_start_state_item() const
+    {
+        return _start_state_item;
+
+    } /* get_start_state_item */
+
+    /*---------------------------------------------------------------------- */
+
+    console_menu::item* console_menu::get_parent_state_item() const
+    {
+        return _parent_state_item;
+
+    } /* get_parent_state_item */
+
+    /*---------------------------------------------------------------------- */
+
+    void console_menu::item_out(item* item, bool nl_before)
     {
         _console_io->menu_item_out(
             item->get_choice(),
@@ -152,7 +193,7 @@ namespace hyenae::frontend::console
             item->get_caption(),
             item->get_hint(),
             item->get_info(),
-            _items.size() + 1,
+            _items.size() + (_start_state != NULL ? 2 : 1),
             nl_before);
 
     } /* item_out */
@@ -185,7 +226,8 @@ namespace hyenae::frontend::console
             input = default_choice->get_choice();
         }
 
-        if (input != _parent_state_item->get_choice())
+        if (input != _start_state_item->get_choice() &&
+            input != _parent_state_item->get_choice())
         {
             for (auto item : _items)
             {
@@ -200,9 +242,27 @@ namespace hyenae::frontend::console
         }
         else
         {
-            if (_parent_state != NULL)
+            if (input == _start_state_item->get_choice())
             {
-                _parent_state->enter();
+                if (_start_state != NULL)
+                {
+                    _start_state->enter(_calling_state);
+                }
+
+                return _start_state_item;
+            }
+            else if (input == _parent_state_item->get_choice())
+            {
+                if (_parent_state != NULL)
+                {
+                    _parent_state->enter();
+                }
+
+                return _parent_state_item;
+            }
+            else
+            {
+                assert::legal_state(false, "", "unknown menu item");
             }
         }
 

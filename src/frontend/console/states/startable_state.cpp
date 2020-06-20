@@ -24,43 +24,24 @@
  *
  */
 
-#ifndef GENERATOR_SETUP_H
-#define GENERATOR_SETUP_H
-
-#include "../../../../include/model/data_generator.h"
-#include "../../../../include/frontend/console/console_app_state.h"
-#include "../../../../include/frontend/console/states/startable_state.h"
+#include ".././../../../include/frontend/console/states/startable_state.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    class generator_setup :
-        public startable_state,
-        public console_app_state
+    console_app_state* startable_state::get_start_state() const
     {
-        friend class generator_selector;
+        return _start_state;
 
-        public:
-            using data_generator_t = hyenae::model::data_generator;
+    } /* get_start_state */
 
-        public:
-            generator_setup(
-                console_app_state_context* context,
-                console_io* console_io,
-                console_app_state* parent = NULL);
+    void startable_state::set_start_state(console_app_state* state)
+    {
+        _start_state = state;
 
-            virtual string_t get_generator_name() const = 0;
-            virtual data_generator_t* get_generator() const = 0;
-            virtual void update_generator() = 0;
-
-        protected:
-            virtual void on_select() = 0;
-
-    }; /* generator_setup */
+    } /* set_start_state */
 
     /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
-
-#endif /* GENERATOR_SETUP_H */

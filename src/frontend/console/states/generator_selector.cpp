@@ -193,9 +193,12 @@ namespace hyenae::frontend::console::states
         
         update_menu_items();
 
+        _menu->set_start_state(get_start_state());
+
         console_menu::item* choice = _menu->prompt(_selected_item);
 
-        if (choice != NULL)
+        if (choice != _menu->get_start_state_item() &&
+            choice != _menu->get_parent_state_item())
         {
             if (choice != _none_item)
             {
@@ -271,7 +274,9 @@ namespace hyenae::frontend::console::states
     {
         using namespace model::generators::protocols;
 
-        _menu = new console_menu(get_console(), _title, get_parent());
+        generator_setup* setup = NULL;
+
+        _menu = new console_menu(get_console(), _title, this, get_parent());
 
         // None
         _none_item = new console_menu::item("None");
@@ -280,146 +285,174 @@ namespace hyenae::frontend::console::states
         if (_generator_flags & GFLAG_ETHERNET_FRAME)
         {
             // Ethernet-Frame
-            add_generator(new ethernet_frame_setup(
-                get_context(), get_console(), get_parent()));
+            setup = new ethernet_frame_setup(
+                get_context(), get_console(), get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
         if (_generator_flags & GFLAG_IP_V4_FRAME)
         {
             // ARP-Frame
-            add_generator(new arp_frame_setup(
+            setup = new arp_frame_setup(
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ethernet_frame_setup*)get_parent()));
+                (ethernet_frame_setup*)get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
         if (_generator_flags & GFLAG_IP_V4_FRAME)
         {
             // IPv4-Frame
-            add_generator(new ip_v4_frame_setup(
+            setup =new ip_v4_frame_setup(
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ethernet_frame_setup*) get_parent()));
+                (ethernet_frame_setup*) get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
         if (_generator_flags & GFLAG_IP_V6_FRAME)
         {
             // IPv6-Frame
-            add_generator(new ip_v6_frame_setup(
+            setup =new ip_v6_frame_setup(
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ethernet_frame_setup*)get_parent()));
+                (ethernet_frame_setup*)get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
         if (_generator_flags & GFLAG_ICMP_V4_OVER_IP_V4_FRAME)
         {
             // ICMPv4 over IPv4 Frame
-            add_generator(new icmp_v4_frame_setup(
+            setup = new icmp_v4_frame_setup(
                 icmp_v4_frame_generator::IP_V4_PROTOCOL,
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ip_frame_setup*)get_parent()));
+                (ip_frame_setup*)get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
         if (_generator_flags & GFLAG_ICMP_V4_OVER_IP_V6_FRAME)
         {
             // ICMPv4 over IPv4 Frame
-            add_generator(new icmp_v4_frame_setup(
+            setup = new icmp_v4_frame_setup(
                 icmp_v4_frame_generator::IP_V6_PROTOCOL,
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ip_frame_setup*)get_parent()));
+                (ip_frame_setup*)get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
         if (_generator_flags & GFLAG_ICMP_V6_FRAME)
         {
             // ICMPv6-Frame
-            add_generator(new icmp_v6_frame_setup(
+            setup = new icmp_v6_frame_setup(
                 icmp_v6_frame_generator::IP_V6_PROTOCOL,
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ip_frame_setup*)get_parent()));
+                (ip_frame_setup*)get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
         if (_generator_flags & GFLAG_ICMP_V4_ECHO_PAYLOAD)
         {
             // ICMPv4-Echo Payload
-            add_generator(new icmp_echo_payload_setup(
+            setup = new icmp_echo_payload_setup(
                 icmp_echo_payload_generator::ICMP_V4_TYPE,
                 icmp_echo_payload_generator::ICMP_V4_CODE,
                 get_context(),
                 get_console(),
                 get_parent(),
-                (icmp_frame_setup*)get_parent()));
+                (icmp_frame_setup*)get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
         if (_generator_flags & GFLAG_ICMP_V6_ECHO_PAYLOAD)
         {
             // ICMPv6-Echo Payload
-            add_generator(new icmp_echo_payload_setup(
+            setup = new icmp_echo_payload_setup(
                 icmp_echo_payload_generator::ICMP_V6_TYPE,
                 icmp_echo_payload_generator::ICMP_V6_CODE,
                 get_context(),
                 get_console(),
                 get_parent(),
-                (icmp_frame_setup*)get_parent()));
+                (icmp_frame_setup*)get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
         if (_generator_flags & GFLAG_TCP_OVER_IP_V4_FRAME)
         {
             // TCP over IPv4 Frame
-            add_generator(new tcp_frame_setup(
+            setup = new tcp_frame_setup(
                 tcp_frame_generator::IP_V4_PROTOCOL,
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ip_frame_setup*)get_parent()));
+                (ip_frame_setup*)get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
         if (_generator_flags & GFLAG_TCP_OVER_IP_V6_FRAME)
         {
             // TCP over IPv6 Frame
-            add_generator(new tcp_frame_setup(
+            setup = new tcp_frame_setup(
                 tcp_frame_generator::IP_V6_NEXT_HEADER,
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ip_frame_setup*)get_parent()));
+                (ip_frame_setup*)get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
         if (_generator_flags & GFLAG_UDP_OVER_IP_V4_FRAME)
         {
             // UDP over IPv4 Frame
-            add_generator(new udp_frame_setup(
+            setup =new udp_frame_setup(
                 udp_frame_generator::IP_V4_PROTOCOL,
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ip_frame_setup*)get_parent()));
+                (ip_frame_setup*)get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
         if (_generator_flags & GFLAG_UDP_OVER_IP_V6_FRAME)
         {
             // UDP over IPv4 Frame
-            add_generator(new udp_frame_setup(
+            setup = new udp_frame_setup(
                 udp_frame_generator::IP_V6_NEXT_HEADER,
                 get_context(),
                 get_console(),
                 get_parent(),
-                (ip_frame_setup*)get_parent()));
+                (ip_frame_setup*)get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
         if (_generator_flags & GFLAG_TEXT_BUFFER)
         {
             // Text-Buffer
-            add_generator(new text_buffer_setup(
-                get_context(), get_console(), get_parent()));
+            setup = new text_buffer_setup(
+                get_context(), get_console(), get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
         }
 
     } /* inizialize */

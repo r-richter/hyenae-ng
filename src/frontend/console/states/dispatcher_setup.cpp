@@ -46,7 +46,7 @@ namespace hyenae::frontend::console::states
         _delay_type = delay_type::NONE;
         _delay = NULL;
 
-        _menu = new console_menu(console_io, "Dispatcher Setup", parent);
+        _menu = new console_menu(console_io, "Dispatcher Setup", this, parent);
 
         // Byte Limit
         _byte_limit_item = new console_menu::item("Byte Limit");
@@ -84,6 +84,8 @@ namespace hyenae::frontend::console::states
     bool dispatcher_setup::run()
     {
         update_menu_items();
+
+        _menu->set_start_state(get_start_state());
 
         console_menu::item* choice = _menu->prompt();
 

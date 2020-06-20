@@ -31,6 +31,7 @@
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/console_app_state.h"
 #include "../../../../include/frontend/console/states/output_setup.h"
+#include "../../../../include/frontend/console/states/startable_state.h"
 
 namespace hyenae::frontend::console::states
 {
@@ -39,6 +40,7 @@ namespace hyenae::frontend::console::states
     class output_setup;
 
     class network_device_selector :
+        public startable_state,
         public console_app_state
     {
         using device_t = hyenae::model::outputs::network_output::device;

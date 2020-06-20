@@ -81,16 +81,6 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void start_dispatcher::enter(console_app_state* parent)
-    {
-        set_parent(parent);
-
-        console::console_app_state::enter();
-
-    } /* enter */
-
-    /*---------------------------------------------------------------------- */
-
     void start_dispatcher::on_thread_exception(const exception_t& exception)
     {
         _thread_exception = new exception_t(exception);
