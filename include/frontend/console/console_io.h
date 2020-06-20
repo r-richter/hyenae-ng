@@ -47,6 +47,7 @@ namespace hyenae::frontend::console
         public:
             void header_out(string_t title);
             void separator_out(bool nl_before, bool nl_after);
+            void menu_item_separator_out(bool nl_before, bool nl_after);
 
             void menu_item_out(
                 const string_t& choice,
@@ -54,8 +55,7 @@ namespace hyenae::frontend::console
                 const string_t& caption,
                 const string_t& hint,
                 const string_t& info,
-                size_t item_count,
-                bool nl_before = false);
+                size_t item_count);
 
             void info_out(string_t message, bool menu_item_margin = false);
             void error_out(string_t message, bool menu_item_margin = false);

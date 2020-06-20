@@ -84,15 +84,17 @@ namespace hyenae::frontend::console
 
         for (size_t pos = 0; pos < _items.size(); pos++)
         {
-            item_out(_items[pos], false);
+            item_out(_items[pos]);
         }
+
+        _console_io->menu_item_separator_out(true, true);
 
         if (_start_state != NULL)
         {
-            item_out(_start_state_item, true);
+            item_out(_start_state_item);
         }
 
-        item_out(_parent_state_item, _start_state == NULL);
+        item_out(_parent_state_item);
 
         if (_error_message != "")
         {
@@ -185,7 +187,7 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    void console_menu::item_out(item* item, bool nl_before)
+    void console_menu::item_out(item* item)
     {
         _console_io->menu_item_out(
             item->get_choice(),
@@ -193,8 +195,7 @@ namespace hyenae::frontend::console
             item->get_caption(),
             item->get_hint(),
             item->get_info(),
-            _items.size() + (_start_state != NULL ? 2 : 1),
-            nl_before);
+            _items.size() + (_start_state != NULL ? 2 : 1));
 
     } /* item_out */
 

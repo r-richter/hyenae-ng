@@ -87,14 +87,7 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    void console_io::menu_item_out(
-        const string_t& choice,
-        bool selected,
-        const string_t& caption,
-        const string_t& hint,
-        const string_t& info,
-        size_t item_count,
-        bool nl_before)
+    void console_io::menu_item_separator_out(bool nl_before, bool nl_after)
     {
         string_t text = "";
 
@@ -102,6 +95,35 @@ namespace hyenae::frontend::console
         {
             text.append("\n");
         }
+
+        pad_to_margin(text, BASE_MARGIN + text.size());
+        pad_to_margin(text, MENU_ITEM_MARGIN + text.size());
+
+        for (int i = 0; i < MENU_WIDTH / 2; i++)
+        {
+            text.append(". ");
+        }
+        
+        if (nl_after)
+        {
+            text.append("\n\n");
+        }
+
+        out(text);
+
+    } /* menu_item_separator_out */
+
+    /*---------------------------------------------------------------------- */
+
+    void console_io::menu_item_out(
+        const string_t& choice,
+        bool selected,
+        const string_t& caption,
+        const string_t& hint,
+        const string_t& info,
+        size_t item_count)
+    {
+        string_t text = "";
 
         pad_to_margin(text, BASE_MARGIN + text.size());
         pad_to_margin(text, MENU_ITEM_MARGIN + text.size());

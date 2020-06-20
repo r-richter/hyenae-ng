@@ -103,7 +103,7 @@ namespace hyenae::frontend::console
             item* get_parent_state_item() const;
             
         private:
-            void item_out(item* item, bool nl_before);
+            void item_out(item* item);
             item* choice_in(item* default_choice);
 
     }; /* console_menu */
