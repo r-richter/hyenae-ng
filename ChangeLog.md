@@ -1,5 +1,6 @@
 ##  Version 0.6 (Not yet released)
 - Code refactoring
+- Dispatcher can now be started from every state
 
 ## Version 0.05 (Jun. 19th, 2020)
 - Bug fixes
