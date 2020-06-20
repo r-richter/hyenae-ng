@@ -29,10 +29,13 @@
 
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/console_app_state.h"
+#include "../../../../include/frontend/console/states/tcp_frame_setup.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
+
+    class tcp_frame_setup;
 
     class tcp_flags_setup :
         public console_app_state
@@ -60,7 +63,7 @@ namespace hyenae::frontend::console::states
             tcp_flags_setup(
                 console_app_state_context* context,
                 console_io* console_io,
-                console_app_state* parent);
+                tcp_frame_setup* parent);
 
             ~tcp_flags_setup();
             bool run();

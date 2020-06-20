@@ -40,6 +40,8 @@ namespace hyenae::frontend::console::states
     class tcp_frame_setup :
         public ip_based_frame_setup
     {
+        friend class tcp_flags_setup;
+
         using tcp_frame_generator_t =
             model::generators::protocols::tcp_frame_generator;
 

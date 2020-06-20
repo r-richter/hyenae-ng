@@ -33,7 +33,7 @@ namespace hyenae::frontend::console::states
     tcp_flags_setup::tcp_flags_setup(
         console_app_state_context* context,
         console_io* console_io,
-        console_app_state* parent) :
+        tcp_frame_setup* parent) :
             console_app_state(
                 context,
                 console_io,
@@ -106,6 +106,8 @@ namespace hyenae::frontend::console::states
     bool tcp_flags_setup::run()
     {
         update_menu_items();
+
+        ((tcp_frame_setup*)get_parent())->update_generator();
 
         console_menu::item* choice = _menu->prompt();
 
