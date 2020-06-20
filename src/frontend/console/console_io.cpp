@@ -99,7 +99,7 @@ namespace hyenae::frontend::console
         pad_to_margin(text, BASE_MARGIN + text.size());
         pad_to_margin(text, MENU_ITEM_MARGIN + text.size());
 
-        for (int i = 0; i < MENU_WIDTH / 2; i++)
+        for (int i = 0; i < (int)MENU_WIDTH / 2; i++)
         {
             text.append(". ");
         }
