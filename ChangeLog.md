@@ -4,7 +4,7 @@
 ## Version 0.05 (Jun. 19th, 2020)
 - Bug fixes
 - Code refactoring
-- Enhanced user interface\
+- Enhanced user interface
 \
 [Get it on GitHub](https://github.com/r-richter/hyenae-ng/releases/tag/v0.5)
 
