@@ -1,10 +1,11 @@
 ##  Version 0.6 (Not yet released)
 - Code refactoring
 
-##  [Version 0.05 (Jun. 19th, 2020)](https://github.com/r-richter/hyenae-ng/releases/tag/v0.5)
+## Version 0.05 (Jun. 19th, 2020)
 - Bug fixes
 - Code refactoring
 - Enhanced user interface
+  [Get it on GitHub](https://github.com/r-richter/hyenae-ng/releases/tag/v0.5)
 
 ##  [Version 0.04 (Jun. 17th, 2020)](https://github.com/r-richter/hyenae-ng/releases/tag/v0.4)
 - Implemented ARP-Support
