@@ -1,7 +1,7 @@
 # Hyenae NG
 
-Contact  : [hyenae.tool@googlemail.com\](E-Mail)
-Homepage : [https://github.com/r-richter/hyenae-ng](GitHub-Repository)
+Contact  : [E-Mail](hyenae.tool@googlemail.com\)
+Homepage : [GitHub-Repository](https://github.com/r-richter/hyenae-ng)
 \
 \
 Copyright (C) 2020 Robin Richter
