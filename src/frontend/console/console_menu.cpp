@@ -49,7 +49,7 @@ namespace hyenae::frontend::console
         _last_error = "";
 
         _parent_state_item = new item(parent_state != NULL ? "Back" : "Exit");
-        _parent_state_item->set_choice(".");
+        _parent_state_item->set_choice("0");
 
     } /* console_menu */
 
