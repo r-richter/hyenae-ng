@@ -50,7 +50,7 @@ namespace hyenae::frontend::console
         _info_message = "";
         _last_error = "";
 
-        _start_state_item = new item("Start");
+        _start_state_item = new item("Start...");
         _start_state_item->set_choice("x");
 
         _parent_state_item = new item(parent_state != NULL ? "Back" : "Exit");

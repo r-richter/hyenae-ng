@@ -35,7 +35,7 @@ namespace hyenae::frontend::console::states
         console_app_state_context* context, console_io* console_io) :
             console_app_state(context, console_io)
     {
-        _menu = new console_menu(console_io, "Main Menu", this, this);
+        _menu = new console_menu(console_io, "Main Menu", this, NULL);
         
         // Output setup
         _output_setup_item = new console_menu::item("Output Setup");
