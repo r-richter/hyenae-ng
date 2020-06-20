@@ -13,8 +13,7 @@
 - Implemented ICMPv4-Support
 - Implemented ICMPv6-Support
 
-##  Version 0.02 (Jun. 14th, 2020)
-  
+## [Version 0.02 (Jun. 14th, 2020)](https://github.com/r-richter/hyenae-ng/releases/tag/v0.2)
 - Implemented TCP-Support
 - Implemented UDP-Support
 
