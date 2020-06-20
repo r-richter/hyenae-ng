@@ -37,6 +37,8 @@ namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
+    class tcp_flags_setup;
+
     class tcp_frame_setup :
         public ip_based_frame_setup
     {

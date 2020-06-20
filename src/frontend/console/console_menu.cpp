@@ -49,6 +49,7 @@ namespace hyenae::frontend::console
         _last_error = "";
 
         _parent_state_item = new item(parent_state != NULL ? "Back" : "Exit");
+        _parent_state_item->set_choice(".");
 
     } /* console_menu */
 
@@ -66,6 +67,8 @@ namespace hyenae::frontend::console
     {
         _items.push_back(item);
 
+        item->set_choice(std::to_string(_items.size()));
+
     } /* add_option */
 
     /*---------------------------------------------------------------------- */
@@ -76,10 +79,10 @@ namespace hyenae::frontend::console
 
         for (size_t pos = 0; pos < _items.size(); pos++)
         {
-            item_out(pos + 1, _items[pos], false);
+            item_out(_items[pos], false);
         }
 
-        item_out(0, _parent_state_item, true);
+        item_out(_parent_state_item, true);
 
         if (_error_message != "")
         {
@@ -140,15 +143,16 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    void console_menu::item_out(size_t pos, item* item, bool nl_before)
+    void console_menu::item_out(
+        item* item, bool nl_before)
     {
         _console_io->menu_item_out(
-            pos,
+            item->get_choice(),
             item->is_selected(),
             item->get_caption(),
             item->get_hint(),
             item->get_info(),
-            _items.size(),
+            _items.size() + 1,
             nl_before);
 
     } /* item_out */
@@ -159,98 +163,52 @@ namespace hyenae::frontend::console
     {
         string_t input;
         string_t hint = "";
-        size_t choice_pos = 0;
-        size_t default_choice_pos = 0;
 
         if (_last_error != "")
         {
             _console_io->error_out(_last_error, true);
         }
 
+        _last_error = "";
+
         if (default_choice != NULL)
         {
-            default_choice_pos = item_choice_pos(default_choice);
+            hint = default_choice->get_choice();
         }
 
-        try
+        _console_io->separator_out(true, false);
+
+        input = _console_io->prompt("Enter Selection", hint);
+
+        if (input == "" && default_choice != NULL)
         {
-            _last_error = "";
+            input = default_choice->get_choice();
+        }
 
-            hint.append("0-");
-            hint.append(std::to_string(_items.size()));
-
-            if (default_choice != NULL)
+        if (input != _parent_state_item->get_choice())
+        {
+            for (auto item : _items)
             {
-                hint.append("] [");
-                hint.append(std::to_string(default_choice_pos));
-            }
-
-            _console_io->separator_out(true, false);
-
-            input = _console_io->prompt("Enter Selection", hint);
-
-            if (input == "" && default_choice != NULL)
-            {
-                choice_pos = default_choice_pos;
-            }
-            else
-            {
-                choice_pos = std::stoi(input);
-
-                assert::in_range(choice_pos <= _items.size());
-            }
-            
-            if (choice_pos == 0)
-            {
-                if (_parent_state != NULL)
+                if (item->get_choice() == input)
                 {
-                    _parent_state->enter();
+                    return item;
                 }
             }
-            else
-            {
-                return _items[choice_pos - 1];
-            }
-        }
-        catch (const std::out_of_range&)
-        {
-            _last_error = concat(
-                "Option out of range: ", input.c_str());
-        }
-        catch (const std::invalid_argument&)
-        {
+
             _last_error = concat(
                 "Invalid option: ", input.c_str());
+        }
+        else
+        {
+            if (_parent_state != NULL)
+            {
+                _parent_state->enter();
+            }
         }
 
         return NULL;
 
     } /* choice_in */
-
-    /*---------------------------------------------------------------------- */
-
-    size_t console_menu::item_choice_pos(item* item)
-    {
-        if (item != _parent_state_item)
-        {
-            for (size_t pos = 0; pos < _items.size(); pos++)
-            {
-                if (_items[pos] == item)
-                {
-                    return pos + 1;
-                }
-            }
-        }
-        else
-        {
-            return 0;
-        }
-        
-        assert::legal_state(false, "", "item could not be found");
-
-        return SIZE_NONE;
-
-    } /* item_choice_pos */
 
     /*---------------------------------------------------------------------- */
 

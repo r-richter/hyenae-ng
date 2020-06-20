@@ -42,14 +42,13 @@ namespace hyenae::frontend::console
                 friend class console_menu;
 
                 private:
+                    string_t _choice;
                     bool _selected;
                     string_t _caption;
                     string_t _hint;
                     string_t _info;
 
                 public:
-                    item();
-                    
                     item(
                         const string_t& caption,
                         const string_t& hint = "",
@@ -57,12 +56,16 @@ namespace hyenae::frontend::console
                     
                     bool is_selected() const;
                     void set_selected(bool selected);
+                    string_t get_choice() const;
                     string_t get_caption() const;
                     void set_caption(const string_t& caption);
                     string_t get_hint() const;
                     void set_hint(string_t hint);
                     string_t get_info() const;
                     void set_info(string_t info);
+
+                private:
+                    void set_choice(const string_t& choice);
 
             }; /* item */
 
@@ -92,9 +95,8 @@ namespace hyenae::frontend::console
             void set_error_message(string_t message);
             
         private:
-            void item_out(size_t pos, item* item, bool nl_before);
+            void item_out(item* item, bool nl_before);
             item* choice_in(item* default_choice);
-            size_t item_choice_pos(item* item);
 
     }; /* console_menu */
 

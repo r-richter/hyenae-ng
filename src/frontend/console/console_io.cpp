@@ -100,12 +100,12 @@ namespace hyenae::frontend::console
     /*---------------------------------------------------------------------- */
 
     void console_io::menu_item_out(
-        size_t pos,
+        const string_t& choice,
         bool selected,
-        string_t caption,
-        string_t hint,
-        string_t info,
-        size_t highest_index,
+        const string_t& caption,
+        const string_t& hint,
+        const string_t& info,
+        size_t item_count,
         bool nl_before)
     {
         string_t text = "";
@@ -119,13 +119,15 @@ namespace hyenae::frontend::console
         pad_to_margin(text, MENU_ITEM_MARGIN + text.size());
 
         text.append("[");
-
-        if (pos < 10 && highest_index > 9)
+        
+        // TODO: Refactor, pass max choice length instead and calculate
+        //       spaces to pad.
+        if (choice.size() == 1 && item_count > 9)
         {
             text.append(" ");
         }
 
-        text.append(std::to_string(pos));
+        text.append(choice);
         text.append("] ");
         text.append(selected ? ">" : " ");
         text.append(" ");

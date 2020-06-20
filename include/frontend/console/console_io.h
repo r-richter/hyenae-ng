@@ -49,15 +49,14 @@ namespace hyenae::frontend::console
             void separator_out(bool nl_before, bool nl_after);
 
             void menu_item_out(
-                size_t pos,
+                const string_t& choice,
                 bool selected,
-                string_t caption,
-                string_t hint,
-                string_t info,
-                size_t highest_index,
+                const string_t& caption,
+                const string_t& hint,
+                const string_t& info,
+                size_t item_count,
                 bool nl_before = false);
 
-            // TODO: Refactor info & error out to use common code base
             void info_out(string_t message, bool menu_item_margin = false);
             void error_out(string_t message, bool menu_item_margin = false);
             void task_out(string_t name);

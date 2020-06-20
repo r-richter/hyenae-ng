@@ -38,6 +38,7 @@ namespace hyenae::frontend::console::states
     /*---------------------------------------------------------------------- */
 
     class main_menu;
+    class network_device_selector;
 
     class output_setup :
         public console_app_state
