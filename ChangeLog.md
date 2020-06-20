@@ -1,6 +1,9 @@
-##  Version 0.6 (Not yet released)
+##  Version 0.6 (Jun. 20th, 202)
 - Code refactoring
-- Dispatcher can now be started from every state
+- Enhanced user interface
+- Dispatcher can now be started from every state\
+\
+[Source Code](https://github.com/r-richter/hyenae-ng/releases/tag/v0.6)
 
 ## Version 0.05 (Jun. 19th, 2020)
 - Bug fixes
