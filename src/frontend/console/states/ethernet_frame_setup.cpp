@@ -268,6 +268,8 @@ namespace hyenae::frontend::console::states
             _type,
             _add_fcs);
 
+        _payload->update_generator();
+
         if (_payload->get_generator() != NULL)
         {
             ((ethernet_frame_generator_t*)_generator)->

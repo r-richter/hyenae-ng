@@ -211,6 +211,8 @@ namespace hyenae::frontend::console::states
             dst_port_pattern,
             10);
 
+        _payload->update_generator();
+
         if (_payload->get_generator() != NULL)
         {
             ((udp_frame_generator_t*)_generator)->

@@ -173,6 +173,8 @@ namespace hyenae::frontend::console::states
             _type,
             _code);
 
+        _payload->update_generator();
+
         if (_payload->get_generator() != NULL)
         {
             ((icmp_v6_frame_generator_t*)_generator)->

@@ -124,6 +124,7 @@ namespace hyenae::frontend::console::states
         update_menu_items();
 
         _menu->set_start_state(get_start_state());
+        _flags_setup->set_start_state(get_start_state());
         _payload->set_start_state(get_start_state());
 
         console_menu::item* choice = _menu->prompt();
@@ -388,6 +389,8 @@ namespace hyenae::frontend::console::states
             10,
             urg_pointer_pattern,
             10);
+
+        _payload->update_generator();
 
         if (_payload->get_generator() != NULL)
         {

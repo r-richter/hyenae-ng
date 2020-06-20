@@ -109,6 +109,8 @@ namespace hyenae::frontend::console::states
 
         ((tcp_frame_setup*)get_parent())->update_generator();
 
+        _menu->set_start_state(get_start_state());
+
         console_menu::item* choice = _menu->prompt();
 
         if (choice == _cwr_flag_item)

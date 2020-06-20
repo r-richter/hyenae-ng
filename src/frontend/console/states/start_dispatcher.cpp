@@ -101,6 +101,8 @@ namespace hyenae::frontend::console::states
         // Init
         task_result = get_console()->task_out("Init", [this]()
         {
+            _generator_setup->update_generator();
+
             _dispatcher = new data_dispatcher_t(
                 _output_setup->get_output(),
                 _generator_setup->get_generator(),
