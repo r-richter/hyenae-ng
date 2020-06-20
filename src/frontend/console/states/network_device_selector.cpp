@@ -37,7 +37,7 @@ namespace hyenae::frontend::console::states
     network_device_selector::network_device_selector(
         console_app_state_context* context,
         console_io* console_io,
-        console_app_state* parent) :
+        output_setup* parent) :
             console_app_state(context, console_io, parent)
     {
         string_t caption;
@@ -75,6 +75,8 @@ namespace hyenae::frontend::console::states
     bool network_device_selector::run()
     {
         string_t path;
+
+        ((output_setup*)get_parent())->update_network_output();
 
         console_menu::item* choice = _menu->prompt();
 

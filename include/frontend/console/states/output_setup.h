@@ -42,6 +42,8 @@ namespace hyenae::frontend::console::states
     class output_setup :
         public console_app_state
     {
+        friend class network_device_selector;
+
         using data_output_t = hyenae::model::data_output;
 
         using device_t = hyenae::model::outputs::network_output::device;

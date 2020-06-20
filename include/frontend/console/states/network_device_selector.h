@@ -30,10 +30,13 @@
 #include "../../../../include/model/outputs/network_output.h"
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/console_app_state.h"
+#include "../../../../include/frontend/console/states/output_setup.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
+
+    class output_setup;
 
     class network_device_selector :
         public console_app_state
@@ -50,7 +53,7 @@ namespace hyenae::frontend::console::states
             network_device_selector(
                 console_app_state_context* context,
                 console_io* console_io,
-                console_app_state* parent);
+                output_setup* parent);
             
             ~network_device_selector();
             bool run();
