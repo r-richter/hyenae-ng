@@ -105,7 +105,8 @@ namespace hyenae::frontend::console::states
         console_menu::item* choice = _menu->prompt(_selected_item);
 
         if (choice != _menu->get_start_state_item() &&
-            choice != _menu->get_parent_state_item())
+            choice != _menu->get_parent_state_item() &&
+            choice != NULL)
         {
             _menu->select_all(false);
 
