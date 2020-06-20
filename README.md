@@ -154,5 +154,5 @@ of a few basic patterns:
 
 ## Contact
 
-- [E-Mail](mailto:hyenae.tool@googlemail.com)\
+- [E-Mail](mailto:hyenae.tool@googlemail.com) \
 - [GitHub-Repository](https://github.com/r-richter/hyenae-ng)
