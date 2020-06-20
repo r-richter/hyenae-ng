@@ -1,4 +1,4 @@
-##  Version 0.6 (?)
+##  Version 0.6 (Not yet released)
 - Code refactoring
 
 ##  Version 0.5 (Jun. 19, 202)  
@@ -19,4 +19,4 @@
 - Implemented UDP-Support
 
 ##  Version 0.1 (Jun. 12th, 2020)
-    - First public release
+- First public release
