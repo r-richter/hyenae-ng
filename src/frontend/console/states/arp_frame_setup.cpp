@@ -43,7 +43,7 @@ namespace hyenae::frontend::console::states
             "ethernet_frame_setup");
 
         _menu = new console_menu(
-            console_io, get_generator_name() + " Setup");
+            console_io, get_generator_name() + " Setup", this, parent);
 
         // Default values
         _operation = arp_frame_generator_t::OPERATION_REQUEST;
@@ -74,10 +74,6 @@ namespace hyenae::frontend::console::states
             "Target Protocol-Address");
         _menu->add_item(_target_proto_addr_pattern_item);
 
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
-
         update_generator();
 
     } /* arp_frame_setup */
@@ -92,7 +88,6 @@ namespace hyenae::frontend::console::states
         safe_delete(_sender_proto_addr_pattern_item);
         safe_delete(_target_hw_addr_pattern_item);
         safe_delete(_target_proto_addr_pattern_item);
-        safe_delete(_back_item);
         safe_delete(_generator);
 
     } /* ~arp_frame_setup */
@@ -103,6 +98,8 @@ namespace hyenae::frontend::console::states
     {
         update_generator();
         update_menu_items();
+
+        _menu->set_start_state(get_start_state());
 
         console_menu::item* choice = _menu->prompt();
 
@@ -125,10 +122,6 @@ namespace hyenae::frontend::console::states
         else if (choice == _target_proto_addr_pattern_item)
         {
             prompt_target_proto_addr_pattern();
-        }
-        else if (choice == _back_item)
-        {
-            back();
         }
 
         return true;

@@ -67,7 +67,7 @@ namespace hyenae::frontend::console::states
         {
             if (!start_screen())
             {
-                back();
+                get_parent()->enter();
             }
         }
         else
@@ -78,16 +78,6 @@ namespace hyenae::frontend::console::states
         return true;
 
     } /* run */
-
-    /*---------------------------------------------------------------------- */
-
-    void start_dispatcher::enter(console_app_state* parent)
-    {
-        set_parent(parent);
-
-        console::console_app_state::enter();
-
-    } /* enter */
 
     /*---------------------------------------------------------------------- */
 
@@ -111,6 +101,8 @@ namespace hyenae::frontend::console::states
         // Init
         task_result = get_console()->task_out("Init", [this]()
         {
+            _generator_setup->update_generator();
+
             _dispatcher = new data_dispatcher_t(
                 _output_setup->get_output(),
                 _generator_setup->get_generator(),
@@ -217,7 +209,7 @@ namespace hyenae::frontend::console::states
         if (get_console()->prompt(
             0, 1, "Restart?", "0 = Main Menu, 1 = Restart] [1", 1) == 0)
         {
-            back();
+            get_parent()->enter();
         }
 
     } /* result_screen */

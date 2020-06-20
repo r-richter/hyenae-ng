@@ -33,14 +33,14 @@ namespace hyenae::frontend::console::states
     tcp_flags_setup::tcp_flags_setup(
         console_app_state_context* context,
         console_io* console_io,
-        console_app_state* parent) :
+        tcp_frame_setup* parent) :
             console_app_state(
                 context,
                 console_io,
                 parent)
     {
         _menu = new console_menu(
-            console_io, "TCP-Flags Setup");
+            console_io, "TCP-Flags Setup", this, parent);
         
         _cwr_flag = false;
         _ece_flag = false;
@@ -83,10 +83,6 @@ namespace hyenae::frontend::console::states
         _fin_flag_item = new console_menu::item("FIN-Flag");
         _menu->add_item(_fin_flag_item);
 
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
-
     } /* tcp_flags_setup */
 
     /*---------------------------------------------------------------------- */
@@ -102,7 +98,6 @@ namespace hyenae::frontend::console::states
         safe_delete(_rst_flag_item);
         safe_delete(_syn_flag_item);
         safe_delete(_fin_flag_item);
-        safe_delete(_back_item);
 
     } /* ~tcp_flags_setup */
 
@@ -111,6 +106,10 @@ namespace hyenae::frontend::console::states
     bool tcp_flags_setup::run()
     {
         update_menu_items();
+
+        ((tcp_frame_setup*)get_parent())->update_generator();
+
+        _menu->set_start_state(get_start_state());
 
         console_menu::item* choice = _menu->prompt();
 
@@ -145,10 +144,6 @@ namespace hyenae::frontend::console::states
         else if (choice == _fin_flag_item)
         {
             prompt_fin_flag();
-        }
-        else if (choice == _back_item)
-        {
-            back();
         }
 
         return true;

@@ -38,7 +38,7 @@ namespace hyenae::frontend::console::states
             ip_frame_setup(context, console_io, parent, ethernet_frame_setup)
     {
         _menu = new console_menu(
-            console_io, get_generator_name() + " Setup");
+            console_io, get_generator_name() + " Setup", this, parent);
 
         _payload = new generator_selector(
             "Payload Setup", context, console_io, this);
@@ -80,10 +80,6 @@ namespace hyenae::frontend::console::states
             new console_menu::item("Payload");
         _menu->add_item(_payload_item);
 
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
-
         update_generator();
 
     } /* ip_v6_frame_setup */
@@ -100,7 +96,6 @@ namespace hyenae::frontend::console::states
         safe_delete(_src_ip_pattern_item);
         safe_delete(_dst_ip_pattern_item);
         safe_delete(_payload_item);
-        safe_delete(_back_item);
         safe_delete(_generator);
         safe_delete(_payload);
 
@@ -112,6 +107,9 @@ namespace hyenae::frontend::console::states
     {
         update_generator();
         update_menu_items();
+
+        _menu->set_start_state(get_start_state());
+        _payload->set_start_state(get_start_state());
 
         console_menu::item* choice = _menu->prompt();
 
@@ -142,10 +140,6 @@ namespace hyenae::frontend::console::states
         else if (choice == _payload_item)
         {
             _payload->enter();
-        }
-        else if (choice == _back_item)
-        {
-            back();
         }
 
         return true;

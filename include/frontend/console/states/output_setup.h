@@ -31,6 +31,7 @@
 #include "../../../../include/model/outputs/network_output.h"
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/console_app_state.h"
+#include "../../../../include/frontend/console/states/startable_state.h"
 #include "../../../../include/frontend/console/states/network_device_selector.h"
 
 namespace hyenae::frontend::console::states
@@ -38,10 +39,14 @@ namespace hyenae::frontend::console::states
     /*---------------------------------------------------------------------- */
 
     class main_menu;
+    class network_device_selector;
 
     class output_setup :
+        public startable_state,
         public console_app_state
     {
+        friend class network_device_selector;
+
         using data_output_t = hyenae::model::data_output;
 
         using device_t = hyenae::model::outputs::network_output::device;
@@ -54,7 +59,6 @@ namespace hyenae::frontend::console::states
             unordered_map_t<console_menu::item*, data_output_t*> _menu_items;
             console_menu::item* _file_output_item = NULL;
             console_menu::item* _network_output_item = NULL;
-            console_menu::item* _back_item = NULL;
             console_menu::item* _selected_item = NULL;
             data_output_t* _output = NULL;
             string_t _file_path;

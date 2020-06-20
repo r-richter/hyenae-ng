@@ -43,7 +43,6 @@ namespace hyenae::frontend::console::states
         private:
             console_menu* _menu = NULL;
             console_menu::item* _text_item = NULL;
-            console_menu::item* _back_item = NULL;
             data_generator_t* _generator = NULL;
             string_t _text;
 

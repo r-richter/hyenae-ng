@@ -35,7 +35,7 @@ namespace hyenae::frontend::console::states
         console_app_state_context* context, console_io* console_io) :
             console_app_state(context, console_io)
     {
-        _menu = new console_menu(console_io, "Main Menu");
+        _menu = new console_menu(console_io, "Main Menu", this, NULL);
         
         // Output setup
         _output_setup_item = new console_menu::item("Output Setup");
@@ -62,12 +62,10 @@ namespace hyenae::frontend::console::states
             _output_setup,
             _generator_selector,
             _dispatcher_setup);
-        _start_dispatcher_item = new console_menu::item("Start Dispatcher");
-        _menu->add_item(_start_dispatcher_item);
-
-        // Exit
-        _exit_item = new console_menu::item("Exit");
-        _menu->add_item(_exit_item);
+        _menu->set_start_state(_start_dispatcher);
+        _output_setup->set_start_state(_start_dispatcher);
+        _generator_selector->set_start_state(_start_dispatcher);
+        _dispatcher_setup->set_start_state(_start_dispatcher);
 
     } /* main_menu */
 
@@ -79,8 +77,6 @@ namespace hyenae::frontend::console::states
         safe_delete(_output_setup_item);
         safe_delete(_generator_selector_item);
         safe_delete(_dispatcher_setup_item);
-        safe_delete(_start_dispatcher_item);
-        safe_delete(_exit_item);
         safe_delete(_output_setup);
         safe_delete(_generator_selector);
         safe_delete(_dispatcher_setup);
@@ -92,7 +88,7 @@ namespace hyenae::frontend::console::states
 
     bool main_menu::run()
     {
-        console_menu::item* choice = _menu->prompt(_start_dispatcher_item);
+        console_menu::item* choice = _menu->prompt();
 
         if (choice == _output_setup_item)
         {
@@ -106,11 +102,7 @@ namespace hyenae::frontend::console::states
         {
             _dispatcher_setup->enter();
         }
-        else if (choice == _start_dispatcher_item)
-        {
-            _start_dispatcher->enter(this);
-        }
-        else if (choice == _exit_item)
+        else if (choice == _menu->get_parent_state_item())
         {
             return get_console()->prompt(
                 0, 1, "Confirm Exit", "0 = Abort, 1 = Confirm] [0", 0) == 0;

@@ -28,6 +28,7 @@
 #define CONSOLE_MENU_H
 
 #include "console_io.h"
+#include "console_app_state.h"
 
 namespace hyenae::frontend::console
 {
@@ -41,14 +42,13 @@ namespace hyenae::frontend::console
                 friend class console_menu;
 
                 private:
+                    string_t _choice;
                     bool _selected;
                     string_t _caption;
                     string_t _hint;
                     string_t _info;
 
                 public:
-                    item();
-                    
                     item(
                         const string_t& caption,
                         const string_t& hint = "",
@@ -56,6 +56,7 @@ namespace hyenae::frontend::console
                     
                     bool is_selected() const;
                     void set_selected(bool selected);
+                    string_t get_choice() const;
                     string_t get_caption() const;
                     void set_caption(const string_t& caption);
                     string_t get_hint() const;
@@ -63,18 +64,32 @@ namespace hyenae::frontend::console
                     string_t get_info() const;
                     void set_info(string_t info);
 
+                private:
+                    void set_choice(const string_t& choice);
+
             }; /* item */
 
         private:
             console_io* _console_io;
+            console_app_state* _start_state;
+            console_app_state* _calling_state;
+            console_app_state* _parent_state;
             vector_t<item*> _items;
+            item* _start_state_item = NULL;
+            item* _parent_state_item = NULL;
             string_t _title;
             string_t _error_message;
             string_t _info_message;
             string_t _last_error;
 
         public:
-            console_menu(console_io* console_io, const string_t& title);
+            console_menu(
+                console_io* console_io,
+                const string_t& title,
+                console_app_state* calling_state,
+                console_app_state* parent_state);
+
+            ~console_menu();
             void add_item(item* item);
             item* prompt(item* default_choice = NULL);
             void select_all(bool selected);
@@ -82,11 +97,14 @@ namespace hyenae::frontend::console
             void set_info_message(string_t message);
             string_t get_error_message() const;
             void set_error_message(string_t message);
+            console_app_state* get_start_state() const;
+            void set_start_state(console_app_state* state);
+            item* get_start_state_item() const;
+            item* get_parent_state_item() const;
             
         private:
-            void item_out(size_t pos, item* item, bool nl_before);
+            void item_out(item* item);
             item* choice_in(item* default_choice);
-            size_t item_choice_pos(item* item);
 
     }; /* console_menu */
 

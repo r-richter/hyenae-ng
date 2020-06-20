@@ -73,7 +73,6 @@ namespace hyenae::frontend::console::states
                 generator_setup*> _menu_items;
 
             console_menu::item* _none_item = NULL;
-            console_menu::item* _back_item = NULL;
             console_menu::item* _selected_item = NULL;
             generator_setup* _selected_setup = NULL;
 

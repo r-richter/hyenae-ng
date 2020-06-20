@@ -79,22 +79,13 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    void console_app_state::back()
-    {
-        if (_parent != NULL)
-        {
-            _parent->enter();
-        }
-
-    } /* back */
-
-    /*---------------------------------------------------------------------- */
-
-    void console_app_state::set_parent(console_app_state* parent)
+    void console_app_state::enter(console_app_state* parent)
     {
         _parent = parent;
 
-    } /* set_parent */
+        enter();
+
+    } /* enter */
 
     /*---------------------------------------------------------------------- */
 

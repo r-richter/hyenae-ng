@@ -34,22 +34,10 @@ namespace hyenae::frontend::console
 
     void console_io::header_out(string_t title)
     {
-        
-        string_t ascii_art = "";
         string_t header = "";
         string_t app_info = "";
 
         clear();
-
-        // ASCII-Art
-
-        ascii_art.append(" _     _    __   __    _______    __   _    _______    _______\n");
-        ascii_art.append(" |_____|      \\_/      |______    | \\  |    |_____|    |______\n");
-        ascii_art.append(" |     |       |       |______    |  \\_|    |     |    |______\n");
-
-        out(ascii_art);
-
-        // Header
 
         app_info.append(constants::APP_NAME);
         app_info.append(" - Version ");
@@ -99,14 +87,7 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    void console_io::menu_item_out(
-        size_t pos,
-        bool selected,
-        string_t caption,
-        string_t hint,
-        string_t info,
-        size_t highest_index,
-        bool nl_before)
+    void console_io::menu_item_separator_out(bool nl_before, bool nl_after)
     {
         string_t text = "";
 
@@ -118,14 +99,45 @@ namespace hyenae::frontend::console
         pad_to_margin(text, BASE_MARGIN + text.size());
         pad_to_margin(text, MENU_ITEM_MARGIN + text.size());
 
-        text.append("[");
+        for (int i = 0; i < (int)MENU_WIDTH / 2; i++)
+        {
+            text.append(". ");
+        }
+        
+        if (nl_after)
+        {
+            text.append("\n\n");
+        }
 
-        if (pos < 10 && highest_index > 9)
+        out(text);
+
+    } /* menu_item_separator_out */
+
+    /*---------------------------------------------------------------------- */
+
+    void console_io::menu_item_out(
+        const string_t& choice,
+        bool selected,
+        const string_t& caption,
+        const string_t& hint,
+        const string_t& info,
+        size_t item_count)
+    {
+        string_t text = "";
+
+        pad_to_margin(text, BASE_MARGIN + text.size());
+        pad_to_margin(text, MENU_ITEM_MARGIN + text.size());
+
+        text.append("[");
+        
+        // TODO: Refactor, pass max choice length instead and calculate
+        //       spaces to pad.
+        if (choice.size() == 1 && item_count > 9)
         {
             text.append(" ");
         }
 
-        text.append(std::to_string(pos));
+        text.append(choice);
         text.append("] ");
         text.append(selected ? ">" : " ");
         text.append(" ");

@@ -37,13 +37,16 @@ namespace hyenae::frontend::console::states
     network_device_selector::network_device_selector(
         console_app_state_context* context,
         console_io* console_io,
-        console_app_state* parent) :
+        output_setup* parent) :
             console_app_state(context, console_io, parent)
     {
         string_t caption;
         vector_t<device_t*> devices_list;
         
-        _menu = new console_menu(console_io, "Network Device Selection");
+        _menu = new console_menu(
+            console_io, "Network Device Selection", this, parent);
+
+        // Load devices
 
         model::outputs::network_output::list_devices(devices_list);
 
@@ -51,10 +54,6 @@ namespace hyenae::frontend::console::states
         {
             add_device(device);
         }
-        
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
     }
 
     /*---------------------------------------------------------------------- */
@@ -68,7 +67,6 @@ namespace hyenae::frontend::console::states
         }
 
         safe_delete(_menu);
-        safe_delete(_back_item);
 
     } /* ~network_device_selector */
 
@@ -78,22 +76,21 @@ namespace hyenae::frontend::console::states
     {
         string_t path;
 
-        console_menu::item* choice = _menu->prompt(_selected_item);
+        ((output_setup*)get_parent())->update_network_output();
 
-        if (choice != NULL)
+        _menu->set_start_state(get_start_state());
+
+        console_menu::item* choice = _menu->prompt();
+
+        if (choice != _menu->get_start_state_item() &&
+            choice != _menu->get_parent_state_item() &&
+            choice != NULL)
         {
-            if (choice != _back_item)
-            {
-                _menu->select_all(false);
-                choice->set_selected(true);
+            _menu->select_all(false);
+            choice->set_selected(true);
 
-                _device = _menu_items[choice];
-                _selected_item = choice;
-            }
-            else
-            {
-                back();
-            }
+            _device = _menu_items[choice];
+            _selected_item = choice;
         }
         
         return true;

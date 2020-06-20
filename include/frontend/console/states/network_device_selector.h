@@ -30,12 +30,17 @@
 #include "../../../../include/model/outputs/network_output.h"
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/console_app_state.h"
+#include "../../../../include/frontend/console/states/output_setup.h"
+#include "../../../../include/frontend/console/states/startable_state.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
+    class output_setup;
+
     class network_device_selector :
+        public startable_state,
         public console_app_state
     {
         using device_t = hyenae::model::outputs::network_output::device;
@@ -43,7 +48,6 @@ namespace hyenae::frontend::console::states
         private:
             console_menu* _menu = NULL;
             unordered_map_t<console_menu::item*, device_t*> _menu_items;
-            console_menu::item* _back_item = NULL;
             console_menu::item* _selected_item = NULL;
             device_t* _device = NULL;
 
@@ -51,7 +55,7 @@ namespace hyenae::frontend::console::states
             network_device_selector(
                 console_app_state_context* context,
                 console_io* console_io,
-                console_app_state* parent);
+                output_setup* parent);
             
             ~network_device_selector();
             bool run();

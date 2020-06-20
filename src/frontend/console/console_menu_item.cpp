@@ -30,13 +30,10 @@ namespace hyenae::frontend::console
 {
     /*---------------------------------------------------------------------- */
 
-    console_menu::item::item() :
-        item("Unnamed Item") {}
-
-    /*---------------------------------------------------------------------- */
-
     console_menu::item::item(
-        const string_t& caption, const string_t& hint, const string_t& info)
+        const string_t& caption,
+        const string_t& hint,
+        const string_t& info)
     {
         _selected = false;
         _caption = caption;
@@ -60,6 +57,14 @@ namespace hyenae::frontend::console
         _selected = selected;
 
     } /* set_selected */
+
+    /*---------------------------------------------------------------------- */
+
+    string_t console_menu::item::get_choice() const
+    {
+        return _choice;
+
+    } /* get_choice */
 
     /*---------------------------------------------------------------------- */
 
@@ -106,6 +111,14 @@ namespace hyenae::frontend::console
         _info = info;
 
     } /* set_info */
+
+    /*---------------------------------------------------------------------- */
+
+    void console_menu::item::set_choice(const string_t& choice)
+    {
+        _choice = choice;
+
+    } /* set_choice */
 
     /*---------------------------------------------------------------------- */
 

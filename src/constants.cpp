@@ -31,7 +31,7 @@ namespace hyenae
     /*---------------------------------------------------------------------- */
 
     const char* constants::APP_NAME = "Hyenae NG";
-    const char* constants::APP_VERSION = "0.5";
+    const char* constants::APP_VERSION = "0.6";
 
     /*---------------------------------------------------------------------- */
 

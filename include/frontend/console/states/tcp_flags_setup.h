@@ -29,12 +29,17 @@
 
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/console_app_state.h"
+#include "../../../../include/frontend/console/states/startable_state.h"
+#include "../../../../include/frontend/console/states/tcp_frame_setup.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
+    class tcp_frame_setup;
+
     class tcp_flags_setup :
+        public startable_state,
         public console_app_state
     {
         private:
@@ -47,7 +52,6 @@ namespace hyenae::frontend::console::states
             console_menu::item* _rst_flag_item = NULL;
             console_menu::item* _syn_flag_item = NULL;
             console_menu::item* _fin_flag_item = NULL;
-            console_menu::item* _back_item = NULL;
             bool _cwr_flag;
             bool _ece_flag;
             bool _urg_flag;
@@ -61,7 +65,7 @@ namespace hyenae::frontend::console::states
             tcp_flags_setup(
                 console_app_state_context* context,
                 console_io* console_io,
-                console_app_state* parent);
+                tcp_frame_setup* parent);
 
             ~tcp_flags_setup();
             bool run();

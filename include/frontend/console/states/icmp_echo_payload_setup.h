@@ -49,7 +49,6 @@ namespace hyenae::frontend::console::states
             console_menu* _menu = NULL;
             console_menu::item* _id_pattern_item = NULL;
             console_menu::item* _seq_num_pattern_item = NULL;
-            console_menu::item* _back_item = NULL;
             data_generator_t* _generator = NULL;
             string_t _id_pattern;
             string_t _seq_num_pattern;

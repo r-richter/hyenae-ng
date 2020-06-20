@@ -49,8 +49,6 @@ namespace hyenae::frontend::console::states
             console_menu::item* _output_setup_item = NULL;
             console_menu::item* _generator_selector_item = NULL;
             console_menu::item* _dispatcher_setup_item = NULL;
-            console_menu::item* _start_dispatcher_item = NULL;
-            console_menu::item* _exit_item = NULL;
             states::output_setup* _output_setup = NULL;
             states::generator_selector* _generator_selector = NULL;
             states::dispatcher_setup* _dispatcher_setup = NULL;

@@ -54,11 +54,8 @@ namespace hyenae::frontend::console
             console_io* get_console() const;
             console_app_state* get_parent() const;
             void enter();
+            void enter(console_app_state* parent);
             virtual bool run() = 0;
-            void back();
-
-        protected:
-            void set_parent(console_app_state* parent);
 
     }; /* console_app_state */
 

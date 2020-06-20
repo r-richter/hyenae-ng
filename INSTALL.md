@@ -1,12 +1,3 @@
-# Hyenae NG
-
-Contact  : hyenae.tool@googlemail.com\
-Homepage : https://github.com/r-richter/hyenae-ng
-\
-\
-Copyright (C) 2020 Robin Richter
-
-
 ## Prerequisites
 
 In order to build and install Hyenae NG from source, you first need to make

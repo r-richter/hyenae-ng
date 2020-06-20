@@ -33,23 +33,46 @@ namespace hyenae::frontend::console
 {
     /*---------------------------------------------------------------------- */
 
-    console_menu::console_menu(console_io* console_io, const string_t& title)
+    console_menu::console_menu(
+        console_io* console_io,
+        const string_t& title,
+        console_app_state* calling_state,
+        console_app_state* parent_state)
     {
         assert::argument_not_null(console_io, "console_io");
 
         _console_io = console_io;
+        _calling_state = calling_state;
+        _parent_state = parent_state;
+
         _title = title;
         _error_message = "";
         _info_message = "";
         _last_error = "";
 
+        _start_state_item = new item("Start");
+        _start_state_item->set_choice(".");
+
+        _parent_state_item = new item(parent_state != NULL ? "Back" : "Exit");
+        _parent_state_item->set_choice("0");
+
     } /* console_menu */
+
+    /*---------------------------------------------------------------------- */
+
+    console_menu::~console_menu()
+    {
+        safe_delete(_parent_state_item);
+
+    } /* ~console_menu */
 
     /*---------------------------------------------------------------------- */
 
     void console_menu::add_item(item* item)
     {
         _items.push_back(item);
+
+        item->set_choice(std::to_string(_items.size()));
 
     } /* add_option */
 
@@ -59,12 +82,19 @@ namespace hyenae::frontend::console
     {
         _console_io->header_out(_title);
 
-        for (size_t pos = 0; pos < _items.size() - 1; pos++)
+        for (size_t pos = 0; pos < _items.size(); pos++)
         {
-            item_out(pos + 1, _items[pos], false);
+            item_out(_items[pos]);
         }
 
-        item_out(0, _items.back(), true);
+        _console_io->menu_item_separator_out(true, true);
+
+        if (_start_state != NULL)
+        {
+            item_out(_start_state_item);
+        }
+
+        item_out(_parent_state_item);
 
         if (_error_message != "")
         {
@@ -125,15 +155,47 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    void console_menu::item_out(size_t pos, item* item, bool nl_before)
+    console_app_state* console_menu::get_start_state() const
+    {
+        return _start_state;
+
+    } /* get_parent_state */
+
+    /*---------------------------------------------------------------------- */
+
+    void console_menu::set_start_state(console_app_state* state)
+    {
+        _start_state = state;
+
+    } /* set_parent_state */
+
+    /*---------------------------------------------------------------------- */
+
+    console_menu::item* console_menu::get_start_state_item() const
+    {
+        return _start_state_item;
+
+    } /* get_start_state_item */
+
+    /*---------------------------------------------------------------------- */
+
+    console_menu::item* console_menu::get_parent_state_item() const
+    {
+        return _parent_state_item;
+
+    } /* get_parent_state_item */
+
+    /*---------------------------------------------------------------------- */
+
+    void console_menu::item_out(item* item)
     {
         _console_io->menu_item_out(
-            pos, item->is_selected(),
+            item->get_choice(),
+            item->is_selected(),
             item->get_caption(),
             item->get_hint(),
             item->get_info(),
-            _items.size(),
-            nl_before);
+            _items.size() + (_start_state != NULL ? 2 : 1));
 
     } /* item_out */
 
@@ -143,88 +205,71 @@ namespace hyenae::frontend::console
     {
         string_t input;
         string_t hint = "";
-        size_t choice_pos = 0;
-        size_t default_choice_pos = 0;
 
         if (_last_error != "")
         {
             _console_io->error_out(_last_error, true);
         }
 
+        _last_error = "";
+
         if (default_choice != NULL)
         {
-            default_choice_pos = item_choice_pos(default_choice);
+            hint = default_choice->get_choice();
         }
 
-        try
+        _console_io->separator_out(true, false);
+
+        input = _console_io->prompt("Enter Selection", hint);
+
+        if (input == "" && default_choice != NULL)
         {
-            _last_error = "";
-
-            hint.append("0-");
-            hint.append(std::to_string(_items.size() - 1));
-
-            if (default_choice != NULL)
-            {
-                hint.append("] [");
-                hint.append(std::to_string(default_choice_pos));
-            }
-
-            _console_io->separator_out(true, false);
-
-            input = _console_io->prompt("Enter Selection", hint);
-
-            if (input == "" && default_choice != NULL)
-            {
-                choice_pos = default_choice_pos;
-            }
-            else
-            {
-                choice_pos = std::stoi(input);
-
-                assert::in_range(choice_pos < _items.size());
-            }
-            
-            if (choice_pos == 0)
-            {
-                return _items.back();
-            }
-            else
-            {
-                return _items[choice_pos - 1];
-            }
+            input = default_choice->get_choice();
         }
-        catch (const std::out_of_range&)
+
+        if (input != _start_state_item->get_choice() &&
+            input != _parent_state_item->get_choice())
         {
-            _last_error = concat(
-                "Option out of range: ", input.c_str());
-        }
-        catch (const std::invalid_argument&)
-        {
+            for (auto item : _items)
+            {
+                if (item->get_choice() == input)
+                {
+                    return item;
+                }
+            }
+
             _last_error = concat(
                 "Invalid option: ", input.c_str());
+        }
+        else
+        {
+            if (input == _start_state_item->get_choice())
+            {
+                if (_start_state != NULL)
+                {
+                    _start_state->enter(_calling_state);
+                }
+
+                return _start_state_item;
+            }
+            else if (input == _parent_state_item->get_choice())
+            {
+                if (_parent_state != NULL)
+                {
+                    _parent_state->enter();
+                }
+
+                return _parent_state_item;
+            }
+            else
+            {
+                assert::legal_state(false, "", "unknown menu item");
+            }
         }
 
         return NULL;
 
     } /* choice_in */
-
-    /*---------------------------------------------------------------------- */
-
-    size_t console_menu::item_choice_pos(item* item)
-    {
-        for (size_t pos = 0; pos < _items.size(); pos++)
-        {
-            if (_items[pos] == item)
-            {
-                return pos < _items.size() - 1 ? pos + 1 : 0;
-            }
-        }
-
-        assert::legal_state(false, "", "item could not be found");
-
-        return SIZE_NONE;
-
-    } /* item_choice_pos */
 
     /*---------------------------------------------------------------------- */
 

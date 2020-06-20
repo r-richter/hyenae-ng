@@ -32,6 +32,7 @@
 #include "../../../../include/model/random_duration_generator.h"
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/console_app_state.h"
+#include "../../../../include/frontend/console/states/startable_state.h"
 
 namespace hyenae::frontend::console::states
 {
@@ -40,6 +41,7 @@ namespace hyenae::frontend::console::states
     class main_menu;
 
     class dispatcher_setup :
+        public startable_state,
         public console_app_state
     {
         using limits_t = hyenae::model::data_dispatcher::limits;
@@ -61,7 +63,6 @@ namespace hyenae::frontend::console::states
             console_menu::item* _packet_limit_item = NULL;
             console_menu::item* _duration_limit_item = NULL;
             console_menu::item* _send_delay_item = NULL;
-            console_menu::item* _back_item = NULL;
             limits_t* _limits;
             delay_t* _delay;
             delay_type _delay_type;

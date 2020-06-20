@@ -48,7 +48,6 @@ namespace hyenae::frontend::console::states
             console_menu::item* _type_item = NULL;
             console_menu::item* _code_item = NULL;
             console_menu::item* _payload_item = NULL;
-            console_menu::item* _back_item = NULL;
             data_generator_t* _generator = NULL;
             uint8_t _type;
             uint8_t _code;

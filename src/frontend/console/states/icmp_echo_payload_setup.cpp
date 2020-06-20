@@ -46,7 +46,7 @@ namespace hyenae::frontend::console::states
         _code = code;
 
         _menu = new console_menu(
-            console_io, get_generator_name() + " Setup");
+            console_io, get_generator_name() + " Setup", this, parent);
 
         // Default values
         _id_pattern = "*****";
@@ -60,10 +60,6 @@ namespace hyenae::frontend::console::states
         _seq_num_pattern_item = new console_menu::item("Sequence Number");
         _menu->add_item(_seq_num_pattern_item);
 
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
-
         update_generator();
 
     } /* icmp_echo_payload_setup */
@@ -75,7 +71,6 @@ namespace hyenae::frontend::console::states
         safe_delete(_menu);
         safe_delete(_id_pattern_item);
         safe_delete(_seq_num_pattern_item);
-        safe_delete(_back_item);
         safe_delete(_generator);
 
     } /* ~icmp_echo_payload_setup */
@@ -87,6 +82,8 @@ namespace hyenae::frontend::console::states
         update_generator();
         update_menu_items();
 
+        _menu->set_start_state(get_start_state());
+
         console_menu::item* choice = _menu->prompt();
 
         if (choice == _id_pattern_item)
@@ -96,10 +93,6 @@ namespace hyenae::frontend::console::states
         else if (choice == _seq_num_pattern_item)
         {
             prompt_seq_num_pattern();
-        }
-        else if (choice == _back_item)
-        {
-            back();
         }
 
         return true;

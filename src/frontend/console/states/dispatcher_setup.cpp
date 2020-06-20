@@ -46,7 +46,7 @@ namespace hyenae::frontend::console::states
         _delay_type = delay_type::NONE;
         _delay = NULL;
 
-        _menu = new console_menu(console_io, "Dispatcher Setup");
+        _menu = new console_menu(console_io, "Dispatcher Setup", this, parent);
 
         // Byte Limit
         _byte_limit_item = new console_menu::item("Byte Limit");
@@ -63,10 +63,6 @@ namespace hyenae::frontend::console::states
         // Send-Delay
         _send_delay_item = new console_menu::item("Send-Delay");
         _menu->add_item(_send_delay_item);
-
-        // Back
-        _back_item = new console_menu::item("Back");
-        _menu->add_item(_back_item);
     }
 
     /*---------------------------------------------------------------------- */
@@ -78,7 +74,6 @@ namespace hyenae::frontend::console::states
         safe_delete(_packet_limit_item);
         safe_delete(_duration_limit_item);
         safe_delete(_send_delay_item);
-        safe_delete(_back_item);
         safe_delete(_limits);
         safe_delete(_delay);
 
@@ -89,6 +84,8 @@ namespace hyenae::frontend::console::states
     bool dispatcher_setup::run()
     {
         update_menu_items();
+
+        _menu->set_start_state(get_start_state());
 
         console_menu::item* choice = _menu->prompt();
 
@@ -107,10 +104,6 @@ namespace hyenae::frontend::console::states
         else if (choice == _send_delay_item)
         {
             prompt_send_delay();
-        }
-        else if (choice == _back_item)
-        {
-            back();
         }
 
         return true;
