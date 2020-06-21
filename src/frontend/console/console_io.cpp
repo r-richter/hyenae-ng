@@ -42,6 +42,8 @@ namespace hyenae::frontend::console
     const string_t console_io::ANSI_FG_CYAN = "\u001B[36m";
     const string_t console_io::ANSI_FG_WHITE = "\u001B[37m";
 
+    /*---------------------------------------------------------------------- */
+
     const string_t console_io::ANSI_BG_RESET = ANSI_FG_RESET;
     const string_t console_io::ANSI_BG_BLACK = "\u001B[40m";
     const string_t console_io::ANSI_BG_RED = "\u001B[41m";
@@ -51,6 +53,14 @@ namespace hyenae::frontend::console
     const string_t console_io::ANSI_BG_PURPLE = "\u001B[45m";
     const string_t console_io::ANSI_BG_CYAN = "\u001B[46m";
     const string_t console_io::ANSI_BG_WHITE = "\u001B[47m";
+
+    /*---------------------------------------------------------------------- */
+
+    console_io::console_io(bool ansi_color_on)
+    {
+        _ansi_color_on = ansi_color_on;
+
+    } /* console_io */
 
     /*---------------------------------------------------------------------- */
 
@@ -83,15 +93,24 @@ namespace hyenae::frontend::console
         header.append("\n");
         pad_to_margin(header, BASE_MARGIN + 1);
         header.append(titlebar);
-        header.append("\n\n");
+        header.append("\n");
 
         out(header);
+
+        if (_ansi_color_on)
+        {
+            out("\n");
+        }
+        else
+        {
+            separator_out(false, true);
+        }
 
     } /* header_out */
 
     /*---------------------------------------------------------------------- */
 
-    void console_io::input_separator_out(bool nl_before, bool nl_after)
+    void console_io::separator_out(bool nl_before, bool nl_after)
     {
         string_t text = "";
 
@@ -102,7 +121,16 @@ namespace hyenae::frontend::console
 
         pad_to_margin(text, BASE_MARGIN + text.size());
 
-        text.append(string_t(MENU_WIDTH, '-'));
+        for (int i = 0; i < (int)MENU_WIDTH; i++)
+        {
+            #if defined(CHARSET_ASCII)
+                text.append(string_t(1, (char)205));
+            #elif defined (CHARSET_UNICODE)
+                text.append("\u2550");
+            #else
+                text.append("-");
+            #endif
+        }
 
         if (nl_after)
         {
@@ -111,11 +139,11 @@ namespace hyenae::frontend::console
 
         out(text);
 
-    } /* input_separator_out */
+    } /* separator_out */
 
     /*---------------------------------------------------------------------- */
 
-    void console_io::menu_item_separator_out(bool nl_before, bool nl_after)
+    void console_io::menu_separator_out(bool nl_before, bool nl_after)
     {
         string_t text = "";
 
@@ -139,7 +167,7 @@ namespace hyenae::frontend::console
 
         out(text);
 
-    } /* menu_item_separator_out */
+    } /* menu_separator_out */
 
     /*---------------------------------------------------------------------- */
 
@@ -487,13 +515,20 @@ namespace hyenae::frontend::console
     {
         string_t colored = "";
         
-        colored.append(ansi_bg);
-        colored.append(ansi_fg);
-        colored.append(text);
-        colored.append(ANSI_FG_RESET);
-        colored.append(ANSI_BG_RESET);
+        if (_ansi_color_on)
+        {
+            colored.append(ansi_bg);
+            colored.append(ansi_fg);
+            colored.append(text);
+            colored.append(ANSI_FG_RESET);
+            colored.append(ANSI_BG_RESET);
 
-        return colored;
+            return colored;
+        }
+        else
+        {
+            return text;
+        }
 
     } /* text_color */
 

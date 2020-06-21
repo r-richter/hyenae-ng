@@ -87,7 +87,7 @@ namespace hyenae::frontend::console
             item_out(_items[pos]);
         }
 
-        _console_io->menu_item_separator_out(true, true);
+        _console_io->menu_separator_out(true, true);
 
         if (_start_state != NULL)
         {
@@ -218,7 +218,7 @@ namespace hyenae::frontend::console
             hint = default_choice->get_choice();
         }
 
-        _console_io->input_separator_out(true, false);
+        _console_io->separator_out(true, false);
 
         input = _console_io->prompt("Enter Selection", hint);
 

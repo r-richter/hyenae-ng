@@ -1,3 +1,9 @@
+##  Version 0.8 (Jun. 21st, 2020)
+- Code refactoring
+- Enhanced user interface\
+\
+[Source Code](https://github.com/r-richter/hyenae-ng/releases/tag/v0.8)
+
 ##  Version 0.7 (Jun. 21st, 2020)
 - Added terminal colors
 - Enhanced user interface

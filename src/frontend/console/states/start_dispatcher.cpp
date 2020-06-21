@@ -145,7 +145,7 @@ namespace hyenae::frontend::console::states
         {
             get_console()->task_out("Dispatching...");
 
-            get_console()->input_separator_out(true, false);
+            get_console()->separator_out(true, false);
 
             get_console()->prompt_out("", "Press any key to stop");
 
@@ -166,7 +166,7 @@ namespace hyenae::frontend::console::states
                 get_console()->error_out(_thread_exception->what(), true);
             }
 
-            get_console()->input_separator_out(true, false);
+            get_console()->separator_out(true, false);
 
             get_console()->wait_for_key_press();
         }
@@ -202,7 +202,7 @@ namespace hyenae::frontend::console::states
             get_console()->error_out(_thread_exception->what(), true);
         }
 
-        get_console()->input_separator_out(true, false);
+        get_console()->separator_out(true, false);
 
         safe_delete(_dispatcher);
 
