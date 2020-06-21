@@ -7,7 +7,7 @@ Besides switching from C to C++, using modern design concepts, Hyenae NG was
 (just like the original Hyenae) written with maximum portability in mind.
 Since the original Hyenae had a very complex command line syntax Hyenae NG
 comes with a fast and intuitively usable command line menu that will allow
-you to effectively set up even complex stress-tests or attacks scenarios
+you to effectively set up even complex stress-tests or attack scenarios
 within seconds.
 
 ![Main Menu](msc/main_menu.png "Main Menu")
