@@ -66,7 +66,12 @@ namespace hyenae::frontend::console
             static const string_t ANSI_BG_CYAN;
             static const string_t ANSI_BG_WHITE;
 
+
+        private:
+            bool _ansi_color_on;
+
         public:
+            console_io(bool ansi_color_on = true);
             void header_out(string_t title);
             void input_separator_out(bool nl_before, bool nl_after);
             void menu_item_separator_out(bool nl_before, bool nl_after);

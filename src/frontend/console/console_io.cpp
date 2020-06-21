@@ -54,6 +54,14 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
+    console_io::console_io(bool ansi_color_on)
+    {
+        _ansi_color_on = ansi_color_on;
+
+    } /* console_io */
+
+    /*---------------------------------------------------------------------- */
+
     void console_io::header_out(string_t title)
     {
         string_t menu_info = "";
@@ -83,9 +91,18 @@ namespace hyenae::frontend::console
         header.append("\n");
         pad_to_margin(header, BASE_MARGIN + 1);
         header.append(titlebar);
-        header.append("\n\n");
+        header.append("\n");
 
         out(header);
+
+        if (_ansi_color_on)
+        {
+            out("\n");
+        }
+        else
+        {
+            input_separator_out(false, true);
+        }
 
     } /* header_out */
 
@@ -487,13 +504,20 @@ namespace hyenae::frontend::console
     {
         string_t colored = "";
         
-        colored.append(ansi_bg);
-        colored.append(ansi_fg);
-        colored.append(text);
-        colored.append(ANSI_FG_RESET);
-        colored.append(ANSI_BG_RESET);
+        if (_ansi_color_on)
+        {
+            colored.append(ansi_bg);
+            colored.append(ansi_fg);
+            colored.append(text);
+            colored.append(ANSI_FG_RESET);
+            colored.append(ANSI_BG_RESET);
 
-        return colored;
+            return colored;
+        }
+        else
+        {
+            return text;
+        }
 
     } /* text_color */
 
