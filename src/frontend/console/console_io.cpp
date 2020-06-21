@@ -176,7 +176,10 @@ namespace hyenae::frontend::console
 
     void console_io::error_out(string_t message, bool menu_item_margin)
     {
-        prefixed_out("(!)", message, menu_item_margin);
+        prefixed_out(
+            ansi_color("(!)", color::RED),
+            ansi_color(message, color::RED),
+            menu_item_margin);
 
     } /* error_out */
 
@@ -215,13 +218,13 @@ namespace hyenae::frontend::console
 
             if (task())
             {
-                out("(OK)\n");
+                out("(" + ansi_color("OK", color::GREEN) + ")\n");
 
                 return true;
             }
             else
             {
-                out("(FAILED)\n");
+                out("(" + ansi_color("FAILED", color::RED) + ")\n");
 
                 return false;
             }
@@ -233,7 +236,7 @@ namespace hyenae::frontend::console
 
         if (error_msg != "")
         {
-            out("(FAILED)\n");
+            out("(" + ansi_color("FAILED", color::RED) + ")\n");
 
             error_out(error_msg, true);
 
@@ -448,6 +451,35 @@ namespace hyenae::frontend::console
         out(text);
 
     } /* prefixed_out */
+
+    /*---------------------------------------------------------------------- */
+
+    string_t console_io::ansi_color(string_t text, color color)
+    {
+        string_t colored = "";
+        string_t color_code = "";
+
+        switch (color)
+        {
+            case color::RED:
+                color_code = "\u001b[31m";
+                break;
+
+            case color::GREEN:
+                color_code = "\u001b[32;1m";
+                break;
+
+            default:
+                assert::legal_state(false, "", "unknown color");
+        }
+
+        colored.append(color_code);
+        colored.append(text);
+        colored.append("\u001b[0m");
+
+        return colored;
+
+    } /* text_color */
 
     /*---------------------------------------------------------------------- */
 

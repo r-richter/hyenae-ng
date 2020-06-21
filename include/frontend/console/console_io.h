@@ -44,6 +44,12 @@ namespace hyenae::frontend::console
             static const size_t MENU_ITEM_MARGIN = 2;
             static const size_t MENU_ITEM_INFO_MARGIN = 39;
 
+            enum class color
+            {
+                RED,
+                GREEN
+            };
+
         public:
             void header_out(string_t title);
             void separator_out(bool nl_before, bool nl_after);
@@ -99,6 +105,8 @@ namespace hyenae::frontend::console
                 string_t prefix,
                 string_t message,
                 bool menu_item_margin = false);
+
+            string_t ansi_color(string_t text, color color);
 
     }; /* console_io */
 
