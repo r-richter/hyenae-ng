@@ -1,15 +1,16 @@
-##  Version 0.7 (To be released)
+##  Version 0.7 (Jun. 21st, 2020)
 - Added terminal colors
+- Enhanced user interface
 - Optimized random number generation\
 \
 [Source Code](https://github.com/r-richter/hyenae-ng/releases/tag/v0.7)
 
-##  Version 0.6-1 (Jun. 21th, 202)
+##  Version 0.6-1 (Jun. 21st, 2020)
 - Fixed crash on *nix based systems when starting without root privileges and entering output setup\
 \
 [Source Code](https://github.com/r-richter/hyenae-ng/releases/tag/v0.6-1)
 
-##  Version 0.6 (Jun. 20th, 202)
+##  Version 0.6 (Jun. 20th, 2020)
 - Code refactoring
 - Enhanced user interface
 - Dispatcher can now be started from every state\
