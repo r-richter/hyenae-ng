@@ -44,15 +44,31 @@ namespace hyenae::frontend::console
             static const size_t MENU_ITEM_MARGIN = 2;
             static const size_t MENU_ITEM_INFO_MARGIN = 39;
 
-            enum class color
-            {
-                RED,
-                GREEN
-            };
+            /* ANSI Foregrounds */
+            static const string_t ANSI_FG_RESET;
+            static const string_t ANSI_FG_BLACK;
+            static const string_t ANSI_FG_RED;
+            static const string_t ANSI_FG_GREEN;
+            static const string_t ANSI_FG_YELLOW;
+            static const string_t ANSI_FG_BLUE;
+            static const string_t ANSI_FG_PURPLE;
+            static const string_t ANSI_FG_CYAN;
+            static const string_t ANSI_FG_WHITE;
+
+            /* ANSI Backgrounds */
+            static const string_t ANSI_BG_RESET;
+            static const string_t ANSI_BG_BLACK;
+            static const string_t ANSI_BG_RED;
+            static const string_t ANSI_BG_GREEN;
+            static const string_t ANSI_BG_YELLOW;
+            static const string_t ANSI_BG_BLUE;
+            static const string_t ANSI_BG_PURPLE;
+            static const string_t ANSI_BG_CYAN;
+            static const string_t ANSI_BG_WHITE;
 
         public:
             void header_out(string_t title);
-            void separator_out(bool nl_before, bool nl_after);
+            void input_separator_out(bool nl_before, bool nl_after);
             void menu_item_separator_out(bool nl_before, bool nl_after);
 
             void menu_item_out(
@@ -106,7 +122,10 @@ namespace hyenae::frontend::console
                 string_t message,
                 bool menu_item_margin = false);
 
-            string_t ansi_color(string_t text, color color);
+            string_t ansi_color(
+                string_t text,
+                string_t ansi_fg = ANSI_FG_RESET,
+                string_t ansi_bg = ANSI_BG_RESET);
 
     }; /* console_io */
 
