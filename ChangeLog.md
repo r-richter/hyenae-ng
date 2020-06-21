@@ -1,4 +1,5 @@
 ##  Version 0.7 (To be released)
+- Added terminal colors
 - Optimized random number generation\
 \
 [Source Code](https://github.com/r-richter/hyenae-ng/releases/tag/v0.7)
