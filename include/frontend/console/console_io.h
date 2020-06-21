@@ -27,7 +27,14 @@
 #ifndef CONSOLE_IO_H
 #define CONSOLE_IO_H
 
+#include "../../../include/os.h"
 #include "../../../include/common.h"
+
+#ifdef OS_WINDOWS
+    #define CHARSET_ASCII
+#else
+    #define CHARSET_UNICODE
+#endif
 
 namespace hyenae::frontend::console
 {
@@ -66,17 +73,14 @@ namespace hyenae::frontend::console
             static const string_t ANSI_BG_CYAN;
             static const string_t ANSI_BG_WHITE;
 
-            /* Menu Parts */
-            static const string_t SEPARATOR_LINE;
-
         private:
             bool _ansi_color_on;
 
         public:
             console_io(bool ansi_color_on = true);
             void header_out(string_t title);
-            void input_separator_out(bool nl_before, bool nl_after);
-            void menu_item_separator_out(bool nl_before, bool nl_after);
+            void separator_out(bool nl_before, bool nl_after);
+            void menu_separator_out(bool nl_before, bool nl_after);
 
             void menu_item_out(
                 const string_t& choice,

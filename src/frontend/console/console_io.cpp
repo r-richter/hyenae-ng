@@ -24,7 +24,6 @@
  *
  */
 
-#include "../../../include/os.h"
 #include "../../../include/assert.h"
 #include "../../../include/constants.h"
 #include "../../../include/frontend/console/console_io.h"
@@ -43,6 +42,8 @@ namespace hyenae::frontend::console
     const string_t console_io::ANSI_FG_CYAN = "\u001B[36m";
     const string_t console_io::ANSI_FG_WHITE = "\u001B[37m";
 
+    /*---------------------------------------------------------------------- */
+
     const string_t console_io::ANSI_BG_RESET = ANSI_FG_RESET;
     const string_t console_io::ANSI_BG_BLACK = "\u001B[40m";
     const string_t console_io::ANSI_BG_RED = "\u001B[41m";
@@ -52,12 +53,6 @@ namespace hyenae::frontend::console
     const string_t console_io::ANSI_BG_PURPLE = "\u001B[45m";
     const string_t console_io::ANSI_BG_CYAN = "\u001B[46m";
     const string_t console_io::ANSI_BG_WHITE = "\u001B[47m";
-
-    #ifdef OS_WINDOWS
-        const string_t console_io::SEPARATOR_LINE = string_t(1, (char)196);
-    #else
-        const string_t console_io::SEPARATOR_LINE = "\u2500";
-    #endif
 
     /*---------------------------------------------------------------------- */
 
@@ -108,14 +103,14 @@ namespace hyenae::frontend::console
         }
         else
         {
-            input_separator_out(false, true);
+            separator_out(false, true);
         }
 
     } /* header_out */
 
     /*---------------------------------------------------------------------- */
 
-    void console_io::input_separator_out(bool nl_before, bool nl_after)
+    void console_io::separator_out(bool nl_before, bool nl_after)
     {
         string_t text = "";
 
@@ -128,7 +123,13 @@ namespace hyenae::frontend::console
 
         for (int i = 0; i < (int)MENU_WIDTH; i++)
         {
-            text.append(SEPARATOR_LINE);
+            #if defined(CHARSET_ASCII)
+                text.append(string_t(1, (char)196));
+            #elif defined (CHARSET_UNICODE)
+                text.append("\u2500");
+            #else
+                text.append("-");
+            #endif
         }
 
         if (nl_after)
@@ -138,11 +139,11 @@ namespace hyenae::frontend::console
 
         out(text);
 
-    } /* input_separator_out */
+    } /* separator_out */
 
     /*---------------------------------------------------------------------- */
 
-    void console_io::menu_item_separator_out(bool nl_before, bool nl_after)
+    void console_io::menu_separator_out(bool nl_before, bool nl_after)
     {
         string_t text = "";
 
@@ -166,7 +167,7 @@ namespace hyenae::frontend::console
 
         out(text);
 
-    } /* menu_item_separator_out */
+    } /* menu_separator_out */
 
     /*---------------------------------------------------------------------- */
 
