@@ -142,7 +142,8 @@ namespace hyenae::model::generators
     void integer_generator::reset(bool data_changed)
     {
         _offset = 0;
-        _result = _result_min;
+
+        _result = result();
 
         if (data_changed)
         {
@@ -381,6 +382,7 @@ namespace hyenae::model::generators
     uint64_t integer_generator::result() const
     {
         uint64_t result = 0;
+        uint64_t result_tmp = 0;
         char cur_chr = 0;
         uint64_t digit_value = 0;
         uint64_t cur_offset = 0;
@@ -397,6 +399,21 @@ namespace hyenae::model::generators
                 if (cur_chr == RAND_WILDCARD)
                 {
                     digit_value = rand() % (_base);
+
+                    // In order to have a better number randomization on
+                    // smaller bit sizes with high value bases (such as 8-Bit
+                    // decimal), we want to make sure that the generated digit
+                    // will not lead to a result bigger max, since this would
+                    // lead to a truncation to min.
+
+                    result_tmp =
+                        digit_value *
+                        (uint64_t)pow(_base, (double)_pattern_len - pos - 1);
+
+                    if (result_tmp > _result_max)
+                    {
+                        digit_value = 0;
+                    }
                 }
                 else
                 {

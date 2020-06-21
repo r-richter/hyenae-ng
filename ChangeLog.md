@@ -1,3 +1,8 @@
+##  Version 0.7 (To be released)
+- Optimized random number generation\
+\
+[Source Code](https://github.com/r-richter/hyenae-ng/releases/tag/v0.7)
+
 ##  Version 0.6-1 (Jun. 21th, 202)
 - Fixed crash on *nix based systems when starting without root privileges and entering output setup\
 \
