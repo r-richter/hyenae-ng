@@ -32,38 +32,66 @@ namespace hyenae::frontend::console
 {
     /*---------------------------------------------------------------------- */
 
+    const string_t console_io::ANSI_FG_RESET = "\u001B[0m";
+    const string_t console_io::ANSI_FG_BLACK = "\u001B[30m";
+    const string_t console_io::ANSI_FG_RED = "\u001B[31m";
+    const string_t console_io::ANSI_FG_GREEN = "\u001B[32m";
+    const string_t console_io::ANSI_FG_YELLOW = "\u001B[33m";
+    const string_t console_io::ANSI_FG_BLUE = "\u001B[34m";
+    const string_t console_io::ANSI_FG_PURPLE = "\u001B[35m";
+    const string_t console_io::ANSI_FG_CYAN = "\u001B[36m";
+    const string_t console_io::ANSI_FG_WHITE = "\u001B[37m";
+
+    const string_t console_io::ANSI_BG_RESET = ANSI_FG_RESET;
+    const string_t console_io::ANSI_BG_BLACK = "\u001B[40m";
+    const string_t console_io::ANSI_BG_RED = "\u001B[41m";
+    const string_t console_io::ANSI_BG_GREEN = "\u001B[42m";
+    const string_t console_io::ANSI_BG_YELLOW = "\u001B[43m";
+    const string_t console_io::ANSI_BG_BLUE = "\u001B[44m";
+    const string_t console_io::ANSI_BG_PURPLE = "\u001B[45m";
+    const string_t console_io::ANSI_BG_CYAN = "\u001B[46m";
+    const string_t console_io::ANSI_BG_WHITE = "\u001B[47m";
+
+    /*---------------------------------------------------------------------- */
+
     void console_io::header_out(string_t title)
     {
-        string_t header = "";
+        string_t menu_info = "";
         string_t app_info = "";
+        string_t titlebar = "";
+        string_t header = "";
 
         clear();
 
+        // Menu Info
+        menu_info.append(" >> ");
+        menu_info.append(title);
+
+        // App Info
         app_info.append(constants::APP_NAME);
         app_info.append(" - Version ");
         app_info.append(constants::APP_VERSION);
+        app_info.append(" ");
 
+        // Titlebar
+        titlebar.append(menu_info);
+        pad_to_margin(titlebar, MENU_WIDTH - app_info.size());
+        titlebar.append(app_info);
+        titlebar = ansi_color(titlebar, ANSI_FG_BLACK, ANSI_BG_WHITE);
+
+        // Header
         header.append("\n");
-
-        pad_to_margin(header, BASE_MARGIN + header.size());
-
-        header.append(">> ");
-        header.append(title);
-
-        pad_to_margin(header, MENU_WIDTH - app_info.size() + 2);
-
-        header.append(app_info);
-        header.append("\n");
+        pad_to_margin(header, BASE_MARGIN + 1);
+        header.append(titlebar);
+        header.append("\n\n");
 
         out(header);
-
-        separator_out(false, true);
 
     } /* header_out */
 
     /*---------------------------------------------------------------------- */
 
-    void console_io::separator_out(bool nl_before, bool nl_after)
+    void console_io::input_separator_out(bool nl_before, bool nl_after)
     {
         string_t text = "";
 
@@ -83,7 +111,7 @@ namespace hyenae::frontend::console
 
         out(text);
 
-    } /* separator_out */
+    } /* input_separator_out */
 
     /*---------------------------------------------------------------------- */
 
@@ -176,7 +204,10 @@ namespace hyenae::frontend::console
 
     void console_io::error_out(string_t message, bool menu_item_margin)
     {
-        prefixed_out("(!)", message, menu_item_margin);
+        prefixed_out(
+            ansi_color("(!)", ANSI_FG_RED),
+            ansi_color(message, ANSI_FG_RED),
+            menu_item_margin);
 
     } /* error_out */
 
@@ -215,13 +246,13 @@ namespace hyenae::frontend::console
 
             if (task())
             {
-                out("(OK)\n");
+                out("(" + ansi_color("OK", ANSI_FG_GREEN) + ")\n");
 
                 return true;
             }
             else
             {
-                out("(FAILED)\n");
+                out("(" + ansi_color("FAILED", ANSI_FG_RED) + ")\n");
 
                 return false;
             }
@@ -233,7 +264,7 @@ namespace hyenae::frontend::console
 
         if (error_msg != "")
         {
-            out("(FAILED)\n");
+            out("(" + ansi_color("FAILED", ANSI_FG_RED) + ")\n");
 
             error_out(error_msg, true);
 
@@ -405,38 +436,6 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    size_t console_io::prompt_list_choice(const vector_t<string_t>& items)
-    {
-        string_t hint = "";
-        string_t item_text = "";
-
-        out("\n");
-
-        // TODO: Implement in a way that the list is repeated
-        //       too on erronous inputs
-
-        for (size_t pos = 0; pos < items.size(); pos ++)
-        {
-            item_text = "";
-
-            pad_to_margin(item_text, BASE_MARGIN);
-
-            item_text.append(std::to_string(pos + 1));
-            item_text.append(". ");
-            item_text.append(items.at(pos));
-            item_text.append("\n");
-
-            out(item_text);
-        }
-
-        hint.append("1-");
-        hint.append(std::to_string(items.size() - 1));
-
-        return (size_t)prompt(1, items.size() , "Enter Selection", hint) - 1;
-    }
-
-    /*---------------------------------------------------------------------- */
-
     void console_io::wait_for_key_press(string_t prompt)
     {
         prompt_out("", prompt);
@@ -480,6 +479,23 @@ namespace hyenae::frontend::console
         out(text);
 
     } /* prefixed_out */
+
+    /*---------------------------------------------------------------------- */
+
+    string_t console_io::ansi_color(
+        string_t text, string_t ansi_fg, string_t ansi_bg)
+    {
+        string_t colored = "";
+        
+        colored.append(ansi_bg);
+        colored.append(ansi_fg);
+        colored.append(text);
+        colored.append(ANSI_FG_RESET);
+        colored.append(ANSI_BG_RESET);
+
+        return colored;
+
+    } /* text_color */
 
     /*---------------------------------------------------------------------- */
 
