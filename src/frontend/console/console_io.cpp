@@ -124,9 +124,9 @@ namespace hyenae::frontend::console
         for (int i = 0; i < (int)MENU_WIDTH; i++)
         {
             #if defined(CHARSET_ASCII)
-                text.append(string_t(1, (char)196));
+                text.append(string_t(1, (char)205));
             #elif defined (CHARSET_UNICODE)
-                text.append("\u2500");
+                text.append("\u2550");
             #else
                 text.append("-");
             #endif
