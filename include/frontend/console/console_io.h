@@ -82,8 +82,6 @@ namespace hyenae::frontend::console
                 string_t hint = "",
                 size_t default_choice = SIZE_NONE);
 
-            size_t prompt_list_choice(const vector_t<string_t>& items);
-
             void wait_for_key_press(
                 string_t prompt = "Press any key to continue");
 

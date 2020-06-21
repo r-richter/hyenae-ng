@@ -405,38 +405,6 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    size_t console_io::prompt_list_choice(const vector_t<string_t>& items)
-    {
-        string_t hint = "";
-        string_t item_text = "";
-
-        out("\n");
-
-        // TODO: Implement in a way that the list is repeated
-        //       too on erronous inputs
-
-        for (size_t pos = 0; pos < items.size(); pos ++)
-        {
-            item_text = "";
-
-            pad_to_margin(item_text, BASE_MARGIN);
-
-            item_text.append(std::to_string(pos + 1));
-            item_text.append(". ");
-            item_text.append(items.at(pos));
-            item_text.append("\n");
-
-            out(item_text);
-        }
-
-        hint.append("1-");
-        hint.append(std::to_string(items.size() - 1));
-
-        return (size_t)prompt(1, items.size() , "Enter Selection", hint) - 1;
-    }
-
-    /*---------------------------------------------------------------------- */
-
     void console_io::wait_for_key_press(string_t prompt)
     {
         prompt_out("", prompt);
