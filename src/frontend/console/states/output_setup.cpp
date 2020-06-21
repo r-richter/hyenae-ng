@@ -100,7 +100,10 @@ namespace hyenae::frontend::console::states
         _menu->set_start_state(get_start_state());
         _menu->set_error_message(_network_error);
 
-        _network_device_selector->set_start_state(get_start_state());
+        if (_network_device_selector != NULL)
+        {
+            _network_device_selector->set_start_state(get_start_state());
+        }
         
         console_menu::item* choice = _menu->prompt(_selected_item);
 
