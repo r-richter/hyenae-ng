@@ -1,3 +1,8 @@
+##  Version 0.6-1 (Jun. 21th, 202)
+- Fixed crash on *nix based systems when starting without root privileges and entering output setup\
+\
+[Source Code](https://github.com/r-richter/hyenae-ng/releases/tag/v0.6-1)
+
 ##  Version 0.6 (Jun. 20th, 202)
 - Code refactoring
 - Enhanced user interface
