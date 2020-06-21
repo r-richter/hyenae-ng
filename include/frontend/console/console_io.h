@@ -66,6 +66,8 @@ namespace hyenae::frontend::console
             static const string_t ANSI_BG_CYAN;
             static const string_t ANSI_BG_WHITE;
 
+            /* Menu Parts */
+            static const string_t SEPARATOR_LINE;
 
         private:
             bool _ansi_color_on;

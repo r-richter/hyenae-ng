@@ -24,6 +24,7 @@
  *
  */
 
+#include "../../../include/os.h"
 #include "../../../include/assert.h"
 #include "../../../include/constants.h"
 #include "../../../include/frontend/console/console_io.h"
@@ -51,6 +52,12 @@ namespace hyenae::frontend::console
     const string_t console_io::ANSI_BG_PURPLE = "\u001B[45m";
     const string_t console_io::ANSI_BG_CYAN = "\u001B[46m";
     const string_t console_io::ANSI_BG_WHITE = "\u001B[47m";
+
+    #ifdef OS_WINDOWS
+        const string_t console_io::SEPARATOR_LINE = string_t(1, (char)196);
+    #else
+        const string_t console_io::SEPARATOR_LINE = "\u2500";
+    #endif
 
     /*---------------------------------------------------------------------- */
 
@@ -119,7 +126,10 @@ namespace hyenae::frontend::console
 
         pad_to_margin(text, BASE_MARGIN + text.size());
 
-        text.append(string_t(MENU_WIDTH, '-'));
+        for (int i = 0; i < (int)MENU_WIDTH; i++)
+        {
+            text.append(SEPARATOR_LINE);
+        }
 
         if (nl_after)
         {
