@@ -69,8 +69,10 @@ namespace hyenae
         try
         {
             tmp = text;
-            std::replace(tmp.begin(), tmp.end(), '\n', ' ');
 
+            std::replace(tmp.begin(), tmp.end(), '\t', ' ');
+            std::replace(tmp.begin(), tmp.end(), '\n', ' ');
+            
             for (int i = 0; i < (int)tmp.size(); i++)
             {
                 chr = tmp[i];
@@ -91,7 +93,7 @@ namespace hyenae
 
                     sections.push_back(cur_section);
 
-                    section_index = sections.size() - 1;
+                    section_index = sections.size();
 
                     item_name = "";
                 }
@@ -116,7 +118,7 @@ namespace hyenae
                             chr == SECTION_DELIMITER)
                         {
                             assert::valid_format(
-                                false, "", "syntax error");
+                                false, "", "malformed value declaration");
                         }
 
                         if (chr != VALUE_ASSIGNER)
@@ -135,30 +137,48 @@ namespace hyenae
                 {
                     // Current section closed
 
-                    section_index--;
-
-                    if (section_index == string_t::npos)
+                    if (section_index > 0)
+                    {
+                        section_index--;
+                    }
+                    else
                     {
                         assert::valid_format(
-                            false, "", "syntax error");
+                            false, "", "unexpected end of section");
                     }
 
                     cur_section = sections[section_index];
                 }
                 else
                 {
+                    if (chr == VALUE_DELIMITER)
+                    {
+                        assert::valid_format(
+                            false, "", "unexpected value delimiter");
+                    }
+
                     // None of the above, must be the name of an item
 
                     item_name.append(string_t(1, chr));
                 }
             }
+
+            if (section_index != 0)
+            {
+                assert::valid_format(
+                    false, "", "unclosed section");
+            }
         }
         catch (const exception_t& exception)
         {
+            // TODO: Implement common method to free vector list of pointers,
+            //       use method in all other classes too.
+            /*
             for (auto section : sections)
             {
                 safe_delete(section);
             }
+            */
 
             throw runtime_error_t(exception.what());
         }
