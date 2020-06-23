@@ -31,6 +31,13 @@ namespace hyenae::io
 {
     /*---------------------------------------------------------------------- */
 
+    const file_io::provider std_file_io::PROVIDER = [] ()
+    {
+        return new std_file_io();
+    };
+
+    /*---------------------------------------------------------------------- */
+
     bool std_file_io::is_open() const
     {
         return _stream.is_open();

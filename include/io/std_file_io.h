@@ -38,6 +38,9 @@ namespace hyenae::io
 	class std_file_io :
 		public file_io
 	{
+		public:
+			static const file_io::provider PROVIDER;
+
 		private:
             std::fstream _stream;
 			
