@@ -105,7 +105,7 @@ namespace hyenae
             }
         }
 
-    } /* free_vector_pointers */
+    } /* safe_delete */
 
     int64_t to_ms(duration_t duration);
 
