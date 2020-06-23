@@ -40,11 +40,13 @@ namespace hyenae::frontend::console::states
     output_setup::output_setup(
         console_app_state_context* context,
         console_io* console_io,
+        file_io::provider file_io_provider,
         console_app_state* parent) :
             console_app_state(context, console_io, parent)
     {
         string_t caption;
         
+        _file_io_provider = file_io_provider;
         _menu = new console_menu(console_io, "Output Setup", this, parent);
 
         // Default values
@@ -224,7 +226,7 @@ namespace hyenae::frontend::console::states
         }
         
         _menu_items[_file_output_item] =
-            new model::outputs::file_output(_file_path);
+            new model::outputs::file_output(_file_io_provider, _file_path);
 
         return _menu_items[_file_output_item];
 
