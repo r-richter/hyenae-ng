@@ -78,13 +78,7 @@ namespace hyenae::frontend::console::states
 
     output_setup::~output_setup()
     {
-        // TODO: Replace with specific safe_delete method implementation
-        for (auto item : _menu_items)
-        {
-            delete item.first;
-            delete item.second;
-        }
-
+        safe_delete(_menu_items);
         safe_delete(_network_device_selector);
         safe_delete(_menu);
 

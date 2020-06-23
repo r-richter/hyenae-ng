@@ -78,7 +78,7 @@ namespace hyenae
 
     /* Methods */
 
-    template< class T>
+    template<typename T>
     void safe_delete(T*& ptr)
     {
         if (ptr != NULL)
@@ -89,19 +89,32 @@ namespace hyenae
 
     } /* safe_delete */ 
 
-    template< class T>
-    void safe_delete(vector_t<T*> pointers)
+    template< typename T>
+    void safe_delete(vector_t<T*>& pointers)
     {
-        T* current = NULL;
-
-        while (pointers.size() > 0)
+        for (auto ptr : pointers)
         {
-            current = pointers.front();
-            pointers.erase(pointers.begin());
-
-            if (current != NULL)
+            if (ptr != NULL)
             {
-                delete current;
+                delete ptr;
+            }
+        }
+
+    } /* safe_delete */
+
+    template< typename T, typename U>
+    void safe_delete(unordered_map_t<T*, U*>& pointers)
+    {
+        for (auto pointer : pointers)
+        {
+            if (pointer.first != NULL)
+            {
+                delete pointer.first;
+            }
+
+            if (pointer.second != NULL)
+            {
+                delete pointer.second;
             }
         }
 

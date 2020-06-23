@@ -60,13 +60,7 @@ namespace hyenae::frontend::console::states
 
     network_device_selector::~network_device_selector()
     {
-        // TODO: Replace with specific safe_delete method implementation
-        for (auto item : _menu_items)
-        {
-            delete item.first;
-            delete item.second;
-        }
-
+        safe_delete(_menu_items);
         safe_delete(_menu);
 
     } /* ~network_device_selector */
