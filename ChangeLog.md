@@ -1,3 +1,9 @@
+##  Version 0.9 (Jun. 23rd, 2020)
+- Bug fixes
+- Code refactoring\
+\
+[Source Code](https://github.com/r-richter/hyenae-ng/releases/tag/v0.9)
+
 ##  Version 0.8 (Jun. 21st, 2020)
 - Code refactoring
 - Enhanced user interface\

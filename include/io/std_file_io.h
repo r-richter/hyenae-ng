@@ -24,15 +24,38 @@
  *
  */
 
-#include "../include/constants.h"
+#ifndef STD_FILE_IO_H
+#define STD_FILE_IO_H
 
-namespace hyenae
+#include "../file_io.h"
+
+#include <fstream>
+
+namespace hyenae::io
 {
     /*---------------------------------------------------------------------- */
 
-    const char* constants::APP_NAME = "Hyenae NG";
-    const char* constants::APP_VERSION = "0.9";
+	class std_file_io :
+		public file_io
+	{
+		public:
+			static const file_io::provider PROVIDER;
+
+		private:
+            std::fstream _stream;
+			
+		public:
+			bool is_open() const;
+			void open(const string_t& filename, bool overwrite);
+			void close() noexcept;
+			void write(const string_t& content);
+			void write(byte_t* data, size_t size);
+			string_t read_all();
+
+	}; /* std_file_io */
 
     /*---------------------------------------------------------------------- */
 
-} /* hyenae */
+} /* hyenae::io */
+
+#endif /* STD_FILE_IO_H */

@@ -24,14 +24,56 @@
  *
  */
 
-#include "../include/constants.h"
+#include "../include/config.h"
 
 namespace hyenae
 {
     /*---------------------------------------------------------------------- */
 
-    const char* constants::APP_NAME = "Hyenae NG";
-    const char* constants::APP_VERSION = "0.9";
+    config::value::value(const string_t& name, const string_t& value)
+    {
+        _name = name;
+        _value = value;
+
+    } /* value */
+
+    /*---------------------------------------------------------------------- */
+
+    string_t config::value::get_name() const
+    {
+        return _name;
+
+    } /* value */
+
+    /*---------------------------------------------------------------------- */
+
+    string_t config::value::get_value() const
+    {
+        return _value;
+
+    } /* value */
+
+    /*---------------------------------------------------------------------- */
+
+    void config::value::set_value(const string_t& value)
+    {
+        _value = value;
+
+    } /* set_value */
+
+    /*---------------------------------------------------------------------- */
+
+    string_t config::value::to_string() const
+    {
+        string_t value = "";
+        value.append(_name);
+        value.push_back(config::VALUE_ASSIGNER);
+        value.append(_value);
+        value.push_back(config::VALUE_DELIMITER);
+
+        return value;
+
+    } /* to_string */
 
     /*---------------------------------------------------------------------- */
 

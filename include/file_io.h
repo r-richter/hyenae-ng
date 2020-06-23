@@ -24,15 +24,32 @@
  *
  */
 
-#include "../include/constants.h"
+#ifndef FILE_IO_H
+#define FILE_IO_H
+
+#include "common.h"
 
 namespace hyenae
 {
     /*---------------------------------------------------------------------- */
 
-    const char* constants::APP_NAME = "Hyenae NG";
-    const char* constants::APP_VERSION = "0.9";
+	class file_io
+	{
+		public:
+			using provider = func_t<file_io*()>;
+
+            virtual ~file_io() {}
+			virtual bool is_open() const = 0;
+			virtual void open(const string_t& filename, bool overwrite) = 0;
+			virtual void close() noexcept  = 0;
+			virtual void write(const string_t& content) = 0;
+			virtual void write(byte_t* data, size_t size) = 0;
+			virtual string_t read_all() = 0;
+
+	}; /* file_io */
 
     /*---------------------------------------------------------------------- */
 
 } /* hyenae */
+
+#endif /* FILE_IO_H */

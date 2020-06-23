@@ -78,7 +78,7 @@ namespace hyenae
 
     /* Methods */
 
-    template< class T >
+    template< class T>
     void safe_delete(T*& ptr)
     {
         if (ptr != NULL)
@@ -88,7 +88,25 @@ namespace hyenae
         }
 
     } /* safe_delete */ 
-    
+
+    template< class T>
+    void safe_delete(vector_t<T*> pointers)
+    {
+        T* current = NULL;
+
+        while (pointers.size() > 0)
+        {
+            current = pointers.front();
+            pointers.erase(pointers.begin());
+
+            if (current != NULL)
+            {
+                delete current;
+            }
+        }
+
+    } /* free_vector_pointers */
+
     int64_t to_ms(duration_t duration);
 
     string_t to_ms_string(duration_t duration);

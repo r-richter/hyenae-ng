@@ -49,7 +49,7 @@ namespace hyenae::frontend::console
             /* Margins */
             static const size_t BASE_MARGIN = 1;
             static const size_t MENU_ITEM_MARGIN = 2;
-            static const size_t MENU_ITEM_INFO_MARGIN = 39;
+            static const size_t MENU_ITEM_INFO_MARGIN = 38;
 
             /* ANSI Foregrounds */
             static const string_t ANSI_FG_RESET;

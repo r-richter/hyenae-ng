@@ -27,6 +27,7 @@
 #ifndef CONSOLE_APP_H
 #define CONSOLE_APP_H
 
+#include "../../../include/file_io.h"
 #include "../../../include/frontend/console/console_io.h"
 #include "../../../include/frontend/console/console_app_state.h"
 #include "../../../include/frontend/console/console_app_state_context.h"
@@ -40,9 +41,13 @@ namespace hyenae::frontend::console
     {
         private:
             console_io* _console_io;
+            file_io::provider _file_io_provider;
 
         public:
-            console_app(console_io* console_io);
+            console_app(
+                console_io* console_io,
+                file_io::provider file_io_provider);
+
             int run(int argc, char** argv);
 
     }; /* console_app */
