@@ -24,36 +24,38 @@
  *
  */
 
-#ifndef CONSOLE_APP_H
-#define CONSOLE_APP_H
+#ifndef STD_FILE_IO_H
+#define STD_FILE_IO_H
 
-#include "../../../include/file_io.h"
-#include "../../../include/frontend/console/console_io.h"
-#include "../../../include/frontend/console/console_app_state.h"
-#include "../../../include/frontend/console/console_app_state_context.h"
+#include "../file_io.h"
 
-namespace hyenae::frontend::console
+#include <fstream>
+
+namespace hyenae::io
 {
     /*---------------------------------------------------------------------- */
 
-    class console_app :
-        public console_app_state_context
-    {
-        private:
-            console_io* _console_io;
-            file_io::provider _file_io_provider;
+	class std_file_io :
+		public file_io
+	{
+		public:
+			static const file_io::provider PROVIDER;
 
-        public:
-            console_app(
-                console_io* console_io,
-                file_io::provider file_io_provider);
+		private:
+            std::fstream _stream;
+			
+		public:
+			bool is_open() const;
+			void open(const string_t& filename, bool overwrite);
+			void close() noexcept;
+			void write(const string_t& content);
+			void write(byte_t* data, size_t size);
+			string_t read_all();
 
-            int run(int argc, char** argv);
-
-    }; /* console_app */
+	}; /* std_file_io */
 
     /*---------------------------------------------------------------------- */
 
-} /* hyenae::frontend::console */
+} /* hyenae::io */
 
-#endif /* CONSOLE_APP_H */
+#endif /* STD_FILE_IO_H */

@@ -24,6 +24,7 @@
  *
  */
 
+#include "../../../include/io/std_file_io.h"
 #include "../../../include/frontend/console/console_app.h"
 #include "../../../include/frontend/console/io/std_console_io.h"
 
@@ -35,7 +36,8 @@ int main(int argc, char** argv)
 
     return (
         new console_app(
-            io::std_console_io::get_instance()))->run(argc, argv);
+            io::std_console_io::get_instance(),
+            hyenae::io::std_file_io::PROVIDER))->run(argc, argv);
 
 } /* main */
 

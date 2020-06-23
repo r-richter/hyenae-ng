@@ -40,11 +40,13 @@ namespace hyenae::frontend::console::states
     output_setup::output_setup(
         console_app_state_context* context,
         console_io* console_io,
+        file_io::provider file_io_provider,
         console_app_state* parent) :
             console_app_state(context, console_io, parent)
     {
         string_t caption;
         
+        _file_io_provider = file_io_provider;
         _menu = new console_menu(console_io, "Output Setup", this, parent);
 
         // Default values
@@ -179,10 +181,14 @@ namespace hyenae::frontend::console::states
     {
         if (_network_device_selector != NULL)
         {
-            _output = new model::outputs::network_output(
-                _network_device_selector->get_device());
+            _menu_items[_network_output_item] =
+                new model::outputs::network_output(
+                    _network_device_selector->get_device());
 
-            _menu_items[_network_output_item] = _output;
+            if (_selected_item == _network_output_item)
+            {
+                _output = _menu_items[_network_output_item];
+            }
         }
         
     } /* update_network_output */
@@ -224,7 +230,7 @@ namespace hyenae::frontend::console::states
         }
         
         _menu_items[_file_output_item] =
-            new model::outputs::file_output(_file_path);
+            new model::outputs::file_output(_file_io_provider, _file_path);
 
         return _menu_items[_file_output_item];
 

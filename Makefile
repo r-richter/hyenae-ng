@@ -35,6 +35,7 @@ endif
 
 all :\
 	common.o\
+	io.o\
 	model.o\
 	model_data_transformations.o\
 	model_generators.o\
@@ -47,6 +48,9 @@ all :\
 
 common.o:
 	$(CXX) $(CXXFLAGS) -c ./src/*.cpp
+
+io.o:
+	$(CXX) $(CXXFLAGS) -c ./src/io/*.cpp
 
 model.o:
 	$(CXX) $(CXXFLAGS) -c ./src/model/*.cpp

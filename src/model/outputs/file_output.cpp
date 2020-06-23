@@ -31,19 +31,31 @@ namespace hyenae::model::outputs
 {
     /*---------------------------------------------------------------------- */
 
-    file_output::file_output(const string_t& path)
+    file_output::file_output(
+        file_io::provider file_io_provider,
+        const string_t& path)
     {
+        _file_io = file_io_provider();
         _path = path;
 
     } /* file_output */
 
     /*---------------------------------------------------------------------- */
 
+    file_output::~file_output()
+    {
+        close();
+
+        safe_delete(_file_io);
+    }
+
+    /*---------------------------------------------------------------------- */
+
     void file_output::open()
     {
-        assert::legal_call(!_stream.is_open(), "", "already open");
+        assert::legal_call(!_file_io->is_open(), "", "already open");
 
-        _stream.open(_path, std::ios_base::app);
+        _file_io->open(_path, true);
 
     } /* open */
 
@@ -51,7 +63,7 @@ namespace hyenae::model::outputs
 
     void file_output::close() noexcept
     {
-        _stream.close();
+        _file_io->close();
 
     } /* close */
 
@@ -59,11 +71,11 @@ namespace hyenae::model::outputs
 
     void file_output::send(byte_t* data, size_t size)
     {
-        assert::legal_call(_stream.is_open(), "", "not open");
+        assert::legal_call(_file_io->is_open(), "", "not open");
         assert::argument_not_null(data, "data");
         assert::in_range(size > 0, "size");
 
-        _stream.write((const char*)data, size);
+        _file_io->write(data, size);
 
     } /* send */
 

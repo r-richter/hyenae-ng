@@ -32,11 +32,14 @@ namespace hyenae::frontend::console
 {
     /*---------------------------------------------------------------------- */
 
-    console_app::console_app(console_io* console_io)
+    console_app::console_app(
+        console_io* console_io,
+        file_io::provider file_io_provider)
     {
         assert::argument_not_null(console_io, "console_io");
 
         _console_io = console_io;
+        _file_io_provider = file_io_provider;
 
     } /* console_app */
 
@@ -44,7 +47,7 @@ namespace hyenae::frontend::console
 
     int console_app::run(int argc, char** argv)
     {
-        states::main_menu main_menu(this, _console_io);
+        states::main_menu main_menu(this, _console_io, _file_io_provider);
 
         console_app_state_context::run(&main_menu);
 

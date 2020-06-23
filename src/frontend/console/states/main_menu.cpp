@@ -32,7 +32,9 @@ namespace hyenae::frontend::console::states
     /*---------------------------------------------------------------------- */
 
     main_menu::main_menu(
-        console_app_state_context* context, console_io* console_io) :
+        console_app_state_context* context,
+        console_io* console_io,
+        file_io::provider file_io_provider) :
             console_app_state(context, console_io)
     {
         _menu = new console_menu(console_io, "Main Menu", this, NULL);
@@ -40,7 +42,7 @@ namespace hyenae::frontend::console::states
         // Output setup
         _output_setup_item = new console_menu::item("Output Setup");
         _output_setup = new states::output_setup(
-            get_context(), console_io, this);
+            get_context(), console_io, file_io_provider, this);
         _menu->add_item(_output_setup_item);
 
         // Generator setup

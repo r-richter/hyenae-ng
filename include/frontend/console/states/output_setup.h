@@ -27,6 +27,7 @@
 #ifndef OUTPUT_SETUP_H
 #define OUTPUT_SETUP_H
 
+#include "../../../../include/file_io.h"
 #include "../../../../include/model/data_output.h"
 #include "../../../../include/model/outputs/network_output.h"
 #include "../../../../include/frontend/console/console_menu.h"
@@ -54,6 +55,7 @@ namespace hyenae::frontend::console::states
         private:
             static const char* FILE_OUTPUT_PATH;
 
+            file_io::provider _file_io_provider;
             network_device_selector* _network_device_selector = NULL;
             console_menu* _menu = NULL;
             unordered_map_t<console_menu::item*, data_output_t*> _menu_items;
@@ -68,6 +70,7 @@ namespace hyenae::frontend::console::states
             output_setup(
                 console_app_state_context* context,
                 console_io* console_io,
+                file_io::provider file_io_provider,
                 console_app_state* parent);
             
             ~output_setup();
