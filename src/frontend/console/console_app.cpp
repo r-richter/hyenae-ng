@@ -47,7 +47,7 @@ namespace hyenae::frontend::console
 
     int console_app::run(int argc, char** argv)
     {
-        states::main_menu main_menu(this, _console_io);
+        states::main_menu main_menu(this, _console_io, _file_io_provider);
 
         console_app_state_context::run(&main_menu);
 

@@ -24,8 +24,8 @@
  *
  */
 
-#include "../include/assert.h"
-#include "../include/io/std_file_io.h"
+#include "../../include/assert.h"
+#include "../../include/io/std_file_io.h"
 
 namespace hyenae::io
 {
@@ -51,7 +51,9 @@ namespace hyenae::io
         assert::legal_call(!is_open(), "", "already open");
 
         _stream.open(
-            filename, overwrite ? std::ios_base::trunc : std::ios_base::app);
+            filename,
+            std::fstream::in | std::fstream::out |
+                (overwrite ? std::ios_base::trunc : std::ios_base::app));
 
     } /* open */
 

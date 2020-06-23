@@ -181,10 +181,14 @@ namespace hyenae::frontend::console::states
     {
         if (_network_device_selector != NULL)
         {
-            _output = new model::outputs::network_output(
-                _network_device_selector->get_device());
+            _menu_items[_network_output_item] =
+                new model::outputs::network_output(
+                    _network_device_selector->get_device());
 
-            _menu_items[_network_output_item] = _output;
+            if (_selected_item == _network_output_item)
+            {
+                _output = _menu_items[_network_output_item];
+            }
         }
         
     } /* update_network_output */
