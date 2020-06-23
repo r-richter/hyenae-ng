@@ -27,9 +27,8 @@
 #ifndef FILE_OUTPUT_H
 #define FILE_OUTPUT_H
 
+#include "../../file_io.h"
 #include "../../model/data_output.h"
-
-#include <fstream>
 
 namespace hyenae::model::outputs
 {
@@ -39,11 +38,15 @@ namespace hyenae::model::outputs
         public data_output
     {
         private:
+            file_io* _file_io = NULL;
             string_t _path;
-            std::ofstream _stream;
-
+            
         public:
-            file_output(const string_t& path);
+            file_output(
+                file_io::provider file_io_provider,
+                const string_t& path);
+                
+            ~file_output();
             void open();
             void close() noexcept;
             void send(byte_t* data, size_t size);

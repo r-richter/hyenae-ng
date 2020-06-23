@@ -75,6 +75,16 @@ namespace hyenae::io
 
     /*---------------------------------------------------------------------- */
 
+    void std_file_io::write(byte_t* data, size_t size)
+    {
+        assert::legal_call(is_open(), "", "not open");
+        
+        _stream.write((const char*)data, size);
+
+    } /* write */
+
+    /*---------------------------------------------------------------------- */
+
     string_t std_file_io::read_all()
     {
         assert::legal_call(is_open(), "", "not open");

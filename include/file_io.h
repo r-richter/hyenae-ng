@@ -42,6 +42,7 @@ namespace hyenae
 			virtual void open(const string_t& filename, bool overwrite) = 0;
 			virtual void close() noexcept  = 0;
 			virtual void write(const string_t& content) = 0;
+			virtual void write(byte_t* data, size_t size) = 0;
 			virtual string_t read_all() = 0;
 
 	}; /* file_io */

@@ -49,6 +49,7 @@ namespace hyenae::io
 			void open(const string_t& filename, bool overwrite);
 			void close() noexcept;
 			void write(const string_t& content);
+			void write(byte_t* data, size_t size);
 			string_t read_all();
 
 	}; /* std_file_io */
