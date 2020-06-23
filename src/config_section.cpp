@@ -41,15 +41,8 @@ namespace hyenae
 
     config::section::~section()
     {
-        for (auto section : _sub_sections)
-        {
-            delete section;
-        }
-
-        for (auto value : _values)
-        {
-            delete value;
-        }
+        safe_delete(_sub_sections);
+        safe_delete(_values);
 
     } /* ~section */
     

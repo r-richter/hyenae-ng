@@ -171,15 +171,14 @@ namespace hyenae
         }
         catch (const exception_t& exception)
         {
-            // TODO: Implement common method to free vector list of pointers,
-            //       use method in all other classes too.
-            /*
-            for (auto section : sections)
+            if (sections.size() > 0)
             {
-                safe_delete(section);
-            }
-            */
+                // It is only required to delete the root section since all
+                // sub-sections will be delete by it's destructor.
 
+                safe_delete(sections.front());
+            }
+            
             throw runtime_error_t(exception.what());
         }
 

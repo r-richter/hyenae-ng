@@ -78,6 +78,7 @@ namespace hyenae::frontend::console::states
 
     output_setup::~output_setup()
     {
+        // TODO: Replace with specific safe_delete method implementation
         for (auto item : _menu_items)
         {
             delete item.first;

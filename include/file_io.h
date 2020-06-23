@@ -38,6 +38,7 @@ namespace hyenae
 		public:
 			using provider = func_t<file_io*()>;
 
+            virtual ~file_io() {}
 			virtual bool is_open() const = 0;
 			virtual void open(const string_t& filename, bool overwrite) = 0;
 			virtual void close() noexcept  = 0;
