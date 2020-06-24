@@ -42,11 +42,11 @@ int main(int argc, char** argv)
 
     using console_app_t = hyenae::frontend::console::console_app;
     
+    app_config_t config(std_file_io_t::PROVIDER);
+    std_console_io_t console_io(&config);
+
     try
     {
-        app_config_t config(std_file_io_t::PROVIDER);
-        std_console_io_t console_io(&config);
-
         config.load_or_create();
 
         return (
@@ -57,7 +57,9 @@ int main(int argc, char** argv)
     }
     catch (const exception_t& exception)
     {
-        // TODO: Error message...
+        console_io.app_start_error_out(
+            hyenae::concat(
+                "Failed to load configuration: ", exception.what()));
 
         return -1;
     }

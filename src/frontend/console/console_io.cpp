@@ -250,6 +250,20 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
+    void console_io::app_start_error_out(string_t message)
+    {
+        string_t text = "";
+
+        text.append("(!) ");
+        text.append(message);
+        text.append("\n");
+
+        out(text);
+
+    } /* app_start_error_out */
+
+    /*---------------------------------------------------------------------- */
+
     void console_io::task_out(string_t name)
     {
         string_t text = "";

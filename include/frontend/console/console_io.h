@@ -93,6 +93,7 @@ namespace hyenae::frontend::console
 
             void info_out(string_t message, bool menu_item_margin = false);
             void error_out(string_t message, bool menu_item_margin = false);
+            void app_start_error_out(string_t message);
             void task_out(string_t name);
             bool task_out(string_t name, func_t<bool()> task);
             void result_out(string_t name, string_t value);
