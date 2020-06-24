@@ -163,7 +163,7 @@ If the configuration file can not be parsed, Hyenae NG will give out an
 error message, requesting you to either fix or delete the configuration
 file.
 
-- **Frontend Section**\
+- **Frontend Section**
 
   - **terminal_colors**\
     If set to "on" (default), Hyenae will use ANSI terminal colors in order
