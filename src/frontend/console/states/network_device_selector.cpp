@@ -36,9 +36,10 @@ namespace hyenae::frontend::console::states
 
     network_device_selector::network_device_selector(
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         output_setup* parent) :
-            console_app_state(context, console_io, parent)
+            console_app_state(context, config, console_io, parent)
     {
         string_t caption;
         vector_t<device_t*> devices_list;
@@ -60,13 +61,7 @@ namespace hyenae::frontend::console::states
 
     network_device_selector::~network_device_selector()
     {
-        // TODO: Replace with specific safe_delete method implementation
-        for (auto item : _menu_items)
-        {
-            delete item.first;
-            delete item.second;
-        }
-
+        safe_delete(_menu_items);
         safe_delete(_menu);
 
     } /* ~network_device_selector */

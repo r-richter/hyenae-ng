@@ -33,33 +33,35 @@ namespace hyenae::frontend::console::states
 
     main_menu::main_menu(
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         file_io::provider file_io_provider) :
-            console_app_state(context, console_io)
+            console_app_state(context, config, console_io)
     {
         _menu = new console_menu(console_io, "Main Menu", this, NULL);
         
         // Output setup
         _output_setup_item = new console_menu::item("Output Setup");
         _output_setup = new states::output_setup(
-            get_context(), console_io, file_io_provider, this);
+            context, config, console_io, file_io_provider, this);
         _menu->add_item(_output_setup_item);
 
         // Generator setup
         _generator_selector_item = new console_menu::item("Generator Setup");
         _generator_selector = new states::generator_selector(
-            "Generator Setup", get_context(), console_io, this);
+            "Generator Setup", context, config, console_io, this);
         _menu->add_item(_generator_selector_item);
 
         // Dispatcher setup
         _dispatcher_setup = new states::dispatcher_setup(
-            get_context(), console_io, this);
+            context, config, console_io, this);
         _dispatcher_setup_item = new console_menu::item("Dispatcher Setup");
         _menu->add_item(_dispatcher_setup_item);
 
         // Start dispatcher
         _start_dispatcher = new states::start_dispatcher(
-            get_context(),
+            context,
+            config,
             console_io,
             _output_setup,
             _generator_selector,

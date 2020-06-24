@@ -56,14 +56,16 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    console_io::console_io(bool ansi_color_on)
+    console_io::console_io(console_app_config* config)
     {
-        _ansi_color_on = ansi_color_on;
+        assert::argument_not_null(config, "config");
+
+        _config = config;
 
     } /* console_io */
 
     /*---------------------------------------------------------------------- */
-
+    
     void console_io::header_out(string_t title)
     {
         string_t menu_info = "";
@@ -97,7 +99,7 @@ namespace hyenae::frontend::console
 
         out(header);
 
-        if (_ansi_color_on)
+        if (_config->is_terminal_colors_on())
         {
             out("\n");
         }
@@ -123,13 +125,20 @@ namespace hyenae::frontend::console
 
         for (int i = 0; i < (int)MENU_WIDTH; i++)
         {
-            #if defined(CHARSET_ASCII)
-                text.append(string_t(1, (char)205));
-            #elif defined (CHARSET_UNICODE)
-                text.append("\u2550");
-            #else
+            if (_config->is_line_characters_on())
+            {
+                #if defined(CHARSET_ASCII)
+                    text.append(string_t(1, (char)205));
+                #elif defined (CHARSET_UNICODE)
+                    text.append("\u2550");
+                #else
+                    text.append("-");
+                #endif
+            }
+            else
+            {
                 text.append("-");
-            #endif
+            }
         }
 
         if (nl_after)
@@ -238,6 +247,20 @@ namespace hyenae::frontend::console
             menu_item_margin);
 
     } /* error_out */
+
+    /*---------------------------------------------------------------------- */
+
+    void console_io::app_start_error_out(string_t message)
+    {
+        string_t text = "";
+
+        text.append("(!) ");
+        text.append(message);
+        text.append("\n");
+
+        out(text);
+
+    } /* app_start_error_out */
 
     /*---------------------------------------------------------------------- */
 
@@ -515,7 +538,7 @@ namespace hyenae::frontend::console
     {
         string_t colored = "";
         
-        if (_ansi_color_on)
+        if (_config->is_terminal_colors_on())
         {
             colored.append(ansi_bg);
             colored.append(ansi_fg);

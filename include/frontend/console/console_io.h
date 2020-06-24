@@ -29,6 +29,7 @@
 
 #include "../../../include/os.h"
 #include "../../../include/common.h"
+#include "console_app_config.h"
 
 #ifdef OS_WINDOWS
     #define CHARSET_ASCII
@@ -74,10 +75,10 @@ namespace hyenae::frontend::console
             static const string_t ANSI_BG_WHITE;
 
         private:
-            bool _ansi_color_on;
+            console_app_config* _config;
 
         public:
-            console_io(bool ansi_color_on = true);
+            console_io(console_app_config* config);
             void header_out(string_t title);
             void separator_out(bool nl_before, bool nl_after);
             void menu_separator_out(bool nl_before, bool nl_after);
@@ -92,6 +93,7 @@ namespace hyenae::frontend::console
 
             void info_out(string_t message, bool menu_item_margin = false);
             void error_out(string_t message, bool menu_item_margin = false);
+            void app_start_error_out(string_t message);
             void task_out(string_t name);
             bool task_out(string_t name, func_t<bool()> task);
             void result_out(string_t name, string_t value);

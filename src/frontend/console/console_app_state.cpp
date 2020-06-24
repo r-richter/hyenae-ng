@@ -33,13 +33,16 @@ namespace hyenae::frontend::console
 
     console_app_state::console_app_state(
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         console_app_state* parent)
     {
         assert::argument_not_null(context, "context");
+        assert::argument_not_null(config, "config");
         assert::argument_not_null(console_io, "console_io");
 
         _context = context;
+        _config = config;
         _console_io = console_io;
         _parent = parent;
 
@@ -52,6 +55,14 @@ namespace hyenae::frontend::console
         return _context;
 
     } /* get_context */
+
+    /*---------------------------------------------------------------------- */
+
+    console_app_config* console_app_state::get_config() const
+    {
+        return _config;
+
+    } /* get_config */
 
     /*---------------------------------------------------------------------- */
 

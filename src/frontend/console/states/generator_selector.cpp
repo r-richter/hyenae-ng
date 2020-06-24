@@ -43,9 +43,10 @@ namespace hyenae::frontend::console::states
     generator_selector::generator_selector(
         string_t title,
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         console_app_state* parent) :
-            generator_setup(context, console_io, parent)
+            generator_setup(context, config, console_io, parent)
     {
         _title = title;
 
@@ -60,9 +61,10 @@ namespace hyenae::frontend::console::states
     generator_selector::generator_selector(
         string_t title,
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         generator_setup* parent) :
-            generator_setup(context, console_io, parent)
+            generator_setup(context, config, console_io, parent)
     {
         _title = title;
 
@@ -76,9 +78,10 @@ namespace hyenae::frontend::console::states
     generator_selector::generator_selector(
         string_t title,
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         ethernet_frame_setup* parent) :
-            generator_setup(context, console_io, parent)
+            generator_setup(context, config, console_io, parent)
     {
         _title = title;
 
@@ -95,9 +98,10 @@ namespace hyenae::frontend::console::states
     generator_selector::generator_selector(
         string_t title,
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         ip_v4_frame_setup* parent) :
-            generator_setup(context, console_io, parent)
+            generator_setup(context, config, console_io, parent)
     {
         _title = title;
 
@@ -114,9 +118,10 @@ namespace hyenae::frontend::console::states
     generator_selector::generator_selector(
         string_t title,
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         ip_v6_frame_setup* parent) :
-        generator_setup(context, console_io, parent)
+            generator_setup(context, config, console_io, parent)
     {
         _title = title;
 
@@ -134,9 +139,10 @@ namespace hyenae::frontend::console::states
     generator_selector::generator_selector(
         string_t title,
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         icmp_v4_frame_setup* parent) :
-            generator_setup(context, console_io, parent)
+            generator_setup(context, config, console_io, parent)
     {
         _title = title;
 
@@ -150,9 +156,10 @@ namespace hyenae::frontend::console::states
     generator_selector::generator_selector(
         string_t title,
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         icmp_v6_frame_setup* parent) :
-        generator_setup(context, console_io, parent)
+            generator_setup(context, config, console_io, parent)
     {
         _title = title;
 
@@ -165,13 +172,7 @@ namespace hyenae::frontend::console::states
 
     generator_selector::~generator_selector()
     {
-        // TODO: Replace with specific safe_delete method implementation
-        for (auto item : _menu_items)
-        {
-            delete item.first;
-            delete item.second;
-        }
-
+        safe_delete(_menu_items);
         safe_delete(_menu);
         safe_delete(_none_item);
 
@@ -288,7 +289,7 @@ namespace hyenae::frontend::console::states
         {
             // Ethernet-Frame
             setup = new ethernet_frame_setup(
-                get_context(), get_console(), get_parent());
+                get_context(), get_config(), get_console(), get_parent());
             setup->set_start_state(get_start_state());
             add_generator(setup);
         }
@@ -298,6 +299,7 @@ namespace hyenae::frontend::console::states
             // ARP-Frame
             setup = new arp_frame_setup(
                 get_context(),
+                get_config(),
                 get_console(),
                 get_parent(),
                 (ethernet_frame_setup*)get_parent());
@@ -310,6 +312,7 @@ namespace hyenae::frontend::console::states
             // IPv4-Frame
             setup =new ip_v4_frame_setup(
                 get_context(),
+                get_config(),
                 get_console(),
                 get_parent(),
                 (ethernet_frame_setup*) get_parent());
@@ -322,6 +325,7 @@ namespace hyenae::frontend::console::states
             // IPv6-Frame
             setup =new ip_v6_frame_setup(
                 get_context(),
+                get_config(),
                 get_console(),
                 get_parent(),
                 (ethernet_frame_setup*)get_parent());
@@ -335,6 +339,7 @@ namespace hyenae::frontend::console::states
             setup = new icmp_v4_frame_setup(
                 icmp_v4_frame_generator::IP_V4_PROTOCOL,
                 get_context(),
+                get_config(),
                 get_console(),
                 get_parent(),
                 (ip_frame_setup*)get_parent());
@@ -348,6 +353,7 @@ namespace hyenae::frontend::console::states
             setup = new icmp_v4_frame_setup(
                 icmp_v4_frame_generator::IP_V6_PROTOCOL,
                 get_context(),
+                get_config(),
                 get_console(),
                 get_parent(),
                 (ip_frame_setup*)get_parent());
@@ -361,6 +367,7 @@ namespace hyenae::frontend::console::states
             setup = new icmp_v6_frame_setup(
                 icmp_v6_frame_generator::IP_V6_PROTOCOL,
                 get_context(),
+                get_config(),
                 get_console(),
                 get_parent(),
                 (ip_frame_setup*)get_parent());
@@ -375,6 +382,7 @@ namespace hyenae::frontend::console::states
                 icmp_echo_payload_generator::ICMP_V4_TYPE,
                 icmp_echo_payload_generator::ICMP_V4_CODE,
                 get_context(),
+                get_config(),
                 get_console(),
                 get_parent(),
                 (icmp_frame_setup*)get_parent());
@@ -389,6 +397,7 @@ namespace hyenae::frontend::console::states
                 icmp_echo_payload_generator::ICMP_V6_TYPE,
                 icmp_echo_payload_generator::ICMP_V6_CODE,
                 get_context(),
+                get_config(),
                 get_console(),
                 get_parent(),
                 (icmp_frame_setup*)get_parent());
@@ -402,6 +411,7 @@ namespace hyenae::frontend::console::states
             setup = new tcp_frame_setup(
                 tcp_frame_generator::IP_V4_PROTOCOL,
                 get_context(),
+                get_config(),
                 get_console(),
                 get_parent(),
                 (ip_frame_setup*)get_parent());
@@ -415,6 +425,7 @@ namespace hyenae::frontend::console::states
             setup = new tcp_frame_setup(
                 tcp_frame_generator::IP_V6_NEXT_HEADER,
                 get_context(),
+                get_config(),
                 get_console(),
                 get_parent(),
                 (ip_frame_setup*)get_parent());
@@ -428,6 +439,7 @@ namespace hyenae::frontend::console::states
             setup =new udp_frame_setup(
                 udp_frame_generator::IP_V4_PROTOCOL,
                 get_context(),
+                get_config(),
                 get_console(),
                 get_parent(),
                 (ip_frame_setup*)get_parent());
@@ -441,6 +453,7 @@ namespace hyenae::frontend::console::states
             setup = new udp_frame_setup(
                 udp_frame_generator::IP_V6_NEXT_HEADER,
                 get_context(),
+                get_config(),
                 get_console(),
                 get_parent(),
                 (ip_frame_setup*)get_parent());
@@ -452,7 +465,7 @@ namespace hyenae::frontend::console::states
         {
             // Text-Buffer
             setup = new text_buffer_setup(
-                get_context(), get_console(), get_parent());
+                get_context(), get_config(), get_console(), get_parent());
             setup->set_start_state(get_start_state());
             add_generator(setup);
         }

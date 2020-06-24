@@ -33,9 +33,10 @@ namespace hyenae::frontend::console::states
 
     dispatcher_setup::dispatcher_setup(
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         console_app_state* parent) :
-            console_app_state(context, console_io, parent)
+            console_app_state(context, config, console_io, parent)
     {
         _limits = new limits_t(
             limits_t::SIZE_UNLIMITED,

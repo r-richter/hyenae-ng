@@ -152,6 +152,30 @@ of a few basic patterns:
 - Decremental IPv6 address between `:FFFF` and `:FF00`: 
   `1000:2000:3000:4000:5000:6000:7000:FF--`
 
+## Configuration File
+
+When Hyenae NG is started it will look for a configuration file named
+"hyenae.conf" in it's startup folder. If the file does not exist it will
+automatically create it.
+
+**IMPORTANT**\
+If the configuration file can not be parsed, Hyenae NG will give out an
+error message, requesting you to either fix or delete the configuration
+file.
+
+- **Frontend Section**
+
+  - **terminal_colors**\
+    If set to "on" (default), Hyenae will use ANSI terminal colors in order
+    to enhance it's user interface. If for some reasons the terminal you
+    are using does not support ANSI colors, you should set this to "off".
+
+  - **line_chars**\
+    If set to "on" (default) hyenae will use special line characters for
+    it's menu separators (In ASCII on Windows and UniCode on *nix based
+    systems). If you are encountering any strange separator outputs, you
+    should set this to "off".
+
 ## Contact
 
 - [E-Mail](mailto:hyenae.tool@googlemail.com)

@@ -73,6 +73,7 @@ namespace hyenae::frontend::console::states
         public:
             ip_v6_frame_setup(
                 console_app_state_context* context,
+                console_app_config* config,
                 console_io* console_io,
                 console_app_state* parent,
                 ethernet_frame_setup* ethernet_frame_setup);

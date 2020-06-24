@@ -34,11 +34,12 @@ namespace hyenae::frontend::console::states
 
     start_dispatcher::start_dispatcher(
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         output_setup* output_setup,
         generator_setup* generator_setup,
         dispatcher_setup* dispatcher_setup) :
-            console_app_state(context, console_io)
+            console_app_state(context, config, console_io)
     {
         assert::argument_not_null(output_setup, "output_setup");
         assert::argument_not_null(generator_setup, "generator_setup");

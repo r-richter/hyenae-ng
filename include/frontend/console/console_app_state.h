@@ -28,6 +28,7 @@
 #define CONSOLE_APP_STATE_H
 
 #include "console_io.h"
+#include "console_app_config.h"
 #include "console_app_state_context.h"
 
 namespace hyenae::frontend::console
@@ -40,17 +41,20 @@ namespace hyenae::frontend::console
     {
         private:
             console_app_state_context* _context;
+            console_app_config* _config;
             console_io* _console_io;
             console_app_state* _parent;
 
         public:
             console_app_state(
                 console_app_state_context* context,
+                console_app_config* console_app_config,
                 console_io* console_io,
                 console_app_state* parent = NULL);
 
             virtual ~console_app_state() {}
             console_app_state_context* get_context() const;
+            console_app_config* get_config() const;
             console_io* get_console() const;
             console_app_state* get_parent() const;
             void enter();

@@ -33,10 +33,16 @@ namespace hyenae::frontend::console::states
 
     icmp_frame_setup::icmp_frame_setup(
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         console_app_state* parent,
         ip_frame_setup* ip_frame_setup) :
-            ip_based_frame_setup(context, console_io, parent, ip_frame_setup)
+            ip_based_frame_setup(
+                context,
+                config,
+                console_io,
+                parent,
+                ip_frame_setup)
     {
         assert::argument_not_null(
             ip_frame_setup, "ip_frame_setup");

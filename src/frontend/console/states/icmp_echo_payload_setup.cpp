@@ -34,10 +34,11 @@ namespace hyenae::frontend::console::states
         uint8_t type,
         uint8_t code,
         console_app_state_context* context,
+        console_app_config* config,
         console_io* console_io,
         console_app_state* parent,
         icmp_frame_setup* icmp_frame_setup) :
-            generator_setup(context, console_io, parent)
+            generator_setup(context, config, console_io, parent)
     {
         assert::argument_not_null(
             _icmp_frame_setup = icmp_frame_setup, "icmp_frame_setup");

@@ -24,31 +24,47 @@
  *
  */
 
-#ifndef STD_CONSOLE_IO_H
-#define STD_CONSOLE_IO_H
+#ifndef CONSOLE_APP_CONFIG_H
+#define CONSOLE_APP_CONFIG_H
 
-#include "../console_io.h"
+#include "../../app_config.h"
 
-namespace hyenae::frontend::console::io
+namespace hyenae::frontend::console
 {
     /*---------------------------------------------------------------------- */
 
-    class std_console_io :
-        public console_io
-    {
+	class console_app_config :
+        public app_config
+	{
         public:
-            std_console_io(console_app_config* config);
-            bool was_key_pressed();
+            /* Section names */
+            static const string_t SECTION_FRONTEND;
+
+            /* Value names */
+            static const string_t VALUE_TERMINAL_COLORS;
+            static const string_t VALUE_LINE_CHARACTERS;
+
+        public:
+            console_app_config(
+                file_io::provider file_io_provider,
+                const string_t& filename = DEFAULT_FILENAME);
+
+            /* Frontend settings */
+            bool is_terminal_colors_on();
+            void set_terminal_colors_on(bool is_on);
+            bool is_line_characters_on();
+            void set_line_characters_on(bool is_on);
 
         protected:
-            void out(string_t out);
-            string_t in();
-            void clear();
+            void restore_defaults();
 
-    }; /* std_console_io */
+        private:
+            section_t* get_or_create_frontend_section();
+
+	}; /* console_app_config */
 
     /*---------------------------------------------------------------------- */
 
-} /* hyenae::frontend::console::io */
+} /* hyenae::frontend::console */
 
-#endif /* STD_CONSOLE_IO_H */
+#endif /* CONSOLE_APP_CONFIG_H */

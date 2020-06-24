@@ -63,8 +63,11 @@ namespace hyenae::model::outputs
 
     void file_output::close() noexcept
     {
-        _file_io->close();
-
+        if (_file_io != NULL)
+        {
+            _file_io->close();
+        }
+        
     } /* close */
 
     /*---------------------------------------------------------------------- */

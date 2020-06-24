@@ -24,31 +24,49 @@
  *
  */
 
-#ifndef STD_CONSOLE_IO_H
-#define STD_CONSOLE_IO_H
+#ifndef APP_CONFIG_H
+#define APP_CONFIG_H
 
-#include "../console_io.h"
+#include "config.h"
+#include "file_io.h"
 
-namespace hyenae::frontend::console::io
+namespace hyenae
 {
     /*---------------------------------------------------------------------- */
 
-    class std_console_io :
-        public console_io
-    {
+	class app_config
+	{
         public:
-            std_console_io(console_app_config* config);
-            bool was_key_pressed();
+            using value_t = config::value;
+            using section_t = config::section;
+
+            static const string_t DEFAULT_FILENAME;
+
+        private:
+            static const string_t SECTION_ROOT;
+
+            file_io* _file_io = NULL;
+            string_t _filename;
+            config* _config= NULL;
+
+        public:
+            app_config(
+                file_io::provider file_io_provider,
+                const string_t& filename = DEFAULT_FILENAME);
+
+            ~app_config();
+            void load();
+            void load_or_restore_defaults();
+            void save();
+            section_t* get_root_section();
 
         protected:
-            void out(string_t out);
-            string_t in();
-            void clear();
+            virtual void restore_defaults() = 0;
 
-    }; /* std_console_io */
+	}; /* app_config */
 
     /*---------------------------------------------------------------------- */
 
-} /* hyenae::frontend::console::io */
+} /* hyenae */
 
-#endif /* STD_CONSOLE_IO_H */
+#endif /* APP_CONFIG_H */

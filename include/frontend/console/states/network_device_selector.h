@@ -54,6 +54,7 @@ namespace hyenae::frontend::console::states
         public:
             network_device_selector(
                 console_app_state_context* context,
+                console_app_config* config,
                 console_io* console_io,
                 output_setup* parent);
             
