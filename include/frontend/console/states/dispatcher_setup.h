@@ -70,6 +70,7 @@ namespace hyenae::frontend::console::states
         public:
             dispatcher_setup(
                 console_app_state_context* context,
+                app_config* config,
                 console_io* console_io,
                 console_app_state* parent);
 

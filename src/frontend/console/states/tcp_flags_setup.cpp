@@ -32,12 +32,10 @@ namespace hyenae::frontend::console::states
 
     tcp_flags_setup::tcp_flags_setup(
         console_app_state_context* context,
+        app_config* config,
         console_io* console_io,
         tcp_frame_setup* parent) :
-            console_app_state(
-                context,
-                console_io,
-                parent)
+            console_app_state(context, config, console_io, parent)
     {
         _menu = new console_menu(
             console_io, "TCP-Flags Setup", this, parent);

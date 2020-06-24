@@ -36,9 +36,10 @@ namespace hyenae::frontend::console::states
 
     network_device_selector::network_device_selector(
         console_app_state_context* context,
+        app_config* config,
         console_io* console_io,
         output_setup* parent) :
-            console_app_state(context, console_io, parent)
+            console_app_state(context, config, console_io, parent)
     {
         string_t caption;
         vector_t<device_t*> devices_list;

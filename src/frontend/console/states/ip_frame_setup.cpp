@@ -33,10 +33,11 @@ namespace hyenae::frontend::console::states
 
     ip_frame_setup::ip_frame_setup(
         console_app_state_context* context,
+        app_config* config,
         console_io* console_io,
         console_app_state* parent,
         ethernet_frame_setup* ethernet_frame_setup) :
-            generator_setup(context, console_io, parent)
+            generator_setup(context, config, console_io, parent)
     {
         assert::argument_not_null(
             ethernet_frame_setup, "ethernet_frame_setup");

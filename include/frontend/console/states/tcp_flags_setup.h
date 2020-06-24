@@ -64,6 +64,7 @@ namespace hyenae::frontend::console::states
         public:
             tcp_flags_setup(
                 console_app_state_context* context,
+                app_config* config,
                 console_io* console_io,
                 tcp_frame_setup* parent);
 

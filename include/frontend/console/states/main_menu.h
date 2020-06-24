@@ -47,7 +47,6 @@ namespace hyenae::frontend::console::states
         using delay_t = model::duration_generator;
 
         private:
-            app_config* _config;
             console_menu* _menu = NULL;
             console_menu::item* _output_setup_item = NULL;
             console_menu::item* _generator_selector_item = NULL;

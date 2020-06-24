@@ -33,24 +33,26 @@ namespace hyenae::frontend::console::states
     tcp_frame_setup::tcp_frame_setup(
         uint8_t protocol,
         console_app_state_context* context,
+        app_config* config,
         console_io* console_io,
         console_app_state* parent,
         ip_frame_setup* ip_frame_setup) :
             ip_based_frame_setup(
                 context,
+                config,
                 console_io,
                 parent,
                 ip_frame_setup)
     {
         _protocol = protocol;
 
-        _flags_setup = new tcp_flags_setup(context, console_io, this);
+        _flags_setup = new tcp_flags_setup(context, config, console_io, this);
 
         _menu = new console_menu(
             console_io, get_generator_name() + " Setup", this, parent);
 
         _payload = new generator_selector(
-            "Payload Setup", context, console_io, this);
+            "Payload Setup", context, config, console_io, this);
 
         // Default values
         _src_port_pattern = "*****";
