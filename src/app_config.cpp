@@ -36,12 +36,12 @@ namespace hyenae
 
     app_config::app_config(
         file_io::provider file_io_provider,
-        const string_t& filename = DEFAULT_FILENAME) :
-            config("hyenae")
+        const string_t& filename = DEFAULT_FILENAME)
     {
         _file_io = file_io_provider();
         _filename = filename;
 
+        // TODO: If file exists load, if not save defaults
         restore_defaults();
         
     } /* app_config */
@@ -56,6 +56,7 @@ namespace hyenae
         }
         
         safe_delete(_file_io);
+        safe_delete(_config);
 
     } /* ~app_config() */
 
@@ -63,10 +64,12 @@ namespace hyenae
 
     void app_config::restore_defaults()
     {
-        get_root_section()->clear();
+        safe_delete(_config);
+
+        _config = new config("hyenae");
 
         config::section* frontend =
-            get_root_section()->add_sub_section("frontend");
+            _config->get_root_section()->add_sub_section("frontend");
 
         config::section* console =
             frontend->add_sub_section("console");
@@ -82,13 +85,17 @@ namespace hyenae
     {
         try
         {
+            safe_delete(_config);
+
             _file_io->open(_filename, false);
-            parse_and_replace_root_section(_file_io->read_all());
+            _config = config::parse(_file_io->read_all());
             _file_io->close();
         }
         catch (const exception_t& exception)
         {
             _file_io->close();
+
+            restore_defaults();
 
             throw runtime_error_t(exception.what());
         }
@@ -102,7 +109,7 @@ namespace hyenae
         try
         {
             _file_io->open(_filename, false);
-            _file_io->write(to_string());
+            _file_io->write(_config->to_string());
             _file_io->close();
         }
         catch (const exception_t& exception)

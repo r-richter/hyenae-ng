@@ -78,7 +78,6 @@ namespace hyenae
                     section* sub_section_by_name(const string_t& name) const;
                     config::section* add_sub_section(const string_t& name);
                     void remove_sub_section(const string_t& name);
-                    void clear();
 
                     config::value* add_value(
                         const string_t& name, const string_t& value = "");
@@ -108,10 +107,6 @@ namespace hyenae
             static config* parse(const string_t& text);
             section* get_root_section() const;
             string_t to_string();
-
-        protected:
-            void parse_and_replace_root_section(const string_t& text);
-            static section* parse_section(const string_t& text);
 
 	}; /* config */
 

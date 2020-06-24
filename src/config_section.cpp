@@ -157,15 +157,6 @@ namespace hyenae
 
     /*---------------------------------------------------------------------- */
 
-    void config::section::clear()
-    {
-        _values.clear();
-        _sub_sections.clear();
-
-    } /* clear */
-
-    /*---------------------------------------------------------------------- */
-
     config::value* config::section::add_value(
         const string_t& name, const string_t& value)
     {

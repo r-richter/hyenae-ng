@@ -34,8 +34,7 @@ namespace hyenae
 {
     /*---------------------------------------------------------------------- */
 
-	class app_config :
-        public config
+	class app_config
 	{
         public:
             static const string_t DEFAULT_FILENAME;
@@ -43,6 +42,7 @@ namespace hyenae
         private:
             file_io* _file_io = NULL;
             string_t _filename;
+            config* _config;
 
         public:
             app_config(
