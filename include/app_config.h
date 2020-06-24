@@ -58,7 +58,10 @@ namespace hyenae
             void load_or_create();
             void save();
             void restore_defaults();
-            config::section* get_root_section() const;
+
+            /* Console frontend settings */
+            bool get_console_frontend_terminal_colors();
+            bool get_console_frontend_line_chararacters();
 
 	}; /* app_config */
 

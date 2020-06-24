@@ -141,12 +141,24 @@ namespace hyenae
 
     /*---------------------------------------------------------------------- */
 
-    config::section* app_config::get_root_section() const
+    bool app_config::get_console_frontend_terminal_colors()
     {
-        return _config->get_root_section();
+        // TODO: Implement...
 
-    } /* get_root_section */
+        return true;
 
+    } /* get_console_frontend_terminal_colors */
+
+    /*---------------------------------------------------------------------- */
+
+    bool app_config::get_console_frontend_line_chararacters()
+    {
+        // TODO: Implement...
+        
+        return true;
+        
+    } /* get_console_frontend_line_chararacters */
+    
     /*---------------------------------------------------------------------- */
 
 } /* hyenae */

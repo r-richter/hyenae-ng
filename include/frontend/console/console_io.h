@@ -76,15 +76,9 @@ namespace hyenae::frontend::console
 
         private:
             app_config* _config;
-            bool _terminal_colors;
-            bool _line_characters;
 
         public:
             console_io(app_config* config);
-            bool get_terminal_colors() const;
-            void set_terminal_colors(bool is_on);
-            bool get_line_characters() const;
-            void set_line_characters(bool is_on);
             void header_out(string_t title);
             void separator_out(bool nl_before, bool nl_after);
             void menu_separator_out(bool nl_before, bool nl_after);
