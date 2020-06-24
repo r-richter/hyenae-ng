@@ -40,8 +40,13 @@ namespace hyenae
             static const string_t DEFAULT_FILENAME;
 
             /* Section names */
+            static const string_t SECTION_ROOT;
             static const string_t SECTION_FRONTEND;
-            static const string_t SECTION_FRONTEND_CONSOLE;
+            static const string_t SECTION_CONSOLE;
+
+            /* Value names */
+            static const string_t VALUE_TERMINAL_COLORS;
+            static const string_t VALUE_LINE_CHARACTERS;
 
         private:
             file_io* _file_io = NULL;
@@ -60,8 +65,8 @@ namespace hyenae
             void restore_defaults();
 
             /* Console frontend settings */
-            bool get_console_frontend_terminal_colors();
-            bool get_console_frontend_line_chararacters();
+            bool is_terminal_colors_on();
+            bool is_line_characters_on();
 
 	}; /* app_config */
 

@@ -30,8 +30,17 @@ namespace hyenae
 {
     /*---------------------------------------------------------------------- */
 
+    const string_t app_config::SECTION_ROOT = "hyenae";
     const string_t app_config::SECTION_FRONTEND = "frontend";
-    const string_t app_config::SECTION_FRONTEND_CONSOLE = "console";
+    const string_t app_config::SECTION_CONSOLE = "console";
+
+    /*---------------------------------------------------------------------- */
+
+    const string_t app_config::VALUE_TERMINAL_COLORS =
+        "terminal_colors";
+    
+    const string_t app_config::VALUE_LINE_CHARACTERS =
+        "line_characters";
 
     /*---------------------------------------------------------------------- */
 
@@ -142,40 +151,42 @@ namespace hyenae
 
         safe_delete(_config);
 
-        _config = new config("hyenae");
+        _config = new config(SECTION_ROOT);
 
         frontend =
             _config->get_root_section()->add_sub_section(SECTION_FRONTEND);
         
-        frontend_console = frontend->add_sub_section(SECTION_FRONTEND_CONSOLE);
-        frontend_console->add_value("terminal_colors", "on");
-        frontend_console->add_value("line_characters", "on");
+        frontend_console = frontend->add_sub_section(SECTION_CONSOLE);
+        frontend_console->add_value(VALUE_TERMINAL_COLORS, "on");
+        frontend_console->add_value(VALUE_LINE_CHARACTERS, "on");
 
     } /* restore_defaults */
 
     /*---------------------------------------------------------------------- */
 
-    bool app_config::get_console_frontend_terminal_colors()
+    bool app_config::is_terminal_colors_on()
     {
         config::section* section = _config->get_root_section()->
             sub_section_by_name(SECTION_FRONTEND)->
-                sub_section_by_name(SECTION_FRONTEND_CONSOLE);
+                sub_section_by_name(SECTION_CONSOLE);
 
-        return section->value_by_name("terminal_colors")->get_value() == "on";
+        return section->value_by_name(
+            VALUE_TERMINAL_COLORS)->get_value() == "on";
 
-    } /* get_console_frontend_terminal_colors */
+    } /* is_terminal_colors_on */
 
     /*---------------------------------------------------------------------- */
 
-    bool app_config::get_console_frontend_line_chararacters()
+    bool app_config::is_line_characters_on()
     {
         config::section* section = _config->get_root_section()->
             sub_section_by_name(SECTION_FRONTEND)->
-            sub_section_by_name(SECTION_FRONTEND_CONSOLE);
+            sub_section_by_name(SECTION_CONSOLE);
 
-        return section->value_by_name("line_characters")->get_value() == "on";
+        return section->value_by_name(
+            VALUE_LINE_CHARACTERS)->get_value() == "on";
         
-    } /* get_console_frontend_line_chararacters */
+    } /* is_line_characters_on */
     
     /*---------------------------------------------------------------------- */
 

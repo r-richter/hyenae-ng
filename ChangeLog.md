@@ -1,5 +1,5 @@
 ##  Version 0.10 (to be released)
-- ...\
+- Adde app configuration\
 \
 [Source Code](https://github.com/r-richter/hyenae-ng/releases/tag/v0.10)
 
