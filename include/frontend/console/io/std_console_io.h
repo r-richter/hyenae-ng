@@ -36,11 +36,8 @@ namespace hyenae::frontend::console::io
     class std_console_io :
         public console_io
     {
-        private:
-            static std_console_io* _instance;
-
         public:
-            static std_console_io* get_instance();
+            std_console_io(app_config* config);
             bool was_key_pressed();
 
         protected:

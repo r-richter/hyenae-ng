@@ -39,6 +39,10 @@ namespace hyenae
         public:
             static const string_t DEFAULT_FILENAME;
 
+            /* Section names */
+            static const string_t SECTION_FRONTEND;
+            static const string_t SECTION_FRONTEND_CONSOLE;
+
         private:
             file_io* _file_io = NULL;
             string_t _filename;

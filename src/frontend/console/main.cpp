@@ -33,26 +33,44 @@
 
 int main(int argc, char** argv)
 {
-    using namespace hyenae::frontend::console;
+    using exception_t = hyenae::exception_t;
+    using std_file_io_t = hyenae::io::std_file_io;
+    using app_config_t = hyenae::app_config;
     
-    hyenae::app_config config(hyenae::io::std_file_io::PROVIDER);
+    using std_console_io_t =
+        hyenae::frontend::console::io::std_console_io;
 
+    using console_app_t = hyenae::frontend::console::console_app;
+    
     try
     {
-        config.load_or_create();
+        app_config_t config(std_file_io_t::PROVIDER);
+        std_console_io_t console_io(&config);
+
+        // Load configuration
+        try
+        {
+            config.load_or_create();
+        }
+        catch (const exception_t& exception)
+        {
+            // TODO: Error message...
+
+            config.restore_defaults();
+        }
+
+        return (
+            new console_app_t(
+                &config,
+                &console_io,
+                std_file_io_t::PROVIDER))->run(argc, argv);
     }
     catch (const exception_t& exception)
     {
         // TODO: Error message...
 
-        config.restore_defaults();
+        return -1;
     }
-
-    return (
-        new console_app(
-            &config,
-            io::std_console_io::get_instance(),
-            hyenae::io::std_file_io::PROVIDER))->run(argc, argv);
 
 } /* main */
 

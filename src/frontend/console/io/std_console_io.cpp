@@ -42,21 +42,9 @@
 namespace hyenae::frontend::console::io
 {
     /*---------------------------------------------------------------------- */
-
-    std_console_io* std_console_io::_instance = NULL;
-
-    /*---------------------------------------------------------------------- */
-
-    std_console_io* std_console_io::get_instance()
-    {
-        if (_instance == NULL)
-        {
-            _instance = new std_console_io();
-        }
-
-        return _instance;
-
-    } /* get_instance */
+    
+    std_console_io::std_console_io(app_config* config) :
+        console_io(config) {}
 
     /*---------------------------------------------------------------------- */
 

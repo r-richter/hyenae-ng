@@ -30,6 +30,11 @@ namespace hyenae
 {
     /*---------------------------------------------------------------------- */
 
+    const string_t app_config::SECTION_FRONTEND = "frontend";
+    const string_t app_config::SECTION_FRONTEND_CONSOLE = "console";
+
+    /*---------------------------------------------------------------------- */
+
     const string_t app_config::DEFAULT_FILENAME = "./hyenae.conf";
 
     /*---------------------------------------------------------------------- */
@@ -126,9 +131,9 @@ namespace hyenae
         _config = new config("hyenae");
 
         frontend =
-            _config->get_root_section()->add_sub_section("frontend");
+            _config->get_root_section()->add_sub_section(SECTION_FRONTEND);
         
-        frontend_console = frontend->add_sub_section("frontend");
+        frontend_console = frontend->add_sub_section(SECTION_FRONTEND_CONSOLE);
         frontend_console->add_value("terminal_colors", "on");
         frontend_console->add_value("line_characters", "on");
 

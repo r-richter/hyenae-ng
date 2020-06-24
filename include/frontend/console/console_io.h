@@ -29,6 +29,7 @@
 
 #include "../../../include/os.h"
 #include "../../../include/common.h"
+#include "../../../include/app_config.h"
 
 #ifdef OS_WINDOWS
     #define CHARSET_ASCII
@@ -74,11 +75,12 @@ namespace hyenae::frontend::console
             static const string_t ANSI_BG_WHITE;
 
         private:
+            app_config* _config;
             bool _terminal_colors;
             bool _line_characters;
 
         public:
-            console_io();
+            console_io(app_config* config);
             bool get_terminal_colors() const;
             void set_terminal_colors(bool is_on);
             bool get_line_characters() const;

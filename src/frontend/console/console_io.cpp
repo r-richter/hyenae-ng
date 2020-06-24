@@ -56,9 +56,13 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    console_io::console_io()
+    console_io::console_io(app_config* config)
     {
-        _terminal_colors = true;
+        assert::argument_not_null(config, "config");
+
+        _config = config;
+
+        _terminal_colors = true; // TODO: Replace with direct config access
         _line_characters = true;
 
     } /* console_io */
