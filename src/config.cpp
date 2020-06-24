@@ -68,8 +68,6 @@ namespace hyenae
 
         try
         {
-            // TODO: Trim parsed names and values
-
             tmp = text;
 
             std::replace(tmp.begin(), tmp.end(), '\t', ' ');
@@ -85,12 +83,12 @@ namespace hyenae
 
                     if (cur_section == NULL)
                     {
-                        cur_section = new section(item_name);
+                        cur_section = new section(trim(item_name));
                     }
                     else
                     {
                         cur_section =
-                            cur_section->add_sub_section(item_name);
+                            cur_section->add_sub_section(trim(item_name));
                     }
 
                     sections.push_back(cur_section);
@@ -131,7 +129,7 @@ namespace hyenae
                         i++;
                     }
 
-                    cur_section->add_value(item_name, item_value);
+                    cur_section->add_value(trim(item_name), trim(item_value));
 
                     item_name = "";
                 }

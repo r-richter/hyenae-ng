@@ -121,10 +121,10 @@ namespace hyenae
     } /* safe_delete */
 
     int64_t to_ms(duration_t duration);
-
     string_t to_ms_string(duration_t duration);
-
     string_t concat(string_t a, string_t b);
+    string_t trim(const string_t& str);
+    string_t trim(const string_t& str, char chr);
 
     /*---------------------------------------------------------------------- */
 

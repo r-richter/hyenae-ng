@@ -62,4 +62,36 @@ namespace hyenae
 
     /*---------------------------------------------------------------------- */
 
+    string_t trim(const string_t& str)
+    {
+        string_t trimmed = str;
+
+        trimmed = trim(trimmed, ' ');
+        trimmed = trim(trimmed, '\t');
+        trimmed = trim(trimmed, '\n');
+
+        return trimmed;
+    }
+
+    /*---------------------------------------------------------------------- */
+
+    string_t trim(const string_t& str, char chr)
+    {
+        string_t trimmed = str;
+
+        while (trimmed.front() == chr)
+        {
+            trimmed = trimmed.substr(1);
+        }
+
+        while (trimmed.back() == chr)
+        {
+            trimmed = trimmed.substr(0, trimmed.size() - 1);
+        }
+
+        return trimmed;
+    }
+
+    /*---------------------------------------------------------------------- */
+
 } /* hyenae */

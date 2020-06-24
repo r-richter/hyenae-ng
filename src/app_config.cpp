@@ -157,9 +157,11 @@ namespace hyenae
 
     bool app_config::get_console_frontend_terminal_colors()
     {
-        // TODO: Implement...
+        config::section* section = _config->get_root_section()->
+            sub_section_by_name(SECTION_FRONTEND)->
+                sub_section_by_name(SECTION_FRONTEND_CONSOLE);
 
-        return true;
+        return section->value_by_name("terminal_colors")->get_value() == "on";
 
     } /* get_console_frontend_terminal_colors */
 
@@ -167,9 +169,11 @@ namespace hyenae
 
     bool app_config::get_console_frontend_line_chararacters()
     {
-        // TODO: Implement...
-        
-        return true;
+        config::section* section = _config->get_root_section()->
+            sub_section_by_name(SECTION_FRONTEND)->
+            sub_section_by_name(SECTION_FRONTEND_CONSOLE);
+
+        return section->value_by_name("line_characters")->get_value() == "on";
         
     } /* get_console_frontend_line_chararacters */
     

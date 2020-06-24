@@ -27,8 +27,6 @@
 #include "../../include/assert.h"
 #include "../../include/io/std_file_io.h"
 
-#include <filesystem>
-
 namespace hyenae::io
 {
     /*---------------------------------------------------------------------- */
@@ -50,7 +48,14 @@ namespace hyenae::io
 
     bool std_file_io::exists(const string_t& filename) const
     {
-        return std::filesystem::exists(filename);
+        bool exists = false;
+        std::fstream stream;
+
+        stream.open(filename);
+        exists = stream.is_open();
+        stream.close();
+
+        return exists;
 
     } /* exists */
 
@@ -65,7 +70,7 @@ namespace hyenae::io
             std::fstream::in | std::fstream::out |
                 (overwrite ? std::ios_base::trunc : std::ios_base::app));
         
-        assert::legal_call(is_open(), "", "failed to open");
+        assert::legal_call(!_stream.fail(), "", "failed to open");
 
     } /* open */
 
