@@ -10,9 +10,9 @@ comes with a fast and intuitively usable command line menu that will allow
 you to effectively set up even complex stress-tests or attack scenarios
 within seconds.
 
-![Main Menu](msc/main_menu.png "Main Menu")
-![IPv4 Setup](msc/ip_v4_setup.png "IPv4 Setup")
-![Start Dispatcher](msc/start_dispatcher.png "Start Dispatcher")
+![Main Menu](https://github.com/r-richter/hyenae-resources/blob/master/hyenae-ng/img/main_menu.png "Main Menu")
+![IPv4 Setup](https://github.com/r-richter/hyenae-resources/blob/master/hyenae-ng/img/ip_v4_setup.png "IPv4 Setup")
+![Start Dispatcher](https://github.com/r-richter/hyenae-resources/blob/master/hyenae-ng/img/start_dispatcher.png "Start Dispatcher")
 
 Copyright (C) 2020 Robin Richter
 
