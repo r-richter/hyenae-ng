@@ -56,7 +56,7 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    console_io::console_io(app_config* config)
+    console_io::console_io(console_app_config* config)
     {
         assert::argument_not_null(config, "config");
 
@@ -99,7 +99,7 @@ namespace hyenae::frontend::console
 
         out(header);
 
-        if (_config->get_console_frontend_terminal_colors())
+        if (_config->is_terminal_colors_on())
         {
             out("\n");
         }
@@ -125,7 +125,7 @@ namespace hyenae::frontend::console
 
         for (int i = 0; i < (int)MENU_WIDTH; i++)
         {
-            if (_config->get_console_frontend_line_chararacters())
+            if (_config->is_line_characters_on())
             {
                 #if defined(CHARSET_ASCII)
                     text.append(string_t(1, (char)205));
@@ -538,7 +538,7 @@ namespace hyenae::frontend::console
     {
         string_t colored = "";
         
-        if (_config->get_console_frontend_terminal_colors())
+        if (_config->is_terminal_colors_on())
         {
             colored.append(ansi_bg);
             colored.append(ansi_fg);

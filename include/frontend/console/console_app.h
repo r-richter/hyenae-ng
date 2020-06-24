@@ -27,8 +27,8 @@
 #ifndef CONSOLE_APP_H
 #define CONSOLE_APP_H
 
+#include "console_app_config.h"
 #include "../../../include/file_io.h"
-#include "../../../include/app_config.h"
 #include "../../../include/frontend/console/console_io.h"
 #include "../../../include/frontend/console/console_app_state.h"
 #include "../../../include/frontend/console/console_app_state_context.h"
@@ -41,13 +41,13 @@ namespace hyenae::frontend::console
         public console_app_state_context
     {
         private:
-            app_config* _config;
+            console_app_config* _config;
             console_io* _console_io;
             file_io::provider _file_io_provider;
 
         public:
             console_app(
-                app_config* config,
+                console_app_config* config,
                 console_io* console_io,
                 file_io::provider file_io_provider);
 

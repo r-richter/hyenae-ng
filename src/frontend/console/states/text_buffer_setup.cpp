@@ -32,7 +32,7 @@ namespace hyenae::frontend::console::states
 
     text_buffer_setup::text_buffer_setup(
         console_app_state_context* context,
-        app_config* config,
+        console_app_config* config,
         console_io* console_io,
         console_app_state* parent) :
             generator_setup(context, config, console_io, parent)

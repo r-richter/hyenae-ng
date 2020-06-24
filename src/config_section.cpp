@@ -138,6 +138,22 @@ namespace hyenae
 
     /*---------------------------------------------------------------------- */
 
+    config::section* config::section::get_or_create_sub_section(
+        const string_t& name)
+    {
+        if (has_sub_section(name))
+        {
+            return sub_section_by_name(name);
+        }
+        else
+        {
+            return add_sub_section(name);
+        }
+
+    } /* get_or_create_sub_section */
+
+    /*---------------------------------------------------------------------- */
+
     void config::section::remove_sub_section(const string_t& name)
     {
         section* sub_section = NULL;
@@ -192,6 +208,22 @@ namespace hyenae
         delete value;
 
     } /* remove_sub_section */
+
+    /*---------------------------------------------------------------------- */
+
+    config::value* config::section::get_or_create_value(
+        const string_t& name, const string_t& default_value)
+    {
+        if (has_value(name))
+        {
+            return value_by_name(name);
+        }
+        else
+        {
+            return add_value(name, default_value);
+        }
+
+    } /* get_or_create_value */
 
     /*---------------------------------------------------------------------- */
 

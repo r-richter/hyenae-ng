@@ -32,7 +32,7 @@ namespace hyenae::frontend::console::states
 
     generator_setup::generator_setup(
         console_app_state_context* context,
-        app_config* config,
+        console_app_config* config,
         console_io* console_io,
         console_app_state* parent) :
             console_app_state(context, config, console_io, parent) {}

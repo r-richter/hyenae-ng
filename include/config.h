@@ -77,12 +77,17 @@ namespace hyenae
                     value* value_by_name(const string_t& name) const;
                     section* sub_section_by_name(const string_t& name) const;
                     section* add_sub_section(const string_t& name);
+                    section* get_or_create_sub_section(const string_t& name);
                     void remove_sub_section(const string_t& name);
 
                     config::value* add_value(
                         const string_t& name, const string_t& value = "");
 
                     void remove_value(const string_t& name);
+                    
+                    value* get_or_create_value(
+                        const string_t& name, const string_t& default_value);
+
                     string_t to_string() const;
 
                 private:

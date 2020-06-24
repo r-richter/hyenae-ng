@@ -34,7 +34,7 @@ namespace hyenae::frontend::console::states
 
     start_dispatcher::start_dispatcher(
         console_app_state_context* context,
-        app_config* config,
+        console_app_config* config,
         console_io* console_io,
         output_setup* output_setup,
         generator_setup* generator_setup,

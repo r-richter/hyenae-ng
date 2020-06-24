@@ -31,16 +31,6 @@ namespace hyenae
     /*---------------------------------------------------------------------- */
 
     const string_t app_config::SECTION_ROOT = "hyenae";
-    const string_t app_config::SECTION_FRONTEND = "frontend";
-    const string_t app_config::SECTION_CONSOLE = "console";
-
-    /*---------------------------------------------------------------------- */
-
-    const string_t app_config::VALUE_TERMINAL_COLORS =
-        "terminal_colors";
-    
-    const string_t app_config::VALUE_LINE_CHARACTERS =
-        "line_characters";
 
     /*---------------------------------------------------------------------- */
 
@@ -53,8 +43,7 @@ namespace hyenae
     {
         _file_io = file_io_provider();
         _filename = filename;
-
-        restore_defaults();
+        _config = new config(SECTION_ROOT);
 
     } /* app_config */
 
@@ -95,7 +84,7 @@ namespace hyenae
 
     /*---------------------------------------------------------------------- */
 
-    void app_config::load_or_create()
+    void app_config::load_or_restore_defaults()
     {
         safe_delete(_config);
 
@@ -109,6 +98,8 @@ namespace hyenae
             }
             else
             {
+                _config = new config(SECTION_ROOT);
+
                 restore_defaults();
                 save();
             }
@@ -120,8 +111,7 @@ namespace hyenae
             throw runtime_error_t(exception.what());
         }
 
-
-    } /* load_or_create */
+    } /* load_or_restore_defaults */
 
     /*---------------------------------------------------------------------- */
 
@@ -132,7 +122,6 @@ namespace hyenae
             _file_io->open(_filename, true);
             _file_io->write(_config->to_string());
             _file_io->close();
-
         }
         catch (const exception_t& exception)
         {
@@ -141,53 +130,15 @@ namespace hyenae
             throw runtime_error_t(exception.what());
         }
     } /* save */
-    
-    /*---------------------------------------------------------------------- */
-
-    void app_config::restore_defaults()
-    {
-        config::section* frontend = NULL;
-        config::section* frontend_console = NULL;
-
-        safe_delete(_config);
-
-        _config = new config(SECTION_ROOT);
-
-        frontend =
-            _config->get_root_section()->add_sub_section(SECTION_FRONTEND);
-        
-        frontend_console = frontend->add_sub_section(SECTION_CONSOLE);
-        frontend_console->add_value(VALUE_TERMINAL_COLORS, "on");
-        frontend_console->add_value(VALUE_LINE_CHARACTERS, "on");
-
-    } /* restore_defaults */
 
     /*---------------------------------------------------------------------- */
 
-    bool app_config::is_terminal_colors_on()
+    app_config::section_t* app_config::get_root_section()
     {
-        config::section* section = _config->get_root_section()->
-            sub_section_by_name(SECTION_FRONTEND)->
-                sub_section_by_name(SECTION_CONSOLE);
+        return _config->get_root_section();
 
-        return section->value_by_name(
-            VALUE_TERMINAL_COLORS)->get_value() == "on";
+    } /* get_root_section */
 
-    } /* is_terminal_colors_on */
-
-    /*---------------------------------------------------------------------- */
-
-    bool app_config::is_line_characters_on()
-    {
-        config::section* section = _config->get_root_section()->
-            sub_section_by_name(SECTION_FRONTEND)->
-            sub_section_by_name(SECTION_CONSOLE);
-
-        return section->value_by_name(
-            VALUE_LINE_CHARACTERS)->get_value() == "on";
-        
-    } /* is_line_characters_on */
-    
     /*---------------------------------------------------------------------- */
 
 } /* hyenae */

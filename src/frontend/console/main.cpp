@@ -24,10 +24,11 @@
  *
  */
 
-#include "../../../include/app_config.h"
 #include "../../../include/io/std_file_io.h"
 #include "../../../include/frontend/console/console_app.h"
 #include "../../../include/frontend/console/io/std_console_io.h"
+#include "../../../include/frontend/console/console_app_config.h"
+
 
 /*---------------------------------------------------------------------- */
 
@@ -35,19 +36,21 @@ int main(int argc, char** argv)
 {
     using exception_t = hyenae::exception_t;
     using std_file_io_t = hyenae::io::std_file_io;
-    using app_config_t = hyenae::app_config;
+    
+    using console_app_config_t =
+        hyenae::frontend::console::console_app_config;
     
     using std_console_io_t =
         hyenae::frontend::console::io::std_console_io;
 
     using console_app_t = hyenae::frontend::console::console_app;
     
-    app_config_t config(std_file_io_t::PROVIDER);
+    console_app_config_t config(std_file_io_t::PROVIDER);
     std_console_io_t console_io(&config);
 
     try
     {
-        config.load_or_create();
+        config.load_or_restore_defaults();
 
         return (
             new console_app_t(

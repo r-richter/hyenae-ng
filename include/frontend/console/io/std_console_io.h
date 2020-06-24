@@ -37,7 +37,7 @@ namespace hyenae::frontend::console::io
         public console_io
     {
         public:
-            std_console_io(app_config* config);
+            std_console_io(console_app_config* config);
             bool was_key_pressed();
 
         protected:

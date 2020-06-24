@@ -43,7 +43,7 @@ namespace hyenae::frontend::console::io
 {
     /*---------------------------------------------------------------------- */
     
-    std_console_io::std_console_io(app_config* config) :
+    std_console_io::std_console_io(console_app_config* config) :
         console_io(config) {}
 
     /*---------------------------------------------------------------------- */

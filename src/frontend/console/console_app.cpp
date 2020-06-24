@@ -33,7 +33,7 @@ namespace hyenae::frontend::console
     /*---------------------------------------------------------------------- */
 
     console_app::console_app(
-        app_config* config,
+        console_app_config* config,
         console_io* console_io,
         file_io::provider file_io_provider)
     {

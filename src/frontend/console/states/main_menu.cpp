@@ -33,7 +33,7 @@ namespace hyenae::frontend::console::states
 
     main_menu::main_menu(
         console_app_state_context* context,
-        app_config* config,
+        console_app_config* config,
         console_io* console_io,
         file_io::provider file_io_provider) :
             console_app_state(context, config, console_io)

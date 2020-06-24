@@ -29,7 +29,7 @@
 
 #include "../../../include/os.h"
 #include "../../../include/common.h"
-#include "../../../include/app_config.h"
+#include "console_app_config.h"
 
 #ifdef OS_WINDOWS
     #define CHARSET_ASCII
@@ -75,10 +75,10 @@ namespace hyenae::frontend::console
             static const string_t ANSI_BG_WHITE;
 
         private:
-            app_config* _config;
+            console_app_config* _config;
 
         public:
-            console_io(app_config* config);
+            console_io(console_app_config* config);
             void header_out(string_t title);
             void separator_out(bool nl_before, bool nl_after);
             void menu_separator_out(bool nl_before, bool nl_after);

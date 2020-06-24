@@ -33,7 +33,7 @@ namespace hyenae::frontend::console::states
 
     ip_based_frame_setup::ip_based_frame_setup(
         console_app_state_context* context,
-        app_config* config,
+        console_app_config* config,
         console_io* console_io,
         console_app_state* parent,
         ip_frame_setup* ip_frame_setup) :

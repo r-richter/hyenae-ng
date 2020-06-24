@@ -33,7 +33,7 @@ namespace hyenae::frontend::console
 
     console_app_state::console_app_state(
         console_app_state_context* context,
-        app_config* config,
+        console_app_config* config,
         console_io* console_io,
         console_app_state* parent)
     {
@@ -58,7 +58,7 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    app_config* console_app_state::get_config() const
+    console_app_config* console_app_state::get_config() const
     {
         return _config;
 

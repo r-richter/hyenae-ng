@@ -37,18 +37,14 @@ namespace hyenae
 	class app_config
 	{
         public:
+            using value_t = config::value;
+            using section_t = config::section;
+
             static const string_t DEFAULT_FILENAME;
 
-            /* Section names */
-            static const string_t SECTION_ROOT;
-            static const string_t SECTION_FRONTEND;
-            static const string_t SECTION_CONSOLE;
-
-            /* Value names */
-            static const string_t VALUE_TERMINAL_COLORS;
-            static const string_t VALUE_LINE_CHARACTERS;
-
         private:
+            static const string_t SECTION_ROOT;
+
             file_io* _file_io = NULL;
             string_t _filename;
             config* _config= NULL;
@@ -60,13 +56,10 @@ namespace hyenae
 
             ~app_config();
             void load();
-            void load_or_create();
+            void load_or_restore_defaults();
             void save();
-            void restore_defaults();
-
-            /* Console frontend settings */
-            bool is_terminal_colors_on();
-            bool is_line_characters_on();
+            section_t* get_root_section();
+            virtual void restore_defaults() = 0;
 
 	}; /* app_config */
 

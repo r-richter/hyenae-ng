@@ -80,49 +80,49 @@ namespace hyenae::frontend::console::states
             generator_selector(
                 string_t title,
                 console_app_state_context* context,
-                app_config* config,
+                console_app_config* config,
                 console_io* console_io,
                 console_app_state* parent);
 
             generator_selector(
                 string_t title,
                 console_app_state_context* context,
-                app_config* config,
+                console_app_config* config,
                 console_io* console_io,
                 generator_setup* parent);
 
             generator_selector(
                 string_t title,
                 console_app_state_context* context,
-                app_config* config,
+                console_app_config* config,
                 console_io* console_io,
                 ethernet_frame_setup* parent);
 
             generator_selector(
                 string_t title,
                 console_app_state_context* context,
-                app_config* config,
+                console_app_config* config,
                 console_io* console_io,
                 ip_v4_frame_setup* parent);
 
             generator_selector(
                 string_t title,
                 console_app_state_context* context,
-                app_config* config,
+                console_app_config* config,
                 console_io* console_io,
                 ip_v6_frame_setup* parent);
 
             generator_selector(
                 string_t title,
                 console_app_state_context* context,
-                app_config* config,
+                console_app_config* config,
                 console_io* console_io,
                 icmp_v4_frame_setup* parent);
 
             generator_selector(
                 string_t title,
                 console_app_state_context* context,
-                app_config* config,
+                console_app_config* config,
                 console_io* console_io,
                 icmp_v6_frame_setup* parent);
 
