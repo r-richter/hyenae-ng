@@ -47,17 +47,7 @@ int main(int argc, char** argv)
         app_config_t config(std_file_io_t::PROVIDER);
         std_console_io_t console_io(&config);
 
-        // Load configuration
-        try
-        {
-            config.load_or_create();
-        }
-        catch (const exception_t& exception)
-        {
-            // TODO: Error message...
-
-            config.restore_defaults();
-        }
+        config.load_or_create();
 
         return (
             new console_app_t(

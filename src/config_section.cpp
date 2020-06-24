@@ -203,7 +203,7 @@ namespace hyenae
 
     /*---------------------------------------------------------------------- */
 
-    string_t config::to_string(size_t nesting_depth) const
+    string_t config::section::to_string(size_t nesting_depth) const
     {
         string_t section = "";
 

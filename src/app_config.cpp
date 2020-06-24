@@ -67,10 +67,10 @@ namespace hyenae
 
     void app_config::load()
     {
+        safe_delete(_config);
+
         try
         {
-            safe_delete(_config);
-
             _file_io->open(_filename, false);
             _config = config::parse(_file_io->read_all());
             _file_io->close();
@@ -88,15 +88,29 @@ namespace hyenae
 
     void app_config::load_or_create()
     {
+        safe_delete(_config);
+
         try
         {
-            load();
+            if (_file_io->exists(_filename))
+            {
+                _file_io->open(_filename, false);
+                _config = config::parse(_file_io->read_all());
+                _file_io->close();
+            }
+            else
+            {
+                restore_defaults();
+                save();
+            }
         }
         catch (const exception_t& exception)
         {
-            restore_defaults();
-            save();
+            _file_io->close();
+
+            throw runtime_error_t(exception.what());
         }
+
 
     } /* load_or_create */
 

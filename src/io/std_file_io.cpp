@@ -27,6 +27,8 @@
 #include "../../include/assert.h"
 #include "../../include/io/std_file_io.h"
 
+#include <filesystem>
+
 namespace hyenae::io
 {
     /*---------------------------------------------------------------------- */
@@ -43,6 +45,14 @@ namespace hyenae::io
         return _stream.is_open();
 
     } /* is_open */
+
+    /*---------------------------------------------------------------------- */
+
+    bool std_file_io::exists(const string_t& filename) const
+    {
+        return std::filesystem::exists(filename);
+
+    } /* exists */
 
     /*---------------------------------------------------------------------- */
 
