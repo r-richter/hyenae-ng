@@ -1,3 +1,8 @@
+##  Version 0.10 (to be released)
+- ...\
+\
+[Source Code](https://github.com/r-richter/hyenae-ng/releases/tag/v0.11)
+
 ##  Version 0.10 (Jun. 24th, 2020)
 - Added app configuration\
 \
