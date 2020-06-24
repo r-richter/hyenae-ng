@@ -53,6 +53,7 @@ namespace hyenae
             void restore_defaults();
             void load();
             void save();
+            config* get_config();
         
 	}; /* app_config */
 
