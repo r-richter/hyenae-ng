@@ -62,7 +62,8 @@ int main(int argc, char** argv)
     {
         console_io.app_start_error_out(
             hyenae::concat(
-                "Failed to load configuration: ", exception.what()));
+                "Please fix or delete configuration file: ",
+                exception.what()));
 
         return -1;
     }

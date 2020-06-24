@@ -59,6 +59,8 @@ namespace hyenae
             void load_or_restore_defaults();
             void save();
             section_t* get_root_section();
+
+        protected:
             virtual void restore_defaults() = 0;
 
 	}; /* app_config */
