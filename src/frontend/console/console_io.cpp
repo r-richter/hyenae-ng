@@ -56,12 +56,45 @@ namespace hyenae::frontend::console
 
     /*---------------------------------------------------------------------- */
 
-    console_io::console_io(bool ansi_color_on)
+    console_io::console_io()
     {
-        _ansi_color_on = ansi_color_on;
+        _terminal_colors = true;
+        _line_characters = true;
 
     } /* console_io */
 
+    /*---------------------------------------------------------------------- */
+
+    bool console_io::get_terminal_colors() const
+    {
+        return _terminal_colors;
+
+    } /* get_terminal_colors */
+
+    /*---------------------------------------------------------------------- */
+
+    void console_io::set_terminal_colors(bool is_on)
+    {
+        _terminal_colors = is_on;
+
+    } /* set_terminal_colors */
+    
+    /*---------------------------------------------------------------------- */
+
+    bool console_io::get_line_characters() const
+    {
+        return _line_characters;
+
+    } /* get_line_characters */
+    
+    /*---------------------------------------------------------------------- */
+
+    void console_io::set_line_characters(bool is_on)
+    {
+        _line_characters = is_on;
+
+    } /* set_line_characters */
+    
     /*---------------------------------------------------------------------- */
 
     void console_io::header_out(string_t title)
@@ -97,7 +130,7 @@ namespace hyenae::frontend::console
 
         out(header);
 
-        if (_ansi_color_on)
+        if (_terminal_colors)
         {
             out("\n");
         }
@@ -123,13 +156,20 @@ namespace hyenae::frontend::console
 
         for (int i = 0; i < (int)MENU_WIDTH; i++)
         {
-            #if defined(CHARSET_ASCII)
-                text.append(string_t(1, (char)205));
-            #elif defined (CHARSET_UNICODE)
-                text.append("\u2550");
-            #else
+            if (_line_characters)
+            {
+                #if defined(CHARSET_ASCII)
+                    text.append(string_t(1, (char)205));
+                #elif defined (CHARSET_UNICODE)
+                    text.append("\u2550");
+                #else
+                    text.append("-");
+                #endif
+            }
+            else
+            {
                 text.append("-");
-            #endif
+            }
         }
 
         if (nl_after)
@@ -515,7 +555,7 @@ namespace hyenae::frontend::console
     {
         string_t colored = "";
         
-        if (_ansi_color_on)
+        if (_terminal_colors)
         {
             colored.append(ansi_bg);
             colored.append(ansi_fg);

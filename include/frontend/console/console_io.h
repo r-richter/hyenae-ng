@@ -74,10 +74,15 @@ namespace hyenae::frontend::console
             static const string_t ANSI_BG_WHITE;
 
         private:
-            bool _ansi_color_on;
+            bool _terminal_colors;
+            bool _line_characters;
 
         public:
-            console_io(bool ansi_color_on = true);
+            console_io();
+            bool get_terminal_colors() const;
+            void set_terminal_colors(bool is_on);
+            bool get_line_characters() const;
+            void set_line_characters(bool is_on);
             void header_out(string_t title);
             void separator_out(bool nl_before, bool nl_after);
             void menu_separator_out(bool nl_before, bool nl_after);

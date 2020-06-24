@@ -33,10 +33,15 @@ namespace hyenae::frontend::console::states
 
     main_menu::main_menu(
         console_app_state_context* context,
+        app_config* config,
         console_io* console_io,
         file_io::provider file_io_provider) :
             console_app_state(context, console_io)
     {
+        assert::argument_not_null(config, "config");
+
+        _config = config;
+
         _menu = new console_menu(console_io, "Main Menu", this, NULL);
         
         // Output setup
