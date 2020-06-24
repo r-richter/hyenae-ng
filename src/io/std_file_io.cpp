@@ -54,6 +54,8 @@ namespace hyenae::io
             filename,
             std::fstream::in | std::fstream::out |
                 (overwrite ? std::ios_base::trunc : std::ios_base::app));
+        
+        assert::legal_call(is_open(), "", "failed to open");
 
     } /* open */
 
