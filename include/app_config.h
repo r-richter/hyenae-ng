@@ -24,37 +24,49 @@
  *
  */
 
-#include "../../../../include/assert.h"
-#include "../../../../include/frontend/console/states/ip_frame_setup.h"
+#ifndef APP_CONFIG_H
+#define APP_CONFIG_H
 
-namespace hyenae::frontend::console::states
+#include "config.h"
+#include "file_io.h"
+
+namespace hyenae
 {
     /*---------------------------------------------------------------------- */
 
-    ip_frame_setup::ip_frame_setup(
-        console_app_state_context* context,
-        app_config* config,
-        console_io* console_io,
-        console_app_state* parent,
-        ethernet_frame_setup* ethernet_frame_setup) :
-            generator_setup(context, config, console_io, parent)
-    {
-        assert::argument_not_null(
-            ethernet_frame_setup, "ethernet_frame_setup");
+	class app_config
+	{
+        public:
+            static const string_t DEFAULT_FILENAME;
 
-        _ethernet_frame_setup = ethernet_frame_setup;
+            /* Section names */
+            static const string_t SECTION_FRONTEND;
+            static const string_t SECTION_FRONTEND_CONSOLE;
 
-    } /* ip_frame_setup */
-    
+        private:
+            file_io* _file_io = NULL;
+            string_t _filename;
+            config* _config= NULL;
+
+        public:
+            app_config(
+                file_io::provider file_io_provider,
+                const string_t& filename = DEFAULT_FILENAME);
+
+            ~app_config();
+            void load();
+            void load_or_create();
+            void save();
+            void restore_defaults();
+
+            /* Console frontend settings */
+            bool get_console_frontend_terminal_colors();
+            bool get_console_frontend_line_chararacters();
+
+	}; /* app_config */
+
     /*---------------------------------------------------------------------- */
 
-    ethernet_frame_setup*
-        ip_frame_setup::get_ethernet_frame_setup() const
-    {
-        return _ethernet_frame_setup;
+} /* hyenae */
 
-    } /* get_ethernet_frame_setup */
-
-    /*---------------------------------------------------------------------- */
-
-} /* hyenae::frontend::console::states */
+#endif /* APP_CONFIG_H */

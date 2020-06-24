@@ -28,6 +28,7 @@
 #define MAIN_MENU_H
 
 #include "../../../../include/file_io.h"
+#include "../../../../include/app_config.h"
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/console_app_state.h"
 #include "../../../../include/frontend/console/states/output_setup.h"
@@ -58,6 +59,7 @@ namespace hyenae::frontend::console::states
         public:
             main_menu(
                 console_app_state_context* context,
+                app_config* config,
                 console_io* console_io,
                 file_io::provider file_io_provider);
 

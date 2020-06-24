@@ -32,16 +32,22 @@ namespace hyenae::frontend::console::states
 
     ip_v6_frame_setup::ip_v6_frame_setup(
         console_app_state_context* context,
+        app_config* config,
         console_io* console_io,
         console_app_state* parent,
         ethernet_frame_setup* ethernet_frame_setup) :
-            ip_frame_setup(context, console_io, parent, ethernet_frame_setup)
+            ip_frame_setup(
+                context,
+                config,
+                console_io,
+                parent,
+                ethernet_frame_setup)
     {
         _menu = new console_menu(
             console_io, get_generator_name() + " Setup", this, parent);
 
         _payload = new generator_selector(
-            "Payload Setup", context, console_io, this);
+            "Payload Setup", context, config, console_io, this);
 
         // Default values
         _traffic_class = 0;

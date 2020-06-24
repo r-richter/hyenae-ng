@@ -24,6 +24,7 @@
  *
  */
 
+#include "../../../include/app_config.h"
 #include "../../../include/io/std_file_io.h"
 #include "../../../include/frontend/console/console_app.h"
 #include "../../../include/frontend/console/io/std_console_io.h"
@@ -32,12 +33,36 @@
 
 int main(int argc, char** argv)
 {
-    using namespace hyenae::frontend::console;
+    using exception_t = hyenae::exception_t;
+    using std_file_io_t = hyenae::io::std_file_io;
+    using app_config_t = hyenae::app_config;
+    
+    using std_console_io_t =
+        hyenae::frontend::console::io::std_console_io;
 
-    return (
-        new console_app(
-            io::std_console_io::get_instance(),
-            hyenae::io::std_file_io::PROVIDER))->run(argc, argv);
+    using console_app_t = hyenae::frontend::console::console_app;
+    
+    app_config_t config(std_file_io_t::PROVIDER);
+    std_console_io_t console_io(&config);
+
+    try
+    {
+        config.load_or_create();
+
+        return (
+            new console_app_t(
+                &config,
+                &console_io,
+                std_file_io_t::PROVIDER))->run(argc, argv);
+    }
+    catch (const exception_t& exception)
+    {
+        console_io.app_start_error_out(
+            hyenae::concat(
+                "Failed to load configuration: ", exception.what()));
+
+        return -1;
+    }
 
 } /* main */
 

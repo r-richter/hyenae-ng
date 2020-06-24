@@ -39,10 +39,11 @@ namespace hyenae::frontend::console::states
 
     output_setup::output_setup(
         console_app_state_context* context,
+        app_config* config,
         console_io* console_io,
         file_io::provider file_io_provider,
         console_app_state* parent) :
-            console_app_state(context, console_io, parent)
+            console_app_state(context, config, console_io, parent)
     {
         string_t caption;
         
@@ -64,7 +65,7 @@ namespace hyenae::frontend::console::states
             _network_error = "";
 
             _network_device_selector = new network_device_selector(
-                context, console_io, this);
+                context, config, console_io, this);
 
             _network_output_item = add_output("Network Adapter", NULL);
         }

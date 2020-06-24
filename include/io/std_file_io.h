@@ -46,6 +46,7 @@ namespace hyenae::io
 			
 		public:
 			bool is_open() const;
+            bool exists(const string_t& filename) const;
 			void open(const string_t& filename, bool overwrite);
 			void close() noexcept;
 			void write(const string_t& content);

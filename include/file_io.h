@@ -40,6 +40,7 @@ namespace hyenae
 
             virtual ~file_io() {}
 			virtual bool is_open() const = 0;
+            virtual bool exists(const string_t& filename) const = 0;
 			virtual void open(const string_t& filename, bool overwrite) = 0;
 			virtual void close() noexcept  = 0;
 			virtual void write(const string_t& content) = 0;

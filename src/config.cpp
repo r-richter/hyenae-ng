@@ -83,12 +83,12 @@ namespace hyenae
 
                     if (cur_section == NULL)
                     {
-                        cur_section = new section(item_name);
+                        cur_section = new section(trim(item_name));
                     }
                     else
                     {
                         cur_section =
-                            cur_section->add_sub_section(item_name);
+                            cur_section->add_sub_section(trim(item_name));
                     }
 
                     sections.push_back(cur_section);
@@ -129,7 +129,7 @@ namespace hyenae
                         i++;
                     }
 
-                    cur_section->add_value(item_name, item_value);
+                    cur_section->add_value(trim(item_name), trim(item_value));
 
                     item_name = "";
                 }
@@ -181,7 +181,7 @@ namespace hyenae
             
             throw runtime_error_t(exception.what());
         }
-
+        
         return new config(cur_section);
 
     } /* parse */

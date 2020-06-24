@@ -76,7 +76,7 @@ namespace hyenae
                     section* sub_section_at(const size_t pos) const;
                     value* value_by_name(const string_t& name) const;
                     section* sub_section_by_name(const string_t& name) const;
-                    config::section* add_sub_section(const string_t& name);
+                    section* add_sub_section(const string_t& name);
                     void remove_sub_section(const string_t& name);
 
                     config::value* add_value(
@@ -86,6 +86,8 @@ namespace hyenae
                     string_t to_string() const;
 
                 private:
+                    string_t to_string(size_t nesting_depth) const;
+                    
                     value* value_by_name(
                         const string_t& name, bool throw_exception) const;
 

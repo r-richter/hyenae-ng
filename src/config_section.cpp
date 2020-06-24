@@ -197,22 +197,39 @@ namespace hyenae
 
     string_t config::section::to_string() const
     {
+        return to_string(0);
+
+    } /* to_string */
+
+    /*---------------------------------------------------------------------- */
+
+    string_t config::section::to_string(size_t nesting_depth) const
+    {
         string_t section = "";
 
+        section.append(string_t(nesting_depth, '\t'));
         section.append(_name);
+        section.push_back('\n');
+
+        section.append(string_t(nesting_depth, '\t'));
         section.push_back(config::SECTION_ASSIGNER);
+        section.push_back('\n');
         
         for (auto value : _values)
         {
+            section.append(string_t(nesting_depth + 1, '\t'));
             section.append(value->to_string());
+            section.push_back('\n');
         }
 
         for (auto sub_section : _sub_sections)
         {
-            section.append(sub_section->to_string());
+            section.append(sub_section->to_string(nesting_depth + 1));
         }
 
+        section.append(string_t(nesting_depth, '\t'));
         section.push_back(config::SECTION_DELIMITER);
+        section.push_back('\n');
 
         return section;
 

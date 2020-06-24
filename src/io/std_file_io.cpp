@@ -46,6 +46,21 @@ namespace hyenae::io
 
     /*---------------------------------------------------------------------- */
 
+    bool std_file_io::exists(const string_t& filename) const
+    {
+        bool exists = false;
+        std::fstream stream;
+
+        stream.open(filename);
+        exists = stream.is_open();
+        stream.close();
+
+        return exists;
+
+    } /* exists */
+
+    /*---------------------------------------------------------------------- */
+
     void std_file_io::open(const string_t& filename, bool overwrite)
     {
         assert::legal_call(!is_open(), "", "already open");
@@ -54,6 +69,8 @@ namespace hyenae::io
             filename,
             std::fstream::in | std::fstream::out |
                 (overwrite ? std::ios_base::trunc : std::ios_base::app));
+        
+        assert::legal_call(!_stream.fail(), "", "failed to open");
 
     } /* open */
 
