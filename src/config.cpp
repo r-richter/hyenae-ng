@@ -58,6 +58,40 @@ namespace hyenae
 
     config* config::parse(const string_t& text)
     {
+        return new config(parse_section(text));
+
+    } /* parse */
+
+    /*---------------------------------------------------------------------- */
+
+    config::section* config::get_root_section() const
+    {
+        return _root_section;
+
+    } /* get_root_section */
+
+    /*---------------------------------------------------------------------- */
+
+    string_t config::to_string()
+    {
+        return _root_section->to_string();
+
+    } /* to_string */
+
+    /*---------------------------------------------------------------------- */
+
+    void config::parse_and_replace_root_section(const string_t& text);
+    {
+        safe_delete(_root_section);
+
+        _root_section = parse_section(text);
+
+    } /* parse_and_replace_root_section */
+
+    /*---------------------------------------------------------------------- */
+
+    config::section* config::parse_section(const string_t& text)
+    {
         char chr = 0;
         string_t tmp = "";
         string_t item_name = "";
@@ -68,6 +102,8 @@ namespace hyenae
 
         try
         {
+            // TODO: Trim parsed names and values
+
             tmp = text;
 
             std::replace(tmp.begin(), tmp.end(), '\t', ' ');
@@ -182,25 +218,9 @@ namespace hyenae
             throw runtime_error_t(exception.what());
         }
 
-        return new config(cur_section);
+        return cur_section;
 
-    } /* parse */
-
-    /*---------------------------------------------------------------------- */
-
-    config::section* config::get_root_section() const
-    {
-        return _root_section;
-
-    } /* get_root_section */
-
-    /*---------------------------------------------------------------------- */
-
-    string_t config::to_string()
-    {
-        return _root_section->to_string();
-
-    } /* to_string */
+    } /* parse_section */
 
     /*---------------------------------------------------------------------- */
 
