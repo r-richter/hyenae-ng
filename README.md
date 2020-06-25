@@ -27,6 +27,8 @@ Copyright (C) 2020 Robin Richter
   - ICMPv6-Layer
   - TCP-Layer
   - UDP-Layer
+  - DHCPv4-Layer
+  - DHCPv6-Layer (Ready)
   - Text-Buffer
 - Fixed or Random Send Delay
 - Pattern based address randomization
