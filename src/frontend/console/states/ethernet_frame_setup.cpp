@@ -138,14 +138,6 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    uint16_t ethernet_frame_setup::get_type() const
-    {
-        return _type;
-
-    } /* get_type */
-
-    /*---------------------------------------------------------------------- */
-
     void ethernet_frame_setup::set_type(uint16_t type)
     {
         _type = type;

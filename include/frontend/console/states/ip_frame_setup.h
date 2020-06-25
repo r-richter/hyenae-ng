@@ -52,7 +52,6 @@ namespace hyenae::frontend::console::states
 
             virtual ~ip_frame_setup() {};
             virtual bool run() = 0;
-            virtual uint8_t get_protocol() const = 0;
             virtual void set_protocol(uint8_t protocol) = 0;
             virtual string_t get_generator_name() const = 0;
             virtual data_generator_t* get_generator() const = 0;

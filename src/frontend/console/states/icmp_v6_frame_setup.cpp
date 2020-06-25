@@ -134,27 +134,11 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    uint8_t icmp_v6_frame_setup::get_type() const
-    {
-        return _type;
-
-    } /* get_type */
-
-    /*---------------------------------------------------------------------- */
-
     void icmp_v6_frame_setup::set_type(uint8_t type)
     {
         _type = type;
 
     } /* set_type */
-
-    /*---------------------------------------------------------------------- */
-
-    uint8_t icmp_v6_frame_setup::get_code() const
-    {
-        return _code;
-
-    } /* get_code */
 
     /*---------------------------------------------------------------------- */
 

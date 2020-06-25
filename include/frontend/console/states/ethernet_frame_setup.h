@@ -72,7 +72,6 @@ namespace hyenae::frontend::console::states
 
             ~ethernet_frame_setup();
             bool run();
-            uint16_t get_type() const;
             void set_type(uint16_t type);
             string_t get_generator_name() const;
             data_generator_t* get_generator() const;

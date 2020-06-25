@@ -86,7 +86,6 @@ namespace hyenae::frontend::console::states
 
             ~ip_v4_frame_setup();
             bool run();
-            uint8_t get_protocol() const;
             void set_protocol(uint8_t protocol);
             string_t get_generator_name() const;
             data_generator_t* get_generator() const;

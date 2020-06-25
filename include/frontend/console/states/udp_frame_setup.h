@@ -64,6 +64,8 @@ namespace hyenae::frontend::console::states
 
             ~udp_frame_setup();
             bool run();
+            void set_src_port(uint16_t port);
+            void set_dst_port(uint16_t port);
             string_t get_generator_name() const;
             data_generator_t* get_generator() const;
             void update_generator();

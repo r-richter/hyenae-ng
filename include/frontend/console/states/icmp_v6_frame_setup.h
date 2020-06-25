@@ -66,9 +66,7 @@ namespace hyenae::frontend::console::states
             bool run();
             string_t get_generator_name() const;
             data_generator_t* get_generator() const;
-            uint8_t get_type() const;
             void set_type(uint8_t type);
-            uint8_t get_code() const;
             void set_code(uint8_t code);
             void update_generator();
 

@@ -117,6 +117,22 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
+    void udp_frame_setup::set_src_port(uint16_t port)
+    {
+        _src_port_pattern = std::to_string(port);
+
+    } /* set_src_port */
+
+    /*---------------------------------------------------------------------- */
+
+    void udp_frame_setup::set_dst_port(uint16_t port)
+    {
+        _dst_port_pattern = std::to_string(port);
+
+    } /* set_dst_port */
+
+    /*---------------------------------------------------------------------- */
+
     string_t udp_frame_setup::get_generator_name() const
     {
         return "UDP-Frame";

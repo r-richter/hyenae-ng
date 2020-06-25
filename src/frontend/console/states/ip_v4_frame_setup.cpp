@@ -184,14 +184,6 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    uint8_t ip_v4_frame_setup::get_protocol() const
-    {
-        return _protocol;
-
-    } /* get_protocol */
-
-    /*---------------------------------------------------------------------- */
-
     void ip_v4_frame_setup::set_protocol(uint8_t protocol)
     {
         _protocol = protocol;

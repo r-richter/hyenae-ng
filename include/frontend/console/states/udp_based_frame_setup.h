@@ -24,46 +24,45 @@
  *
  */
 
-#ifndef ICMP_FRAME_SETUP_H
-#define ICMP_FRAME_SETUP_H
+#ifndef UDP_BASED_FRAME_SETUP_H
+#define UDP_BASED_FRAME_SETUP_H
 
 #include "../../../../include/frontend/console/states/generator_setup.h"
-#include "../../../../include/frontend/console/states/ip_based_frame_setup.h"
+#include "../../../../include/frontend/console/states/udp_frame_setup.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    class ip_frame_setup;
+    class udp_based_frame_setup;
 
-    class icmp_frame_setup :
-        public ip_based_frame_setup
+    class udp_based_frame_setup :
+        public generator_setup
     {
         private:
-            ip_frame_setup* _ip_frame_setup;
+            udp_frame_setup* _udp_frame_setup;
 
         public:
-            icmp_frame_setup(
+            udp_based_frame_setup(
                 console_app_state_context* context,
                 console_app_config* config,
                 console_io* console_io,
                 console_app_state* parent,
-                ip_frame_setup* ip_frame_setup);
+                udp_frame_setup* udp_frame_setup);
 
-            virtual ~icmp_frame_setup() {};
+            virtual ~udp_based_frame_setup() {};
             virtual bool run() = 0;
             virtual string_t get_generator_name() const = 0;
             virtual data_generator_t* get_generator() const = 0;
-            virtual void set_type(uint8_t type) = 0;
-            virtual void set_code(uint8_t code) = 0;
 
         protected:
             virtual void on_select() = 0;
+            udp_frame_setup* get_udp_frame_setup() const;
 
-    }; /* icmp_frame_setup */
+    }; /* udp_based_frame_setup */
 
     /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 
-#endif /* ICMP_FRAME_SETUP_H */
+#endif /* UDP_BASED_FRAME_SETUP_H */
