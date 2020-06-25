@@ -46,7 +46,13 @@ namespace hyenae::model::generators
             fixed_data_generator(uint16_t value);
             fixed_data_generator(uint32_t value);
             fixed_data_generator(uint64_t value);
-            fixed_data_generator(const byte_t* data, size_t size, bool clone);
+
+            fixed_data_generator(
+                const string_t& text, size_t size, char pad_chr);
+
+            fixed_data_generator(
+                const byte_t* data, size_t size, bool clone);
+
             ~fixed_data_generator();
             static fixed_data_generator* allocate_uint8();
             static fixed_data_generator* allocate_uint16();

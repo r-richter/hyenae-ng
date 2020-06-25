@@ -47,6 +47,27 @@ namespace hyenae::model::generators
         fixed_data_generator((byte_t*)&value, 8, true) {};
 
     /*---------------------------------------------------------------------- */
+    
+    fixed_data_generator::fixed_data_generator(
+        const string_t& text, size_t size, char pad_chr)
+    {
+        string_t padded = "";
+
+        assert::in_range(size > 0, "size");
+        assert::no_overflow(text.size() <= size);
+
+        padded = text + string_t(size - text.size(), pad_chr);
+
+        _data = (byte_t*)malloc(size);
+        memset(_data, 0, size);
+        memcpy(_data, padded.c_str(), size);
+
+        _size = size;
+        _free_on_destruction = true;
+
+    } /* fixed_data_generator */
+
+    /*---------------------------------------------------------------------- */
 
     fixed_data_generator::fixed_data_generator(
         const byte_t* data, size_t size, bool clone)
