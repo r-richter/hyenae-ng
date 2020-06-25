@@ -119,7 +119,7 @@ namespace hyenae::model::generators::protocols
         _flow_label->next(false);
         _src_ip_addr->next(false);
         _dst_ip_addr->next(false);
-        _payload.next();
+        _payload.next(false);
 
         update_version_traffic_flow();
         update_payload_length();
@@ -138,7 +138,7 @@ namespace hyenae::model::generators::protocols
         _flow_label->reset(false);
         _src_ip_addr->reset(false);
         _dst_ip_addr->reset(false);
-        _payload.reset();
+        _payload.reset(false);
 
         update_version_traffic_flow();
         update_payload_length();

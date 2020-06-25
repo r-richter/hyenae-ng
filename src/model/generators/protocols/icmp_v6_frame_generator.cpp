@@ -82,7 +82,7 @@ namespace hyenae::model::generators::protocols
 
     void icmp_v6_frame_generator::next(bool data_changed)
     {
-        _payload.next();
+        _payload.next(false);
 
         if (data_changed)
         {
@@ -95,7 +95,7 @@ namespace hyenae::model::generators::protocols
 
     void icmp_v6_frame_generator::reset(bool data_changed)
     {
-        _payload.reset();
+        _payload.reset(false);
         
         if (data_changed)
         {

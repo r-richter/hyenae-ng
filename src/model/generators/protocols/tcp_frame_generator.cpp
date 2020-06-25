@@ -166,7 +166,7 @@ namespace hyenae::model::generators::protocols
         _ack_num->next(false);
         _win_size->next(false);
         _urg_pointer->next(false);
-        _payload.next();
+        _payload.next(false);
 
         if (data_changed)
         {
@@ -185,7 +185,7 @@ namespace hyenae::model::generators::protocols
         _ack_num->reset(false);
         _win_size->reset(false);
         _urg_pointer->reset(false);
-        _payload.reset();
+        _payload.reset(false);
 
         if (data_changed)
         {

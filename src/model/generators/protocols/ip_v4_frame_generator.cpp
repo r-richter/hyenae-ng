@@ -161,7 +161,7 @@ namespace hyenae::model::generators::protocols
         _id->next(false);
         _src_ip_addr->next(false);
         _dst_ip_addr->next(false);
-        _payload.next();
+        _payload.next(false);
 
         update_payload_length();
         update_flags_frag_offset();
@@ -181,7 +181,7 @@ namespace hyenae::model::generators::protocols
         _id->reset(false);
         _src_ip_addr->reset(false);
         _dst_ip_addr->reset(false);
-        _payload.reset();
+        _payload.reset(false);
 
         update_payload_length();
         update_flags_frag_offset();

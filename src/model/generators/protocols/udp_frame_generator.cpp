@@ -102,7 +102,7 @@ namespace hyenae::model::generators::protocols
     {
         _src_port->next(false);
         _dst_port->next(false);
-        _payload.next();
+        _payload.next(false);
 
         update_length();
 
@@ -119,7 +119,7 @@ namespace hyenae::model::generators::protocols
     {
         _src_port->reset(false);
         _dst_port->reset(false);
-        _payload.reset();
+        _payload.reset(false);
 
         update_length();
 

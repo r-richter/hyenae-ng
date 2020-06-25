@@ -110,7 +110,7 @@ namespace hyenae::model::generators::protocols
     {
         _src_mac_addr->next(false);
         _dst_mac_addr->next(false);
-        _payload.next();
+        _payload.next(false);
 
         if (data_changed)
         {
@@ -125,7 +125,7 @@ namespace hyenae::model::generators::protocols
     {
         _src_mac_addr->reset(false);
         _dst_mac_addr->reset(false);
-        _payload.next();
+        _payload.next(false);
 
         if (data_changed)
         {
