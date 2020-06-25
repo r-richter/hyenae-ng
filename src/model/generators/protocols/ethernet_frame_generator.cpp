@@ -59,7 +59,8 @@ namespace hyenae::model::generators::protocols
         _packet.add_generator(_dst_mac_addr);
 
         // Type
-        _type = new fixed_data_generator(type);
+        _type = fixed_data_generator::allocate_uint16();
+        _type->set_uint16(type);
         _type->add_transformation(to_network_order_t::get_instance());
         _packet.add_generator(_type);
 
