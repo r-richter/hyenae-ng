@@ -34,6 +34,8 @@
 #include "../../../../include/frontend/console/states/icmp_echo_payload_setup.h"
 #include "../../../../include/frontend/console/states/udp_frame_setup.h"
 #include "../../../../include/frontend/console/states/tcp_frame_setup.h"
+#include "../../../../include/frontend/console/states/dhcp_v4_frame_setup.h"
+#include "../../../../include/frontend/console/states/dhcp_v6_frame_setup.h"
 #include "../../../../include/frontend/console/states/text_buffer_setup.h"
 
 namespace hyenae::frontend::console::states
@@ -165,6 +167,42 @@ namespace hyenae::frontend::console::states
 
         _generator_flags =
             GFLAG_ICMP_V6_ECHO_PAYLOAD;
+
+    } /* generator_selector */
+
+    /*---------------------------------------------------------------------- */
+
+    generator_selector::generator_selector(
+        string_t title,
+        console_app_state_context* context,
+        console_app_config* config,
+        console_io* console_io,
+        udp_over_ip_v4_frame_setup* parent) :
+        generator_setup(context, config, console_io, parent)
+    {
+        _title = title;
+
+        _generator_flags =
+            GFLAG_DHCP_V4 |
+            GFLAG_TEXT_BUFFER;
+
+    } /* generator_selector */
+
+    /*---------------------------------------------------------------------- */
+
+    generator_selector::generator_selector(
+        string_t title,
+        console_app_state_context* context,
+        console_app_config* config,
+        console_io* console_io,
+        udp_over_ip_v6_frame_setup* parent) :
+        generator_setup(context, config, console_io, parent)
+    {
+        _title = title;
+
+        _generator_flags =
+            GFLAG_DHCP_V6 |
+            GFLAG_TEXT_BUFFER;
 
     } /* generator_selector */
 
@@ -408,8 +446,7 @@ namespace hyenae::frontend::console::states
         if (_generator_flags & GFLAG_TCP_OVER_IP_V4_FRAME)
         {
             // TCP over IPv4 Frame
-            setup = new tcp_frame_setup(
-                tcp_frame_generator::IP_V4_PROTOCOL,
+            setup = new tcp_over_ip_v4_frame_setup(
                 get_context(),
                 get_config(),
                 get_console(),
@@ -422,8 +459,7 @@ namespace hyenae::frontend::console::states
         if (_generator_flags & GFLAG_TCP_OVER_IP_V6_FRAME)
         {
             // TCP over IPv6 Frame
-            setup = new tcp_frame_setup(
-                tcp_frame_generator::IP_V6_NEXT_HEADER,
+            setup = new tcp_over_ip_v6_frame_setup(
                 get_context(),
                 get_config(),
                 get_console(),
@@ -436,8 +472,7 @@ namespace hyenae::frontend::console::states
         if (_generator_flags & GFLAG_UDP_OVER_IP_V4_FRAME)
         {
             // UDP over IPv4 Frame
-            setup =new udp_frame_setup(
-                udp_frame_generator::IP_V4_PROTOCOL,
+            setup =new udp_over_ip_v4_frame_setup(
                 get_context(),
                 get_config(),
                 get_console(),
@@ -449,14 +484,39 @@ namespace hyenae::frontend::console::states
 
         if (_generator_flags & GFLAG_UDP_OVER_IP_V6_FRAME)
         {
-            // UDP over IPv4 Frame
-            setup = new udp_frame_setup(
-                udp_frame_generator::IP_V6_NEXT_HEADER,
+            // UDP over IPv6 Frame
+            setup = new udp_over_ip_v6_frame_setup(
                 get_context(),
                 get_config(),
                 get_console(),
                 get_parent(),
                 (ip_frame_setup*)get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
+        }
+
+        if (_generator_flags & GFLAG_DHCP_V4)
+        {
+            // DHCPv4 Frame
+            setup = new dhcp_v4_frame_setup(
+                get_context(),
+                get_config(),
+                get_console(),
+                get_parent(),
+                (udp_frame_setup*)get_parent());
+            setup->set_start_state(get_start_state());
+            add_generator(setup);
+        }
+
+        if (_generator_flags & GFLAG_DHCP_V6)
+        {
+            // DHCPv6 Frame
+            setup = new dhcp_v6_frame_setup(
+                get_context(),
+                get_config(),
+                get_console(),
+                get_parent(),
+                (udp_frame_setup*)get_parent());
             setup->set_start_state(get_start_state());
             add_generator(setup);
         }

@@ -39,6 +39,9 @@ namespace hyenae::frontend::console::states
     class udp_frame_setup :
         public ip_based_frame_setup
     {
+        friend class udp_over_ip_v4_frame_setup;
+        friend class udp_over_ip_v6_frame_setup;
+
         using udp_frame_generator_t =
             model::generators::protocols::udp_frame_generator;
 
@@ -53,8 +56,8 @@ namespace hyenae::frontend::console::states
             string_t _dst_port_pattern;
             generator_selector* _payload = NULL;
 
-        public:
             udp_frame_setup(
+                generator_selector* payload_selector,
                 uint8_t protocol,
                 console_app_state_context* context,
                 console_app_config* config,
@@ -62,6 +65,7 @@ namespace hyenae::frontend::console::states
                 console_app_state* parent,
                 ip_frame_setup* ip_frame_setup);
 
+        public:
             ~udp_frame_setup();
             bool run();
             void set_src_port(uint16_t port);
@@ -83,6 +87,60 @@ namespace hyenae::frontend::console::states
                 string_t dst_port_pattern);
 
     }; /* udp_frame_setup */
+
+    /*---------------------------------------------------------------------- */
+
+    class udp_over_ip_v4_frame_setup :
+        public udp_frame_setup
+    {
+        public:
+            udp_over_ip_v4_frame_setup(
+                console_app_state_context* context,
+                console_app_config* config,
+                console_io* console_io,
+                console_app_state* parent,
+                ip_frame_setup* ip_frame_setup) :
+                udp_frame_setup(
+                    // generator selector has to be instantiated here
+                    // in order to have it recognized as a child of this
+                    // and not it's base class.
+                    new generator_selector(
+                        "Payload Setup", context, config, console_io, this),
+                    udp_frame_generator_t::IP_V4_PROTOCOL,
+                    context,
+                    config,
+                    console_io,
+                    parent,
+                    ip_frame_setup) {}
+
+    }; /* udp_over_ip_v4_frame_setup */
+
+    /*---------------------------------------------------------------------- */
+
+    class udp_over_ip_v6_frame_setup :
+        public udp_frame_setup
+    {
+        public:
+            udp_over_ip_v6_frame_setup(
+                console_app_state_context* context,
+                console_app_config* config,
+                console_io* console_io,
+                console_app_state* parent,
+                ip_frame_setup* ip_frame_setup) :
+                udp_frame_setup(
+                    // generator selector has to be instantiated here
+                    // in order to have it recognized as a child of this
+                    // and not it's base class.
+                    new generator_selector(
+                        "Payload Setup", context, config, console_io, this),
+                    udp_frame_generator_t::IP_V6_NEXT_HEADER,
+                    context,
+                    config,
+                    console_io,
+                    parent,
+                    ip_frame_setup) {}
+
+    }; /* udp_over_ip_v6_frame_setup */
 
     /*---------------------------------------------------------------------- */
 

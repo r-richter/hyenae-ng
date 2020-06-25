@@ -31,6 +31,7 @@ namespace hyenae::frontend::console::states
     /*---------------------------------------------------------------------- */
 
     tcp_frame_setup::tcp_frame_setup(
+        generator_selector* payload_selector,
         uint8_t protocol,
         console_app_state_context* context,
         console_app_config* config,
@@ -44,15 +45,15 @@ namespace hyenae::frontend::console::states
                 parent,
                 ip_frame_setup)
     {
+        assert::argument_not_null(
+            _payload = payload_selector, "payload_selector");
+
         _protocol = protocol;
 
         _flags_setup = new tcp_flags_setup(context, config, console_io, this);
 
         _menu = new console_menu(
             console_io, get_generator_name() + " Setup", this, parent);
-
-        _payload = new generator_selector(
-            "Payload Setup", context, config, console_io, this);
 
         // Default values
         _src_port_pattern = "*****";

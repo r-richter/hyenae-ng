@@ -42,6 +42,8 @@ namespace hyenae::frontend::console::states
     class icmp_v4_frame_setup;
     class icmp_v6_frame_setup;
     class ethernet_frame_setup;
+    class udp_over_ip_v4_frame_setup;
+    class udp_over_ip_v6_frame_setup;
 
     class generator_selector :
         public generator_setup
@@ -61,7 +63,9 @@ namespace hyenae::frontend::console::states
             static const size_t GFLAG_TCP_OVER_IP_V6_FRAME = 0x1 << 10;
             static const size_t GFLAG_UDP_OVER_IP_V4_FRAME = 0x1 << 11;
             static const size_t GFLAG_UDP_OVER_IP_V6_FRAME = 0x1 << 12;
-            static const size_t GFLAG_TEXT_BUFFER = 0x1 << 13;
+            static const size_t GFLAG_DHCP_V4 = 0x1 << 13;
+            static const size_t GFLAG_DHCP_V6 = 0x1 << 14;
+            static const size_t GFLAG_TEXT_BUFFER = 0x1 << 15;
 
             bool _init = false;
             string_t _title;
@@ -125,6 +129,20 @@ namespace hyenae::frontend::console::states
                 console_app_config* config,
                 console_io* console_io,
                 icmp_v6_frame_setup* parent);
+
+            generator_selector(
+                string_t title,
+                console_app_state_context* context,
+                console_app_config* config,
+                console_io* console_io,
+                udp_over_ip_v4_frame_setup* parent);
+
+            generator_selector(
+                string_t title,
+                console_app_state_context* context,
+                console_app_config* config,
+                console_io* console_io,
+                udp_over_ip_v6_frame_setup* parent);
 
             ~generator_selector();
             bool run();

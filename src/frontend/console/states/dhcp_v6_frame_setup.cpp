@@ -24,46 +24,43 @@
  *
  */
 
-#include "../../../../include/frontend/console/states/udp_frame_setup.h"
+#include "../../../../include/frontend/console/states/dhcp_v6_frame_setup.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    udp_frame_setup::udp_frame_setup(
-        generator_selector* payload_selector,
-        uint8_t protocol,
+    dhcp_v6_frame_setup::dhcp_v6_frame_setup(
         console_app_state_context* context,
         console_app_config* config,
         console_io* console_io,
         console_app_state* parent,
-        ip_frame_setup* ip_frame_setup) :
-            ip_based_frame_setup(
+        udp_frame_setup* udp_frame_setup) :
+            udp_based_frame_setup(
                 context,
                 config,
                 console_io,
                 parent,
-                ip_frame_setup)
+                udp_frame_setup)
     {
-        assert::argument_not_null(
-            _payload = payload_selector, "payload_selector");
-        
-        _protocol = protocol;
-
         _menu = new console_menu(
             console_io, get_generator_name() + " Setup", this, parent);
 
+        _payload = new generator_selector(
+            "Payload Setup", context, config, console_io, this);
+
         // Default values
-        _src_port_pattern = "*****";
-        _dst_port_pattern = "*****";
+        _msg_type = 0;
+        _transaction_id_pattern = "*****";
 
-        // Source Port
-        _src_port_pattern_item = new console_menu::item("Source Port");
-        _menu->add_item(_src_port_pattern_item);
+        // Message Type
+        _msg_type_item = new console_menu::item("Message Type");
+        _menu->add_item(_msg_type_item);
 
-        // Destination Port
-        _dst_port_pattern_item = new console_menu::item("Destination Port");
-        _menu->add_item(_dst_port_pattern_item);
+        // Transaction ID
+        _transaction_id_pattern_item =
+            new console_menu::item("Transaction ID");
+        _menu->add_item(_transaction_id_pattern_item);
 
         // Payload
         _payload_item =
@@ -72,24 +69,24 @@ namespace hyenae::frontend::console::states
 
         update_generator();
 
-    } /* udp_frame_setup */
+    } /* dhcp_v6_frame_setup */
 
     /*---------------------------------------------------------------------- */
 
-    udp_frame_setup::~udp_frame_setup()
+    dhcp_v6_frame_setup::~dhcp_v6_frame_setup()
     {
         safe_delete(_menu);
-        safe_delete(_src_port_pattern_item);
-        safe_delete(_dst_port_pattern_item);
+        safe_delete(_msg_type_item);
+        safe_delete(_msg_type_item);
         safe_delete(_payload_item);
         safe_delete(_generator);
         safe_delete(_payload);
 
-    } /* ~udp_frame_setup */
+    } /* ~dhcp_v6_frame_setup */
 
     /*---------------------------------------------------------------------- */
 
-    bool udp_frame_setup::run()
+    bool dhcp_v6_frame_setup::run()
     {
         update_generator();
         update_menu_items();
@@ -99,13 +96,13 @@ namespace hyenae::frontend::console::states
 
         console_menu::item* choice = _menu->prompt();
 
-        if (choice == _src_port_pattern_item)
+        if (choice == _msg_type_item)
         {
-            prompt_src_port_pattern();
+            prompt_msg_type_item();
         }
-        else if (choice == _dst_port_pattern_item)
+        else if (choice == _transaction_id_pattern_item)
         {
-            prompt_dst_port_pattern();
+            prompt_transaction_id_pattern_item();
         }
         else if (choice == _payload_item)
         {
@@ -118,32 +115,16 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void udp_frame_setup::set_src_port(uint16_t port)
+    string_t dhcp_v6_frame_setup::get_generator_name() const
     {
-        _src_port_pattern = std::to_string(port);
-
-    } /* set_src_port */
-
-    /*---------------------------------------------------------------------- */
-
-    void udp_frame_setup::set_dst_port(uint16_t port)
-    {
-        _dst_port_pattern = std::to_string(port);
-
-    } /* set_dst_port */
-
-    /*---------------------------------------------------------------------- */
-
-    string_t udp_frame_setup::get_generator_name() const
-    {
-        return "UDP-Frame";
+        return "DHCPv6-Frame";
 
     } /* get_generator_name */
 
     /*---------------------------------------------------------------------- */
 
-    udp_frame_setup::data_generator_t*
-        udp_frame_setup::get_generator() const
+    dhcp_v6_frame_setup::data_generator_t*
+        dhcp_v6_frame_setup::get_generator() const
     {
         return _generator;
 
@@ -151,90 +132,77 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void udp_frame_setup::update_generator()
+    void dhcp_v6_frame_setup::update_generator()
     {
-        update_generator(
-            _src_port_pattern,
-            _dst_port_pattern);
+        update_generator(_transaction_id_pattern);
 
     } /* update_generator */
 
     /*---------------------------------------------------------------------- */
 
-    void udp_frame_setup::on_select()
+    void dhcp_v6_frame_setup::on_select()
     {
-        get_ip_frame_setup()->set_protocol(_protocol);
+        get_udp_frame_setup()->set_src_port(
+            dhcp_v6_frame_generator_t::CLIENT_PORT);
+
+        get_udp_frame_setup()->set_dst_port(
+            dhcp_v6_frame_generator_t::SERVER_PORT);
 
     } /* on_select */
 
     /*---------------------------------------------------------------------- */
 
-    void udp_frame_setup::update_menu_items()
+    void dhcp_v6_frame_setup::update_menu_items()
     {
-        _src_port_pattern_item->set_info(_src_port_pattern);
-        _dst_port_pattern_item->set_info(_dst_port_pattern);
+        _msg_type_item->set_info(std::to_string(_msg_type));
+        _transaction_id_pattern_item->set_info(_transaction_id_pattern);
         _payload_item->set_info(_payload->get_generator_name());
 
     } /* update_menu_items */
 
     /*---------------------------------------------------------------------- */
 
-    void udp_frame_setup::prompt_src_port_pattern()
+    void dhcp_v6_frame_setup::prompt_msg_type_item()
     {
-        _src_port_pattern = get_console()->prompt([this](string_t input)
-            {
-                update_generator(
-                    input,
-                    _dst_port_pattern);
+        _msg_type = (uint8_t)get_console()->prompt(
+            0, UINT8_MAX, "Enter Message Type (Decimal)");
 
-                return input;
-
-            },
-            "Enter Source Port Pattern",
-                _src_port_pattern,
-                _src_port_pattern);
-
-    } /* prompt_src_port_pattern */
+    } /* prompt_msg_type_item */
 
 /*---------------------------------------------------------------------- */
 
-    void udp_frame_setup::prompt_dst_port_pattern()
+    void dhcp_v6_frame_setup::prompt_transaction_id_pattern_item()
     {
-        _dst_port_pattern = get_console()->prompt([this](string_t input)
+        _transaction_id_pattern = get_console()->prompt([this](string_t input)
             {
-                update_generator(
-                    _src_port_pattern,
-                    input);
+                update_generator(input);
 
                 return input;
 
             },
-            "Enter Destination Port Pattern",
-                _dst_port_pattern,
-                _dst_port_pattern);
+            "Enter Transaction Id Pattern",
+                _transaction_id_pattern,
+                _transaction_id_pattern);
 
-    } /* prompt_src_port_pattern */
+    } /* prompt_transaction_id_pattern_item */
 
     /*---------------------------------------------------------------------- */
 
-    void udp_frame_setup::update_generator(
-        string_t src_port_pattern,
-        string_t dst_port_pattern)
+    void dhcp_v6_frame_setup::update_generator(
+        string_t transaction_id_pattern)
     {
         safe_delete(_generator);
         
-        _generator = new udp_frame_generator_t(
-            get_ip_frame_setup()->get_pseudo_header(),
-            src_port_pattern,
-            10,
-            dst_port_pattern,
+        _generator = new dhcp_v6_frame_generator_t(
+            _msg_type,
+            transaction_id_pattern,
             10);
 
         _payload->update_generator();
 
         if (_payload->get_generator() != NULL)
         {
-            ((udp_frame_generator_t*)_generator)->
+            ((dhcp_v6_frame_generator_t*)_generator)->
                 get_payload()->add_generator(_payload->get_generator());
         }
 
