@@ -62,11 +62,13 @@ namespace hyenae::model::generators::protocols
         _packet.add_generator(_payload_length_16bit);
         
         // Next header
-        _next_header = new fixed_data_generator(next_header);
+        _next_header = fixed_data_generator::allocate_uint8();
+        _next_header->set_uint8(next_header);
         _packet.add_generator(_next_header);
 
         // Hop limit
-        _hop_limit = new fixed_data_generator(hop_limit);
+        _hop_limit = fixed_data_generator::allocate_uint8();
+        _hop_limit->set_uint8(hop_limit);
         _packet.add_generator(_hop_limit);
 
         // Source IP

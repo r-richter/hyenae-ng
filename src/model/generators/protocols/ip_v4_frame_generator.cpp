@@ -44,12 +44,13 @@ namespace hyenae::model::generators::protocols
         const string_t dst_ip_pattern)
     {
         // Version & IHL
-        _version_ihl = new fixed_data_generator(
-            (uint8_t) ((VERSION << 4) + IHL));
+        _version_ihl = fixed_data_generator::allocate_uint8();
+        _version_ihl->set_uint8((uint8_t) ((VERSION << 4) + IHL));
         _packet.add_generator(_version_ihl);
 
         // Type of service
-        _type_of_service = new fixed_data_generator(type_of_service);
+        _type_of_service = fixed_data_generator::allocate_uint8();
+        _type_of_service->set_uint8(type_of_service);
         _packet.add_generator(_type_of_service);
 
         // Total length / Payload Length
@@ -76,11 +77,13 @@ namespace hyenae::model::generators::protocols
         _packet.add_generator(_flags_frag_offset);
         
         // Time to live
-        _time_to_live = new fixed_data_generator(time_to_live);
+        _time_to_live = fixed_data_generator::allocate_uint8();
+        _time_to_live->set_uint8(time_to_live);
         _packet.add_generator(_time_to_live);
 
         // Protocol
-        _protocol = new fixed_data_generator(protocol);
+        _protocol = fixed_data_generator::allocate_uint8();
+        _protocol->set_uint8(protocol);
         _packet.add_generator(_protocol);
 
         // Checksum
