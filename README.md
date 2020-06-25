@@ -16,6 +16,21 @@ within seconds.
 
 Copyright (C) 2020 Robin Richter
 
+## What is Hyenae?
+
+Hyenae is low level network packet generator which allows you to reproduce a
+wide range of DoS (denial of service), MiTM (man in the middle) and stress-test
+scenarios. Hyenae NG now offers full layer spoofing, which means that you have
+control over every single data field of all supported protocol layers. It also
+features pattern based inteligent address and number field randomization which
+helps you to create more accurate and efficient attack scenarios. Hyenae NG's
+user interface was written with usability in mind and you should be able to use
+it without reading a single man page (of course you still need an understanding
+of network protocol stacks in order to create your scenarios). The command line
+user interface is state based and allows you to start an attack and go back to
+adjust your current settings with just a single button press from any app state
+there is.
+
 ## Features
 
 - Fully customizable and combinable data generators:
@@ -86,20 +101,20 @@ set up your desired output, generator and dispatcher configuration.
   generators provide a payload option for which you can select another
   generator and so on. Since network frame generators are nested in transport
   layers, their available payload generators will differ based on the
-  previously chosen frame generator. Here is an example of a typical
-  payload nesting for an ethernet packet:
-
+  previously chosen frame generator. The following tree shows Hyenaes current
+  generator hierarchy:
+  
       Ethernet +-> ARP
                |
                +-> IPv4 +-> ICMPv4 -> ICMP Echo Payload
                |        +-> TCP
-               |        +-> UDP
+               |        +-> UDP    -> DHCPv4
                |        +-> ...
                |
                +-> IPv6 +-> ICMPv4 -> ICMP Echo Payload
                         +-> ICMPv6 -> ICMP Echo Payload
                         +-> TCP
-                        +-> UPD
+                        +-> UPD    -> DHCPv6
                         +-> ...
 
 - **Dispatcher Setup**\
