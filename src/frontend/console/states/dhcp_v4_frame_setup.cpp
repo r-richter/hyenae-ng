@@ -261,6 +261,7 @@ namespace hyenae::frontend::console::states
 
     void dhcp_v4_frame_setup::update_menu_items()
     {
+        // TODO: Display opcode mode name instead of number
         _opcode_item->set_info(std::to_string(_opcode));
         _hops_item->set_info(std::to_string(_hops));
         _xid_item->set_info(_xid_pattern);
@@ -281,8 +282,8 @@ namespace hyenae::frontend::console::states
 
     void dhcp_v4_frame_setup::prompt_opcode()
     {
-        _opcode = (uint8_t)get_console()->prompt(
-            0, UINT8_MAX, "Enter Opcode (Decimal)");
+        _opcode = (uint16_t) get_console()->prompt(
+            1, 2, "Enter Opcode", "1 = Request, 2 = Reply");
 
     } /* prompt_opcode */
 

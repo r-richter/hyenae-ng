@@ -171,7 +171,7 @@ namespace hyenae::frontend::console::states
 
     void arp_frame_setup::update_menu_items()
     {
-
+        // TODO: Display operation mode name instead of number
         _operation_item->set_info(std::to_string(_operation));
         _sender_hw_addr_pattern_item->set_info(_sender_hw_addr_pattern);
         _sender_proto_addr_pattern_item->set_info(_sender_proto_addr_pattern);
