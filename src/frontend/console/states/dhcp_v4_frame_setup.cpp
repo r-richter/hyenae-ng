@@ -282,7 +282,7 @@ namespace hyenae::frontend::console::states
 
     void dhcp_v4_frame_setup::prompt_opcode()
     {
-        _opcode = (uint16_t) get_console()->prompt(
+        _opcode = (uint8_t) get_console()->prompt(
             1, 2, "Enter Opcode", "1 = Request, 2 = Reply");
 
     } /* prompt_opcode */
