@@ -126,6 +126,9 @@ namespace hyenae
     string_t trim(const string_t& str);
     string_t trim(const string_t& str, char chr);
 
+    // TODO: Implement common method for boolean
+    //       parsing and replace all "on" and "off" strings.
+
     /*---------------------------------------------------------------------- */
 
 } /* hyenae */

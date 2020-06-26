@@ -39,13 +39,42 @@ namespace hyenae::frontend::console::states
     class dhcp_v4_frame_setup :
         public udp_based_frame_setup
     {
+        using address_generator_t =
+            model::generators::protocols::address_generator;
+
         using dhcp_v4_frame_generator_t =
             model::generators::protocols::dhcp_v4_frame_generator;
 
         private:
             console_menu* _menu = NULL;
+            console_menu::item* _opcode_item = NULL;
+            console_menu::item* _hops_item = NULL;
+            console_menu::item* _xid_item = NULL;
+            console_menu::item* _seconds_item = NULL;
+            console_menu::item* _broadcast_flag_item = NULL;
+            console_menu::item* _client_ip_addr_item = NULL;
+            console_menu::item* _your_ip_addr_item = NULL;
+            console_menu::item* _server_ip_addr_item = NULL;
+            console_menu::item* _gateway_ip_addr_item = NULL;
+            console_menu::item* _client_mac_addr_item = NULL;
+            console_menu::item* _server_name_item = NULL;
+            console_menu::item* _file_item = NULL;
             console_menu::item* _payload_item = NULL;
             data_generator_t* _generator = NULL;
+            uint8_t _opcode;
+            uint8_t _hops;
+            string_t _xid_pattern;
+            size_t _xid_pattern_base;
+            string_t _seconds_pattern;
+            size_t _seconds_pattern_base;
+            bool _broadcast_flag;
+            string_t _client_ip_pattern;
+            string_t _your_ip_pattern;
+            string_t _server_ip_pattern;
+            string_t _gateway_ip_pattern;
+            string_t _client_mac_pattern;
+            string_t _server_name;
+            string_t _file;
             generator_selector* _payload = NULL;
 
         public:
@@ -67,6 +96,26 @@ namespace hyenae::frontend::console::states
 
         private:
             void update_menu_items();
+            void prompt_opcode();
+            void prompt_hops();
+            void prompt_xid();
+            void prompt_seconds();
+            void prompt_broadcast_flag();
+            void prompt_client_ip_addr();
+            void prompt_your_ip_addr();
+            void prompt_server_ip_addr();
+            void prompt_gateway_ip_addr();
+            void prompt_client_mac_addr();
+            void prompt_server_name();
+            void prompt_file();
+            void update_generator(
+                string_t xid_pattern,
+                string_t seconds_pattern,
+                string_t client_ip_pattern,
+                string_t your_ip_pattern,
+                string_t server_ip_pattern,
+                string_t gateway_ip_pattern,
+                string_t client_mac_pattern);
 
     }; /* dhcp_v4_frame_setup */
 
