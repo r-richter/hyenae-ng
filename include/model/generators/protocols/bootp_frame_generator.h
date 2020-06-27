@@ -24,8 +24,8 @@
  *
  */
 
-#ifndef DHCP_V4_FRAME_GENERATOR_H
-#define DHCP_V4_FRAME_GENERATOR_H
+#ifndef BOOTP_FRAME_GENERATOR_H
+#define BOOTP_FRAME_GENERATOR_H
 
 #include "address_generator.h"
 #include "../integer_generator.h"
@@ -36,7 +36,7 @@ namespace hyenae::model::generators::protocols
 {
     /*---------------------------------------------------------------------- */
 
-    class dhcp_v4_frame_generator :
+    class bootp_frame_generator :
         public data_generator
     {
         private:
@@ -62,7 +62,7 @@ namespace hyenae::model::generators::protocols
             fixed_data_generator* _hw_type = NULL;
             fixed_data_generator* _hw_len = NULL;
             fixed_data_generator* _hops = NULL;
-            integer_generator* _xid = NULL;
+            integer_generator* _transaction_id = NULL;
             integer_generator* _seconds = NULL;
             fixed_data_generator* _flags = NULL;
             address_generator* _client_ip_addr = NULL;
@@ -70,18 +70,20 @@ namespace hyenae::model::generators::protocols
             address_generator* _server_ip_addr = NULL;
             address_generator* _gateway_ip_addr = NULL;
             address_generator* _client_hw_addr = NULL;
+            fixed_data_generator* _client_hw_addr_padding = NULL;
             fixed_data_generator* _server_name = NULL;
-            fixed_data_generator* _file = NULL;
+            fixed_data_generator* _file_name = NULL;
+            fixed_data_generator* _magic_cookie = NULL;
             generator_group _payload;
             generator_group _packet;
 
         public:
-            dhcp_v4_frame_generator(
+            bootp_frame_generator(
                 uint8_t opcode,
                 uint8_t hw_type,
                 uint8_t hops,
-                const string_t& xid_pattern,
-                size_t xid_pattern_base,
+                const string_t& transaction_id_pattern,
+                size_t transaction_id_pattern_base,
                 const string_t& seconds_pattern,
                 size_t seconds_pattern_base,
                 bool broadcast_flag,
@@ -93,11 +95,11 @@ namespace hyenae::model::generators::protocols
                 const string_t& server_name,
                 const string_t& file);
 
-            static dhcp_v4_frame_generator* create_for_ethernet(
+            static bootp_frame_generator* create_for_ethernet(
                 uint8_t opcode = OPCODE_REQUEST,
-                uint8_t hops = 1,
-                const string_t& xid_pattern = "****",
-                size_t xid_pattern_base = 10,
+                uint8_t hops = 0,
+                const string_t& transaction_id_pattern = "****",
+                size_t transaction_id_pattern_base = 10,
                 const string_t& seconds_pattern = "****",
                 size_t seconds_pattern_base = 10,
                 bool broadcast_flag = false,
@@ -114,7 +116,7 @@ namespace hyenae::model::generators::protocols
                 const string_t& server_name = "",
                 const string_t& file = "");
 
-            ~dhcp_v4_frame_generator();
+            ~bootp_frame_generator();
             void next(bool data_changed = true);
             void reset(bool data_changed = true);
             generator_group* get_payload();
@@ -123,10 +125,10 @@ namespace hyenae::model::generators::protocols
             size_t data_size() const;
             byte_t* data_to_buffer(byte_t* buffer, size_t size) const;
 
-    }; /* dhcp_v4_frame_generator */
+    }; /* bootp_frame_generator */
 
     /*---------------------------------------------------------------------- */
 
 } /* hyenae::model::generators::protocols */
 
-#endif /* DHCP_V4_FRAME_GENERATOR_H */
+#endif /* BOOTP_FRAME_GENERATOR_H */

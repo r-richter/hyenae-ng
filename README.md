@@ -42,7 +42,7 @@ there is.
   - ICMPv6-Layer
   - TCP-Layer
   - UDP-Layer
-  - DHCPv4-Layer
+  - BOOTP-Layer
   - DHCPv6-Layer (Ready)
   - Text-Buffer
 - Fixed or Random Send Delay
@@ -108,7 +108,7 @@ set up your desired output, generator and dispatcher configuration.
                |
                +-> IPv4 +-> ICMPv4 -> ICMP Echo Payload
                |        +-> TCP
-               |        +-> UDP    -> DHCPv4
+               |        +-> UDP    -> BOOTP
                |        +-> ...
                |
                +-> IPv6 +-> ICMPv4 -> ICMP Echo Payload

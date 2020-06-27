@@ -63,7 +63,7 @@ namespace hyenae::frontend::console::states
             static const size_t GFLAG_TCP_OVER_IP_V6_FRAME = 0x1 << 10;
             static const size_t GFLAG_UDP_OVER_IP_V4_FRAME = 0x1 << 11;
             static const size_t GFLAG_UDP_OVER_IP_V6_FRAME = 0x1 << 12;
-            static const size_t GFLAG_DHCP_V4 = 0x1 << 13;
+            static const size_t GFLAG_BOOTP = 0x1 << 13;
             static const size_t GFLAG_DHCP_V6 = 0x1 << 14;
             static const size_t GFLAG_TEXT_BUFFER = 0x1 << 15;
 

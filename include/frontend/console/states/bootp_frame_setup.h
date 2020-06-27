@@ -24,32 +24,32 @@
  *
  */
 
-#ifndef DHCP_V4_FRAME_SETUP_H
-#define DHCP_V4_FRAME_SETUP_H
+#ifndef BOOTP_FRAME_SETUP_H
+#define BOOTP_FRAME_SETUP_H
 
 #include "../../../../include/frontend/console/console_menu.h"
 #include "../../../../include/frontend/console/states/udp_based_frame_setup.h"
 #include "../../../../include/frontend/console/states/generator_selector.h"
-#include "../../../../include/model/generators/protocols/dhcp_v4_frame_generator.h"
+#include "../../../../include/model/generators/protocols/bootp_frame_generator.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    class dhcp_v4_frame_setup :
+    class bootp_frame_setup :
         public udp_based_frame_setup
     {
         using address_generator_t =
             model::generators::protocols::address_generator;
 
-        using dhcp_v4_frame_generator_t =
-            model::generators::protocols::dhcp_v4_frame_generator;
+        using bootp_frame_generator_t =
+            model::generators::protocols::bootp_frame_generator;
 
         private:
             console_menu* _menu = NULL;
             console_menu::item* _opcode_item = NULL;
             console_menu::item* _hops_item = NULL;
-            console_menu::item* _xid_item = NULL;
+            console_menu::item* _transaction_id_item = NULL;
             console_menu::item* _seconds_item = NULL;
             console_menu::item* _broadcast_flag_item = NULL;
             console_menu::item* _client_ip_addr_item = NULL;
@@ -63,8 +63,8 @@ namespace hyenae::frontend::console::states
             data_generator_t* _generator = NULL;
             uint8_t _opcode;
             uint8_t _hops;
-            string_t _xid_pattern;
-            size_t _xid_pattern_base;
+            string_t _transaction_id_pattern;
+            size_t _transaction_id_pattern_base;
             string_t _seconds_pattern;
             size_t _seconds_pattern_base;
             bool _broadcast_flag;
@@ -74,18 +74,18 @@ namespace hyenae::frontend::console::states
             string_t _gateway_ip_pattern;
             string_t _client_mac_pattern;
             string_t _server_name;
-            string_t _file;
+            string_t _file_name;
             generator_selector* _payload = NULL;
 
         public:
-            dhcp_v4_frame_setup(
+            bootp_frame_setup(
                 console_app_state_context* context,
                 console_app_config* config,
                 console_io* console_io,
                 console_app_state* parent,
                 udp_frame_setup* udp_frame_setup);
 
-            ~dhcp_v4_frame_setup();
+            ~bootp_frame_setup();
             bool run();
             string_t get_generator_name() const;
             data_generator_t* get_generator() const;
@@ -98,7 +98,7 @@ namespace hyenae::frontend::console::states
             void update_menu_items();
             void prompt_opcode();
             void prompt_hops();
-            void prompt_xid();
+            void prompt_transaction_id();
             void prompt_seconds();
             void prompt_broadcast_flag();
             void prompt_client_ip_addr();
@@ -107,9 +107,9 @@ namespace hyenae::frontend::console::states
             void prompt_gateway_ip_addr();
             void prompt_client_mac_addr();
             void prompt_server_name();
-            void prompt_file();
+            void prompt_file_name();
             void update_generator(
-                string_t xid_pattern,
+                string_t transaction_id_pattern,
                 string_t seconds_pattern,
                 string_t client_ip_pattern,
                 string_t your_ip_pattern,
@@ -117,10 +117,10 @@ namespace hyenae::frontend::console::states
                 string_t gateway_ip_pattern,
                 string_t client_mac_pattern);
 
-    }; /* dhcp_v4_frame_setup */
+    }; /* bootp_frame_setup */
 
     /*---------------------------------------------------------------------- */
 
 } /* hyenae::frontend::console::states */
 
-#endif /* DHCP_V4_FRAME_SETUP_H */
+#endif /* BOOTP_FRAME_SETUP_H */

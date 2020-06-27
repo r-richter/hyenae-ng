@@ -34,7 +34,7 @@
 #include "../../../../include/frontend/console/states/icmp_echo_payload_setup.h"
 #include "../../../../include/frontend/console/states/udp_frame_setup.h"
 #include "../../../../include/frontend/console/states/tcp_frame_setup.h"
-#include "../../../../include/frontend/console/states/dhcp_v4_frame_setup.h"
+#include "../../../../include/frontend/console/states/bootp_frame_setup.h"
 #include "../../../../include/frontend/console/states/dhcp_v6_frame_setup.h"
 #include "../../../../include/frontend/console/states/text_buffer_setup.h"
 
@@ -183,7 +183,7 @@ namespace hyenae::frontend::console::states
         _title = title;
 
         _generator_flags =
-            GFLAG_DHCP_V4 |
+            GFLAG_BOOTP |
             GFLAG_TEXT_BUFFER;
 
     } /* generator_selector */
@@ -495,10 +495,10 @@ namespace hyenae::frontend::console::states
             add_generator(setup);
         }
 
-        if (_generator_flags & GFLAG_DHCP_V4)
+        if (_generator_flags & GFLAG_BOOTP)
         {
-            // DHCPv4 Frame
-            setup = new dhcp_v4_frame_setup(
+            // BOOTP Frame
+            setup = new bootp_frame_setup(
                 get_context(),
                 get_config(),
                 get_console(),

@@ -24,13 +24,13 @@
  *
  */
 
-#include "../../../../include/frontend/console/states/dhcp_v4_frame_setup.h"
+#include "../../../../include/frontend/console/states/bootp_frame_setup.h"
 
 namespace hyenae::frontend::console::states
 {
     /*---------------------------------------------------------------------- */
 
-    dhcp_v4_frame_setup::dhcp_v4_frame_setup(
+    bootp_frame_setup::bootp_frame_setup(
         console_app_state_context* context,
         console_app_config* config,
         console_io* console_io,
@@ -50,9 +50,9 @@ namespace hyenae::frontend::console::states
             "Payload Setup", context, config, console_io, this);
         
         // Default values
-        _opcode = dhcp_v4_frame_generator_t::OPCODE_REQUEST;
-        _hops = 1;
-        _xid_pattern = "****";
+        _opcode = bootp_frame_generator_t::OPCODE_REQUEST;
+        _hops = 0;
+        _transaction_id_pattern = "****";
         _seconds_pattern = "****";
         _broadcast_flag = false;
         _client_ip_pattern = address_generator_t::RAND_IP_V4_PATTERN;
@@ -61,7 +61,7 @@ namespace hyenae::frontend::console::states
         _gateway_ip_pattern = address_generator_t::RAND_IP_V4_PATTERN;
         _client_mac_pattern = address_generator_t::RAND_MAC_PATTERN;
         _server_name = "";
-        _file = "";
+        _file_name = "";
 
         // Opcode
         _opcode_item = new console_menu::item("Opcode");
@@ -71,9 +71,9 @@ namespace hyenae::frontend::console::states
         _hops_item = new console_menu::item("Hops");
         _menu->add_item(_hops_item);
 
-        // XID
-        _xid_item = new console_menu::item("XID");
-        _menu->add_item(_xid_item);
+        // TRansaction ID
+        _transaction_id_item = new console_menu::item("Transaction ID");
+        _menu->add_item(_transaction_id_item);
 
         // Seconds
         _seconds_item = new console_menu::item("Seconds");
@@ -107,8 +107,8 @@ namespace hyenae::frontend::console::states
         _server_name_item = new console_menu::item("Server Name");
         _menu->add_item(_server_name_item);
 
-        // File
-        _file_item = new console_menu::item("File");
+        // File Name
+        _file_item = new console_menu::item("File Name");
         _menu->add_item(_file_item);
         
         // Payload
@@ -118,16 +118,16 @@ namespace hyenae::frontend::console::states
 
         update_generator();
 
-    } /* dhcp_v4_frame_setup */
+    } /* bootp_frame_setup */
 
     /*---------------------------------------------------------------------- */
 
-    dhcp_v4_frame_setup::~dhcp_v4_frame_setup()
+    bootp_frame_setup::~bootp_frame_setup()
     {
         safe_delete(_menu);
         safe_delete(_opcode_item);
         safe_delete(_hops_item);
-        safe_delete(_xid_item);
+        safe_delete(_transaction_id_item);
         safe_delete(_seconds_item);
         safe_delete(_broadcast_flag_item);
         safe_delete(_client_ip_addr_item);
@@ -141,11 +141,11 @@ namespace hyenae::frontend::console::states
         safe_delete(_generator);
         safe_delete(_payload);
 
-    } /* ~dhcp_v4_frame_setup */
+    } /* ~bootp_frame_setup */
 
     /*---------------------------------------------------------------------- */
 
-    bool dhcp_v4_frame_setup::run()
+    bool bootp_frame_setup::run()
     {
         update_generator();
         update_menu_items();
@@ -163,9 +163,9 @@ namespace hyenae::frontend::console::states
         {
             prompt_hops();
         }
-        else if (choice == _xid_item)
+        else if (choice == _transaction_id_item)
         {
-            prompt_xid();
+            prompt_transaction_id();
         }
         else if (choice == _seconds_item)
         {
@@ -201,7 +201,7 @@ namespace hyenae::frontend::console::states
         }
         else if (choice == _file_item)
         {
-            prompt_file();
+            prompt_file_name();
         }
         else if (choice == _payload_item)
         {
@@ -214,16 +214,16 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    string_t dhcp_v4_frame_setup::get_generator_name() const
+    string_t bootp_frame_setup::get_generator_name() const
     {
-        return "DHCPv4-Frame";
+        return "BOOTP-Frame";
 
     } /* get_generator_name */
 
     /*---------------------------------------------------------------------- */
 
-    dhcp_v4_frame_setup::data_generator_t*
-        dhcp_v4_frame_setup::get_generator() const
+    bootp_frame_setup::data_generator_t*
+        bootp_frame_setup::get_generator() const
     {
         return _generator;
 
@@ -231,10 +231,10 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::update_generator()
+    void bootp_frame_setup::update_generator()
     {
         update_generator(
-            _xid_pattern,
+            _transaction_id_pattern,
             _seconds_pattern,
             _client_ip_pattern,
             _your_ip_pattern,
@@ -247,24 +247,24 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::on_select()
+    void bootp_frame_setup::on_select()
     {
         get_udp_frame_setup()->set_src_port(
-            dhcp_v4_frame_generator_t::CLIENT_PORT);
+            bootp_frame_generator_t::CLIENT_PORT);
 
         get_udp_frame_setup()->set_dst_port(
-            dhcp_v4_frame_generator_t::SERVER_PORT);
+            bootp_frame_generator_t::SERVER_PORT);
 
     } /* on_select */
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::update_menu_items()
+    void bootp_frame_setup::update_menu_items()
     {
         // TODO: Display opcode mode name instead of number
         _opcode_item->set_info(std::to_string(_opcode));
         _hops_item->set_info(std::to_string(_hops));
-        _xid_item->set_info(_xid_pattern);
+        _transaction_id_item->set_info(_transaction_id_pattern);
         _seconds_item->set_info(_seconds_pattern);
         _broadcast_flag_item->set_info(_broadcast_flag ? "On" : "Off");
         _client_ip_addr_item->set_info(_client_ip_pattern);
@@ -273,14 +273,14 @@ namespace hyenae::frontend::console::states
         _gateway_ip_addr_item->set_info(_gateway_ip_pattern);
         _client_mac_addr_item->set_info(_client_mac_pattern);
         _server_name_item->set_info(_server_name);
-        _file_item->set_info(_file);
+        _file_item->set_info(_file_name);
         _payload_item->set_info(_payload->get_generator_name());
 
     } /* update_menu_items */
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::prompt_opcode()
+    void bootp_frame_setup::prompt_opcode()
     {
         _opcode = (uint8_t) get_console()->prompt(
             1, 2, "Enter Opcode", "1 = Request, 2 = Reply");
@@ -289,7 +289,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::prompt_hops()
+    void bootp_frame_setup::prompt_hops()
     {
         _hops = (uint8_t)get_console()->prompt(
             0, UINT8_MAX, "Enter Hops (Decimal)");
@@ -298,9 +298,9 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::prompt_xid()
+    void bootp_frame_setup::prompt_transaction_id()
     {
-        _xid_pattern = get_console()->prompt([this](string_t input)
+        _transaction_id_pattern = get_console()->prompt([this](string_t input)
             {
                 update_generator(
                     input,
@@ -315,19 +315,19 @@ namespace hyenae::frontend::console::states
 
             },
             "Enter XID Pattern",
-                _xid_pattern,
-                _xid_pattern);
+                _transaction_id_pattern,
+                _transaction_id_pattern);
 
-    } /* prompt_xid */
+    } /* prompt_transaction_id */
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::prompt_seconds()
+    void bootp_frame_setup::prompt_seconds()
     {
         _seconds_pattern = get_console()->prompt([this](string_t input)
             {
                 update_generator(
-                    _xid_pattern,
+                    _transaction_id_pattern,
                     input,
                     _client_ip_pattern,
                     _your_ip_pattern,
@@ -346,7 +346,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::prompt_broadcast_flag()
+    void bootp_frame_setup::prompt_broadcast_flag()
     {
         _broadcast_flag = get_console()->prompt(
             0, 1, "Broadcast Flag", "0 = Off, 1 = On");
@@ -355,12 +355,12 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::prompt_client_ip_addr()
+    void bootp_frame_setup::prompt_client_ip_addr()
     {
         _client_ip_pattern = get_console()->prompt([this](string_t input)
             {
                 update_generator(
-                    _xid_pattern,
+                    _transaction_id_pattern,
                     _seconds_pattern,
                     input,
                     _your_ip_pattern,
@@ -379,12 +379,12 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::prompt_your_ip_addr()
+    void bootp_frame_setup::prompt_your_ip_addr()
     {
         _your_ip_pattern = get_console()->prompt([this](string_t input)
             {
                 update_generator(
-                    _xid_pattern,
+                    _transaction_id_pattern,
                     _seconds_pattern,
                     _client_ip_pattern,
                     input,
@@ -403,12 +403,12 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::prompt_server_ip_addr()
+    void bootp_frame_setup::prompt_server_ip_addr()
     {
        _server_ip_pattern = get_console()->prompt([this](string_t input)
             {
                 update_generator(
-                    _xid_pattern,
+                    _transaction_id_pattern,
                     _seconds_pattern,
                     _client_ip_pattern,
                     _your_ip_pattern,
@@ -427,12 +427,12 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::prompt_gateway_ip_addr()
+    void bootp_frame_setup::prompt_gateway_ip_addr()
     {
         _gateway_ip_pattern = get_console()->prompt([this](string_t input)
             {
                 update_generator(
-                    _xid_pattern,
+                    _transaction_id_pattern,
                     _seconds_pattern,
                     _client_ip_pattern,
                     _your_ip_pattern,
@@ -451,12 +451,12 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::prompt_client_mac_addr()
+    void bootp_frame_setup::prompt_client_mac_addr()
     {
         _client_mac_pattern = get_console()->prompt([this](string_t input)
             {
                 update_generator(
-                    _xid_pattern,
+                    _transaction_id_pattern,
                     _seconds_pattern,
                     _client_ip_pattern,
                     _your_ip_pattern,
@@ -475,7 +475,7 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::prompt_server_name()
+    void bootp_frame_setup::prompt_server_name()
     {
         _server_name = get_console()->prompt("Enter Server Name");
 
@@ -483,16 +483,16 @@ namespace hyenae::frontend::console::states
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::prompt_file()
+    void bootp_frame_setup::prompt_file_name()
     {
-        _file = get_console()->prompt("Enter File");
+        _file_name = get_console()->prompt("Enter File Name");
 
-    } /* prompt_file */
+    } /* prompt_file_name */
 
     /*---------------------------------------------------------------------- */
 
-    void dhcp_v4_frame_setup::update_generator(
-        string_t xid_pattern,
+    void bootp_frame_setup::update_generator(
+        string_t transaction_id_pattern,
         string_t seconds_pattern,
         string_t client_ip_pattern,
         string_t your_ip_pattern,
@@ -502,10 +502,10 @@ namespace hyenae::frontend::console::states
     {
         safe_delete(_generator);
 
-        _generator = dhcp_v4_frame_generator_t::create_for_ethernet(
+        _generator = bootp_frame_generator_t::create_for_ethernet(
             _opcode,
             _hops,
-            xid_pattern,
+            transaction_id_pattern,
             10,
             seconds_pattern,
             10,
@@ -516,7 +516,7 @@ namespace hyenae::frontend::console::states
             gateway_ip_pattern,
             client_mac_pattern,
             _server_name,
-            _file);
+            _file_name);
 
         // Update payload in order to have it's
         // pseudo header re-assigned.
@@ -524,7 +524,7 @@ namespace hyenae::frontend::console::states
 
         if (_payload->get_generator() != NULL)
         {
-            ((dhcp_v4_frame_generator_t*)_generator)->
+            ((bootp_frame_generator_t*)_generator)->
                 get_payload()->add_generator(_payload->get_generator());
         }
     } /* update_generator */
