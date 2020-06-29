@@ -73,7 +73,7 @@ namespace hyenae::model::generators::protocols
             fixed_data_generator* _client_hw_addr_padding = NULL;
             fixed_data_generator* _server_name = NULL;
             fixed_data_generator* _file_name = NULL;
-            generator_group _vendor;
+            generator_group _options;
             generator_group _packet;
 
         public:
@@ -118,7 +118,7 @@ namespace hyenae::model::generators::protocols
             ~bootp_frame_generator();
             void next(bool data_changed = true);
             void reset(bool data_changed = true);
-            generator_group* get_vendor();
+            generator_group* get_options();
 
         protected:
             size_t data_size() const;

@@ -59,7 +59,7 @@ namespace hyenae::frontend::console::states
             console_menu::item* _client_mac_addr_item = NULL;
             console_menu::item* _server_name_item = NULL;
             console_menu::item* _file_item = NULL;
-            console_menu::item* _vendor_item = NULL;
+            console_menu::item* _options_item = NULL;
             data_generator_t* _generator = NULL;
             uint8_t _opcode;
             uint8_t _hops;
@@ -75,7 +75,7 @@ namespace hyenae::frontend::console::states
             string_t _client_mac_pattern;
             string_t _server_name;
             string_t _file_name;
-            generator_selector* _vendor = NULL;
+            generator_selector* _options = NULL;
 
         public:
             bootp_frame_setup(

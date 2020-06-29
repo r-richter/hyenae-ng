@@ -46,8 +46,8 @@ namespace hyenae::frontend::console::states
         _menu = new console_menu(
             console_io, get_generator_name() + " Setup", this, parent);
 
-        _vendor = new generator_selector(
-            "vendor Setup", context, config, console_io, this);
+        _options = new generator_selector(
+            "Options Setup", context, config, console_io, this);
         
         // Default values
         _opcode = bootp_frame_generator_t::OPCODE_REQUEST;
@@ -111,10 +111,10 @@ namespace hyenae::frontend::console::states
         _file_item = new console_menu::item("File Name");
         _menu->add_item(_file_item);
         
-        // Vendor
-        _vendor_item =
-            new console_menu::item("Vendor");
-        _menu->add_item(_vendor_item);
+        // Options
+        _options_item =
+            new console_menu::item("Options");
+        _menu->add_item(_options_item);
 
         update_generator();
 
@@ -137,9 +137,9 @@ namespace hyenae::frontend::console::states
         safe_delete(_client_mac_addr_item);
         safe_delete(_server_name_item);
         safe_delete(_file_item);
-        safe_delete(_vendor_item);
+        safe_delete(_options_item);
         safe_delete(_generator);
-        safe_delete(_vendor);
+        safe_delete(_options);
 
     } /* ~bootp_frame_setup */
 
@@ -151,7 +151,7 @@ namespace hyenae::frontend::console::states
         update_menu_items();
 
         _menu->set_start_state(get_start_state());
-        _vendor->set_start_state(get_start_state());
+        _options->set_start_state(get_start_state());
 
         console_menu::item* choice = _menu->prompt();
 
@@ -203,9 +203,9 @@ namespace hyenae::frontend::console::states
         {
             prompt_file_name();
         }
-        else if (choice == _vendor_item)
+        else if (choice == _options_item)
         {
-            _vendor->enter();
+            _options->enter();
         }
 
         return true;
@@ -274,7 +274,7 @@ namespace hyenae::frontend::console::states
         _client_mac_addr_item->set_info(_client_mac_pattern);
         _server_name_item->set_info(_server_name);
         _file_item->set_info(_file_name);
-        _vendor_item->set_info(_vendor->get_generator_name());
+        _options_item->set_info(_options->get_generator_name());
 
     } /* update_menu_items */
 
@@ -518,14 +518,12 @@ namespace hyenae::frontend::console::states
             _server_name,
             _file_name);
 
-        // Update vendor in order to have it's
-        // pseudo header re-assigned.
-        _vendor->update_generator();
+        _options->update_generator();
 
-        if (_vendor->get_generator() != NULL)
+        if (_options->get_generator() != NULL)
         {
             ((bootp_frame_generator_t*)_generator)->
-                get_vendor()->add_generator(_vendor->get_generator());
+                get_options()->add_generator(_options->get_generator());
         }
     } /* update_generator */
 
