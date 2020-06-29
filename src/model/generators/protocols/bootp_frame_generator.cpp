@@ -204,7 +204,6 @@ namespace hyenae::model::generators::protocols
 		safe_delete(_client_hw_addr_padding);
 		safe_delete(_server_name);
 		safe_delete(_file_name);
-		safe_delete(_magic_cookie);
 
     } /* ~bootp_frame_generator */
 

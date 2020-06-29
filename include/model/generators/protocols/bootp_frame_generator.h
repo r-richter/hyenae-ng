@@ -73,7 +73,6 @@ namespace hyenae::model::generators::protocols
             fixed_data_generator* _client_hw_addr_padding = NULL;
             fixed_data_generator* _server_name = NULL;
             fixed_data_generator* _file_name = NULL;
-            fixed_data_generator* _magic_cookie = NULL;
             generator_group _vendor;
             generator_group _packet;
 
