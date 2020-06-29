@@ -133,8 +133,8 @@ namespace hyenae::model::generators::protocols
 		_file_name = new fixed_data_generator(file_name, 128, 0);
 		_packet.add_generator(_file_name);
 
-        // Payload
-        _packet.add_generator(&_payload);
+        // vendor
+        _packet.add_generator(&_vendor);
 
     } /* bootp_frame_generator */
 
@@ -219,7 +219,7 @@ namespace hyenae::model::generators::protocols
 		_server_ip_addr->next(false);
 		_gateway_ip_addr->next(false);
 		_client_hw_addr->next(false);
-		_payload.next(false);
+		_vendor.next(false);
 
         if (data_changed)
         {
@@ -239,7 +239,7 @@ namespace hyenae::model::generators::protocols
 		_server_ip_addr->reset(false);
 		_gateway_ip_addr->reset(false);
 		_client_hw_addr->reset(false);
-		_payload.reset(false);
+		_vendor.reset(false);
 
         if (data_changed)
         {
@@ -250,11 +250,11 @@ namespace hyenae::model::generators::protocols
 
     /*---------------------------------------------------------------------- */
 
-    generator_group* bootp_frame_generator::get_payload()
+    generator_group* bootp_frame_generator::get_vendor()
     {
-        return &_payload;
+        return &_vendor;
 
-    } /* get_payload */
+    } /* get_vendor */
 
     /*---------------------------------------------------------------------- */
 

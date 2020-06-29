@@ -74,7 +74,7 @@ namespace hyenae::model::generators::protocols
             fixed_data_generator* _server_name = NULL;
             fixed_data_generator* _file_name = NULL;
             fixed_data_generator* _magic_cookie = NULL;
-            generator_group _payload;
+            generator_group _vendor;
             generator_group _packet;
 
         public:
@@ -119,7 +119,7 @@ namespace hyenae::model::generators::protocols
             ~bootp_frame_generator();
             void next(bool data_changed = true);
             void reset(bool data_changed = true);
-            generator_group* get_payload();
+            generator_group* get_vendor();
 
         protected:
             size_t data_size() const;
