@@ -43,7 +43,7 @@ namespace hyenae::model::generators::protocols
         _packet.add_generator(_id);
 
         // Sequence Number
-        _seq_num = integer_generator::create_uint32(
+        _seq_num = integer_generator::create_uint16(
             seq_num_pattern, seq_num_pattern_base);
         _seq_num->add_transformation(to_network_order_t::get_instance());
         _packet.add_generator(_seq_num);
