@@ -45,8 +45,8 @@ namespace hyenae::frontend::console::states
 
         // Default values
         _add_preamble_sfd = false;
-        _src_mac_pattern = address_generator_t::RAND_MAC_PATTERN;
         _dst_mac_pattern = address_generator_t::RAND_MAC_PATTERN;
+        _src_mac_pattern = address_generator_t::RAND_MAC_PATTERN;
         _type = 0;
         _add_fcs = false;
 
@@ -54,13 +54,13 @@ namespace hyenae::frontend::console::states
         _add_preamble_sfd_item = new console_menu::item("Preamble & SFD");
         _menu->add_item(_add_preamble_sfd_item);
 
-        // Source-MAC
-        _src_mac_pattern_item = new console_menu::item("Source-Address");
-        _menu->add_item(_src_mac_pattern_item);
-
         // Destination-MAC
         _dst_mac_pattern_item = new console_menu::item("Destination-Address");
         _menu->add_item(_dst_mac_pattern_item);
+
+        // Source-MAC
+        _src_mac_pattern_item = new console_menu::item("Source-Address");
+        _menu->add_item(_src_mac_pattern_item);
 
         // Type
         _type_item = new console_menu::item("Type");
@@ -85,8 +85,8 @@ namespace hyenae::frontend::console::states
     {
         safe_delete(_menu);
         safe_delete(_add_preamble_sfd_item);
-        safe_delete(_src_mac_pattern_item);
         safe_delete(_dst_mac_pattern_item);
+        safe_delete(_src_mac_pattern_item);
         safe_delete(_type_item);
         safe_delete(_add_fcs_item);
         safe_delete(_payload_item);
@@ -111,13 +111,13 @@ namespace hyenae::frontend::console::states
         {
             prompt_add_preamble_sfd();
         }
-        else if (choice == _src_mac_pattern_item)
-        {
-            prompt_src_mac_pattern();
-        }
         else if (choice == _dst_mac_pattern_item)
         {
             prompt_dst_mac_pattern();
+        }
+        else if (choice == _src_mac_pattern_item)
+        {
+            prompt_src_mac_pattern();
         }
         else if (choice == _type_item)
         {
@@ -182,8 +182,8 @@ namespace hyenae::frontend::console::states
     void ethernet_frame_setup::update_menu_items()
     {
         _add_preamble_sfd_item->set_info(_add_preamble_sfd ? "On" : "Off");
-        _src_mac_pattern_item->set_info(_src_mac_pattern);
         _dst_mac_pattern_item->set_info(_dst_mac_pattern);
+        _src_mac_pattern_item->set_info(_src_mac_pattern);
         _type_item->set_info(std::to_string(_type));
         _add_fcs_item->set_info(_add_fcs ? "On" : "Off");
         _payload_item->set_info(_payload->get_generator_name());
@@ -264,8 +264,8 @@ namespace hyenae::frontend::console::states
         
         _generator = new ethernet_frame_generator_t(
             _add_preamble_sfd,
-            src_mac_pattern,
             dst_mac_pattern,
+            src_mac_pattern,
             _type,
             _add_fcs);
 
