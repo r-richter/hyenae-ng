@@ -172,7 +172,7 @@ file.
 
   - **line_chars**\
     If set to "on" (default) hyenae will use special line characters for
-    it's menu separators (In ASCII on Windows and UniCode on *nix based
+    it's menu separators (In ASCII on Windows and UniCode on \*nix based
     systems). If you are encountering any strange separator outputs, you
     should set this to "off".
 
@@ -180,3 +180,17 @@ file.
 
 - [E-Mail](mailto:hyenae.tool@googlemail.com)
 - [GitHub-Repository](https://github.com/r-richter/hyenae-ng)
+
+## Build
+
+For Windows,
+
+```ps1
+# install make with choco
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+install make
+choco install make
+```
+
+download the SDK and decompress to the folder above, NPCap SDK
+read INSTALL.md in the repo, make all

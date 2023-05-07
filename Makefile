@@ -25,7 +25,7 @@
 
 APP = hyenae-ng
 CXX = g++
-CXXFLAGS = -std=c++17 -g -Wall
+CXXFLAGS = -std=c++17 -g -Wall -I".\npcap-sdk-1.13\Include" -L".\npcap-sdk-1.13\Lib\x64"
 
 ifeq ($(OS),Windows_NT)
 	LIBS=-l wpcap
